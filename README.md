@@ -1,3 +1,5 @@
+# PosLedger Assets
+
 ## 1. 선행 조건
 - JDK : SUN JAVA 1.8 or Open JDK 1.8
 - Build Tool : Maven 3.x
@@ -43,6 +45,3 @@ http://localhost:8080/assets
 ```bash
 Browser Request -> HttpFilter.java -> Controller.java -> Service.java -> Repository.java -> JSP
 ```
-=======
-# assets
-PosLedger Assets
