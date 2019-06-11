@@ -4,6 +4,7 @@
 - JDK : SUN JAVA 1.8 or Open JDK 1.8
 - Build Tool : Maven 3.x
 - IDE : Eclipse or IntelliJ
+- IDE 플러그인 : lombok 1.18.6 - https://medium.com/@dongchimi/%EC%9D%B4%ED%81%B4%EB%A6%BD%EC%8A%A4%EC%97%90-lombok-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-b3489875780b
 - Docker 18.x
 - MariaDB 10.x
 - MariaDB Client for Window : HeidiSQL - https://www.heidisql.com/download.php
