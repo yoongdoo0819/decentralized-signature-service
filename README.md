@@ -44,5 +44,5 @@ http://localhost:8080/assets
 
 ## 7. 프로그램 실행 흐름
 ```bash
-Browser Request -> HttpFilter.java -> Controller.java -> Service.java -> Repository.java -> JSP
+Browser Request -> HttpFilter.java -> Interceptor.java -> Controller.java -> Service.java -> Repository.java -> JSP
 ```
