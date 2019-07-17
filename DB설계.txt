@@ -1,0 +1,32 @@
+create table _user (
+_userid varchar(30),
+primary key(_userid)
+);
+
+create table _sig (
+_sigid varchar(30),
+path varchar(80),
+primary key(_sigid)
+);
+
+create table _doc (
+_docid varchar(150),
+path varchar(255),
+primary key(_docid)
+);
+
+create table usersig ( 
+userid varchar(30), 
+sigid varchar(30), 
+primary key(userid, sigid),
+foreign key(userid) references user(id) on update cascade, 
+foreign key(sigid) references _sig(_sigid) on update cascade
+);
+
+create table userdoc ( 
+userid varchar(30), 
+docid varchar(150), 
+primary key(userid, docid),
+foreign key(userid) references user(id) on update cascade, 
+foreign key(docid) references _doc(_docid) on update cascade
+);
