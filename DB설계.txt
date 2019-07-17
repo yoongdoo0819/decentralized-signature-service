@@ -6,20 +6,20 @@ primary key(_userid)
 create table Sig (
 sigid varchar(30),
 path varchar(80),
-primary key(_sigid)
+primary key(sigid)
 );
 
 create table Doc (
 docid varchar(150),
 path varchar(255),
-primary key(_docid)
+primary key(docid)
 );
 
 create table User_Sig ( 
 userid varchar(30), 
 sigid varchar(30), 
 primary key(userid, sigid),
-foreign key(userid) references User(id) on update cascade, 
+foreign key(userid) references user(id) on update cascade, 
 foreign key(sigid) references Sig(sigid) on update cascade
 );
 
@@ -27,6 +27,6 @@ create table User_Doc (
 userid varchar(30), 
 docid varchar(150), 
 primary key(userid, docid),
-foreign key(userid) references User(id) on update cascade, 
+foreign key(userid) references user(id) on update cascade, 
 foreign key(docid) references Doc(docid) on update cascade
 );
