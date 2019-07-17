@@ -8,8 +8,11 @@
 </head>
 
 <body>
-<h1><strong>${sessionUser.id}!</strong> Welcome to PosLedger Assets World!</h1>
-<h2>Your token is ${accessToken}</h2>
+    <form method="post" action="/assets/signupInfo">
+        Id : <input type="text" name="userId">
+        PW : <input type="password" name="userPasswd">
+        <input type="submit" value="signUp">
+    </form>
 </body>
 
 <script src="${ctx}/js/jquery-min.js"></script>

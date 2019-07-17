@@ -1,5 +1,8 @@
 # spring boot configuration
 
+#spring.mvc.view.prefix=/WEB-INF/views/
+#spring.mvc.view.suffix=.jsp
+
 welcome:
    message: Welcome to PosLedger Assets
 
@@ -22,7 +25,7 @@ spring:
    datasource:
       type: org.apache.tomcat.jdbc.pool.DataSource
       driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      url: jdbc:log4jdbc:mysql://192.168.193.237:3306/hyperledger?autoReconnection=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+      url: jdbc:log4jdbc:mysql://localhost:3306/hyperledger?autoReconnection=true&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
       username: root
       password: test1234
       tomcat:
@@ -40,12 +43,12 @@ spring:
 server:
    compression:
       enabled: false
-      
+
    servlet:
       context-path: /assets
-      
+
    port: 8080
-   
+
    server:
       tomcat:
          uri-encoding: UTF-8
@@ -56,4 +59,3 @@ logging:
       org:
          springframework: debug
          hibernate: error
-  

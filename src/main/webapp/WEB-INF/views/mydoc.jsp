@@ -9,7 +9,7 @@
 
 <body>
 <h1><strong>${sessionUser.id}!</strong> Welcome to PosLedger Assets World!</h1>
-<h2>Your token is ${accessToken}</h2>
+<iframe style="width:80%; height:800px;" src="${docId}"></iframe>
 </body>
 
 <script src="${ctx}/js/jquery-min.js"></script>
