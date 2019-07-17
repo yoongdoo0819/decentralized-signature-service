@@ -18,6 +18,10 @@ import com.poscoict.posledger.assets.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
+
 @Slf4j
 @Validated
 @Controller
@@ -29,7 +33,9 @@ public class OauthController {
 	
 	@Autowired
 	private TokenIssuer tokenIssuer;
-	
+
+	@Autowired UserDao userDao;
+
 	/**
 	 * 로그인 화면 
 	 */
@@ -47,16 +53,34 @@ public class OauthController {
 	@PostMapping("/token")
 	public String token(@RequestParam(value="userId", required=true) String userId, HttpServletRequest request) throws Exception {
 		
-		User user = userService.getUser(userId);
-		
-		if (user == null) throw new UserNotFoundException(userId);
-		
-		log.info("login user : " + user);
+		//User user = userService.getUser(userId);
+
+		String _userId = request.getParameter("userId");
+		String _userPasswd = request.getParameter("userPasswd");
+
+		//log.info(userId);
+		//if (user == null) throw new UserNotFoundException(userId);
+
+		Map<String, Object> testMap = (userDao.getUser(_userId, _userPasswd));
+		User user = new User();
+
+		user.setId((String)testMap.get("id"));
+		user.setPassword((String)testMap.get("password"));
+		user.setCreatedate((Date)testMap.get("crate_date"));
+		user.setName((String)testMap.get("name"));
+
+		//User user = (User)(testMap.get(("yoongdoo1")));
+		//User user = userDao.getUser("yoongdoo1");
+
+		//for(String user : testMap) {
+		//	log.info("kk " + user);
+		//}
+		log.info("login user : " + user.getId());
 		
 		request.getSession().setAttribute("sessionUser", user);
 		request.getSession().setAttribute("accessToken", tokenIssuer.generateAuthenticateToken(user));
 		
 		// 토큰 발급 및 반환
-		return "redirect:/welcome";
+		return "redirect:/main";
 	}
 }

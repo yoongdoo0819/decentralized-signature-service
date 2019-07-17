@@ -21,11 +21,11 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(accessTokenInterceptor)
-		.addPathPatterns("/**/*")
-		.excludePathPatterns("/")
-		.excludePathPatterns("/oauth/login")
-		.excludePathPatterns("/oauth/token");
+//		registry.addInterceptor(accessTokenInterceptor)
+//		.addPathPatterns("/**/*")
+//		.excludePathPatterns("/")
+//		.excludePathPatterns("/oauth/login")
+//		.excludePathPaStterns("/oauth/token");
 	}
 	
 	@Bean

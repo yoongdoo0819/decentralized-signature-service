@@ -1,0 +1,243 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="assets:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/assets_jar</output-path>
+    <root id="archive" name="assets.jar">
+      <element id="module-output" name="assets" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-jul/2.11.2/log4j-jul-2.11.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/opencensus/opencensus-api/0.12.3/opencensus-api-0.12.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/tomcat/tomcat-jdbc/9.0.16/tomcat-jdbc-9.0.16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-beanutils/commons-beanutils/1.9.3/commons-beanutils-1.9.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/2.1.5.RELEASE/spring-data-jpa-2.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-aop/2.1.3.RELEASE/spring-boot-starter-aop-2.1.3.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/glassfish/javax.json/1.1.2/javax.json-1.1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/hibernate/validator/hibernate-validator/6.0.14.Final/hibernate-validator-6.0.14.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.3.7.Final/hibernate-core-5.3.7.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-common/4.1.33.Final/netty-common-4.1.33.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/hibernate/common/hibernate-commons-annotations/5.0.4.Final/hibernate-commons-annotations-5.0.4.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/codehaus/mojo/animal-sniffer-annotations/1.17/animal-sniffer-annotations-1.17.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-core/2.11.2/log4j-core-2.11.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.9.8/jackson-databind-2.9.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.16/tomcat-embed-core-9.0.16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.9.8/jackson-datatype-jsr310-2.9.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/guava/guava/20.0/guava-20.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.4/commons-cli-1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/grpc/grpc-stub/1.15.0/grpc-stub-1.15.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-data-jpa/2.1.3.RELEASE/spring-boot-starter-data-jpa-2.1.3.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-jcl/5.1.5.RELEASE/spring-jcl-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.8.1/commons-lang3-3.8.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/5.1.5.RELEASE/spring-jdbc-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/errorprone/error_prone_annotations/2.2.0/error_prone_annotations-2.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-orm/5.1.5.RELEASE/spring-orm-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jboss/jandex/2.0.5.Final/jandex-2.0.5.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/persistence/javax.persistence-api/2.2/javax.persistence-api-2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-aspects/5.1.5.RELEASE/spring-aspects-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-tomcat/2.1.3.RELEASE/spring-boot-starter-tomcat-2.1.3.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/grpc/grpc-netty/1.15.0/grpc-netty-1.15.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-codec-http/4.1.33.Final/netty-codec-http-4.1.33.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/javassist/javassist/3.23.1-GA/javassist-3.23.1-GA.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-jdbc/2.1.3.RELEASE/spring-boot-starter-jdbc-2.1.3.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-beans/5.1.5.RELEASE/spring-beans-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/module/jackson-module-parameter-names/2.9.8/jackson-module-parameter-names-2.9.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/api/grpc/proto-google-common-protos/1.0.0/proto-google-common-protos-1.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/validation/validation-api/2.0.1.Final/validation-api-2.0.1.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy/1.9.10/byte-buddy-1.9.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-resolver/4.1.33.Final/netty-resolver-4.1.33.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-jasper/9.0.16/tomcat-embed-jasper-9.0.16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/jul-to-slf4j/1.7.25/jul-to-slf4j-1.7.25.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/bouncycastle/bcpkix-jdk15on/1.60/bcpkix-jdk15on-1.60.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot/2.1.3.RELEASE/spring-boot-2.1.3.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-devtools/2.1.3.RELEASE/spring-boot-devtools-2.1.3.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-tx/5.1.5.RELEASE/spring-tx-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-handler/4.1.33.Final/netty-handler-4.1.33.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-expression/5.1.5.RELEASE/spring-expression-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-websocket/9.0.16/tomcat-embed-websocket-9.0.16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/yaml/snakeyaml/1.23/snakeyaml-1.23.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.11/commons-codec-1.11.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.1.5.RELEASE/spring-aop-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/classmate/1.4.0/classmate-1.4.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.3.0-SNAPSHOT/fabric-sdk-java-1.3.0-SNAPSHOT.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/taglibs/standard/1.1.2/standard-1.1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/json/javax.json-api/1.1.4/javax.json-api-1.1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/opencensus/opencensus-contrib-grpc-metrics/0.12.3/opencensus-contrib-grpc-metrics-0.12.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-compress/1.18/commons-compress-1.18.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/data/spring-data-commons/2.1.5.RELEASE/spring-data-commons-2.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-slf4j-impl/2.11.2/log4j-slf4j-impl-2.11.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-web/2.1.3.RELEASE/spring-boot-starter-web-2.1.3.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-codec-socks/4.1.33.Final/netty-codec-socks-4.1.33.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.1.5.RELEASE/spring-webmvc-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.9.8/jackson-datatype-jdk8-2.9.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-tcnative-boringssl-static/2.0.20.Final/netty-tcnative-boringssl-static-2.0.20.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/miracl/milagro/amcl/milagro-crypto-java/0.4.0/milagro-crypto-java-0.4.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/grpc/grpc-context/1.15.0/grpc-context-1.15.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/3.2.0/HikariCP-3.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/bgee/log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1/1.16/log4jdbc-log4j2-jdbc4.1-1.16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.6.1/protobuf-java-3.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/eclipse/jdt/ecj/3.15.0/ecj-3.15.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/log4j/log4j/1.2.17/log4j-1.2.17.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.2/commons-logging-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-context/5.1.5.RELEASE/spring-context-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java-util/3.6.1/protobuf-java-util-3.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.3.RELEASE/spring-boot-autoconfigure-2.1.3.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/2.6/commons-io-2.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-el/9.0.16/tomcat-embed-el-9.0.16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-dbcp2/2.5.0/commons-dbcp2-2.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.5.RELEASE/spring-web-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/transaction/javax.transaction-api/1.3/javax.transaction-api-1.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/log4j/apache-log4j-extras/1.2.17/apache-log4j-extras-1.2.17.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-collections4/4.3/commons-collections4-4.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-json/2.1.3.RELEASE/spring-boot-starter-json-2.1.3.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-handler-proxy/4.1.33.Final/netty-handler-proxy-4.1.33.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-codec-http2/4.1.33.Final/netty-codec-http2-4.1.33.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/mysql/mysql-connector-java/8.0.15/mysql-connector-java-8.0.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/grpc/grpc-protobuf-lite/1.15.0/grpc-protobuf-lite-1.15.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/auth0/java-jwt/3.8.0/java-jwt-3.8.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/grpc/grpc-core/1.15.0/grpc-core-1.15.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-codec/4.1.33.Final/netty-codec-4.1.33.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter-log4j2/2.1.3.RELEASE/spring-boot-starter-log4j2-2.1.3.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-transport/4.1.33.Final/netty-transport-4.1.33.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.9.8/jackson-core-2.9.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/bouncycastle/bcprov-jdk15on/1.60/bcprov-jdk15on-1.60.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/grpc/grpc-protobuf/1.15.0/grpc-protobuf-1.15.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/antlr/antlr/2.7.7/antlr-2.7.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/spring-core/5.1.5.RELEASE/spring-core-5.1.5.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-csv/1.6/commons-csv-1.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/servlet/jstl/1.2/jstl-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/dom4j/dom4j/2.1.1/dom4j-2.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/aspectj/aspectjweaver/1.9.2/aspectjweaver-1.9.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-pool2/2.6.1/commons-pool2-2.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jboss/logging/jboss-logging/3.3.2.Final/jboss-logging-3.3.2.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-api/2.11.2/log4j-api-2.11.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/2.1.3.RELEASE/spring-boot-starter-2.1.3.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/netty/netty-buffer/4.1.33.Final/netty-buffer-4.1.33.Final.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/tomcat/tomcat-juli/9.0.16/tomcat-juli-9.0.16.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+      <element id="library" level="project" name="Maven: com.auth0:java-jwt:3.8.0" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.8" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.8" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.9.8" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8" />
+      <element id="library" level="project" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.9.8" />
+      <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.4.0" />
+      <element id="library" level="project" name="Maven: com.google.api.grpc:proto-google-common-protos:1.0.0" />
+      <element id="library" level="project" name="Maven: com.google.code.findbugs:jsr305:3.0.0" />
+      <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
+      <element id="library" level="project" name="Maven: com.google.errorprone:error_prone_annotations:2.2.0" />
+      <element id="library" level="project" name="Maven: com.google.guava:guava:20.0" />
+      <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java-util:3.6.1" />
+      <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
+      <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:3.2.0" />
+      <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.9.3" />
+      <element id="library" level="project" name="Maven: commons-cli:commons-cli:1.4" />
+      <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.11" />
+      <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.2" />
+      <element id="library" level="project" name="Maven: commons-io:commons-io:2.6" />
+      <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
+      <element id="library" level="project" name="Maven: io.grpc:grpc-context:1.15.0" />
+      <element id="library" level="project" name="Maven: io.grpc:grpc-core:1.15.0" />
+      <element id="library" level="project" name="Maven: io.grpc:grpc-netty:1.15.0" />
+      <element id="library" level="project" name="Maven: io.grpc:grpc-protobuf-lite:1.15.0" />
+      <element id="library" level="project" name="Maven: io.grpc:grpc-protobuf:1.15.0" />
+      <element id="library" level="project" name="Maven: io.grpc:grpc-stub:1.15.0" />
+      <element id="library" level="project" name="Maven: io.netty:netty-buffer:4.1.33.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-http2:4.1.33.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-http:4.1.33.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec-socks:4.1.33.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-codec:4.1.33.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-common:4.1.33.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-handler-proxy:4.1.33.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-handler:4.1.33.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-resolver:4.1.33.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-tcnative-boringssl-static:2.0.20.Final" />
+      <element id="library" level="project" name="Maven: io.netty:netty-transport:4.1.33.Final" />
+      <element id="library" level="project" name="Maven: io.opencensus:opencensus-api:0.12.3" />
+      <element id="library" level="project" name="Maven: io.opencensus:opencensus-contrib-grpc-metrics:0.12.3" />
+      <element id="library" level="project" name="Maven: javax.activation:javax.activation-api:1.2.0" />
+      <element id="library" level="project" name="Maven: javax.annotation:javax.annotation-api:1.3.2" />
+      <element id="library" level="project" name="Maven: javax.json:javax.json-api:1.1.4" />
+      <element id="library" level="project" name="Maven: javax.persistence:javax.persistence-api:2.2" />
+      <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.1" />
+      <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+      <element id="library" level="project" name="Maven: javax.transaction:javax.transaction-api:1.3" />
+      <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:2.1.3.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.1.3.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-aop:2.1.3.RELEASE" />
+      <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.3.1" />
+      <element id="library" level="project" name="Maven: log4j:apache-log4j-extras:1.2.17" />
+      <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+      <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.15" />
+      <element id="library" level="project" name="Maven: net.bytebuddy:byte-buddy:1.9.10" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.3" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-compress:1.18" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-csv:1.6" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-dbcp2:2.5.0" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.8.1" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-math3:3.6.1" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-pool2:2.6.1" />
+      <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.11.2" />
+      <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.11.2" />
+      <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-jul:2.11.2" />
+      <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-slf4j-impl:2.11.2" />
+      <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.16" />
+      <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:9.0.16" />
+      <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-jasper:9.0.16" />
+      <element id="library" level="project" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.16" />
+      <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-jdbc:9.0.16" />
+      <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-juli:9.0.16" />
+      <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.9.2" />
+      <element id="library" level="project" name="Maven: org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16" />
+      <element id="library" level="project" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.60" />
+      <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.60" />
+      <element id="library" level="project" name="Maven: org.codehaus.mojo:animal-sniffer-annotations:1.17" />
+      <element id="library" level="project" name="Maven: org.dom4j:dom4j:2.1.1" />
+      <element id="library" level="project" name="Maven: org.eclipse.jdt:ecj:3.15.0" />
+      <element id="library" level="project" name="Maven: org.glassfish:javax.json:1.1.2" />
+      <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.0.4.Final" />
+      <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:6.0.14.Final" />
+      <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.3.7.Final" />
+      <element id="library" level="project" name="Maven: org.hyperledger.fabric-sdk-java:fabric-sdk-java:1.3.0-SNAPSHOT" />
+      <element id="library" level="project" name="Maven: org.javassist:javassist:3.23.1-GA" />
+      <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" />
+      <element id="library" level="project" name="Maven: org.jboss:jandex:2.0.5.Final" />
+      <element id="library" level="project" name="Maven: org.miracl.milagro.amcl:milagro-crypto-java:0.4.0" />
+      <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.7.25" />
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-devtools:2.1.3.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-data-jpa:2.1.3.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:2.1.3.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-json:2.1.3.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-log4j2:2.1.3.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:2.1.3.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:2.1.3.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:2.1.3.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:2.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:2.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-aspects:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-context:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-core:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-orm:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-web:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.1.5.RELEASE" />
+      <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.23" />
+      <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
+      <element id="javaee-facet-resources" facet="assets/web/Web" />
+    </root>
+  </artifact>
+</component>
