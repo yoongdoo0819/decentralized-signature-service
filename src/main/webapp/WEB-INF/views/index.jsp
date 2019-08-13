@@ -21,12 +21,3 @@
 
 <script src="${ctx}/js/jquery-min.js"></script>
 </html>
-
-<body>
-
-<!--<img src="./yoongdoo"/>-->
-<%
-    String yoongdoo = "yoongdoo";
-%>
-<img src="showimg"?filename=${yoongdoo} />
-</body>

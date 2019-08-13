@@ -24,18 +24,15 @@
 <input type="hidden" id="signer" value="${sessionUser.id}">
 <input type="submit" value="저장" onclick="store(this)">
 <hr>
-<h3>Sign service</h3>
-<form action="/assets/upload" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="userid" value="${sessionUser.id}">
-    <input type="file" name="file">
-    <input type="submit" value="submit">
+<h3>Upload file and add User</h3>
+<form action="/assets/addUser" method="get">
+    <input type="submit" value="upload">
 </form>
+<hr>
 <a href="/assets/mysign?userid=${sessionUser.id}">confirm my sign</a>
-<a href="/assets/mydoc?userid=${sessionUser.id}">confirm my doc</a>
-
-
-
+<a href="/assets/mydoclist?userid=${sessionUser.id}">confirm my doc</a>
 </body>
+
 <script >
     var canvas, context;
     function goLogin() {

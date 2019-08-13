@@ -22,14 +22,14 @@ public class DocDao {
         return jdbcTemplate.query(query, new BeanPropertyRowMapper<Sign>(Sign.class));
     }
 
-    public int insert(String docid, String path) {
-        String query = "INSERT INTO _doc(_docid, Path) VALUES(?, ?)";
-        return this.jdbcTemplate.update(query, docid, path);//sign.getSignID(), sign.getSignPath());
+    public int insert(String _docid, String _path) {
+        String query = "INSERT INTO Doc(docid, path) VALUES(?, ?)";
+        return this.jdbcTemplate.update(query, _docid, _path);//sign.getSignID(), sign.getSignPath());
     }
 
-    public Map<String, Object>/*List<Doc>*/ getName(int seq) throws Exception {
+    public Map<String, Object>/*List<Doc>*/ getDoc(String _docid) throws Exception {
 
-        return jdbcTemplate.queryForMap("select * from _doc where _docid = ?", "1");
+        return jdbcTemplate.queryForMap("select * from Doc where docid = ?", _docid);
         //String query = "select * from test";
         //return jdbcTemplate.query(query, new BeanPropertyRowMapper<Doc>(Doc.class));
     }
