@@ -4,6 +4,7 @@ package com.poscoict.posledger.assets.controller;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import com.poscoict.posledger.assets.model.User;
+import com.poscoict.posledger.assets.model.User_Doc;
 import com.poscoict.posledger.assets.org.app.chaincode.invocation.queryToken;
 import com.poscoict.posledger.assets.org.app.chaincode.invocation.transferToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,13 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+
+import static java.lang.Integer.parseInt;
+import static java.lang.String.valueOf;
 
 @Slf4j
 @Validated
@@ -149,6 +155,18 @@ public class MainController {
 
 		transferToken _transfertoken = new transferToken();
 		String userid = req.getParameter("userid");
+		String count = req.getParameter("count");
+		String[] user = null;
+
+		if(!count.equals("")) {
+			user = new String[parseInt(count)];
+
+			for(int i=0; i<user.length; i++) {
+				user[i] = (req.getParameter("ID"+i));
+				log.info(user[i]);
+			}
+		}
+
 		log.info(userid);
 
 		Document document = new Document(PageSize.A4);
@@ -169,7 +187,11 @@ public class MainController {
 			final MessageDigest md = MessageDigest.getInstance("SHA-512");
 
 			convFile = new File(mf.getOriginalFilename());
-			mf.transferTo(convFile);
+			convFile.createNewFile();
+			FileOutputStream fos = new FileOutputStream("/home/yoongdoo0819/assets/src/main/webapp/"+convFile);
+			fos.write(mf.getBytes());
+			fos.close();
+			//mf.transferTo(convFile);
 			//mf = mre.getFile("file");
 			//mf.transferTo(convFile);
 			is = new FileInputStream(convFile);
@@ -189,6 +211,8 @@ public class MainController {
 			//File destinationFile = new File(path + original);
 			//destinationFile.getParentFile().mkdirs();
 			//mf2.transferTo(destinationFile);
+
+
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} finally {
@@ -203,16 +227,20 @@ public class MainController {
 
 		log.info(original);
 
-		uploadPath = path + original + ".pdf";
+		uploadPath = path + mf.getOriginalFilename();//+ original;
 		log.info(uploadPath);
+		//convFile = new File("/home/yoongdoo0819/assets/src/main/webapp/" + mf.getOriginalFilename());
+		//convFile.createNewFile();
+		//FileOutputStream fos = new FileOutputStream("/home/yoongdoo0819/assets/src/main/webapp/"+original+".pdf");
 
+		/*
 		try {
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(uploadPath));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(uploadPath+".pdf"));
 			document.open();
 			PdfContentByte cb = writer.getDirectContent();
 
 			// Load existing PDF
-			PdfReader reader = new PdfReader("./sample.pdf");//convFile.getName());
+			PdfReader reader = new PdfReader("/home/yoongdoo0819/assets/src/main/webapp/"+mf.getOriginalFilename());//convFile.getName());
 			for(int i=1; i<=reader.getNumberOfPages(); i++) {
 				PdfImportedPage page = writer.getImportedPage(reader, i);
 
@@ -225,8 +253,7 @@ public class MainController {
 		} catch (RuntimeException e) {
 				e.printStackTrace();
 		}
-
-
+		*/
 
 
 /*
@@ -241,10 +268,15 @@ public class MainController {
 		}
 */
 
-		docDao.insert(original, uploadPath);
+		docDao.insert(original, mf.getOriginalFilename());
 		user_docDao.insert(userid, original);
 
-		_transfertoken.transferToken(userid);
+		if(user != null) {
+			for(int i=0; i<user.length; i++)
+				user_docDao.insert(user[i], original);
+		}
+
+		//_transfertoken.transferToken(userid);
 
 		return new RedirectView("main"); //null;//"redirect:/main";
 	}
@@ -293,6 +325,9 @@ public class MainController {
 		//Doc document = new Doc(PageSize.A4, 50, 50, 50, 50);
 
 		String signer = req.getParameter("signer");
+		String filenm = req.getParameter("docPath");
+		String signm = req.getParameter("sigId");
+
 		Document document = new Document(PageSize.A4);
 		try {
 			/* new pdf creation
@@ -321,12 +356,12 @@ public class MainController {
 			*/
 
 			// existing pdf
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("./test2.pdf"));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/yoongdoo0819/assets/src/main/webapp/test.pdf"));
 			document.open();
 			PdfContentByte cb = writer.getDirectContent();
 
 // Load existing PDF
-			PdfReader reader = new PdfReader("./sample.pdf");
+			PdfReader reader = new PdfReader("/home/yoongdoo0819/assets/src/main/webapp/"+filenm);
 			for(int i=1; i<=reader.getNumberOfPages(); i++) {
 				PdfImportedPage page = writer.getImportedPage(reader, i);
 
@@ -350,7 +385,7 @@ public class MainController {
 			//Section section = new Section(new Paragraph("signer"));
 
 			Section section1 = chapter1.addSection(new Paragraph("signer"));
-			Image section1Image = Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190704_124457_yoongdoo");
+			Image section1Image = Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/"+signm);
 			section1.add(section1Image);
 			//document.add(new Paragraph("my timestamp"));
 			//document.add(Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo"));
@@ -394,6 +429,13 @@ public class MainController {
 		return "index";
 	}
 
+	@GetMapping("/addUser")
+	public String addUser(HttpServletRequest req, Model model) throws Exception{
+
+
+		return "addUser";
+	}
+
 	@GetMapping("/mysign")
 	public String mysign(HttpServletRequest req, Model model) throws Exception{
 
@@ -414,18 +456,193 @@ public class MainController {
 	public String mydoc(HttpServletRequest req, Model model) throws Exception{
 
 		String userId = req.getParameter("userid");
-		String docId = "";
+		String docId = req.getParameter("docid");
+		String docPath = "";
+		String sigId = "";
 
-		//user_sigDao.getName();
+		// doc
+		/*Map<String, Object> testMap = (user_docDao.getUserDoc(userId));
 
-		Map<String, Object> testMap = (user_docDao.getUserDoc(userId));
-		//User user = new User();
+		docId = (String)testMap.get("docid");*/
+		//docId += ".pdf";
+		//model.addAttribute("docId", docId);
 
-		docId = (String)testMap.get("docid");
-		docId += ".pdf";
-		model.addAttribute("docId", docId);
+		Map<String, Object> docTestMap = docDao.getDoc(docId);
+		docPath = (String) docTestMap.get("path");
+		model.addAttribute("docPath", docPath);
+
+		log.info("#######################################" + userId);
+		// sig
+		Map<String, Object> sigTestMap = (user_sigDao.getUserSig(userId));
+
+		sigId = (String)sigTestMap.get("sigid");
+		model.addAttribute("sigId", sigId);
 
 		return "mydoc";
+	}
+
+	@GetMapping("/mydoclist")
+	public String mydoclist(HttpServletRequest req, Model model) throws Exception{
+
+		String userId = req.getParameter("userid");
+		String docId = "";
+		String sigId = "";
+
+		model.addAttribute("docList", user_docDao.listForBeanPropertyRowMapper(userId));
+		//model.addAttribute("docList", docList);
+		//log.info(docList.get(0).toString());
+		/*
+		// doc
+		Map<String, Object> testMap = (user_docDao.getUserDoc("yoongdoo"));
+
+		log.info(valueOf(testMap.size()));
+
+
+		for(int i=0; i<testMap.size(); i++) {
+			//docId = (String)testMap.get("docid");
+			log.info((String)testMap.get("userid"));
+			log.info((String)testMap.get("docid"));
+			//docId += ".pdf";
+			//model.addAttribute("docId", docId);
+		}*/
+
+		// sig
+		/*
+		Map<String, Object> sigTestMap = (user_sigDao.getUserSig(userId));
+
+		sigId = (String)sigTestMap.get("sigid");
+		model.addAttribute("sigId", sigId);
+*/
+		return "myDocList";
+	}
+
+	@GetMapping("/queryDoc")
+	public String queryDoc(HttpServletRequest req, Model model) throws Exception{
+
+		//String userId = req.getParameter("userid");
+		String docId = req.getParameter("docid");
+		String docPath = "";
+		String sigId[];
+		//model.addAttribute("docList", user_docDao.listForBeanPropertyRowMapper(docId));
+
+		List<User_Doc> userList = user_docDao.listForBeanPropertyRowMapperByDoc(docId);
+		sigId = new String[userList.size()];
+
+		for(int i=0; i<userList.size(); i++) {
+
+			Map<String, Object> testMap = (user_sigDao.getUserSig(userList.get(i).getUserid()));
+			sigId[i] = (String)testMap.get("sigid");
+
+		}
+
+		Map<String, Object> docTestMap = docDao.getDoc(docId);
+		docPath = (String) docTestMap.get("path");
+
+		Document document = new Document(PageSize.A4);
+		try {
+			/* new pdf creation
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("./test.pdf"));//response.getOutputStream());
+			document.open();
+			document.add(new Paragraph("Image"));
+			Image jpg = Image.getInstance("CbnAc0Ab");
+			document.add(jpg);
+
+			document.close();
+
+			*/
+			/*
+			PdfReader readerOriginalDoc = new PdfReader("./sample.pdf");
+			PdfStamper stamper = new PdfStamper(
+					readerOriginalDoc, new FileOutputStream("./test.pdf"));
+			PdfContentByte content = stamper.getOverContent(readerOriginalDoc.getNumberOfPages());
+			Image image = Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190704_124457_yoongdoo");
+			image.scaleAbsolute(300, 150);
+			image.setAbsolutePosition(300, 100);
+			image.setAnnotation(new Annotation(0, 0, 0, 0, 3));
+
+			content.addImage(image);
+
+			stamper.close();
+			*/
+
+			// existing pdf
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/yoongdoo0819/assets/src/main/webapp/final.pdf"));
+			document.open();
+			PdfContentByte cb = writer.getDirectContent();
+
+// Load existing PDF
+			PdfReader reader = new PdfReader("/home/yoongdoo0819/assets/src/main/webapp/"+docPath);
+			for(int i=1; i<=reader.getNumberOfPages(); i++) {
+				PdfImportedPage page = writer.getImportedPage(reader, i);
+
+// Copy first page of existing PDF into output PDF
+				document.newPage();
+				cb.addTemplate(page, 0, 0);
+				//Image image = Image.getInstance("CbnAc0Ab");///home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo");
+				//Rectangle rect = reader.getPageSize(1);
+
+				//cb.addImage(image, image.getScaledWidth(), 0, 0, image.getScaledHeight(), 0, rect.getHeight() - image.getScaledHeight());
+			}
+
+// Add your new data / text here
+// for example...
+			Paragraph title1 = new Paragraph("Signatures");
+
+			Chapter chapter1 = new Chapter(title1, 1);
+			//ChapterAutoNumber chapter = document.getChapter();
+			chapter1.setNumberDepth(0);
+
+			//Section section = new Section(new Paragraph("signer"));
+
+			Section section[] = new Section[sigId.length];
+			for(int i=0; i<sigId.length; i++) {
+				section[i] = chapter1.addSection(new Paragraph("signer"+valueOf(i+1)));
+				Image section1Image = Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/"+sigId[i]);
+				section[i].add(section1Image);
+			}
+
+			//document.add(new Paragraph("my timestamp"));
+			//document.add(Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo"));
+			//document.add(Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo"));
+			//document.add(Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo"));
+
+/*
+			Section section2 = chapter1.addSection(new Paragraph("signer2"));
+			Image section1Image2 = Image.getInstance("CbnAc0Ab");
+			section2.add(section1Image);
+
+			Section section3 = chapter1.addSection(new Paragraph("signer3"));
+			Image section1Image3 = Image.getInstance("CbnAc0Ab");
+			section2.add(section1Image);
+
+			Section section4 = chapter1.addSection(new Paragraph("signer4"));
+			Image section1Image4 = Image.getInstance("CbnAc0Ab");
+			section2.add(section1Image);
+*/
+			document.add(chapter1);
+			document.close();
+
+
+/*
+			Image image = Image.getInstance("test.jpg");
+			PdfReader reader = new PdfReader("sample_watermark.pdf");
+			Rectangle rect = reader.getPageSize(1);
+			PdfStamper stamper = new PdfStamper(reader, new FileOutputStream("sample_watermark2.pdf"));
+
+			for (int i = 1; i <= reader.getNumberOfPages(); i++) {
+				PdfContentByte cb = stamper.getOverContent(i);
+				cb.addImage(image, image.getScaledWidth(), 0, 0, image.getScaledHeight(),
+						0, rect.getHeight() - image.getScaledHeight());
+			}
+
+			stamper.close();
+*/
+		} catch (RuntimeException e) {
+
+		}
+
+		model.addAttribute("finalDocPath", "final.pdf");
+		return "finalDoc";
 	}
 
 	//@Service

@@ -22,9 +22,9 @@ public class SigDao {
         return jdbcTemplate.query(query, new BeanPropertyRowMapper<Sign>(Sign.class));
     }
 
-    public int insert(String sigid, String path) {
-        String query = "INSERT INTO _sig(_sigid, Path) VALUES(?, ?)";
-        return this.jdbcTemplate.update(query, sigid, path);//sign.getSignID(), sign.getSignPath());
+    public int insert(String _sigid, String _path) {
+        String query = "INSERT INTO Sig(sigid, Path) VALUES(?, ?)";
+        return this.jdbcTemplate.update(query, _sigid, _path);//sign.getSignID(), sign.getSignPath());
     }
 
     public Map<String, Object>/*List<Doc>*/ getName(int seq) throws Exception {
