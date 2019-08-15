@@ -1,9 +1,9 @@
 package com.poscoict.posledger.assets.model;
 
-public class User_Doc {
+public class User_Sig {
 
     private String userid;
-    private int docnum;
+    private int signum;
 
     public String getUserid() {
         return userid;
@@ -13,11 +13,11 @@ public class User_Doc {
         this.userid = userid;
     }
 
-    public int getDocnum() {
-        return docnum;
+    public int getSignum() {
+        return signum;
     }
 
-    public void setDocnum(int docnum) {
-        this.docnum = docnum;
+    public void setSignum(int signum) {
+        this.signum = signum;
     }
 }

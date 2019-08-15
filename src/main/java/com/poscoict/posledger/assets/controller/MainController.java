@@ -2,9 +2,11 @@ package com.poscoict.posledger.assets.controller;
 
 //import com.itextpdf.layout.Doc;
 import com.itextpdf.text.*;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.*;
 import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.User_Doc;
+import com.poscoict.posledger.assets.model.User_Sig;
 import com.poscoict.posledger.assets.org.app.chaincode.invocation.queryToken;
 import com.poscoict.posledger.assets.org.app.chaincode.invocation.transferToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +33,15 @@ import org.springframework.web.servlet.view.RedirectView;
 import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
+import javax.print.Doc;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -269,11 +272,17 @@ public class MainController {
 */
 
 		docDao.insert(original, mf.getOriginalFilename());
-		user_docDao.insert(userid, original);
+		//Map<String, Object> testMap = docDao.getDocByDocId(original);
+		//int docNum = (int)testMap.get("docNum");
+		//user_docDao.insert(userid, docNum);
+		Map<String, Object> testMap = docDao.getDocNum();
+		int docNum = parseInt(String.valueOf(testMap.get("auto_increment")));
+		docNum--;
+		user_docDao.insert(userid, docNum);
 
 		if(user != null) {
 			for(int i=0; i<user.length; i++)
-				user_docDao.insert(user[i], original);
+				user_docDao.insert(user[i], docNum);
 		}
 
 		//_transfertoken.transferToken(userid);
@@ -303,6 +312,22 @@ public class MainController {
 		byteImg = decoder.decodeBuffer(rstStrImg);
 		ByteArrayInputStream bis = new ByteArrayInputStream(byteImg);
 		image = ImageIO.read(bis);
+
+		// image resize
+		int imageWidth = image.getWidth(null);
+		int imageHeight = image.getHeight(null);
+		int newWidth = 200;
+		int newHeight = 50;
+		double  widthtRatio = (double)newWidth/(double)imageWidth;
+		double heightRatio = (double)newHeight/(double)imageHeight;
+		int w = (int)(imageWidth * widthtRatio);
+		int h = (int)(imageWidth * heightRatio);
+
+		java.awt.Image resizeImage = image.getScaledInstance(w, h, java.awt.Image.SCALE_SMOOTH);
+		BufferedImage newImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		Graphics g = newImage.getGraphics();
+		g.drawImage(resizeImage, 0, 0, null);
+		g.dispose();
 		bis.close();
 
 		fullpath = folder + filenm;
@@ -312,10 +337,13 @@ public class MainController {
 		File outputFile = new File(fullpath);
 		if(outputFile.exists())
 			outputFile.delete();
-		ImageIO.write(image, "png", outputFile);
+		ImageIO.write(newImage, "png", outputFile);
 
 		sigDao.insert(filenm, fullpath);
-		user_sigDao.insert(signer, filenm);
+		Map<String, Object> testMap = sigDao.getSigBySigid(filenm);
+		int sigNum = (int)testMap.get("sigNum");
+
+		user_sigDao.insert(signer, sigNum);
 		return "index";
 	}
 
@@ -442,13 +470,25 @@ public class MainController {
 		String userId = req.getParameter("userid");
 		String sigId = "";
 
-		//user_sigDao.getName();
+		Map<String, Object> testMap;// = (user_sigDao.getUserSig(userId));
 
-		Map<String, Object> testMap = (user_sigDao.getUserSig(userId));
-		//User user = new User();
-
+		/*
 		sigId = (String)testMap.get("sigid");
 		model.addAttribute("sigId", sigId);
+		*/
+
+		List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(userId);
+		log.info(valueOf(user_sig.get(0).getUserid()));
+		String sigid[] = new String[user_sig.size()];
+
+		for(int i=0; i<user_sig.size(); i++) {
+			testMap = sigDao.getSigBySigNum(user_sig.get(i).getSignum());
+			sigid[i] = (String)testMap.get("sigid");
+
+		}
+
+		model.addAttribute("sigId", sigid);
+
 		return "mysign";
 	}
 
@@ -457,6 +497,7 @@ public class MainController {
 
 		String userId = req.getParameter("userid");
 		String docId = req.getParameter("docid");
+		int docNum = parseInt(req.getParameter("docnum"));
 		String docPath = "";
 		String sigId = "";
 
@@ -467,15 +508,25 @@ public class MainController {
 		//docId += ".pdf";
 		//model.addAttribute("docId", docId);
 
-		Map<String, Object> docTestMap = docDao.getDoc(docId);
+		Map<String, Object> docTestMap = docDao.getDocByDocIdAndNum(docId, docNum);
 		docPath = (String) docTestMap.get("path");
 		model.addAttribute("docPath", docPath);
 
 		log.info("#######################################" + userId);
 		// sig
-		Map<String, Object> sigTestMap = (user_sigDao.getUserSig(userId));
+		Map<String, Object> sigTestMap;// = (user_sigDao.getUserSig(userId));
 
-		sigId = (String)sigTestMap.get("sigid");
+		List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(userId);
+		log.info(valueOf(user_sig.get(0).getUserid()));
+		//sigId = new String[user_sig.size()];
+
+		for(int i=0; i<user_sig.size(); i++) {
+			sigTestMap = sigDao.getSigBySigNum(user_sig.get(i).getSignum());
+			sigId = (String)sigTestMap.get("sigid");	// only one sigId
+
+		}
+
+		//sigId = (String)sigTestMap.get("sigid");
 		model.addAttribute("sigId", sigId);
 
 		return "mydoc";
@@ -485,10 +536,24 @@ public class MainController {
 	public String mydoclist(HttpServletRequest req, Model model) throws Exception{
 
 		String userId = req.getParameter("userid");
-		String docId = "";
+		String docId[];
+		String docPath[];
+		String docNum[];
 		String sigId = "";
 
-		model.addAttribute("docList", user_docDao.listForBeanPropertyRowMapper(userId));
+		List<User_Doc> docList = user_docDao.listForBeanPropertyRowMapper(userId);
+		docId = new String[docList.size()];
+		docNum = new String[docList.size()];
+		docPath = new String[docList.size()];
+
+		for(int i=0; i<docList.size(); i++) {
+
+			Map<String, Object> testMap = docDao.getDocByDocNum(docList.get(i).getDocnum());
+			docId[i] = (String)testMap.get("docid");
+			docNum[i] = valueOf(testMap.get("docnum"));
+			docPath[i] = (String)testMap.get("path");
+		}
+
 		//model.addAttribute("docList", docList);
 		//log.info(docList.get(0).toString());
 		/*
@@ -513,6 +578,11 @@ public class MainController {
 		sigId = (String)sigTestMap.get("sigid");
 		model.addAttribute("sigId", sigId);
 */
+
+		model.addAttribute("docIdList", docId);
+		model.addAttribute("docNumList", docNum);
+		model.addAttribute("docPathList", docPath);
+		model.addAttribute("userId", userId);
 		return "myDocList";
 	}
 
@@ -521,21 +591,39 @@ public class MainController {
 
 		//String userId = req.getParameter("userid");
 		String docId = req.getParameter("docid");
+		int docNum = parseInt(req.getParameter("docnum"));
 		String docPath = "";
+		int signum;
+		String userId[];
 		String sigId[];
 		//model.addAttribute("docList", user_docDao.listForBeanPropertyRowMapper(docId));
 
-		List<User_Doc> userList = user_docDao.listForBeanPropertyRowMapperByDoc(docId);
+		Map<String, Object> docTestMap = docDao.getDocByDocIdAndNum(docId, docNum);
+		List<User_Doc> userList = user_docDao.listForBeanPropertyRowMapperByDocNum((int)docTestMap.get("docnum"));
+
 		sigId = new String[userList.size()];
+		userId = new String[userList.size()];
 
 		for(int i=0; i<userList.size(); i++) {
 
-			Map<String, Object> testMap = (user_sigDao.getUserSig(userList.get(i).getUserid()));
-			sigId[i] = (String)testMap.get("sigid");
 
+			List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(userList.get(i).getUserid());
+			log.info(valueOf(user_sig.get(0).getUserid()));
+			//sigId = new String[user_sig.size()];
+			Map<String, Object> sigTestMap;
+			String _sigId = null;
+			for(int j=0; j<user_sig.size(); j++) {
+				sigTestMap = sigDao.getSigBySigNum(user_sig.get(j).getSignum());
+				_sigId = (String) sigTestMap.get("sigid");    // only one sigId
+			}
+			userId[i] = userList.get(i).getUserid();
+			sigId[i] = _sigId;
+//			Map<String, Object> sigTestMap = (user_sigDao.getUserSig(userList.get(i).getUserid()));
+//			signum = (int)sigTestMap.get("signum");
+//			sigId[i] = (String)(sigDao.getSigBySigNum(signum).get("sigid"));
 		}
 
-		Map<String, Object> docTestMap = docDao.getDoc(docId);
+		//Map<String, Object> docTestMap = docDao.getDocByDocId(docId);
 		docPath = (String) docTestMap.get("path");
 
 		Document document = new Document(PageSize.A4);
@@ -596,7 +684,7 @@ public class MainController {
 
 			Section section[] = new Section[sigId.length];
 			for(int i=0; i<sigId.length; i++) {
-				section[i] = chapter1.addSection(new Paragraph("signer"+valueOf(i+1)));
+				section[i] = chapter1.addSection(new Paragraph(userId[i]));
 				Image section1Image = Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/"+sigId[i]);
 				section[i].add(section1Image);
 			}
@@ -658,7 +746,7 @@ public class MainController {
 			//Collections.singletonMap("test", testDao.getName(1));
 			testDao.getName(1);
 			userDao.listForBeanPropertyRowMapper();
-			sigDao.getName(1);
+			//sigDao.getName(1);
 			//jdbcTemplate.queryForMap("select name from user where id = ?", "test01");
 			//return (ArrayList<userDto>) jdbcTemplate.query("select * from user", new BeanPropertyRowMapper(User.class));
 		} catch (Exception e) {
