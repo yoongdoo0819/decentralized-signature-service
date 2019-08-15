@@ -1,9 +1,18 @@
 package com.poscoict.posledger.assets.model;
 
-public class Sign {
+public class Sig {
 
+    private  int sigNum;
     private String signID;
     private String signPath;
+
+    public int getSignNum() {
+        return sigNum;
+    }
+
+    public void setSignNum(int sigNum) {
+        this.sigNum = sigNum;
+    }
 
     public String getSignID() {
         return signID;
@@ -23,7 +32,7 @@ public class Sign {
 
     @Override
     public String toString() {
-        return "Sign{" +
+        return "Sig{" +
                 "signID=" + signID +
                 ", signPath'" + signPath + '\'' +
                 '}';
