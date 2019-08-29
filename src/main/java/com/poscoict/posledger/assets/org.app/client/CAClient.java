@@ -12,14 +12,7 @@
  */
 package com.poscoict.posledger.assets.org.app.client;
 
-import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.poscoict.posledger.assets.org.app.user.UserContext;
-//import com.poscoict.posledger.assets.org.app.user.UserContext;
 import com.poscoict.posledger.assets.org.app.util.Util;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
@@ -27,6 +20,14 @@ import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
+
+import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+//import com.poscoict.posledger.assets.org.app.user.UserContext;
 
 /**
  * Wrapper class for HFCAClient.

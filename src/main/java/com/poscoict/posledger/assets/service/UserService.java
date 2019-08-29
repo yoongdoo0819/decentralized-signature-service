@@ -1,15 +1,14 @@
 package com.poscoict.posledger.assets.service;
 
-import java.util.List;
-
+import com.poscoict.posledger.assets.model.User;
+import com.poscoict.posledger.assets.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.poscoict.posledger.assets.model.User;
-import com.poscoict.posledger.assets.repository.UserRepository;
+import java.util.List;
 
 @Service
 public class UserService {

@@ -9,6 +9,7 @@ import com.poscoict.posledger.assets.model.User_Doc;
 import com.poscoict.posledger.assets.model.User_Sig;
 import com.poscoict.posledger.assets.org.app.chaincode.invocation.queryToken;
 import com.poscoict.posledger.assets.org.app.chaincode.invocation.transferToken;
+import com.poscoict.posledger.assets.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import sun.misc.BASE64Decoder;
 
@@ -69,6 +71,15 @@ public class MainController {
 	private User_sigDao user_sigDao;
 	@Autowired
 	private User_docDao user_docDao;
+	@Autowired
+	private RedisService redisService;
+
+	@GetMapping("/redis")
+	public String redis(Model model) {
+
+		model.addAttribute("count", redisService.getVisitCount());
+		return "redis";
+	}
 
 	@GetMapping("/index")
 	public String index() {

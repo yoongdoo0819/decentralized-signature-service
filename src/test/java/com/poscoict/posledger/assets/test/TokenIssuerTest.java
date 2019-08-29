@@ -31,7 +31,7 @@ public class TokenIssuerTest {
 		logger.info("accessToken : " + accessToken);
 		
 		// 토큰 만료 시간 테스트
-		Thread.sleep(5000);
+		Thread.sleep(50000);
 		logger.info("dcrypt token user : " + tokenResolver.decryptUserAccessToken(accessToken.getToken()));
 	}
 }

@@ -55,6 +55,19 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>hyperledger-snapshots-repo</id>
+            <url>https://nexus.hyperledger.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
 
         <!-- spring mvc, rest -->
@@ -251,6 +264,24 @@
             <version>5.5.11</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>2.1.3.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hyperledger.fabric-gateway-java</groupId>
+            <artifactId>fabric-gateway-java</artifactId>
+            <version>1.4.0-SNAPSHOT</version>
+        </dependency>
+
 <!--            &lt;!&ndash; add all iText 7 modules &ndash;&gt;-->
 <!--            <dependency>-->
 <!--                <groupId>com.itextpdf</groupId>-->
@@ -322,4 +353,13 @@
 <!--            <version>7.0.2</version>-->
 <!--        </dependency>-->
     </dependencies>
+
+
+<!--    <dependencies>-->
+<!--        <dependency>-->
+<!--            <groupId>org.hyperledger.fabric-gateway-java</groupId>-->
+<!--            <artifactId>fabric-gateway-java</artifactId>-->
+<!--            <version>1.4.0-SNAPSHOT</version>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
 </project>

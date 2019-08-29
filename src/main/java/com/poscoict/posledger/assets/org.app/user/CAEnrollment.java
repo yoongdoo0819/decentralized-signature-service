@@ -13,10 +13,10 @@
 
 package com.poscoict.posledger.assets.org.app.user;
 
+import org.hyperledger.fabric.sdk.Enrollment;
+
 import java.io.Serializable;
 import java.security.PrivateKey;
-
-import org.hyperledger.fabric.sdk.Enrollment;
 
 //Enrollment metadata
 public class CAEnrollment implements Enrollment, Serializable {
