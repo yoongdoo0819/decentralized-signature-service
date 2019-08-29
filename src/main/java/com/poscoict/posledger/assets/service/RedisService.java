@@ -22,4 +22,14 @@ public class RedisService {
 
         return count;
     }
+
+    public boolean storeUser(String userID, String certificate) {
+
+        try {
+            valueOps.append(userID, certificate);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
