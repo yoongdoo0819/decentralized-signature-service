@@ -12,11 +12,11 @@
  */
 package com.poscoict.posledger.assets.org.app.user;
 
-import java.io.Serializable;
-import java.util.Set;
-
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.User;
+
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Implementation class for User
