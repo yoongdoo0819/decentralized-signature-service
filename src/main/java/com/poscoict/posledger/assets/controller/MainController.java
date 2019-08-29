@@ -1,15 +1,22 @@
 package com.poscoict.posledger.assets.controller;
 
 //import com.itextpdf.layout.Doc;
-import com.itextpdf.text.*;
+
 import com.itextpdf.text.Image;
-import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfImportedPage;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.User_Doc;
 import com.poscoict.posledger.assets.model.User_Sig;
 import com.poscoict.posledger.assets.org.app.chaincode.invocation.queryToken;
+import com.poscoict.posledger.assets.org.app.chaincode.invocation.registerUser;
 import com.poscoict.posledger.assets.org.app.chaincode.invocation.transferToken;
 import com.poscoict.posledger.assets.service.RedisService;
+import com.poscoict.posledger.assets.util.DateUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,25 +24,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-//import com.lowagie.text;
-//import com.itextpdf.*;
-//import com.itextpdf.pdfa.PdfADocument;
-//import com.itextpdf.signatures.
-
-import com.poscoict.posledger.assets.util.DateUtil;
-
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
-import javax.print.Doc;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
@@ -50,6 +47,11 @@ import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
+
+//import com.lowagie.text;
+//import com.itextpdf.*;
+//import com.itextpdf.pdfa.PdfADocument;
+//import com.itextpdf.signatures.
 
 @Slf4j
 @Validated
@@ -75,9 +77,23 @@ public class MainController {
 	private RedisService redisService;
 
 	@GetMapping("/redis")
-	public String redis(Model model) {
+	public String redis(HttpServletRequest req, Model model) {
 
-		model.addAttribute("count", redisService.getVisitCount());
+		registerUser newUser = new registerUser();
+		try {
+			//User user = new User(req.getParameter("userId"), req.getParameter("userPasswd"));
+			//userDao.insert(user);
+
+			String certificate = newUser.registerNewUser(/*req.getParameter("userId")*/"yoongdoo");
+			if(!(redisService.storeUser("yoongdoo", certificate)))
+				log.info("user register failure");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		//model.addAttribute("count", redisService.getVisitCount());
+
 		return "redis";
 	}
 
@@ -92,8 +108,15 @@ public class MainController {
 	public String signUp(HttpServletRequest req) {
 		log.info("signUp");
 
-		User user = new User(req.getParameter("userId"), req.getParameter("userPasswd"));
-		userDao.insert(user);
+		registerUser newUser = new registerUser();
+		try {
+			User user = new User(req.getParameter("userId"), req.getParameter("userPasswd"));
+			userDao.insert(user);
+
+			newUser.registerNewUser(req.getParameter("userId"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return "signup";
 	}
