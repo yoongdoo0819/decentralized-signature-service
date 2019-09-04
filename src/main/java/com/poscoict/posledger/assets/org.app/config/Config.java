@@ -62,7 +62,7 @@ public class Config {
 	
 	public static final String CHAINCODE_ROOT_DIR = "chaincode";
 	
-	public static final String CHAINCODE_1_NAME = "mycc10";
+	public static final String CHAINCODE_1_NAME = "mycc";
 	
 	public static final String CHAINCODE_1_PATH = "chaincode";
 	

@@ -12,23 +12,19 @@
  */
 package com.poscoict.posledger.assets.org.app.chaincode.invocation;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-
-import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.poscoict.posledger.assets.org.app.client.CAClient;
 import com.poscoict.posledger.assets.org.app.client.ChannelClient;
 import com.poscoict.posledger.assets.org.app.client.FabricClient;
 import com.poscoict.posledger.assets.org.app.config.Config;
 import com.poscoict.posledger.assets.org.app.user.UserContext;
 import com.poscoict.posledger.assets.org.app.util.Util;
-import org.hyperledger.fabric.sdk.Channel;
-import org.hyperledger.fabric.sdk.EventHub;
-import org.hyperledger.fabric.sdk.Orderer;
-import org.hyperledger.fabric.sdk.Peer;
-import org.hyperledger.fabric.sdk.ProposalResponse;
+import org.hyperledger.fabric.sdk.*;
+
+import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * 
@@ -76,7 +72,7 @@ public class QueryChaincode {
 			Thread.sleep(10000);
 			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query b ");
 			
-			Collection<ProposalResponse>  responses1Query = channelClient.queryByChainCode("mycc", "queryToken", new String[]{"token0"});
+			Collection<ProposalResponse>  responses1Query = channelClient.queryByChainCode("mycc", "query", new String[]{"0"});
 			for (ProposalResponse pres : responses1Query) {
 				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
 				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);

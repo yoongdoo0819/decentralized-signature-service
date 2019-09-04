@@ -37,12 +37,15 @@ public class ownerOf {
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
             Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
+            Logger.getLogger("***").log(Level.INFO, "********************************1");
             EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
             channel.addPeer(peer);
+            Logger.getLogger("***").log(Level.INFO, "********************************2");
             channel.addEventHub(eventHub);
             channel.addOrderer(orderer);
             channel.initialize();
+            Logger.getLogger("***").log(Level.INFO, "********************************3");
 
             //Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query a");
 			/*Collection<ProposalResponse>  responsesQuery = channelClient.queryByChainCode("fabcar", "query", new String[]{"a"});
@@ -54,12 +57,19 @@ public class ownerOf {
             Thread.sleep(10000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
 
-            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc3", "ownerOf", new String[]{"token0"});
+            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode(Config.CHAINCODE_1_NAME, "ownerOf", new String[]{"0"});
+            Logger.getLogger("***").log(Level.INFO, "********************************4");
             for (ProposalResponse pres : responses1Query) {
-                String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-                Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
+                Logger.getLogger("***").log(Level.INFO, "********************************5" + pres.getMessage());
+                //String stringResponse = new String(pres.getChaincodeActionResponsePayload());
+                //byte[] stringResponse = pres.getChaincodeActionResponsePayload();
+                //String result = stringResponse.toString();
+                //ByteString payload = pres.getProposalResponse().getResponse().getPayload();//.toString();
+
+                //Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
                 //String stringResponse = "aa";//new String(pres.getChaincodeActionResponsePayload());
                 //Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
+                Logger.getLogger("***").log(Level.INFO, "********************************6");
             }
 
         } catch (Exception e) {
