@@ -63,14 +63,14 @@
                 </div>
                 <div class="card-body">
                     <%
-                        String sigid[] = (String[])request.getAttribute("sigId");
+                        String pathList[] = (String[])request.getAttribute("path");
                         //User_Doc doc;
 
-                        String imgSrc[] = new String[sigid.length];
+                        String imgSrc[] = new String[pathList.length];
 
                         int i=0;
-                        for(i=0; i<sigid.length; i++) {
-                            imgSrc[i] = "<img src=" + sigid[i] + ">";
+                        for(i=0; i<pathList.length; i++) {
+                            imgSrc[i] = "<img src=" + pathList[i] + ">";
 
                     %>
                     <%=imgSrc[i]%><br><hr>

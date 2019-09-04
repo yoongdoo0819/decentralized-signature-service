@@ -73,9 +73,11 @@
                 </div>
                 <div class="card-body" align="right">
 
-                    <form action="/assets/itext" method="post">
+                    <form action="/assets/doSign" method="post">
                         <input type="hidden" name="signer" value="${sessionUser.id}">
-                        <!--<input type="hidden" name="docId" value=${docId}>-->
+                        <input type="hidden" name="docNum" value=${docNum}>
+                        <input type="hidden" name="docId" value=${docId}>
+                        <input type="hidden" name="tokenId" value=${tokenId}>
                         <input type="hidden" name="docPath" value=${docPath}>
                         <input type="hidden" name="sigId" value=${sigId}>
 

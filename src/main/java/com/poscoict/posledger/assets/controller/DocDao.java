@@ -1,6 +1,5 @@
 package com.poscoict.posledger.assets.controller;
 
-import com.poscoict.posledger.assets.model.Sig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,9 +20,9 @@ public class DocDao {
         return jdbcTemplate.query(query, new BeanPropertyRowMapper<Doc>(Doc.class));
     }
 
-    public int insert(String _docid, String _path) {
-        String query = "INSERT INTO Doc(docid, path) VALUES(?, ?)";
-        return this.jdbcTemplate.update(query, _docid, _path);//sign.getSignID(), sign.getSignPath());
+    public int insert(String _docid, String _path, int _tokenid, String _signers) {
+        String query = "INSERT INTO Doc(docid, path, docTokenId, signers) VALUES(?, ?, ?, ?)";
+        return this.jdbcTemplate.update(query, _docid, _path, _tokenid, _signers);//sign.getSignID(), sign.getSignPath());
     }
 
     public Map<String, Object>/*List<Doc>*/ getDocByDocNum(int _docnum) throws Exception {

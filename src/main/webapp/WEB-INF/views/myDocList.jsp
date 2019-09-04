@@ -74,6 +74,7 @@
                         String docList[] = (String[])request.getAttribute("docIdList");
                         String docPathList[] = (String[])request.getAttribute("docPathList");
                         String docNum[] = (String[])request.getAttribute("docNumList");
+                        String tokenId[] = (String[])request.getAttribute("tokenIdList");
                         String userid = (String)request.getAttribute("userId");
 
                         String docid[] = new String[docList.length];
@@ -81,7 +82,7 @@
                         String queryDoc="";
                         int i=0;
                         for(i=0; i<docid.length; i++) {
-                            docid[i] = "<a href=/assets/mydoc?userid=" + userid + "&docid=" + docList[i] + "&docnum=" + docNum[i] + ">" + docPathList[i] + "</a>";
+                            docid[i] = "<a href=/assets/mydoc?userid=" + userid + "&docid=" + docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] +">" + docPathList[i] + "</a>";
                             queryDoc = "<a href=/assets/queryDoc?docid=" + docList[i] + "&docnum=" + docNum[i] + ">" + "- Query Your Final Document" + "</a>";
                     %>
                     <%=docid[i]%>

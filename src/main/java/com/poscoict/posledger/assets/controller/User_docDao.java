@@ -25,9 +25,9 @@ public class User_docDao {
         return jdbcTemplate.query(query, new BeanPropertyRowMapper<User_Doc>(User_Doc.class));
     }
 
-    public int insert(String _userid, int _docid) {
+    public int insert(String _userid, int _docnum) {
         String query = "INSERT INTO User_Doc(userid, docnum) VALUES(?, ?)";
-        return this.jdbcTemplate.update(query, _userid, _docid);//sign.getSignID(), sign.getSignPath());
+        return this.jdbcTemplate.update(query, _userid, _docnum);//sign.getSignID(), sign.getSignPath());
     }
 
 
