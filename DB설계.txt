@@ -4,29 +4,39 @@ primary key(_userid)
 );
 
 create table Sig (
-sigid varchar(30),
+signum int auto_increment,
+sigid varchar(150),
 path varchar(80),
-primary key(sigid)
+sigtokenid int,
+primary key(signum)
 );
 
 create table Doc (
+docnum int auto_increment,
 docid varchar(150),
 path varchar(255),
-primary key(docid)
+doctokenid int,
+signers varchar(100),
+primary key(docnum)
 );
 
 create table User_Sig ( 
 userid varchar(30), 
-sigid varchar(30), 
-primary key(userid, sigid),
+signum int, 
+primary key(userid, signum),
 foreign key(userid) references user(id) on update cascade, 
-foreign key(sigid) references Sig(sigid) on update cascade
+foreign key(signum) references Sig(signum) on update cascade
 );
 
 create table User_Doc ( 
 userid varchar(30), 
-docid varchar(150), 
-primary key(userid, docid),
+docnum int, 
+primary key(userid, docNum),
 foreign key(userid) references user(id) on update cascade, 
-foreign key(docid) references Doc(docid) on update cascade
+foreign key(docnum) references Doc(docnum) on update cascade
+);
+
+create table Token (
+tokenid int auto_increment,
+primary key(tokenid)
 );
