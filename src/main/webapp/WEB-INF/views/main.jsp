@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
 
     <link href="bootstrap.min.css" rel="stylesheet" type="text/css"></link>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Custom styles for this template -->
     <link href="shop-item.css" rel="stylesheet">
 </head>
@@ -53,10 +53,10 @@
         <div class="col-lg-3">
             <h1 class="my-4">Signature Service</h1>
             <div class="list-group">
-                <a href="#" class="list-group-item active">Make a signature</a>
+                <a href="#" class="list-group-item active">Make signature</a>
                 <a href="/assets/mysign?userid=${sessionUser.id}" class="list-group-item">My Signature</a>
-                <a href="/assets/mydoclist?userid=${sessionUser.id}" class="list-group-item">My Document</a>
                 <a href="/assets/addUser" class="list-group-item"l>Upload File</a>
+                <a href="/assets/mydoclist?userid=${sessionUser.id}" class="list-group-item">My Document</a>
             </div>
         </div>
         <!-- /.col-lg-3 -->
@@ -92,7 +92,7 @@
 <%--                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>--%>
 <%--                    <hr>--%>
 <%--                    <a href="#" class="btn btn-success">Leave a Review</a>--%>
-                    <img id="canvasImg" alt=""><br>
+                    <%--<img id="canvasImg" alt=""><br>--%>
                     <input type="hidden" id="signer" value="${sessionUser.id}">
                     <input type="submit" class="btn btn-success"  value="store" onclick="store(this)">
 
@@ -160,11 +160,12 @@
     function store(link) {
         //downloadCanvas(this, myCanvas, 'test.png');
         var signer = document.getElementById("signer").value;
-        alert(signer);
+        //alert(signer);
         canvas = document.getElementById("myCanvas");
         var dataURL = canvas.toDataURL("image/png", 1.0);//.replace("image/png", "image/octet-stream");
-        var implement = document.getElementById("canvasImg");
-        implement.src = dataURL;
+        //var implement = document.getElementById("canvasImg");
+        //implement.src = dataURL;
+        canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
 
         $.ajax({
             type: "POST",
@@ -176,10 +177,11 @@
             },
             //dataType: "json",
             success: function() {
-                alert("success");
+                swal({title: "Success", icon: "success", button: "close",});
+
             },
             error: function(err) {
-                alert("error" + err);
+                swal("error" + err);
             }
         });
 
