@@ -15,6 +15,8 @@ import com.poscoict.posledger.assets.org.app.chaincode.invocation.*;
 import com.poscoict.posledger.assets.service.RedisService;
 import com.poscoict.posledger.assets.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -739,6 +741,57 @@ public class MainController {
 		model.addAttribute("userId", userId);
 
 		return "myDocList";
+	}
+
+	@ResponseBody
+	@RequestMapping("/checkStatus")
+	public String checkStatus (/*@RequestBody String test,*/ HttpServletRequest req, String tokenId) throws Exception {
+
+		log.info(" > " + tokenId);
+		//String uploadpath="uploadfile\\";
+
+		String queryResult = null;
+		String signersResult = "";
+		String XAtt;
+		String signers;
+		String tokenIds;
+		String signersArray[];
+		String tokenIdsArray[];
+		int sigNum;
+
+		queryNFT querynft = new queryNFT();
+		queryResult = querynft.query(tokenId);
+
+		if(queryResult != null) {
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
+
+			XAtt = (String)jsonObj.get("xatt");
+			JSONObject tempObj = (JSONObject) jsonParser.parse(XAtt);
+
+			signers = (String) tempObj.get("signers");
+			tokenIds = (String) tempObj.get("signatures");
+			log.info(tokenIds);
+
+			//signersArray = signers.split(",");
+			if(tokenIds.contains(",")) {
+				tokenIdsArray = tokenIds.split(",");
+				Map<String, Object> sigTestMap;
+				Map<String, Object> user_sigTestMap;
+
+				for (int i = 0; i < tokenIdsArray.length; i++) {
+					sigTestMap = sigDao.getSigBySigTokenId(parseInt(tokenIdsArray[i]));
+					sigNum = (int) sigTestMap.get("signum");
+
+					user_sigTestMap = user_sigDao.getUserid(sigNum);
+					signersResult += (String) user_sigTestMap.get("userid");
+				}
+			} else
+				signersResult += tokenIds + " ";
+		}
+
+		log.info(queryResult);
+		return signersResult;
 	}
 
 	@GetMapping("/queryDoc")
