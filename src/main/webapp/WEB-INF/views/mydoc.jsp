@@ -6,6 +6,7 @@
 <head>
     <title>PosLedger Assets Application</title>
     <link href="bootstrap.min.css" rel="stylesheet" type="text/css"></link>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="shop-item.css" rel="stylesheet">
@@ -62,8 +63,20 @@
 
                 <%--                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">--%>
                 <div class="card-body" align="center">
-                    <h3 class="card-title">Document</h3>
-                    <iframe style="width:60%; height:600px;" src="${docPath}"></iframe>
+                    <table width="800" >
+                        <tr align="center">
+                            <td >
+                                <button type="button" class="btn btn-outline-success" onclick="checkInfo(${tokenId})">Document Info</button>
+                                <hr>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="center">
+                                <iframe style="width:60%; height:600px;" src="${docPath}"></iframe>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
@@ -82,6 +95,7 @@
                         <input type="hidden" name="sigId" value=${sigId}>
 
                         <input type="submit" class="btn btn-success" value="sign">
+
                     </form>
                 </div>
             </div>
@@ -90,7 +104,34 @@
 </div>
 
 </body>
+<script>
+    function checkInfo(tokenId) {
+        //downloadCanvas(this, myCanvas, 'test.png');
+        // var signer = document.getElementById("signer").value;
+        // alert(signer);
+        // canvas = document.getElementById("myCanvas");
+        // var dataURL = canvas.toDataURL("image/png", 1.0);//.replace("image/png", "image/octet-stream");
+        // var implement = document.getElementById("canvasImg");
+        // implement.src = dataURL;
 
+        $.ajax({
+            type: "POST",
+            url: "/assets/checkInfo",
+            data: {
+                "tokenId": tokenId
+                //"strImg": dataURL
+                //"test": "test string"
+            },
+            //dataType: "json",
+            success: function (data) {
+                swal({title: "Info", text: data, icon: "success", button: "close",});
+            },
+            error: function (err) {
+                swal("error" + err);
+            }
+        });
+    }
+</script>
 
 <script src="${ctx}/js/jquery-min.js"></script>
 </html>

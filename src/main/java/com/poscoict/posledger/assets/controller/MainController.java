@@ -684,6 +684,67 @@ public class MainController {
 		return "mydoc";
 	}
 
+	@ResponseBody
+	@RequestMapping("/checkInfo")
+	public String checkInfo (/*@RequestBody String test,*/ HttpServletRequest req, String tokenId) throws Exception {
+
+		log.info(" > " + tokenId);
+		//String uploadpath="uploadfile\\";
+
+		String queryResult = null;
+		String result = "";
+		String XAtt;
+		String signers="";
+		String tokenIds;
+		String owner="";
+		String hash="";
+		String signersArray[];
+		String tokenIdsArray[];
+		int sigNum;
+
+		queryNFT querynft = new queryNFT();
+		queryResult = querynft.query(tokenId);
+
+		if(queryResult != null) {
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
+
+			owner = (String)jsonObj.get("owner");
+			XAtt = (String)jsonObj.get("xatt");
+			JSONObject tempObj = (JSONObject) jsonParser.parse(XAtt);
+
+			signers = (String) tempObj.get("signers");
+			hash = (String) tempObj.get("hash");
+			//tokenIds = (String) tempObj.get("signatures");
+			//log.info(tokenIds);
+
+			//signersArray = signers.split(",");
+			/*
+			if(tokenIds.contains(",")) {
+				tokenIdsArray = tokenIds.split(",");
+				Map<String, Object> sigTestMap;
+				Map<String, Object> user_sigTestMap;
+
+				for (int i = 0; i < tokenIdsArray.length; i++) {
+					sigTestMap = sigDao.getSigBySigTokenId(parseInt(tokenIdsArray[i]));
+					sigNum = (int) sigTestMap.get("signum");
+
+					user_sigTestMap = user_sigDao.getUserid(sigNum);
+					signersResult += (String) user_sigTestMap.get("userid");
+				}
+			} else
+				signersResult += tokenIds + " ";
+				*/
+		}
+
+		result += "owner : " + owner + "\n";
+		result += "hash : " + hash + "\n";
+		result += "signers : " + signers;
+
+		log.info(queryResult);
+		return result;
+	}
+
 	@GetMapping("/mydoclist")
 	public String mydoclist(HttpServletRequest req, Model model) throws Exception{
 

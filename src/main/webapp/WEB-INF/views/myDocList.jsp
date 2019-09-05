@@ -10,6 +10,7 @@
     <title>PosLedger Assets Application</title>
 
     <link href="bootstrap.min.css" rel="stylesheet" type="text/css"></link>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="shop-item.css" rel="stylesheet">
@@ -76,20 +77,29 @@
                         String docNum[] = (String[])request.getAttribute("docNumList");
                         String tokenId[] = (String[])request.getAttribute("tokenIdList");
                         String userid = (String)request.getAttribute("userId");
-String token="";
+                        String token="";
                         String docid[] = new String[docList.length];
 
                         String queryDoc="";
                         int i=0;
                         for(i=0; i<docid.length; i++) {
                             docid[i] = "<a href=/assets/mydoc?userid=" + userid + "&docid=" + docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] +">" + docPathList[i] + "</a>";
-                            queryDoc = "<a href=/assets/queryDoc?docid=" + docList[i] + "&docnum=" + docNum[i] + ">" + "- Query Your Final Document" + "</a>";
-                            token = "<input type=submit value=check onclick=checkStatus("+tokenId[i]+")>";
+                            queryDoc = "<a href=/assets/queryDoc?docid=" + docList[i] + "&docnum=" + docNum[i] + ">" + "- Final Document " + "</a>";
+                            token = "<input type=submit value='√' class='btn btn-outline-info' style='background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY5Mu3vrHZi-N1ntwu6F0lTYc2IQekwho9WjK1gl5s_BxWwhI); style='width: 2pt; height:20pt; float:right;' onclick=checkStatus("+tokenId[i]+")>";
+
                     %>
-                    <%=docid[i]%>
-                    <%=queryDoc%>
-                    <%--<input type="submit" value="check" onclick="checkCurrentStatus(<%=token%>>)"><br>--%>
-                    <%=token%><br>
+                    <table width="750px">
+                        <tr>
+                            <td>
+                                <%=docid[i]%>
+                                <%=queryDoc%>
+                            </td>
+                            <td align="right">
+                                <%=token%>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr>
                     <%
                         }
                     %>
@@ -138,7 +148,7 @@ String token="";
         // var dataURL = canvas.toDataURL("image/png", 1.0);//.replace("image/png", "image/octet-stream");
         // var implement = document.getElementById("canvasImg");
         // implement.src = dataURL;
-        alert("asdfasdf");
+
         $.ajax({
             type: "POST",
             url: "/assets/checkStatus",
@@ -149,10 +159,10 @@ String token="";
             },
             //dataType: "json",
             success: function (data) {
-                alert("current status - " + data);
+                swal({title: "Current Status", text: data, icon: "success", button: "close",});
             },
             error: function (err) {
-                alert("error" + err);
+                swal("error" + err);
             }
         });
     }

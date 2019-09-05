@@ -48,9 +48,10 @@ function insRow() {
     var oCell = oRow.insertCell();
 
     //삽입될 Form Tag
-    var frmTag = "ID <input type=text name=" + "'" + ID + "'" + "style=width:200px; height:20px;>";
+    var frmTag = "<input type=text name=" + "'" + ID + "'" + "style=width:200px; height:20px; placeholder='ID'>";
     //frmTag += "PHONE <input type=text name=" + "'" + PHONE + "'" + "style=width:200px; height:20px;>";
-    frmTag += "<input type=button value='삭제' onClick='removeRow()' style='cursor:hand'>";
+    frmTag += " <button type=button style='width:45pt; height:25pt' class='btn btn-outline-danger' onClick=remove()>삭제</button>"
+    frmTag += "<br><hr>"
     oCell.innerHTML = frmTag;
     count++;
 
@@ -159,13 +160,18 @@ function frmCheck() {
                                 </td>
                             </tr>
                         </table>
-                        <hr>
                         <input type="hidden" name="userid" value="${sessionUser.id}">
                         <input type="hidden" id="count" name="count">
-                        <input type="file" name="file">
-                        <div align="right">
-                            <input type="submit" class="btn btn-success" value="submit">
-                        </div>
+                        <table width="780">
+                            <tr>
+                                <td>
+                                    <input type="file" name="file" class="btn-outline-info">
+                                </td>
+                                <td align="right">
+                                    <input type="submit" class="btn btn-success" value="submit">
+                                </td>
+                            </tr>
+                        </table>
                     </form>
                     <hr>
 <%--                    <a href="#" class="btn btn-success">Leave a Review</a>--%>
