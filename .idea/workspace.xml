@@ -4,9 +4,28 @@
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190903_073942_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190903_085821_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190903_090120_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190903_091235_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190903_091414_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190903_091657_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190904_024623_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190904_024859_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190904_025404_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190904_031924_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190904_032605_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190904_035128_bob" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190904_035206_carol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190904_081547_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190904_083937_bob" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20190904_101340_alice" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addUser.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/finalDoc.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/finalDoc.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mydoc.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mydoc.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mysign.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mysign.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/final.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/final.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/org1/admin.ser" beforeDir="false" afterPath="$PROJECT_DIR$/users/org1/admin.ser" afterDir="false" />
     </list>
@@ -209,7 +228,7 @@
       <workItem from="1563358462460" duration="88005000" />
       <workItem from="1566882009036" duration="21566000" />
       <workItem from="1567065902561" duration="6175000" />
-      <workItem from="1567472530795" duration="61515000" />
+      <workItem from="1567472530795" duration="68040000" />
     </task>
     <servers />
   </component>
@@ -237,16 +256,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mydoc.jsp</url>
-          <line>93</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

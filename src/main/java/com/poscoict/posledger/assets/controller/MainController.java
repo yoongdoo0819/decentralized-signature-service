@@ -353,7 +353,7 @@ public class MainController {
 
 	@ResponseBody
 	@RequestMapping("/img")
-	public String img (/*@RequestBody String test,*/ HttpServletRequest req, String signer, String strImg) throws Exception {
+	public RedirectView img (/*@RequestBody String test,*/ HttpServletRequest req, String signer, String strImg) throws Exception {
 
 		log.info(" > " + signer);
 		log.info(" > " + strImg);
@@ -455,7 +455,7 @@ public class MainController {
 		mintSigNFT mintNFT = new mintSigNFT();
 		mintNFT.mint(tokenNum, owner, sigId, filenm);
 
-		return "index";
+		return new RedirectView("main");
 	}
 
 	@ResponseBody
@@ -573,14 +573,16 @@ public class MainController {
 	@Async
 	@ResponseBody
 	@RequestMapping("/doSign")
-	public String doSign(HttpServletRequest req, Model model) throws Exception{
+	public RedirectView doSign(HttpServletRequest req, Model model) throws Exception{
 
 		int docNum = parseInt(String.valueOf(req.getParameter("docNum")));
 		String docId = req.getParameter("docId");
 		String signer = req.getParameter("signer");
 		String tokenId = req.getParameter("tokenId");
 
-		//tokenId = "10";
+		List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(signer);
+		if(user_sig.size() == 0)
+			return new RedirectView("main");
 
 		updateDocNFT updateNFT = new updateDocNFT();
 		updateNFT.update(docId, signer, tokenId);
@@ -602,7 +604,7 @@ public class MainController {
 			}
 		}
 
-		return "redirect:/assets/main";
+		return new RedirectView("main");
 	}
 
 	@GetMapping("/addUser")
@@ -648,7 +650,7 @@ public class MainController {
 		int tokenId = parseInt(req.getParameter("tokenid"));
 		int docNum = parseInt(req.getParameter("docnum"));
 		String docPath = "";
-		String sigId = "";
+		String sigId = null;
 
 		// doc
 		/*Map<String, Object> testMap = (user_docDao.getUserDoc(userId));
@@ -664,16 +666,18 @@ public class MainController {
 		log.info("#######################################" + userId);
 		// sig
 		Map<String, Object> sigTestMap;// = (user_sigDao.getUserSig(userId));
-
 		List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(userId);
-		log.info(valueOf(user_sig.get(0).getUserid()));
-		//sigId = new String[user_sig.size()];
+		//log.info(user_sig);
+		//if(user_sig.get(0) != null) {
 
-		for(int i=0; i<user_sig.size(); i++) {
+			//log.info(valueOf(user_sig.get(0).getUserid()));
+			//sigId = new String[user_sig.size()];
+
+		for (int i = 0; i < user_sig.size(); i++) {
 			sigTestMap = sigDao.getSigBySigNum(user_sig.get(i).getSignum());
-			sigId = (String)sigTestMap.get("sigid");	// only one sigId
-
+			sigId = (String) sigTestMap.get("sigid");    // only one sigId
 		}
+		//}
 
 		//sigId = (String)sigTestMap.get("sigid");
 		model.addAttribute("docNum", docNum);
@@ -877,7 +881,7 @@ public class MainController {
 
 
 			List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(userList.get(i).getUserid());
-			log.info(valueOf(user_sig.get(0).getUserid()));
+			//log.info(valueOf(user_sig.get(0).getUserid()));
 			//sigId = new String[user_sig.size()];
 			Map<String, Object> sigTestMap;
 			String _sigId = null;
@@ -952,10 +956,14 @@ public class MainController {
 			//Section section = new Section(new Paragraph("signer"));
 
 			Section section[] = new Section[_sigPath.length];
+			File f;
 			for(int i=0; i<_sigPath.length; i++) {
 				section[i] = chapter1.addSection(new Paragraph(userId[i]));
-				Image section1Image = Image.getInstance("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+_sigPath[i]);
-				section[i].add(section1Image);
+				f = new File("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+_sigPath[i]);
+				if(f.isFile()) {
+					Image section1Image = Image.getInstance("/home/yoongdoo0819/dSignature-server/src/main/webapp/" + _sigPath[i]);
+					section[i].add(section1Image);
+				}
 			}
 
 			//document.add(new Paragraph("my timestamp"));

@@ -54,10 +54,10 @@
         <div class="col-lg-3">
             <h1 class="my-4">Signature Service</h1>
             <div class="list-group">
-                <a href="/assets/main" class="list-group-item">Make a signature</a>
+                <a href="/assets/main" class="list-group-item">Make signature</a>
                 <a href="/assets/mysign?userid=${sessionUser.id}" class="list-group-item">My Signature</a>
-                <a href="#" class="list-group-item active">My Document</a>
                 <a href="/assets/addUser" class="list-group-item"l>Upload File</a>
+                <a href="#" class="list-group-item active">My Document</a>
             </div>
         </div>
         <!-- /.col-lg-3 -->
