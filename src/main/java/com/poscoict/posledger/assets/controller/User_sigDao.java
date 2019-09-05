@@ -31,4 +31,11 @@ public class User_sigDao {
         //String query = "select * from test";
         //return jdbcTemplate.query(query, new BeanPropertyRowMapper<Doc>(Doc.class));
     }
+
+    public Map<String, Object>/*List<Doc>*/ getUserid(int _signum) throws Exception {
+
+        return jdbcTemplate.queryForMap("select * from User_Sig where signum = ?", _signum);
+        //String query = "select * from test";
+        //return jdbcTemplate.query(query, new BeanPropertyRowMapper<Doc>(Doc.class));
+    }
 }

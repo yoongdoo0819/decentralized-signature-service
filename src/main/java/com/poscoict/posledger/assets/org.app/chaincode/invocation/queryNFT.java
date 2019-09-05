@@ -19,7 +19,9 @@ public class queryNFT {
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
 
-    public static void main(String args[]) {
+    String result = null;
+
+    public String query(String tokenId) {
         try {
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
@@ -51,12 +53,13 @@ public class queryNFT {
 				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
 			}*/
 
-            Thread.sleep(10000);
+            Thread.sleep(1000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
 
-            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode(Config.CHAINCODE_1_NAME, "query", new String[]{"2"});
+            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode(Config.CHAINCODE_1_NAME, "query", new String[]{tokenId});
             for (ProposalResponse pres : responses1Query) {
                 Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, pres.getMessage());
+                result = pres.getMessage();
                 //String stringResponse = new String(pres.getChaincodeActionResponsePayload());
                 //byte[] stringResponse = pres.getChaincodeActionResponsePayload();
                 //String result = stringResponse.toString();
@@ -71,6 +74,13 @@ public class queryNFT {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
+    }
+
+    public static void main(String args[]) {
+        queryNFT querynft = new queryNFT();
+        querynft.query("3");
     }
 
 }

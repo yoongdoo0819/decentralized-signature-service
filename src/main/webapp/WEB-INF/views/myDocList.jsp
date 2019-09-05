@@ -76,7 +76,7 @@
                         String docNum[] = (String[])request.getAttribute("docNumList");
                         String tokenId[] = (String[])request.getAttribute("tokenIdList");
                         String userid = (String)request.getAttribute("userId");
-
+String token="";
                         String docid[] = new String[docList.length];
 
                         String queryDoc="";
@@ -84,9 +84,12 @@
                         for(i=0; i<docid.length; i++) {
                             docid[i] = "<a href=/assets/mydoc?userid=" + userid + "&docid=" + docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] +">" + docPathList[i] + "</a>";
                             queryDoc = "<a href=/assets/queryDoc?docid=" + docList[i] + "&docnum=" + docNum[i] + ">" + "- Query Your Final Document" + "</a>";
+                            token = "<input type=submit value=check onclick=checkStatus("+tokenId[i]+")>";
                     %>
                     <%=docid[i]%>
-                    <%=queryDoc%><br>
+                    <%=queryDoc%>
+                    <%--<input type="submit" value="check" onclick="checkCurrentStatus(<%=token%>>)"><br>--%>
+                    <%=token%><br>
                     <%
                         }
                     %>
@@ -98,7 +101,6 @@
 
         </div>
         <!-- /.col-lg-9 -->
-
     </div>
 </div>
 <%--<%
@@ -127,6 +129,34 @@
 </c:forEach>
 --%>
 </body>
-
+<script>
+    function checkStatus(tokenId) {
+        //downloadCanvas(this, myCanvas, 'test.png');
+        // var signer = document.getElementById("signer").value;
+        // alert(signer);
+        // canvas = document.getElementById("myCanvas");
+        // var dataURL = canvas.toDataURL("image/png", 1.0);//.replace("image/png", "image/octet-stream");
+        // var implement = document.getElementById("canvasImg");
+        // implement.src = dataURL;
+        alert("asdfasdf");
+        $.ajax({
+            type: "POST",
+            url: "/assets/checkStatus",
+            data: {
+                "tokenId": tokenId
+                //"strImg": dataURL
+                //"test": "test string"
+            },
+            //dataType: "json",
+            success: function (data) {
+                alert("current status - " + data);
+            },
+            error: function (err) {
+                alert("error" + err);
+            }
+        });
+    }
+</script>
 <script src="${ctx}/js/jquery-min.js"></script>
+
 </html>

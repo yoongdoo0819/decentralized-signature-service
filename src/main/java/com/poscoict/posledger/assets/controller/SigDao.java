@@ -39,7 +39,12 @@ public class SigDao {
         //return jdbcTemplate.query(query, new BeanPropertyRowMapper<Doc>(Doc.class));
     }
 
+    public Map<String, Object>/*List<Doc>*/ getSigBySigTokenId(int _sigTokenId) throws Exception {
 
+        return jdbcTemplate.queryForMap("select * from Sig where sigTokenId = ?", _sigTokenId);
+        //String query = "select * from test";
+        //return jdbcTemplate.query(query, new BeanPropertyRowMapper<Doc>(Doc.class));
+    }
 
 
 }
