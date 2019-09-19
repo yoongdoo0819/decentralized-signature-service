@@ -9,13 +9,11 @@ import com.poscoict.posledger.assets.org.app.util.Util;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hyperledger.fabric.sdk.*;
-import org.json.simple.JSONObject;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.lang.String.valueOf;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class mintSigNFT {
@@ -23,7 +21,7 @@ public class mintSigNFT {
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
 
-    public String mint(int tokenId, String owner, String sigId, String path) {
+    public String mint(int tokenId, String owner, String sigId, String path, String pathHash) {
 
         try {
             Util.cleanUp();
@@ -53,9 +51,9 @@ public class mintSigNFT {
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
             request.setFcn("mint");
-            //String[] arguments = { "token", "woori", "100", "yoongdoo", "yoongdoo", "sig" };
-
-
+            //String[] arguments = { valueOf(tokenId), "sig", owner, sigId, path, pathHash };
+            String[] arguments = { "10", "sig", "alice", "sigId", "path", "pathHash" };
+/*
             JSONObject jsonObjectForXatt = new JSONObject();
             jsonObjectForXatt.put("hash", sigId);
 
@@ -64,6 +62,8 @@ public class mintSigNFT {
             jsonObjectForUri.put("hash", "");
 
             String[] arguments = { valueOf(tokenId), "sig", owner, jsonObjectForXatt.toString(), jsonObjectForUri.toString() };
+
+ */
             //request.setFcn("createCar");
             //String[] arguments = { "CAR1", "Chevy", "Volt", "Red", "Nick" };
             request.setArgs(arguments);

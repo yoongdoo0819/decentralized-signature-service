@@ -15,6 +15,7 @@ import com.poscoict.posledger.assets.org.app.chaincode.invocation.*;
 import com.poscoict.posledger.assets.service.RedisService;
 import com.poscoict.posledger.assets.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,6 @@ import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
-import static java.lang.Thread.sleep;
 
 //import com.poscoict.posledger.assets.org.app.chaincode.invocation.*;
 
@@ -344,7 +344,7 @@ public class MainController {
 
 
 		mintDocNFT mintNFT = new mintDocNFT();
-		String result = mintNFT.mint(tokenNum, owner, original, mf.getOriginalFilename(), signers);
+		String result = mintNFT.mint(tokenNum, owner, original, signers, mf.getOriginalFilename(), original);
 
 		//_transfertoken.transferToken(userid);
 
@@ -453,7 +453,7 @@ public class MainController {
 		user_sigDao.insert(signer, sigNum);
 
 		mintSigNFT mintNFT = new mintSigNFT();
-		mintNFT.mint(tokenNum, owner, sigId, filenm);
+		mintNFT.mint(tokenNum, owner, sigId, filenm, sigId);
 
 		return new RedirectView("main");
 	}
@@ -577,6 +577,7 @@ public class MainController {
 
 		int docNum = parseInt(String.valueOf(req.getParameter("docNum")));
 		String docId = req.getParameter("docId");
+		String sigId = req.getParameter("sigId");
 		String signer = req.getParameter("signer");
 		String tokenId = req.getParameter("tokenId");
 
@@ -584,9 +585,14 @@ public class MainController {
 		if(user_sig.size() == 0)
 			return new RedirectView("main");
 
-		updateDocNFT updateNFT = new updateDocNFT();
-		updateNFT.update(docId, signer, tokenId);
+		Map<String, Object> testMap = sigDao.getSigBySigid(sigId);
+		String sigTokenId = valueOf((int)testMap.get("sigtokenid"));
 
+		updateDocNFT updateNFT = new updateDocNFT();
+		updateNFT.update(tokenId, "2", sigTokenId);
+		//updateNFT.update(docId, signer, tokenId);
+
+		/*
 		Map<String, Object> testMap = docDao.getDocByDocNum(docNum);
 		String signersArray = (String)testMap.get("signers");
 		String signers[] = signersArray.split(",");
@@ -603,6 +609,7 @@ public class MainController {
 				approveNFT.approve(approved, tokenId);
 			}
 		}
+		*/
 
 		return new RedirectView("main");
 	}
@@ -628,16 +635,18 @@ public class MainController {
 		*/
 
 		List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(userId);
-		log.info(valueOf(user_sig.get(0).getUserid()));
-		String pathList[] = new String[user_sig.size()];
+		if(user_sig.size() > 0) {
+			log.info(valueOf(user_sig.get(0).getUserid()));
+			String pathList[] = new String[user_sig.size()];
 
-		for(int i=0; i<user_sig.size(); i++) {
-			testMap = sigDao.getSigBySigNum(user_sig.get(i).getSignum());
-			pathList[i] = (String)testMap.get("path");
+			for (int i = 0; i < user_sig.size(); i++) {
+				testMap = sigDao.getSigBySigNum(user_sig.get(i).getSignum());
+				pathList[i] = (String) testMap.get("path");
 
+			}
+
+			model.addAttribute("path", pathList);
 		}
-
-		model.addAttribute("path", pathList);
 
 		return "mysign";
 	}
@@ -697,12 +706,12 @@ public class MainController {
 
 		String queryResult = null;
 		String result = "";
-		String XAtt;
+		String XAttr;
 		String signers="";
 		String tokenIds;
 		String owner="";
 		String hash="";
-		String signersArray[];
+		//String signersArray[];
 		String tokenIdsArray[];
 		int sigNum;
 
@@ -714,10 +723,18 @@ public class MainController {
 			JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
 
 			owner = (String)jsonObj.get("owner");
-			XAtt = (String)jsonObj.get("xatt");
-			JSONObject tempObj = (JSONObject) jsonParser.parse(XAtt);
+			XAttr = (String)jsonObj.get("xattr");
+			JSONObject tempObj = (JSONObject) jsonParser.parse(XAttr);
 
-			signers = (String) tempObj.get("signers");
+			//signers = (String) tempObj.get("signers");
+			JSONArray signersArray = (JSONArray) tempObj.get("signers");
+			if(signersArray != null) {
+				for (int i = 0; i < signersArray.size(); i++) {
+					signers += signersArray.get(i);
+					if (i + 1 < signersArray.size())
+						signers += ", ";
+				}
+			}
 			hash = (String) tempObj.get("hash");
 			//tokenIds = (String) tempObj.get("signatures");
 			//log.info(tokenIds);
@@ -817,11 +834,11 @@ public class MainController {
 
 		String queryResult = null;
 		String signersResult = "";
-		String XAtt;
+		String XAttr;
 		String signers;
 		String tokenIds;
 		String signersArray[];
-		String tokenIdsArray[];
+		//String tokenIdsArray[];
 		int sigNum;
 
 		queryNFT querynft = new queryNFT();
@@ -831,28 +848,35 @@ public class MainController {
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
 
-			XAtt = (String)jsonObj.get("xatt");
-			JSONObject tempObj = (JSONObject) jsonParser.parse(XAtt);
+			XAttr = (String)jsonObj.get("xattr");
+			JSONObject tempObj = (JSONObject) jsonParser.parse(XAttr);
 
-			signers = (String) tempObj.get("signers");
-			tokenIds = (String) tempObj.get("signatures");
-			log.info(tokenIds);
+			//signers = (String) tempObj.get("signers");
+			//tokenIds = (String) tempObj.get("sigIds");
+			JSONArray tokenIdsArray = (JSONArray) tempObj.get("sigIds");
+			//log.info(tokenIdsArray.toJSONString());
 
 			//signersArray = signers.split(",");
+			/*
 			if(tokenIds.contains(",")) {
 				tokenIdsArray = tokenIds.split(",");
-				Map<String, Object> sigTestMap;
-				Map<String, Object> user_sigTestMap;
-
-				for (int i = 0; i < tokenIdsArray.length; i++) {
-					sigTestMap = sigDao.getSigBySigTokenId(parseInt(tokenIdsArray[i]));
+			*/
+			Map<String, Object> sigTestMap;
+			Map<String, Object> user_sigTestMap;
+			if(tokenIdsArray != null) {
+				for (int i = 0; i < tokenIdsArray.size(); i++) {
+					sigTestMap = sigDao.getSigBySigTokenId(parseInt((String)tokenIdsArray.get(i)));
 					sigNum = (int) sigTestMap.get("signum");
+					log.info("tokenId " + tokenIdsArray.get(i) + " , sigNum " + valueOf(sigNum) );
 
 					user_sigTestMap = user_sigDao.getUserid(sigNum);
 					signersResult += (String) user_sigTestMap.get("userid");
+					if(i+1 < tokenIdsArray.size()) {
+						signersResult += " - ";
+					}
 				}
-			} else
-				signersResult += tokenIds + " ";
+			}
+
 		}
 
 		log.info(queryResult);
@@ -868,13 +892,13 @@ public class MainController {
 		String docPath = "";
 		int signum;
 		String userId[];
-		String _sigPath[];
+		String sigPathList[];
 		//model.addAttribute("docList", user_docDao.listForBeanPropertyRowMapper(docId));
 
 		Map<String, Object> docTestMap = docDao.getDocByDocIdAndNum(docId, docNum);
 		List<User_Doc> userList = user_docDao.listForBeanPropertyRowMapperByDocNum((int)docTestMap.get("docnum"));
 
-		_sigPath = new String[userList.size()];
+		sigPathList = new String[userList.size()];
 		userId = new String[userList.size()];
 
 		for(int i=0; i<userList.size(); i++) {
@@ -890,7 +914,7 @@ public class MainController {
 				_sigId = (String) sigTestMap.get("path");    // only one sigId
 			}
 			userId[i] = userList.get(i).getUserid();
-			_sigPath[i] = _sigId;
+			sigPathList[i] = _sigId;
 //			Map<String, Object> sigTestMap = (user_sigDao.getUserSig(userList.get(i).getUserid()));
 //			signum = (int)sigTestMap.get("signum");
 //			sigId[i] = (String)(sigDao.getSigBySigNum(signum).get("sigid"));
@@ -955,13 +979,13 @@ public class MainController {
 
 			//Section section = new Section(new Paragraph("signer"));
 
-			Section section[] = new Section[_sigPath.length];
+			Section section[] = new Section[sigPathList.length];
 			File f;
-			for(int i=0; i<_sigPath.length; i++) {
+			for(int i=0; i<sigPathList.length; i++) {
 				section[i] = chapter1.addSection(new Paragraph(userId[i]));
-				f = new File("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+_sigPath[i]);
+				f = new File("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+sigPathList[i]);
 				if(f.isFile()) {
-					Image section1Image = Image.getInstance("/home/yoongdoo0819/dSignature-server/src/main/webapp/" + _sigPath[i]);
+					Image section1Image = Image.getInstance("/home/yoongdoo0819/dSignature-server/src/main/webapp/" + sigPathList[i]);
 					section[i].add(section1Image);
 				}
 			}

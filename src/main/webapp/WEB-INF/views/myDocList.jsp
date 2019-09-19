@@ -159,7 +159,7 @@
             },
             //dataType: "json",
             success: function (data) {
-                swal({title: "Current Status", text: data, icon: "success", button: "close",});
+                swal({title: data, text: "Current Status", icon: "success", button: "close",});
             },
             error: function (err) {
                 swal("error" + err);
