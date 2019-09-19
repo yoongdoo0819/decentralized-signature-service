@@ -65,16 +65,19 @@
                     <%
                         String pathList[] = (String[])request.getAttribute("path");
                         //User_Doc doc;
+                        String imgSrc[] = null;
 
-                        String imgSrc[] = new String[pathList.length];
+                        if(pathList != null) {
+                            imgSrc = new String[pathList.length];
 
-                        int i=0;
-                        for(i=0; i<pathList.length; i++) {
-                            imgSrc[i] = "<img src=" + pathList[i] + ">";
+                            int i=0;
+                            for(i=0; i<pathList.length; i++) {
+                                imgSrc[i] = "<img src=" + pathList[i] + ">";
 
                     %>
-                    <%=imgSrc[i]%><br><hr>
+                            <%=imgSrc[i]%><br><hr>
                     <%
+                            }
                         }
                     %>
 <%--                    <hr>--%>
