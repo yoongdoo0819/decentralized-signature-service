@@ -893,6 +893,9 @@ public class MainController {
 		int signum;
 		String userId[];
 		String sigPathList[];
+		String queryResult="";
+		String tokenId = req.getParameter("tokenid");
+		String XAttr = "";
 		//model.addAttribute("docList", user_docDao.listForBeanPropertyRowMapper(docId));
 
 		Map<String, Object> docTestMap = docDao.getDocByDocIdAndNum(docId, docNum);
@@ -901,6 +904,36 @@ public class MainController {
 		sigPathList = new String[userList.size()];
 		userId = new String[userList.size()];
 
+		queryNFT querynft = new queryNFT();
+		queryResult = querynft.query(tokenId);
+
+		if(queryResult != null) {
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
+
+			XAttr = (String)jsonObj.get("xattr");
+			JSONObject tempObj = (JSONObject) jsonParser.parse(XAttr);
+
+			//signers = (String) tempObj.get("signers");
+			//tokenIds = (String) tempObj.get("sigIds");
+			JSONArray tokenIdsArray = (JSONArray) tempObj.get("sigIds");
+			//log.info(tokenIdsArray.toJSONString());
+
+			//signersArray = signers.split(",");
+			/*
+			if(tokenIds.contains(",")) {
+				tokenIdsArray = tokenIds.split(",");
+			*/
+			Map<String, Object> sigTestMap;
+			if(tokenIdsArray != null) {
+				for (int i = 0; i < tokenIdsArray.size(); i++) {
+					sigTestMap = sigDao.getSigBySigTokenId(parseInt((String)tokenIdsArray.get(i)));
+					sigPathList[i] = (String) sigTestMap.get("path");
+
+					}
+				}
+			}
+/*
 		for(int i=0; i<userList.size(); i++) {
 
 
@@ -919,7 +952,7 @@ public class MainController {
 //			signum = (int)sigTestMap.get("signum");
 //			sigId[i] = (String)(sigDao.getSigBySigNum(signum).get("sigid"));
 		}
-
+*/
 		//Map<String, Object> docTestMap = docDao.getDocByDocId(docId);
 		docPath = (String) docTestMap.get("path");
 
