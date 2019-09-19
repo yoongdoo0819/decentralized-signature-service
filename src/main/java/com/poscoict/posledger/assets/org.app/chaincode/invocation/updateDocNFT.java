@@ -9,7 +9,6 @@ import com.poscoict.posledger.assets.org.app.util.Util;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hyperledger.fabric.sdk.*;
-import org.json.simple.JSONObject;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,7 +21,7 @@ public class updateDocNFT {
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
 
-    public String update(String docId, String signer, String tokenId) {
+    public String update(String tokenId, String index, String attr) {
 
         try {
             Util.cleanUp();
@@ -51,15 +50,18 @@ public class updateDocNFT {
             TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
-            request.setFcn("setXAtt");
-            //String[] arguments = { "token", "woori", "100", "yoongdoo", "yoongdoo", "sig" };
+            request.setFcn("setXAttr");
+            String[] arguments = { tokenId, index, attr };
 
+            /*
             JSONObject jsonObjectForXatt = new JSONObject();
             jsonObjectForXatt.put("hash", docId);
             jsonObjectForXatt.put("signers", signer);
             jsonObjectForXatt.put("signatures", signer);
 
             String[] arguments = { jsonObjectForXatt.toString(), tokenId };
+
+             */
             //request.setFcn("createCar");
             //String[] arguments = { "CAR1", "Chevy", "Volt", "Red", "Nick" };
             request.setArgs(arguments);
