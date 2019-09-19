@@ -84,7 +84,7 @@
                         int i=0;
                         for(i=0; i<docid.length; i++) {
                             docid[i] = "<a href=/assets/mydoc?userid=" + userid + "&docid=" + docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] +">" + docPathList[i] + "</a>";
-                            queryDoc = "<a href=/assets/queryDoc?docid=" + docList[i] + "&docnum=" + docNum[i] + ">" + "- Final Document " + "</a>";
+                            queryDoc = "<a href=/assets/queryDoc?docid=" + docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] + ">" + "- Final Document " + "</a>";
                             token = "<input type=submit value='√' class='btn btn-outline-info' style='background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY5Mu3vrHZi-N1ntwu6F0lTYc2IQekwho9WjK1gl5s_BxWwhI); style='width: 2pt; height:20pt; float:right;' onclick=checkStatus("+tokenId[i]+")>";
 
                     %>
