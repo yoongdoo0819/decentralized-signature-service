@@ -230,6 +230,35 @@ public class MainController {
 		try {
 			final MessageDigest md = MessageDigest.getInstance("SHA-512");
 
+		//	RandomAccessFile file = new RandomAccessFile("/home/yoongdoo0819/dSignature-server/"+mf.getOriginalFilename(), "r");
+			log.info(mf.getOriginalFilename());
+		/*	byte[] buffer = new byte[1024];
+			byte[] partialHash = null;
+
+			long read = 0;
+			long offset = file.length();
+			int unitsize;
+			while (read < offset) {
+				unitsize = (int) (((offset - read) >= 1024) ? 1024 : (offset - read));
+				file.read(buffer, 0, unitsize);
+
+				md.update(buffer, 0, unitsize);
+				read += unitsize;
+			}
+
+			file.close();
+			partialHash = new byte[md.getDigestLength()];
+			partialHash = md.digest();
+
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < partialHash.length; i++) {
+				sb.append(Integer.toString((partialHash[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			original = sb.toString();
+
+		}catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}*/
 			convFile = new File(mf.getOriginalFilename());
 			convFile.createNewFile();
 			FileOutputStream fos = new FileOutputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+convFile);
@@ -238,7 +267,8 @@ public class MainController {
 			//mf.transferTo(convFile);
 			//mf = mre.getFile("file");
 			//mf.transferTo(convFile);
-			is = new FileInputStream(convFile);
+
+			is = new FileInputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+convFile);
 			byte[] buffer = new byte[1024];
 			int readBytes = 0;
 
