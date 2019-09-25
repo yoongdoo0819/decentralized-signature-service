@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.String.valueOf;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class mintSigNFT {
@@ -29,7 +30,7 @@ public class mintSigNFT {
             CAClient caClient = new CAClient(caUrl, null);
             // Enroll Admin to Org1MSP
             UserContext adminUserContext = new UserContext();
-            adminUserContext.setName(Config.ADMIN);
+            adminUserContext.setName(owner);
             adminUserContext.setAffiliation(Config.ORG1);
             adminUserContext.setMspId(Config.ORG1_MSP);
             caClient.setAdminUserContext(adminUserContext);
@@ -51,8 +52,8 @@ public class mintSigNFT {
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
             request.setFcn("mint");
-            //String[] arguments = { valueOf(tokenId), "sig", owner, sigId, path, pathHash };
-            String[] arguments = { "10", "sig", "alice", "sigId", "path", "pathHash" };
+            String[] arguments = { valueOf(tokenId), "sig", owner, sigId, path, pathHash };
+            //String[] arguments = { "10", "sig", "alice", "sigId", "path", "pathHash" };
 /*
             JSONObject jsonObjectForXatt = new JSONObject();
             jsonObjectForXatt.put("hash", sigId);
@@ -90,6 +91,8 @@ public class mintSigNFT {
     }
 
     public static void main(String args[]) {
+        //mintSigNFT a = new mintSigNFT();
+        //a.mint(0, "owner", "sig", "path", "pathhash");
     /*
         try {
             Util.cleanUp();

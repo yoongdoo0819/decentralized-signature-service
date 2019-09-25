@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form method="post" action="/assets/signupInfo">
+    <form method="post" action="/assets/signUp">
         Id : <input type="text" name="userId">
         PW : <input type="password" name="userPasswd">
         <input type="submit" value="signUp">

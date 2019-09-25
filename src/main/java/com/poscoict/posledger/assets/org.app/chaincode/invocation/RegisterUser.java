@@ -14,20 +14,15 @@ import java.security.PrivateKey;
 import java.util.Properties;
 import java.util.Set;
 
-public class registerUser {
+public class RegisterUser {
 
-    String userID = null;
-
-    public String registerNewUser(String _userID) throws Exception {
-
-        this.userID = _userID;
+    public static void main(String[] args) throws Exception {
 
         // Create a CA client for interacting with the CA.
         Properties props = new Properties();
         props.put("pemFile",
                 "/home/yoongdoo0819/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem");
         props.put("allowAllHostNames", "true");
-        // if url starts as https.., need to set SSL
         HFCAClient caClient = HFCAClient.createNewInstance("http://localhost:7054", props);
         CryptoSuite cryptoSuite = CryptoSuiteFactory.getDefault().getCryptoSuite();
         caClient.setCryptoSuite(cryptoSuite);
@@ -36,16 +31,16 @@ public class registerUser {
         Wallet wallet = Wallet.createFileSystemWallet(Paths.get("wallet"));
 
         // Check to see if we've already enrolled the user.
-        boolean userExists = wallet.exists(this.userID);
+        boolean userExists = wallet.exists("user1");
         if (userExists) {
             System.out.println("An identity for the user \"user1\" already exists in the wallet");
-            return null;
+            return;
         }
 
         userExists = wallet.exists("admin");
         if (!userExists) {
             System.out.println("\"admin\" needs to be enrolled and added to the wallet first");
-            return null;
+            return;
         }
 
         Identity adminIdentity = wallet.get("admin");
@@ -91,25 +86,18 @@ public class registerUser {
             public String getMspId() {
                 return "Org1MSP";
             }
-        }
-                ;
+
+        };
 
         // Register the user, enroll the user, and import the new identity into the wallet.
-        RegistrationRequest registrationRequest = new RegistrationRequest(this.userID);
+        RegistrationRequest registrationRequest = new RegistrationRequest("user1");
         registrationRequest.setAffiliation("org1.department1");
-        registrationRequest.setEnrollmentID(this.userID);
+        registrationRequest.setEnrollmentID("user1");
         String enrollmentSecret = caClient.register(registrationRequest, admin);
-        Enrollment enrollment = caClient.enroll(this.userID, enrollmentSecret);
+        Enrollment enrollment = caClient.enroll("user1", enrollmentSecret);
         Identity user = Identity.createIdentity("Org1MSP", enrollment.getCert(), enrollment.getKey());
-        System.out.println("**********************"+enrollment.getCert()+"**************************");
-        wallet.put(this.userID,user);
+        wallet.put("user1", user);
         System.out.println("Successfully enrolled user \"user1\" and imported it into the wallet");
-
-        return enrollment.getCert();
     }
 
-    public static void main(String[] args) throws Exception {
-        //registerUser r = new registerUser();
-       // r.registerNewUser("hong");
-    }
 }

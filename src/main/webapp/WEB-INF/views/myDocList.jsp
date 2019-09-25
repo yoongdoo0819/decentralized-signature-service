@@ -76,8 +76,10 @@
                         String docPathList[] = (String[])request.getAttribute("docPathList");
                         String docNum[] = (String[])request.getAttribute("docNumList");
                         String tokenId[] = (String[])request.getAttribute("tokenIdList");
+                        String sigStatus[] = (String[])request.getAttribute("sigStatus");
                         String userid = (String)request.getAttribute("userId");
                         String token="";
+                        String sigProcess="";
                         String docid[] = new String[docList.length];
 
                         String queryDoc="";
@@ -85,7 +87,11 @@
                         for(i=0; i<docid.length; i++) {
                             docid[i] = "<a href=/assets/mydoc?userid=" + userid + "&docid=" + docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] +">" + docPathList[i] + "</a>";
                             queryDoc = "<a href=/assets/queryDoc?docid=" + docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] + ">" + "- Final Document " + "</a>";
-                            token = "<input type=submit value='√' class='btn btn-outline-info' style='background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY5Mu3vrHZi-N1ntwu6F0lTYc2IQekwho9WjK1gl5s_BxWwhI); style='width: 2pt; height:20pt; float:right;' onclick=checkStatus("+tokenId[i]+")>";
+                            if(sigStatus[i].equals("true"))
+                                sigProcess= " <button type='button' class='btn btn-success'  style='width: 30pt; height:28pt; float:right;' onclick=checkStatus("+tokenId[i]+")>O</button> ";
+                            else
+                                sigProcess= " <button type='button' class='btn btn-danger'  style='width: 30pt; height:28pt; float:right;' onclick=checkStatus("+tokenId[i]+")>X</button> ";
+                            token = " <input type=submit value='√' class='btn btn-outline-info' style='background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY5Mu3vrHZi-N1ntwu6F0lTYc2IQekwho9WjK1gl5s_BxWwhI); style='width: 2pt; height:20pt; float:right;' onclick=checkStatus("+tokenId[i]+")> ";
 
                     %>
                     <table width="750px">
@@ -95,7 +101,8 @@
                                 <%=queryDoc%>
                             </td>
                             <td align="right">
-                                <%=token%>
+                                <%=token%>&nbsp
+                                <%=sigProcess%>
                             </td>
                         </tr>
                     </table>
@@ -159,7 +166,10 @@
             },
             //dataType: "json",
             success: function (data) {
-                swal({title: data, text: "Current Status", icon: "success", button: "close",});
+                if(data[2] == 'true')
+                    swal({title: data[1], text: data[0], icon: "success", button: "close",});
+                else
+                    swal({title: data[1], text: data[0], icon: "error", button: "close",});
             },
             error: function (err) {
                 swal("error" + err);

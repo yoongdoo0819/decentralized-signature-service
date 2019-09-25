@@ -3,10 +3,30 @@
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dummy.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample.doc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/final.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/final.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/sample.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/asdf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/ClientApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/enroll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/enroll.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintDocNFT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintDocNFT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintSigNFT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintSigNFT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/register2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/registerUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/registerUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/signup.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/final.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/test.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/users/org1/admin.ser" beforeDir="false" afterPath="$PROJECT_DIR$/users/org1/admin.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet/admin/admin" beforeDir="false" afterPath="$PROJECT_DIR$/wallet/admin/admin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet/admin/admin-priv" beforeDir="false" afterPath="$PROJECT_DIR$/wallet/admin/admin-priv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet/user2/user2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet/user2/user2-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet/yoongdoo/yoongdoo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet/yoongdoo/yoongdoo-priv" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,17 +98,17 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
+      <recent name="$PROJECT_DIR$/src/main/webapp" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/js" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
       <recent name="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/webapp" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/js" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -104,8 +124,34 @@
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.StartAssetsApplication">
-    <configuration name="approveDocNFT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.approveDocNFT" />
+    <configuration name="ClientApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.ClientApp" />
+      <module name="assets" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegisterUser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.RegisterUser" />
+      <module name="assets" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="enroll" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.enroll" />
       <module name="assets" />
       <extension name="coverage">
         <pattern>
@@ -130,34 +176,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="queryNFT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.queryNFT" />
-      <module name="assets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="updadeNFT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.updadeNFT" />
-      <module name="assets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="updateDocNFT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.updateDocNFT" />
+    <configuration name="mintSigNFT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.mintSigNFT" />
       <module name="assets" />
       <extension name="coverage">
         <pattern>
@@ -178,11 +198,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.queryNFT" />
-        <item itemvalue="Application.approveDocNFT" />
+        <item itemvalue="Application.mintSigNFT" />
+        <item itemvalue="Application.ClientApp" />
         <item itemvalue="Application.mintDocNFT" />
-        <item itemvalue="Application.updateDocNFT" />
-        <item itemvalue="Application.updadeNFT" />
+        <item itemvalue="Application.RegisterUser" />
+        <item itemvalue="Application.enroll" />
       </list>
     </recent_temporary>
   </component>
@@ -208,7 +228,9 @@
       <workItem from="1566882009036" duration="21566000" />
       <workItem from="1567065902561" duration="6175000" />
       <workItem from="1567472530795" duration="83856000" />
-      <workItem from="1568896934414" duration="9915000" />
+      <workItem from="1568896934414" duration="16473000" />
+      <workItem from="1569328640365" duration="14885000" />
+      <workItem from="1569394371219" duration="9584000" />
     </task>
     <servers />
   </component>

@@ -20,7 +20,8 @@ public class enroll {
         props.put("pemFile",
                 "/home/yoongdoo0819/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem"/*"/root/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem"*/);
         props.put("allowAllHostNames", "true");
-        HFCAClient caClient = HFCAClient.createNewInstance("https://localhost:7054", props);
+        // if url starts as https.., need to set SSL
+        HFCAClient caClient = HFCAClient.createNewInstance("http://localhost:7054", props);
         CryptoSuite cryptoSuite = CryptoSuiteFactory.getDefault().getCryptoSuite();
         caClient.setCryptoSuite(cryptoSuite);
 

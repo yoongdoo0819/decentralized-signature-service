@@ -90,8 +90,8 @@ public class MainController {
 			//User user = new User(req.getParameter("userId"), req.getParameter("userPasswd"));
 			//userDao.insert(user);
 
-			String certificate = newUser.registerNewUser(/*req.getParameter("userId")*/"yoongdoo");
-			if(!(redisService.storeUser("yoongdoo", certificate)))
+			String certificate = newUser.registerNewUser(/*req.getParameter("userId")*/"hong");
+			if(!(redisService.storeUser("hong", certificate)))
 				log.info("user register failure");
 
 		} catch (Exception e) {
@@ -110,7 +110,14 @@ public class MainController {
 		return "index";
 	}
 
-	@PostMapping("/signup")
+	@GetMapping("/signUpForm")
+	public String signUpForm() {
+		log.info("signUp form");
+
+		return "signUpForm";
+	}
+
+	@PostMapping("/signUp")
 	public String signUp(HttpServletRequest req) {
 		log.info("signUp");
 
@@ -124,22 +131,7 @@ public class MainController {
 			e.printStackTrace();
 		}
 
-		return "signup";
-	}
-
-	@ResponseBody
-	@RequestMapping("/signupInfo")
-	public String signUpInfo(HttpServletRequest req) {
-		log.info("signUp");
-
-		String id = req.getParameter("userId");
-		String passwd = req.getParameter("userPasswd");
-
-		User user = new User(id, passwd);
-		userDao.insert(user);
-
-
-		return "redirect:/assets/index"; //new ModelAndView( "redirect:/index.jsp");
+		return "index";
 	}
 
 	@GetMapping("/_login")
@@ -805,12 +797,21 @@ public class MainController {
 		String docNum[];
 		String tokenId[];
 		String sigId = "";
+		String queryResult = null;
+		String signersResult = "";
+		String XAttr;
+		String sigStatus[];
+		int sigNum;
+
+		queryNFT querynft = new queryNFT();
+
 
 		List<User_Doc> docList = user_docDao.listForBeanPropertyRowMapper(userId);
 		docId = new String[docList.size()];
 		docNum = new String[docList.size()];
 		docPath = new String[docList.size()];
 		tokenId = new String[docList.size()];
+		sigStatus = new String[docList.size()];
 
 		for(int i=0; i<docList.size(); i++) {
 
@@ -819,6 +820,25 @@ public class MainController {
 			docNum[i] = valueOf(testMap.get("docnum"));
 			docPath[i] = (String)testMap.get("path");
 			tokenId[i] = valueOf(testMap.get("doctokenid"));
+
+			queryResult = querynft.query(tokenId[i]);
+			if(queryResult != null) {
+				JSONParser jsonParser = new JSONParser();
+				JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
+
+				XAttr = (String)jsonObj.get("xattr");
+				JSONObject tempObj = (JSONObject) jsonParser.parse(XAttr);
+
+				//signers = (String) tempObj.get("signers");
+				//tokenIds = (String) tempObj.get("sigIds");
+				JSONArray signersArray = (JSONArray) tempObj.get("signers");
+				JSONArray tokenIdsArray = (JSONArray) tempObj.get("sigIds");
+
+				if(signersArray.size() == tokenIdsArray.size())
+					sigStatus[i] = "true";
+				else
+					sigStatus[i] = "false";
+			}
 		}
 
 		//model.addAttribute("docList", docList);
@@ -851,28 +871,36 @@ public class MainController {
 		model.addAttribute("docPathList", docPath);
 		model.addAttribute("tokenIdList", tokenId);
 		model.addAttribute("userId", userId);
+		model.addAttribute("sigStatus", sigStatus);
 
 		return "myDocList";
 	}
 
 	@ResponseBody
 	@RequestMapping("/checkStatus")
-	public String checkStatus (/*@RequestBody String test,*/ HttpServletRequest req, String tokenId) throws Exception {
+	public String[] checkStatus (/*@RequestBody String test,*/ HttpServletRequest req, String tokenId) throws Exception {
 
 		log.info(" > " + tokenId);
 		//String uploadpath="uploadfile\\";
 
+		int numOfProperty = 3;
 		String queryResult = null;
-		String signersResult = "";
+		String signersResult[] = new String[numOfProperty];
 		String XAttr;
 		String signers;
 		String tokenIds;
-		String signersArray[];
+		//String signersArray[];
 		//String tokenIdsArray[];
 		int sigNum;
 
 		queryNFT querynft = new queryNFT();
 		queryResult = querynft.query(tokenId);
+
+		for(int i=0; i<signersResult.length; i++) {
+			signersResult[i] = "";
+		}
+		signersResult[0] = "All participants : ";
+		signersResult[1] = "Current signers : ";
 
 		if(queryResult != null) {
 			JSONParser jsonParser = new JSONParser();
@@ -883,7 +911,19 @@ public class MainController {
 
 			//signers = (String) tempObj.get("signers");
 			//tokenIds = (String) tempObj.get("sigIds");
+			JSONArray signersArray = (JSONArray) tempObj.get("signers");
+			for(int i=0; i<signersArray.size(); i++) {
+				signersResult[0] += signersArray.get(i);
+				if(i+1 < signersArray.size())
+						signersResult[0] += "-";
+			}
+
 			JSONArray tokenIdsArray = (JSONArray) tempObj.get("sigIds");
+
+			if(signersArray.size() == tokenIdsArray.size())
+				signersResult[2] = "true";
+			else
+				signersResult[2] = "false";
 			//log.info(tokenIdsArray.toJSONString());
 
 			//signersArray = signers.split(",");
@@ -900,9 +940,9 @@ public class MainController {
 					log.info("tokenId " + tokenIdsArray.get(i) + " , sigNum " + valueOf(sigNum) );
 
 					user_sigTestMap = user_sigDao.getUserid(sigNum);
-					signersResult += (String) user_sigTestMap.get("userid");
+					signersResult[1] += (String) user_sigTestMap.get("userid");
 					if(i+1 < tokenIdsArray.size()) {
-						signersResult += " - ";
+						signersResult[1] += " - ";
 					}
 				}
 			}

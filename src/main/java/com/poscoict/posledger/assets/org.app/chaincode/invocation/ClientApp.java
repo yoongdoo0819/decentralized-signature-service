@@ -1,3 +1,57 @@
+/*package com.poscoict.posledger.assets.org.app.chaincode.invocation;
+
+import lombok.extern.slf4j.Slf4j;
+import org.hyperledger.fabric.gateway.Gateway;
+import org.hyperledger.fabric.gateway.Wallet;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+@Slf4j
+public class ClientApp {
+
+    public static void main(String[] args) throws Exception {
+        // Load a file system based wallet for managing identities.
+        Path walletPath = Paths.get("/home/yoongdoo0819/dSignature-server/wallet");
+        Wallet wallet = Wallet.createFileSystemWallet(walletPath);
+        System.out.println(walletPath.getRoot() + " " + walletPath.getFileName() + " " + walletPath.subpath(0, walletPath.getNameCount()) + " " + walletPath.toString());
+        System.out.println(wallet.toString());
+        // load a CCP
+        Path networkConfigPath = Paths.get("/home/yoongdoo0819/fabric-samples/first-network/connection-org1.yaml");
+
+        Gateway.Builder builder = Gateway.createBuilder();
+        builder.identity(wallet, "user1").networkConfig(networkConfigPath).discovery(true);
+        System.out.println((builder.connect()).getIdentity().toString());
+        // create a gateway connection
+        System.out.println("------------");
+        System.out.println(builder.connect().getNetwork("ll") + "*****************************");
+        try (Gateway gateway = builder.connect()) {
+            System.out.println(gateway.getNetwork("mychannel"));
+            // get the network and contract
+            Network network = gateway.getNetwork("mychannel");
+            Contract contract = network.getContract("fabcar");
+
+            byte[] result;
+
+            result = contract.evaluateTransaction("queryAllCars");
+            System.out.println(new String(result));
+
+            contract.submitTransaction("createCar", "CAR10", "VW", "Polo", "Grey", "Mary");
+
+            result = contract.evaluateTransaction("queryCar", "CAR10");
+            System.out.println(new String(result));
+
+            contract.submitTransaction("changeCarOwner", "CAR10", "Archie");
+
+            result = contract.evaluateTransaction("queryCar", "CAR10");
+            System.out.println(new String(result));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+*/
 package com.poscoict.posledger.assets.org.app.chaincode.invocation;
 
 import com.poscoict.posledger.assets.org.app.client.CAClient;
@@ -14,10 +68,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.lang.String.valueOf;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class mintDocNFT {
+public class ClientApp {
 
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
@@ -36,7 +89,7 @@ public class mintDocNFT {
             caClient.setAdminUserContext(adminUserContext);
             adminUserContext = caClient.enrollAdminUser(Config.ADMIN, Config.ADMIN_PASSWORD);
 */
-            adminUserContext.setName(owner);
+            adminUserContext.setName(Config.ADMIN);
             adminUserContext.setAffiliation(Config.ORG1);
             adminUserContext.setMspId(Config.ORG1_MSP);
             caClient.setAdminUserContext(adminUserContext);
@@ -58,8 +111,8 @@ public class mintDocNFT {
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
             request.setFcn("mint");
-            String[] arguments = { valueOf(tokenId), "doc", owner, docId, signers, path, pathHash};
-            //String[] arguments = { "10", "sig", "alice", "sigId", "path", "pathHash" };
+            //String[] arguments = { valueOf(tokenId), "doc", owner, docId, signers, path, pathHash};
+            String[] arguments = { "10", "sig", "alice", "sigId", "path", "pathHash" };
             /*
             String signers = "";
             for(int i=0; i<party.length; i++) {
@@ -107,6 +160,8 @@ public class mintDocNFT {
     }
 
     public static void main(String args[]) {
+        ClientApp a = new ClientApp();
+        a.mint(0, "owner", "docid", "signers", "path", "pathhash");
     /*
         try {
             Util.cleanUp();
