@@ -38,7 +38,7 @@ public class registerUser {
         // Check to see if we've already enrolled the user.
         boolean userExists = wallet.exists(this.userID);
         if (userExists) {
-            System.out.println("An identity for the user \"user1\" already exists in the wallet");
+            System.out.println("An identity for the user " + this.userID + " already exists in the wallet");
             return null;
         }
 
@@ -103,7 +103,7 @@ public class registerUser {
         Identity user = Identity.createIdentity("Org1MSP", enrollment.getCert(), enrollment.getKey());
         System.out.println("**********************"+enrollment.getCert()+"**************************");
         wallet.put(this.userID,user);
-        System.out.println("Successfully enrolled user \"user1\" and imported it into the wallet");
+        System.out.println("Successfully enrolled user " + this.userID + " and imported it into the wallet");
 
         return enrollment.getCert();
     }
