@@ -3,30 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dummy.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample.doc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/asdf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/ClientApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/enroll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/enroll.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintDocNFT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintDocNFT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintSigNFT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintSigNFT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/register2.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/registerUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/registerUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/signup.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/final.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/test.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/org1/admin.ser" beforeDir="false" afterPath="$PROJECT_DIR$/users/org1/admin.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/admin/admin" beforeDir="false" afterPath="$PROJECT_DIR$/wallet/admin/admin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/admin/admin-priv" beforeDir="false" afterPath="$PROJECT_DIR$/wallet/admin/admin-priv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/user2/user2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/user2/user2-priv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/yoongdoo/yoongdoo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/yoongdoo/yoongdoo-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/signUpForm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/signUpForm.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/org1/admin.ser" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -198,11 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.enroll" />
+        <item itemvalue="Application.RegisterUser" />
         <item itemvalue="Application.mintSigNFT" />
         <item itemvalue="Application.ClientApp" />
         <item itemvalue="Application.mintDocNFT" />
-        <item itemvalue="Application.RegisterUser" />
-        <item itemvalue="Application.enroll" />
       </list>
     </recent_temporary>
   </component>
@@ -230,7 +210,7 @@
       <workItem from="1567472530795" duration="83856000" />
       <workItem from="1568896934414" duration="16473000" />
       <workItem from="1569328640365" duration="14885000" />
-      <workItem from="1569394371219" duration="9584000" />
+      <workItem from="1569394371219" duration="12340000" />
     </task>
     <servers />
   </component>

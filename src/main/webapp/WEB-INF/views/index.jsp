@@ -26,7 +26,7 @@
 
         <!-- Login Form -->
         <form method="post" action="${ctx}/oauth/token">
-            <input type="text" id="login" class="fadeIn second" name="userId" placeholder="login">
+            <input type="text" id="login" class="fadeIn second" name="userId" placeholder="ID">
             <input type="password" id="password" class="fadeIn third" name="userPasswd" placeholder="password"><br>
             <input type="submit" class="fadeIn fourth" value="Log In">
         </form>
