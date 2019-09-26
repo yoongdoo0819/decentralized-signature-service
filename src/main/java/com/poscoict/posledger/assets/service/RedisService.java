@@ -32,4 +32,16 @@ public class RedisService {
             return false;
         }
     }
+
+    public String getCertificate(String userID) {
+
+        String certificate = "";
+
+        try {
+            certificate = valueOps.get(userID);
+            return certificate;
+        } catch (Exception e) {
+            return "false";
+        }
+    }
 }

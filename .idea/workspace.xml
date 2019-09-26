@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/RegisterUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/RegisterUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintDocNFT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintDocNFT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintSigNFT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintSigNFT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/user/RegisterEnrollUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/user/RegisterEnrollUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/service/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/service/RedisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/org1/yoongdoo0819.ser" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -113,6 +120,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RegisterEnrollUser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.user.RegisterEnrollUser" />
+      <module name="assets" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.user.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RegisterUser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.RegisterUser" />
       <module name="assets" />
@@ -128,19 +148,6 @@
     </configuration>
     <configuration name="enroll" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.enroll" />
-      <module name="assets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="mintDocNFT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.mintDocNFT" />
       <module name="assets" />
       <extension name="coverage">
         <pattern>
@@ -176,9 +183,9 @@
       <list>
         <item itemvalue="Application.enroll" />
         <item itemvalue="Application.RegisterUser" />
+        <item itemvalue="Application.RegisterEnrollUser" />
         <item itemvalue="Application.mintSigNFT" />
         <item itemvalue="Application.ClientApp" />
-        <item itemvalue="Application.mintDocNFT" />
       </list>
     </recent_temporary>
   </component>
@@ -206,7 +213,7 @@
       <workItem from="1567472530795" duration="83856000" />
       <workItem from="1568896934414" duration="16473000" />
       <workItem from="1569328640365" duration="14885000" />
-      <workItem from="1569394371219" duration="15533000" />
+      <workItem from="1569394371219" duration="23086000" />
     </task>
     <servers />
   </component>
