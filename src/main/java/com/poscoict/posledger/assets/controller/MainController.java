@@ -363,10 +363,17 @@ public class MainController {
 				user_docDao.insert(user[i], docNum);
 		}
 
+		String merkleLeaf[] = new String[4];
+		merkleLeaf[0] = original;
+		merkleLeaf[1] = mf.getOriginalFilename();
+		merkleLeaf[2] = valueOf(tokenNum);
+		merkleLeaf[3] = signers;
 
+		String merkleRoot = MerkleTree.merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
+		log.info(merkleRoot);
 
 		mintDocNFT mintNFT = new mintDocNFT();
-		String result = mintNFT.mint(tokenNum, owner, original, signers, mf.getOriginalFilename(), original);
+		String result = mintNFT.mint(tokenNum, owner, original, signers, mf.getOriginalFilename(), merkleRoot);
 
 		//_transfertoken.transferToken(userid);
 
