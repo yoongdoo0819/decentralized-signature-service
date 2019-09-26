@@ -481,8 +481,16 @@ public class MainController {
 
 		user_sigDao.insert(signer, sigNum);
 
+		String merkleLeaf[] = new String[3];
+		merkleLeaf[0] = sigId;
+		merkleLeaf[1] = filenm;
+		merkleLeaf[2] = valueOf(tokenNum);
+
+		String merkleRoot = MerkleTree.merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
+		log.info(merkleRoot);
+
 		mintSigNFT mintNFT = new mintSigNFT();
-		mintNFT.mint(tokenNum, owner, sigId, filenm, sigId);
+		mintNFT.mint(tokenNum, owner, sigId, filenm, merkleRoot);
 
 		return new RedirectView("main");
 	}
