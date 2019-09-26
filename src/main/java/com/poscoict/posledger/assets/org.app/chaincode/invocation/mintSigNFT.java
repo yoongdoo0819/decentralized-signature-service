@@ -6,6 +6,7 @@ import com.poscoict.posledger.assets.org.app.client.FabricClient;
 import com.poscoict.posledger.assets.org.app.config.Config;
 import com.poscoict.posledger.assets.org.app.user.UserContext;
 import com.poscoict.posledger.assets.org.app.util.Util;
+import com.poscoict.posledger.assets.service.RedisService;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.hyperledger.fabric.sdk.*;
@@ -29,6 +30,7 @@ public class mintSigNFT {
             String caUrl = Config.CA_ORG1_URL;
             CAClient caClient = new CAClient(caUrl, null);
             // Enroll Admin to Org1MSP
+
             UserContext adminUserContext = new UserContext();
             adminUserContext.setName(owner);
             adminUserContext.setAffiliation(Config.ORG1);
@@ -36,7 +38,17 @@ public class mintSigNFT {
             caClient.setAdminUserContext(adminUserContext);
             adminUserContext = caClient.enrollAdminUser(Config.ADMIN, Config.ADMIN_PASSWORD);
 
-            FabricClient fabClient = new FabricClient(adminUserContext);
+            UserContext userContext = new UserContext();
+            String name = owner;
+            userContext.setName(name);
+            userContext.setAffiliation(Config.ORG1);
+            userContext.setMspId(Config.ORG1_MSP);
+
+            RedisService redisService = new RedisService();
+            String certificate = redisService.getCertificate(owner);
+            //adminUserContext = caClient.enrollUser(userContext, certificate);
+            userContext = caClient.enrollUser(userContext, certificate);
+            FabricClient fabClient = new FabricClient(userContext);
 
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();

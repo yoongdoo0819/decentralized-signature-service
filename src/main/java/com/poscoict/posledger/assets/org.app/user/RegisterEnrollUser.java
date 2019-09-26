@@ -45,6 +45,7 @@ public class RegisterEnrollUser {
 			userContext.setMspId(Config.ORG1_MSP);
 
 			String eSecret = caClient.registerUser(name, Config.ORG1);
+			System.out.println(eSecret);
 
 			userContext = caClient.enrollUser(userContext, eSecret);
 

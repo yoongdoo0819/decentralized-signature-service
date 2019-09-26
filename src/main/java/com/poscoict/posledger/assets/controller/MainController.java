@@ -90,8 +90,8 @@ public class MainController {
 			//User user = new User(req.getParameter("userId"), req.getParameter("userPasswd"));
 			//userDao.insert(user);
 
-			String certificate = newUser.registerNewUser(/*req.getParameter("userId")*/"hong");
-			if(!(redisService.storeUser("hong", certificate)))
+			String certificate = newUser.registerNewUser(req.getParameter("userId"));
+			if(!(redisService.storeUser(req.getParameter("userId"), certificate)))
 				log.info("user register failure");
 
 		} catch (Exception e) {
@@ -126,7 +126,10 @@ public class MainController {
 			User user = new User(req.getParameter("userId"), req.getParameter("userPasswd"));
 			userDao.insert(user);
 
-			newUser.registerNewUser(req.getParameter("userId"));
+			String certificate = newUser.registerNewUser(req.getParameter("userId"));
+			if(!(redisService.storeUser(req.getParameter("userId"), certificate)))
+				log.info("user register failure");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
