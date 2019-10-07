@@ -59,8 +59,6 @@
 
             <div class="card mt-4">
 
-
-                <%--                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">--%>
                 <div class="card-body" align="center">
                     <h3 class="card-title">Final Document</h3>
                     <iframe style="width:60%; height:600px;" src=${finalDocPath}></iframe>
@@ -73,14 +71,6 @@
                 </div>
                 <div class="card-body" align="right">
 
-<%--                    <form action="/assets/itext" method="post">--%>
-<%--                        <input type="hidden" name="signer" value="${sessionUser.id}">--%>
-<%--                        <!--<input type="hidden" name="docId" value=${docId}>-->--%>
-<%--                        <input type="hidden" name="docPath" value=${docPath}>--%>
-<%--                        <input type="hidden" name="sigId" value=${sigId}>--%>
-
-<%--                        <input type="submit" class="btn btn-success" value="sign">--%>
-<%--                    </form>--%>
                 </div>
             </div>
         </div>

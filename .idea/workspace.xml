@@ -3,13 +3,42 @@
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sample.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/RegisterUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/RegisterUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/ClientApp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/InvokeChaincode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/InvokeQueryChaincode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/QueryChaincode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/RegisterUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/Servlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/approve.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/approveDocNFT.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/balanceOf.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/delete.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/divide.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintDocNFT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintDocNFT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintSigNFT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/mintSigNFT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/user/RegisterEnrollUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/user/RegisterEnrollUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/service/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/service/RedisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/org1/yoongdoo0819.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/ownerOf.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/queryNFT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/queryNFT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/queryToken.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/queryTokenHistory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/queryTokensByOwner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/registerUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/registerUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/transferToken.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/update.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/updateDocNFT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/updateDocNFT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addUser.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/finalDoc.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/finalDoc.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mydoc.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mydoc.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mysign.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mysign.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/signUpForm.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/signUpForm.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/sample.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/MockRestAPITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/MockRestAPITest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/org1/admin.ser" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +95,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../fabric-samples" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../decentralized-signature" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -88,6 +117,9 @@
       <recent name="$PROJECT_DIR$/src/main/webapp/js" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.poscoict.posledger.assets.org.app.chaincode.invocation.EERC721" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
@@ -106,52 +138,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.StartAssetsApplication">
-    <configuration name="ClientApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.ClientApp" />
-      <module name="assets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RegisterEnrollUser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.user.RegisterEnrollUser" />
-      <module name="assets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.user.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RegisterUser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.RegisterUser" />
-      <module name="assets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.MockRestAPITest.img">
     <configuration name="enroll" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.enroll" />
       <module name="assets" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.*" />
+          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.EERC721.queryHistoryClass" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -159,15 +152,65 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="mintSigNFT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.mintSigNFT" />
+    <configuration name="MockRestAPITest.img" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assets" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.*" />
+          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.MockRestAPITest" />
+      <option name="METHOD_NAME" value="img" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MockRestAPITest.index" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assets" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.MockRestAPITest" />
+      <option name="METHOD_NAME" value="index" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MockRestAPITest.upload" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assets" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.MockRestAPITest" />
+      <option name="METHOD_NAME" value="upload" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="springTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assets" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.springTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -181,11 +224,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MockRestAPITest.img" />
+        <item itemvalue="JUnit.MockRestAPITest.upload" />
+        <item itemvalue="JUnit.MockRestAPITest.index" />
+        <item itemvalue="JUnit.springTest" />
         <item itemvalue="Application.enroll" />
-        <item itemvalue="Application.RegisterUser" />
-        <item itemvalue="Application.RegisterEnrollUser" />
-        <item itemvalue="Application.mintSigNFT" />
-        <item itemvalue="Application.ClientApp" />
       </list>
     </recent_temporary>
   </component>
@@ -213,7 +256,7 @@
       <workItem from="1567472530795" duration="83856000" />
       <workItem from="1568896934414" duration="16473000" />
       <workItem from="1569328640365" duration="14885000" />
-      <workItem from="1569394371219" duration="23086000" />
+      <workItem from="1569394371219" duration="48047000" />
     </task>
     <servers />
   </component>
@@ -241,5 +284,27 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/MockRestAPITest.java</url>
+          <line>70</line>
+          <properties class="com.poscoict.posledger.assets.test.MockRestAPITest" method="index">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/MockRestAPITest.java</url>
+          <line>79</line>
+          <properties class="com.poscoict.posledger.assets.test.MockRestAPITest" method="upload">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

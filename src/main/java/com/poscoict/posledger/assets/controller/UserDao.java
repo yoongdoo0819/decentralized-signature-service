@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
@@ -44,4 +43,8 @@ public class UserDao {
         //return null;
     }
 
+    public Map<String, Object> getUserByUserId(String userId) {
+
+        return jdbcTemplate.queryForMap("select * from user where id", userId);
+    }
 }

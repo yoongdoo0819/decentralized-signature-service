@@ -108,13 +108,6 @@
 <script>
 
     function checkInfo(tokenId) {
-        //downloadCanvas(this, myCanvas, 'test.png');
-        // var signer = document.getElementById("signer").value;
-        // alert(signer);
-        // canvas = document.getElementById("myCanvas");
-        // var dataURL = canvas.toDataURL("image/png", 1.0);//.replace("image/png", "image/octet-stream");
-        // var implement = document.getElementById("canvasImg");
-        // implement.src = dataURL;
 
         $.ajax({
             type: "POST",

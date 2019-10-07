@@ -12,7 +12,14 @@
  */
 package com.poscoict.posledger.assets.org.app.chaincode.invocation;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
+import com.poscoict.posledger.assets.org.app.client.CAClient;
+import com.poscoict.posledger.assets.org.app.client.ChannelClient;
+import com.poscoict.posledger.assets.org.app.client.FabricClient;
+import com.poscoict.posledger.assets.org.app.config.Config;
+import com.poscoict.posledger.assets.org.app.user.UserContext;
+import com.poscoict.posledger.assets.org.app.util.Util;
+import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.ChaincodeResponse.Status;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,20 +27,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.poscoict.posledger.assets.org.app.client.CAClient;
-import com.poscoict.posledger.assets.org.app.client.ChannelClient;
-import com.poscoict.posledger.assets.org.app.client.FabricClient;
-import com.poscoict.posledger.assets.org.app.config.Config;
-import com.poscoict.posledger.assets.org.app.user.UserContext;
-import com.poscoict.posledger.assets.org.app.util.Util;
-import org.hyperledger.fabric.sdk.ChaincodeID;
-import org.hyperledger.fabric.sdk.ChaincodeResponse.Status;
-import org.hyperledger.fabric.sdk.Channel;
-import org.hyperledger.fabric.sdk.EventHub;
-import org.hyperledger.fabric.sdk.Orderer;
-import org.hyperledger.fabric.sdk.Peer;
-import org.hyperledger.fabric.sdk.ProposalResponse;
-import org.hyperledger.fabric.sdk.TransactionProposalRequest;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * 
@@ -77,8 +71,7 @@ public class InvokeChaincode {
 			request.setChaincodeID(ccid);
 			request.setFcn("initToken");
 			String[] arguments = { "token", "woori", "100", "sangwon", "sangwon", "sig" };
-			//request.setFcn("createCar");
-			//String[] arguments = { "CAR1", "Chevy", "Volt", "Red", "Nick" };
+
 			request.setArgs(arguments);
 			request.setProposalWaitTime(1000);
 
@@ -91,8 +84,7 @@ public class InvokeChaincode {
 			Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
 			for (ProposalResponse res: responses) {
 				Status status = res.getStatus();
-				Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"Invoked createCar on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
-				//esult +=
+				Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"Updated on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
 			}
 			return true;
 

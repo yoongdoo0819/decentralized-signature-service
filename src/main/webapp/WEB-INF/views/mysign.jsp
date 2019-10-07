@@ -91,23 +91,6 @@
 <!--<h2>Your token is ${accessToken}</h2>-->
 <!--<img src="${sigId}" width="150"/>-->
 
-
-<%--<%--%>
-<%--    String sigid[] = (String[])request.getAttribute("sigId");--%>
-<%--    //User_Doc doc;--%>
-
-<%--    String imgSrc[] = new String[sigid.length];--%>
-
-<%--    int i=0;--%>
-<%--    for(i=0; i<sigid.length; i++) {--%>
-<%--        imgSrc[i] = "<img src=" + sigid[i] + ">";--%>
-
-<%--%>--%>
-<%--<%=imgSrc[i]%><br>--%>
-<%--<%--%>
-<%--    }--%>
-<%--%>--%>
-
 </body>
 
 <script src="${ctx}/js/jquery-min.js"></script>

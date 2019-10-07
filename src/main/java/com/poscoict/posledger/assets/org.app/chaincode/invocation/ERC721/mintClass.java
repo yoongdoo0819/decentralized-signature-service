@@ -1,5 +1,6 @@
-package com.poscoict.posledger.assets.org.app.chaincode.invocation;
+package com.poscoict.posledger.assets.org.app.chaincode.invocation.ERC721;
 
+import com.poscoict.posledger.assets.org.app.chaincode.invocation.InvokeChaincode;
 import com.poscoict.posledger.assets.org.app.client.CAClient;
 import com.poscoict.posledger.assets.org.app.client.ChannelClient;
 import com.poscoict.posledger.assets.org.app.client.FabricClient;
@@ -16,13 +17,16 @@ import java.util.logging.Logger;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class update {
+public class mintClass {
 
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
 
-    public static void main(String args[]) {
+    String userid = "";
+
+    public void mint(String tokenId, String owner) {
         try {
+            boolean result = false;
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
             CAClient caClient = new CAClient(caUrl, null);
@@ -49,10 +53,9 @@ public class update {
             TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
-            request.setFcn("update");
-            String[] arguments = { "sangwon", "token0", "50" };
-            //request.setFcn("createCar");
-            //String[] arguments = { "CAR1", "Chevy", "Volt", "Red", "Nick" };
+            request.setFcn("mint");
+            String[] arguments = { tokenId, owner};
+
             request.setArgs(arguments);
             request.setProposalWaitTime(1000);
 
@@ -65,12 +68,20 @@ public class update {
             Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
             for (ProposalResponse res: responses) {
                 ChaincodeResponse.Status status = res.getStatus();
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"Invoked createCar on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"mint on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
             }
+
+            return ;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return ;
+    }
+
+    public static void main(String args[]) {
+
     }
 
 }

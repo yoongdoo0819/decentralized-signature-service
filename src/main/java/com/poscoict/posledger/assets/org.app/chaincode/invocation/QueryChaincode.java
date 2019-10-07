@@ -62,15 +62,8 @@ public class QueryChaincode {
 			channel.addOrderer(orderer);
 			channel.initialize();
 
-			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query a");
-			/*Collection<ProposalResponse>  responsesQuery = channelClient.queryByChainCode("fabcar", "query", new String[]{"a"});
-			for (ProposalResponse pres : responsesQuery) {
-				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-			}*/
-
-			Thread.sleep(10000);
-			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query b ");
+			Thread.sleep(1000);
+			Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query ");
 			
 			Collection<ProposalResponse>  responses1Query = channelClient.queryByChainCode("mycc", "query", new String[]{"0"});
 			for (ProposalResponse pres : responses1Query) {

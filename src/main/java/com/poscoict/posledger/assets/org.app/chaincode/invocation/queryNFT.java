@@ -46,13 +46,6 @@ public class queryNFT {
             channel.addOrderer(orderer);
             channel.initialize();
 
-            //Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query a");
-			/*Collection<ProposalResponse>  responsesQuery = channelClient.queryByChainCode("fabcar", "query", new String[]{"a"});
-			for (ProposalResponse pres : responsesQuery) {
-				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-			}*/
-
             Thread.sleep(1000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
 
@@ -60,14 +53,6 @@ public class queryNFT {
             for (ProposalResponse pres : responses1Query) {
                 Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, pres.getMessage());
                 result = pres.getMessage();
-                //String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-                //byte[] stringResponse = pres.getChaincodeActionResponsePayload();
-                //String result = stringResponse.toString();
-                //ByteString payload = pres.getProposalResponse().getResponse().getPayload();//.toString();
-
-                //Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-                //String stringResponse = "aa";//new String(pres.getChaincodeActionResponsePayload());
-                //Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
 
             }
 
@@ -79,8 +64,7 @@ public class queryNFT {
     }
 
     public static void main(String args[]) {
-        queryNFT querynft = new queryNFT();
-        querynft.query("3");
+
     }
 
 }
