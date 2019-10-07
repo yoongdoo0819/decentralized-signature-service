@@ -1,5 +1,6 @@
-package com.poscoict.posledger.assets.org.app.chaincode.invocation;
+package com.poscoict.posledger.assets.org.app.chaincode.invocation.ERC721;
 
+import com.poscoict.posledger.assets.org.app.chaincode.invocation.InvokeChaincode;
 import com.poscoict.posledger.assets.org.app.client.CAClient;
 import com.poscoict.posledger.assets.org.app.client.ChannelClient;
 import com.poscoict.posledger.assets.org.app.client.FabricClient;
@@ -16,12 +17,12 @@ import java.util.logging.Logger;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class approve {
+public class approveClass {
 
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
 
-    public static void main(String args[]) {
+    public void approve(String owner, String approved, String tokenId) {
         try {
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
@@ -50,10 +51,8 @@ public class approve {
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
             request.setFcn("approve");
-            String[] arguments = { "sangwon", "token0", "yoongdoo" };
-            //String[] arguments = { "token", "hana", "200", "sangwon", "sangwon", "sig" };
-            //request.setFcn("createCar");
-            //String[] arguments = { "CAR1", "Chevy", "Volt", "Red", "Nick" };
+            String[] arguments = { owner, approved, tokenId };
+
             request.setArgs(arguments);
             request.setProposalWaitTime(1000);
 
@@ -66,12 +65,16 @@ public class approve {
             Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
             for (ProposalResponse res: responses) {
                 ChaincodeResponse.Status status = res.getStatus();
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"Invoked createCar on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"approve on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String args[]) {
+
     }
 
 }

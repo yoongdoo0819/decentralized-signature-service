@@ -12,6 +12,7 @@ import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.User_Doc;
 import com.poscoict.posledger.assets.model.User_Sig;
 import com.poscoict.posledger.assets.org.app.chaincode.invocation.*;
+import com.poscoict.posledger.assets.org.app.chaincode.invocation.ERC721.transferFromClass;
 import com.poscoict.posledger.assets.service.RedisService;
 import com.poscoict.posledger.assets.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -50,12 +51,7 @@ import java.util.Map;
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
-//import com.poscoict.posledger.assets.org.app.chaincode.invocation.*;
 
-//import com.lowagie.text;
-//import com.itextpdf.*;
-//import com.itextpdf.pdfa.PdfADocument;
-//import com.itextpdf.signatures.
 
 @Slf4j
 @Validated
@@ -123,9 +119,12 @@ public class MainController {
 
 		registerUser newUser = new registerUser();
 		try {
+
+			// insert user's info into DB
 			User user = new User(req.getParameter("userId"), req.getParameter("userPasswd"));
 			userDao.insert(user);
 
+			// insert user's cert into Redis
 			String certificate = newUser.registerNewUser(req.getParameter("userId"));
 			if(!(redisService.storeUser(req.getParameter("userId"), certificate)))
 				log.info("user register failure");
@@ -144,24 +143,6 @@ public class MainController {
 		return "_login";
 	}
 
-	/*
-	@ResponseBody
-	@RequestMapping("/login")
-	public String login(HttpServletRequest req) {
-		log.info("login!");
-
-		String userId = req.getParameter("userId");
-		String passwd = req.getParameter("passwd");
-
-		Map<String, Object> usermap = userDao.getUser(userId, passwd);
-
-		if(userId.equals(usermap.get("id")) && passwd.equals(usermap.get("passwd")))
-			return "redirect:/main";
-		else
-			return "redirect:/index";
-	}
-*/
-
 	//@ResponseBody
 	//@RequestMapping("/main")
 	@GetMapping("/main")
@@ -171,13 +152,6 @@ public class MainController {
 		return "main";
 	}
 
-	@GetMapping("/query")
-	public String query() throws Exception {
-
-		queryToken queryToken = new queryToken();
-		String result = queryToken.query("token1");
-		return "index";
-	}
 	/**
 	 * Welcome 화면 
 	 */
@@ -191,16 +165,24 @@ public class MainController {
 	@PostMapping("/upload")
 	public RedirectView upload(HttpServletRequest req, MultipartHttpServletRequest mre) throws IllegalStateException, IOException, Exception{
 
-		transferToken _transfertoken = new transferToken();
+		transferFromClass _transfertoken = new transferFromClass();
 		String userid = req.getParameter("userid");
 		String count = req.getParameter("count");
 		String[] user = null;
 		String signers = "";
 
+		// if signers for document are not only one
 		if(!count.equals("")) {
 
+			Map<String, Object> testMap = null;
 			user = new String[parseInt(count)];
 			for(int i=0; i<user.length; i++) {
+				try {
+					testMap = userDao.getUserByUserId(req.getParameter("ID"+i));
+				} catch (RuntimeException e) {
+					if(testMap == null)
+						return new RedirectView("main");
+				}
 				user[i] = (req.getParameter("ID"+i));
 				log.info(user[i]);
 			}
@@ -223,45 +205,20 @@ public class MainController {
 		InputStream is = null;
 
 		try {
+
+			/*
+			 * getting hash of document
+			 */
 			final MessageDigest md = MessageDigest.getInstance("SHA-512");
 
 		//	RandomAccessFile file = new RandomAccessFile("/home/yoongdoo0819/dSignature-server/"+mf.getOriginalFilename(), "r");
 			log.info(mf.getOriginalFilename());
-		/*	byte[] buffer = new byte[1024];
-			byte[] partialHash = null;
 
-			long read = 0;
-			long offset = file.length();
-			int unitsize;
-			while (read < offset) {
-				unitsize = (int) (((offset - read) >= 1024) ? 1024 : (offset - read));
-				file.read(buffer, 0, unitsize);
-
-				md.update(buffer, 0, unitsize);
-				read += unitsize;
-			}
-
-			file.close();
-			partialHash = new byte[md.getDigestLength()];
-			partialHash = md.digest();
-
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < partialHash.length; i++) {
-				sb.append(Integer.toString((partialHash[i] & 0xff) + 0x100, 16).substring(1));
-			}
-			original = sb.toString();
-
-		}catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}*/
 			convFile = new File(mf.getOriginalFilename());
 			convFile.createNewFile();
 			FileOutputStream fos = new FileOutputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+convFile);
 			fos.write(mf.getBytes());
 			fos.close();
-			//mf.transferTo(convFile);
-			//mf = mre.getFile("file");
-			//mf.transferTo(convFile);
 
 			is = new FileInputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+convFile);
 			byte[] buffer = new byte[1024];
@@ -276,10 +233,9 @@ public class MainController {
 			for(byte b : digest) {
 				builder.append(Integer.toHexString(0xff & b));
 			}
+
+			// hash of document
 			original = builder.toString();
-			//File destinationFile = new File(path + original);
-			//destinationFile.getParentFile().mkdirs();
-			//mf2.transferTo(destinationFile);
 
 
 		} catch (NoSuchAlgorithmException e) {
@@ -298,45 +254,9 @@ public class MainController {
 
 		uploadPath = path + mf.getOriginalFilename();//+ original;
 		log.info(uploadPath);
-		//convFile = new File("/home/yoongdoo0819/assets/src/main/webapp/" + mf.getOriginalFilename());
-		//convFile.createNewFile();
-		//FileOutputStream fos = new FileOutputStream("/home/yoongdoo0819/assets/src/main/webapp/"+original+".pdf");
-
-		/*
-		try {
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(uploadPath+".pdf"));
-			document.open();
-			PdfContentByte cb = writer.getDirectContent();
-
-			// Load existing PDF
-			PdfReader reader = new PdfReader("/home/yoongdoo0819/assets/src/main/webapp/"+mf.getOriginalFilename());//convFile.getName());
-			for(int i=1; i<=reader.getNumberOfPages(); i++) {
-				PdfImportedPage page = writer.getImportedPage(reader, i);
-
-				document.newPage();
-				cb.addTemplate(page, 0, 0);
-			}
-
-			document.close();
-
-		} catch (RuntimeException e) {
-				e.printStackTrace();
-		}
-		*/
 
 
-/*
-		try {
-			//File convFile = new File(uploadPath);
-			mf.transferTo(new File(mf.getOriginalFilename()));
-			//mf.transferTo(uploadPath);
-		} catch(IllegalStateException e) {
-			e.printStackTrace();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-*/
-
+		// make a one string for 'signers'
 		signers += userid;
 		if(user != null) {
 			for (int i = 0; i < user.length; i++) {
@@ -345,27 +265,30 @@ public class MainController {
 				signers += user[i];
 			}
 		}
-		log.info("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" + signers);
+
 		String owner = userid;
 
+		// insert tokenId into DB
 		Map<String, Object> testMapForToken = tokenDao.getTokenNum();
 		int tokenNum = parseInt(String.valueOf(testMapForToken.get("auto_increment")));
 		tokenDao.insert(tokenNum);
 
+		// insert document's info into DB
 		docDao.insert(original, mf.getOriginalFilename(), tokenNum, signers);
-		//Map<String, Object> testMap = docDao.getDocByDocId(original);
-		//int docNum = (int)testMap.get("docNum");
-		//user_docDao.insert(userid, docNum);
+
+		// insert key for user and document into DB
 		Map<String, Object> testMap = docDao.getDocNum();
 		int docNum = parseInt(String.valueOf(testMap.get("auto_increment")));
 		docNum--;
 		user_docDao.insert(userid, docNum);
 
+		// if signers for document are not only one
 		if(user != null) {
 			for(int i=0; i<user.length; i++)
 				user_docDao.insert(user[i], docNum);
 		}
 
+		// create merkleRoot for off-chain data verification
 		String merkleLeaf[] = new String[4];
 		merkleLeaf[0] = original;
 		merkleLeaf[1] = mf.getOriginalFilename();
@@ -375,10 +298,9 @@ public class MainController {
 		String merkleRoot = MerkleTree.merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
 		log.info(merkleRoot);
 
+		// mint DocNFT
 		mintDocNFT mintNFT = new mintDocNFT();
 		String result = mintNFT.mint(tokenNum, owner, original, signers, mf.getOriginalFilename(), merkleRoot);
-
-		//_transfertoken.transferToken(userid);
 
 		return new RedirectView("main"); //null;//"redirect:/main";
 	}
@@ -389,18 +311,20 @@ public class MainController {
 
 		log.info(" > " + signer);
 		log.info(" > " + strImg);
-		//String uploadpath="uploadfile\\";
 
 		String folder = req.getServletContext().getRealPath("/");// + uploadpath;
 		String fullpath = "";
 		String[] strParts = strImg.split(",");
 		String rstStrImg = strParts[1];
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_hhmmss");
-		String filenm = sdf.format(new Date()).toString() + "_" + signer;//"_testimg2.png";
+		String filenm = sdf.format(new Date()).toString() + "_" + signer;
 
 		BufferedImage image = null;
 		byte[] byteImg;
 
+		/*
+		 * create sig image
+		 */
 		BASE64Decoder decoder = new BASE64Decoder();
 		byteImg = decoder.decodeBuffer(rstStrImg);
 		ByteArrayInputStream bis = new ByteArrayInputStream(byteImg);
@@ -432,6 +356,9 @@ public class MainController {
 			outputFile.delete();
 		ImageIO.write(newImage, "png", outputFile);
 
+		/*
+		 * create image hash
+		 */
 		String sigId = "";
 		int buff = 16384;
 		try {
@@ -474,16 +401,20 @@ public class MainController {
 
 		String owner = signer;
 
+		// insert tokenId into DB
 		Map<String, Object> testMapForToken = tokenDao.getTokenNum();
 		int tokenNum = parseInt(String.valueOf(testMapForToken.get("auto_increment")));
 		tokenDao.insert(tokenNum);
 
+		// insert sig's info into DB
 		sigDao.insert(sigId, filenm, tokenNum);
 		Map<String, Object> testMap = sigDao.getSigBySigid(sigId);
 		int sigNum = (int)testMap.get("sigNum");
 
+		// insert key for user and sig into DB
 		user_sigDao.insert(signer, sigNum);
 
+		// create merkleRoot for off-chain data verification
 		String merkleLeaf[] = new String[3];
 		merkleLeaf[0] = sigId;
 		merkleLeaf[1] = filenm;
@@ -492,6 +423,7 @@ public class MainController {
 		String merkleRoot = MerkleTree.merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
 		log.info(merkleRoot);
 
+		// mint SigNFT
 		mintSigNFT mintNFT = new mintSigNFT();
 		mintNFT.mint(tokenNum, owner, sigId, filenm, merkleRoot);
 
@@ -507,19 +439,16 @@ public class MainController {
 		String filenm = req.getParameter("docPath");
 		String signm = req.getParameter("sigId");
 
+
+		/*
+		 * sign the document
+		 */
 		Document document = new Document(PageSize.A4);
 		try {
-			/* new pdf creation
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("./test.pdf"));//response.getOutputStream());
-			document.open();
-			document.add(new Paragraph("Image"));
-			Image jpg = Image.getInstance("CbnAc0Ab");
-			document.add(jpg);
 
-			document.close();
-
-			*/
 			/*
+			 * another way to sign the document
+			 *
 			PdfReader readerOriginalDoc = new PdfReader("./sample.pdf");
 			PdfStamper stamper = new PdfStamper(
 					readerOriginalDoc, new FileOutputStream("./test.pdf"));
@@ -539,22 +468,19 @@ public class MainController {
 			document.open();
 			PdfContentByte cb = writer.getDirectContent();
 
-// Load existing PDF
+			// Load existing PDF
 			PdfReader reader = new PdfReader("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+filenm);
 			for(int i=1; i<=reader.getNumberOfPages(); i++) {
 				PdfImportedPage page = writer.getImportedPage(reader, i);
 
-// Copy first page of existing PDF into output PDF
+			// Copy first page of existing PDF into output PDF
 				document.newPage();
 				cb.addTemplate(page, 0, 0);
-				//Image image = Image.getInstance("CbnAc0Ab");///home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo");
-				//Rectangle rect = reader.getPageSize(1);
 
-				//cb.addImage(image, image.getScaledWidth(), 0, 0, image.getScaledHeight(), 0, rect.getHeight() - image.getScaledHeight());
 			}
 
-// Add your new data / text here
-// for example...
+			// Add your new data / text here
+			// for example...
 			Paragraph title1 = new Paragraph("Signatures");
 
 			Chapter chapter1 = new Chapter(title1, 1);
@@ -566,42 +492,9 @@ public class MainController {
 			Section section1 = chapter1.addSection(new Paragraph("signer"));
 			Image section1Image = Image.getInstance("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+signm);
 			section1.add(section1Image);
-			//document.add(new Paragraph("my timestamp"));
-			//document.add(Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo"));
-			//document.add(Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo"));
-			//document.add(Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo"));
 
-/*
-			Section section2 = chapter1.addSection(new Paragraph("signer2"));
-			Image section1Image2 = Image.getInstance("CbnAc0Ab");
-			section2.add(section1Image);
-
-			Section section3 = chapter1.addSection(new Paragraph("signer3"));
-			Image section1Image3 = Image.getInstance("CbnAc0Ab");
-			section2.add(section1Image);
-
-			Section section4 = chapter1.addSection(new Paragraph("signer4"));
-			Image section1Image4 = Image.getInstance("CbnAc0Ab");
-			section2.add(section1Image);
-*/
 			document.add(chapter1);
 			document.close();
-
-
-/*
-			Image image = Image.getInstance("test.jpg");
-			PdfReader reader = new PdfReader("sample_watermark.pdf");
-			Rectangle rect = reader.getPageSize(1);
-			PdfStamper stamper = new PdfStamper(reader, new FileOutputStream("sample_watermark2.pdf"));
-
-			for (int i = 1; i <= reader.getNumberOfPages(); i++) {
-				PdfContentByte cb = stamper.getOverContent(i);
-				cb.addImage(image, image.getScaledWidth(), 0, 0, image.getScaledHeight(),
-						0, rect.getHeight() - image.getScaledHeight());
-			}
-
-			stamper.close();
-*/
 
 
 		} catch (RuntimeException e) {
@@ -625,14 +518,18 @@ public class MainController {
 		if(user_sig.size() == 0)
 			return new RedirectView("main");
 
+		/*
+		 * sign the document
+		 */
 		Map<String, Object> testMap = sigDao.getSigBySigid(sigId);
 		String sigTokenId = valueOf((int)testMap.get("sigtokenid"));
 
 		updateDocNFT updateNFT = new updateDocNFT();
 		updateNFT.update(tokenId, "2", sigTokenId);
-		//updateNFT.update(docId, signer, tokenId);
 
 		/*
+		 * approve need?
+		 *
 		Map<String, Object> testMap = docDao.getDocByDocNum(docNum);
 		String signersArray = (String)testMap.get("signers");
 		String signers[] = signersArray.split(",");
@@ -657,7 +554,6 @@ public class MainController {
 	@GetMapping("/addUser")
 	public String addUser(HttpServletRequest req, Model model) throws Exception{
 
-
 		return "addUser";
 	}
 
@@ -674,6 +570,10 @@ public class MainController {
 		model.addAttribute("sigId", sigId);
 		*/
 
+
+		/*
+		 * check my signature images
+		 */
 		List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(userId);
 		if(user_sig.size() > 0) {
 			log.info(valueOf(user_sig.get(0).getUserid()));
@@ -701,34 +601,26 @@ public class MainController {
 		String docPath = "";
 		String sigId = null;
 
-		// doc
-		/*Map<String, Object> testMap = (user_docDao.getUserDoc(userId));
-
-		docId = (String)testMap.get("docid");*/
-		//docId += ".pdf";
-		//model.addAttribute("docId", docId);
-
+		/*
+		 * get my document
+		 */
 		Map<String, Object> docTestMap = docDao.getDocByDocIdAndNum(docId, docNum);
 		docPath = (String) docTestMap.get("path");
 		model.addAttribute("docPath", docPath);
 
 		log.info("#######################################" + userId);
-		// sig
+
+		/*
+		 * get my signature image
+		 */
 		Map<String, Object> sigTestMap;// = (user_sigDao.getUserSig(userId));
 		List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(userId);
-		//log.info(user_sig);
-		//if(user_sig.get(0) != null) {
-
-			//log.info(valueOf(user_sig.get(0).getUserid()));
-			//sigId = new String[user_sig.size()];
 
 		for (int i = 0; i < user_sig.size(); i++) {
 			sigTestMap = sigDao.getSigBySigNum(user_sig.get(i).getSignum());
 			sigId = (String) sigTestMap.get("sigid");    // only one sigId
 		}
-		//}
 
-		//sigId = (String)sigTestMap.get("sigid");
 		model.addAttribute("docNum", docNum);
 		model.addAttribute("docId", docId);
 		model.addAttribute("tokenId", tokenId);
@@ -755,6 +647,10 @@ public class MainController {
 		String tokenIdsArray[];
 		int sigNum;
 
+
+		/*
+		 * get document info from blockchain
+		 */
 		queryNFT querynft = new queryNFT();
 		queryResult = querynft.query(tokenId);
 
@@ -776,26 +672,7 @@ public class MainController {
 				}
 			}
 			hash = (String) tempObj.get("hash");
-			//tokenIds = (String) tempObj.get("signatures");
-			//log.info(tokenIds);
 
-			//signersArray = signers.split(",");
-			/*
-			if(tokenIds.contains(",")) {
-				tokenIdsArray = tokenIds.split(",");
-				Map<String, Object> sigTestMap;
-				Map<String, Object> user_sigTestMap;
-
-				for (int i = 0; i < tokenIdsArray.length; i++) {
-					sigTestMap = sigDao.getSigBySigTokenId(parseInt(tokenIdsArray[i]));
-					sigNum = (int) sigTestMap.get("signum");
-
-					user_sigTestMap = user_sigDao.getUserid(sigNum);
-					signersResult += (String) user_sigTestMap.get("userid");
-				}
-			} else
-				signersResult += tokenIds + " ";
-				*/
 		}
 
 		result += "owner : " + owner + "\n";
@@ -823,7 +700,6 @@ public class MainController {
 
 		queryNFT querynft = new queryNFT();
 
-
 		List<User_Doc> docList = user_docDao.listForBeanPropertyRowMapper(userId);
 		docId = new String[docList.size()];
 		docNum = new String[docList.size()];
@@ -831,6 +707,9 @@ public class MainController {
 		tokenId = new String[docList.size()];
 		sigStatus = new String[docList.size()];
 
+		/*
+		 * get my all document list
+		 */
 		for(int i=0; i<docList.size(); i++) {
 
 			Map<String, Object> testMap = docDao.getDocByDocNum(docList.get(i).getDocnum());
@@ -859,30 +738,6 @@ public class MainController {
 			}
 		}
 
-		//model.addAttribute("docList", docList);
-		//log.info(docList.get(0).toString());
-		/*
-		// doc
-		Map<String, Object> testMap = (user_docDao.getUserDoc("yoongdoo"));
-
-		log.info(valueOf(testMap.size()));
-
-
-		for(int i=0; i<testMap.size(); i++) {
-			//docId = (String)testMap.get("docid");
-			log.info((String)testMap.get("userid"));
-			log.info((String)testMap.get("docid"));
-			//docId += ".pdf";
-			//model.addAttribute("docId", docId);
-		}*/
-
-		// sig
-		/*
-		Map<String, Object> sigTestMap = (user_sigDao.getUserSig(userId));
-
-		sigId = (String)sigTestMap.get("sigid");
-		model.addAttribute("sigId", sigId);
-*/
 
 		model.addAttribute("docIdList", docId);
 		model.addAttribute("docNumList", docNum);
@@ -920,6 +775,9 @@ public class MainController {
 		signersResult[0] = "All participants : ";
 		signersResult[1] = "Current signers : ";
 
+		/*
+		 * check current signing status for the document
+		 */
 		if(queryResult != null) {
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
@@ -927,8 +785,10 @@ public class MainController {
 			XAttr = (String)jsonObj.get("xattr");
 			JSONObject tempObj = (JSONObject) jsonParser.parse(XAttr);
 
-			//signers = (String) tempObj.get("signers");
-			//tokenIds = (String) tempObj.get("sigIds");
+
+			/*
+			 * All participants
+			 */
 			JSONArray signersArray = (JSONArray) tempObj.get("signers");
 			for(int i=0; i<signersArray.size(); i++) {
 				signersResult[0] += signersArray.get(i);
@@ -938,17 +798,15 @@ public class MainController {
 
 			JSONArray tokenIdsArray = (JSONArray) tempObj.get("sigIds");
 
+			// all signers have signed or otherwise
 			if(signersArray.size() == tokenIdsArray.size())
 				signersResult[2] = "true";
 			else
 				signersResult[2] = "false";
-			//log.info(tokenIdsArray.toJSONString());
 
-			//signersArray = signers.split(",");
 			/*
-			if(tokenIds.contains(",")) {
-				tokenIdsArray = tokenIds.split(",");
-			*/
+			 * who are current signers?
+			 */
 			Map<String, Object> sigTestMap;
 			Map<String, Object> user_sigTestMap;
 			if(tokenIdsArray != null) {
@@ -1001,152 +859,69 @@ public class MainController {
 
 			XAttr = (String)jsonObj.get("xattr");
 			JSONObject tempObj = (JSONObject) jsonParser.parse(XAttr);
-
-			//signers = (String) tempObj.get("signers");
-			//tokenIds = (String) tempObj.get("sigIds");
 			JSONArray tokenIdsArray = (JSONArray) tempObj.get("sigIds");
-			//log.info(tokenIdsArray.toJSONString());
 
-			//signersArray = signers.split(",");
-			/*
-			if(tokenIds.contains(",")) {
-				tokenIdsArray = tokenIds.split(",");
-			*/
 			Map<String, Object> sigTestMap;
+
+			// get signature paths for signers
 			if(tokenIdsArray != null) {
 				for (int i = 0; i < tokenIdsArray.size(); i++) {
 					sigTestMap = sigDao.getSigBySigTokenId(parseInt((String)tokenIdsArray.get(i)));
 					sigPathList[i] = (String) sigTestMap.get("path");
 
 					}
-				}
 			}
-/*
-		for(int i=0; i<userList.size(); i++) {
-
-
-			List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(userList.get(i).getUserid());
-			//log.info(valueOf(user_sig.get(0).getUserid()));
-			//sigId = new String[user_sig.size()];
-			Map<String, Object> sigTestMap;
-			String _sigId = null;
-			for(int j=0; j<user_sig.size(); j++) {
-				sigTestMap = sigDao.getSigBySigNum(user_sig.get(j).getSignum());
-				_sigId = (String) sigTestMap.get("path");    // only one sigId
-			}
-			userId[i] = userList.get(i).getUserid();
-			sigPathList[i] = _sigId;
-//			Map<String, Object> sigTestMap = (user_sigDao.getUserSig(userList.get(i).getUserid()));
-//			signum = (int)sigTestMap.get("signum");
-//			sigId[i] = (String)(sigDao.getSigBySigNum(signum).get("sigid"));
 		}
-*/
-		//Map<String, Object> docTestMap = docDao.getDocByDocId(docId);
+
+		// get document path
 		docPath = (String) docTestMap.get("path");
 
 		Document document = new Document(PageSize.A4);
 		try {
-			/* new pdf creation
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("./test.pdf"));//response.getOutputStream());
-			document.open();
-			document.add(new Paragraph("Image"));
-			Image jpg = Image.getInstance("CbnAc0Ab");
-			document.add(jpg);
-
-			document.close();
-
-			*/
-			/*
-			PdfReader readerOriginalDoc = new PdfReader("./sample.pdf");
-			PdfStamper stamper = new PdfStamper(
-					readerOriginalDoc, new FileOutputStream("./test.pdf"));
-			PdfContentByte content = stamper.getOverContent(readerOriginalDoc.getNumberOfPages());
-			Image image = Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190704_124457_yoongdoo");
-			image.scaleAbsolute(300, 150);
-			image.setAbsolutePosition(300, 100);
-			image.setAnnotation(new Annotation(0, 0, 0, 0, 3));
-
-			content.addImage(image);
-
-			stamper.close();
-			*/
 
 			// existing pdf
 			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/final.pdf"));
 			document.open();
 			PdfContentByte cb = writer.getDirectContent();
 
-// Load existing PDF
+			// Load existing PDF
 			PdfReader reader = new PdfReader("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+docPath);
 			for(int i=1; i<=reader.getNumberOfPages(); i++) {
 				PdfImportedPage page = writer.getImportedPage(reader, i);
 
-// Copy first page of existing PDF into output PDF
+			// Copy first page of existing PDF into output PDF
 				document.newPage();
 				cb.addTemplate(page, 0, 0);
-				//Image image = Image.getInstance("CbnAc0Ab");///home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo");
-				//Rectangle rect = reader.getPageSize(1);
 
-				//cb.addImage(image, image.getScaledWidth(), 0, 0, image.getScaledHeight(), 0, rect.getHeight() - image.getScaledHeight());
 			}
 
-// Add your new data / text here
-// for example...
+			// Add your new data / text here
+			// for example...
 			Paragraph title1 = new Paragraph("Signatures");
 
 			Chapter chapter1 = new Chapter(title1, 1);
-			//ChapterAutoNumber chapter = document.getChapter();
 			chapter1.setNumberDepth(0);
-
-			//Section section = new Section(new Paragraph("signer"));
 
 			Section section[] = new Section[sigPathList.length];
 			File f;
+
+			/*
+			 * insert signatures into PDF document
+			 */
 			for(int i=0; i<sigPathList.length; i++) {
 				section[i] = chapter1.addSection(new Paragraph(userId[i]));
 				f = new File("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+sigPathList[i]);
+
 				if(f.isFile()) {
 					Image section1Image = Image.getInstance("/home/yoongdoo0819/dSignature-server/src/main/webapp/" + sigPathList[i]);
 					section[i].add(section1Image);
 				}
 			}
 
-			//document.add(new Paragraph("my timestamp"));
-			//document.add(Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo"));
-			//document.add(Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo"));
-			//document.add(Image.getInstance("/home/yoongdoo0819/assets/src/main/webapp/20190703_051729yoongdoo"));
-
-/*
-			Section section2 = chapter1.addSection(new Paragraph("signer2"));
-			Image section1Image2 = Image.getInstance("CbnAc0Ab");
-			section2.add(section1Image);
-
-			Section section3 = chapter1.addSection(new Paragraph("signer3"));
-			Image section1Image3 = Image.getInstance("CbnAc0Ab");
-			section2.add(section1Image);
-
-			Section section4 = chapter1.addSection(new Paragraph("signer4"));
-			Image section1Image4 = Image.getInstance("CbnAc0Ab");
-			section2.add(section1Image);
-*/
 			document.add(chapter1);
 			document.close();
 
 
-/*
-			Image image = Image.getInstance("test.jpg");
-			PdfReader reader = new PdfReader("sample_watermark.pdf");
-			Rectangle rect = reader.getPageSize(1);
-			PdfStamper stamper = new PdfStamper(reader, new FileOutputStream("sample_watermark2.pdf"));
-
-			for (int i = 1; i <= reader.getNumberOfPages(); i++) {
-				PdfContentByte cb = stamper.getOverContent(i);
-				cb.addImage(image, image.getScaledWidth(), 0, 0, image.getScaledHeight(),
-						0, rect.getHeight() - image.getScaledHeight());
-			}
-
-			stamper.close();
-*/
 		} catch (RuntimeException e) {
 
 		}
@@ -1155,36 +930,4 @@ public class MainController {
 		return "finalDoc";
 	}
 
-	//@Service
-	@RequestMapping("/test")
-	public String test(JdbcTemplate template) {
-
-
-		//@Autowired
-		//JdbcTemplate jdbcTemplate;// = new JdbcTemplate(jdbc);
-		//TestDao testDao = new TestDao();
-		//JdbcTemplate jdbctemplate1 = template;
-		try {
-			//Collections.singletonMap("test", testDao.getName(1));
-			testDao.getName(1);
-			userDao.listForBeanPropertyRowMapper();
-			//sigDao.getName(1);
-			//jdbcTemplate.queryForMap("select name from user where id = ?", "test01");
-			//return (ArrayList<userDto>) jdbcTemplate.query("select * from user", new BeanPropertyRowMapper(User.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-//		public Map<String, Map<String, Object>> getTest() {
-//
-//			try {
-//				testDao.getName(1);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//
-//		}
-		return "/index";
-
-	}
 }

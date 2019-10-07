@@ -1,8 +1,7 @@
 package com.poscoict.posledger.assets.test;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.poscoict.posledger.assets.model.vo.AccessToken;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.poscoict.posledger.assets.model.vo.AccessToken;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
@@ -64,6 +63,33 @@ public class MockRestAPITest {
 		mockMvc.perform(MockMvcRequestBuilders
 				.get("/oauth/list")
 			    .accept(MediaType.TEXT_HTML))
+				.andDo(print())
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	public void index() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders
+				.get("/assets/index")
+				.accept(MediaType.TEXT_HTML))
+				.andDo(print())
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	public void upload() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders
+				.get("/assets/upload")
+				.accept(MediaType.TEXT_HTML))
+				.andDo(print())
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	public void img() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders
+				.get("/assets/img")
+				.accept(MediaType.TEXT_HTML))
 				.andDo(print())
 				.andExpect(status().isOk());
 	}

@@ -1,56 +1,41 @@
-package com.poscoict.posledger.assets.org.app.chaincode.invocation;
+package com.poscoict.posledger.assets.org.app.chaincode.invocation.EERC721;
 
+import com.poscoict.posledger.assets.org.app.chaincode.invocation.InvokeChaincode;
 import com.poscoict.posledger.assets.org.app.client.CAClient;
 import com.poscoict.posledger.assets.org.app.client.ChannelClient;
 import com.poscoict.posledger.assets.org.app.client.FabricClient;
 import com.poscoict.posledger.assets.org.app.config.Config;
 import com.poscoict.posledger.assets.org.app.user.UserContext;
 import com.poscoict.posledger.assets.org.app.util.Util;
-import com.poscoict.posledger.assets.service.RedisService;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.hyperledger.fabric.sdk.*;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import static java.lang.String.valueOf;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class mintDocNFT {
+public class divideClass {
 
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
 
-    public String mint(int tokenId, String owner, String docId, String signers, String path, String pathHash) {
-
+    public void divide(String tokenId, String newId) {
         try {
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
             CAClient caClient = new CAClient(caUrl, null);
             // Enroll Admin to Org1MSP
             UserContext adminUserContext = new UserContext();
-            adminUserContext.setName(owner);
+            adminUserContext.setName(Config.ADMIN);
             adminUserContext.setAffiliation(Config.ORG1);
             adminUserContext.setMspId(Config.ORG1_MSP);
             caClient.setAdminUserContext(adminUserContext);
             adminUserContext = caClient.enrollAdminUser(Config.ADMIN, Config.ADMIN_PASSWORD);
 
-            // Register user
-            UserContext userContext = new UserContext();
-            String name = owner;
-            userContext.setName(name);
-            userContext.setAffiliation(Config.ORG1);
-            userContext.setMspId(Config.ORG1_MSP);
-
-            RedisService redisService = new RedisService();
-            String certificate = redisService.getCertificate(owner);
-            //adminUserContext = caClient.enrollUser(userContext, certificate);
-            userContext = caClient.enrollUser(userContext, certificate);
-            FabricClient fabClient = new FabricClient(userContext);
-
-            //FabricClient fabClient = new FabricClient(adminUserContext);
+            FabricClient fabClient = new FabricClient(adminUserContext);
 
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
@@ -65,9 +50,10 @@ public class mintDocNFT {
             TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
-            request.setFcn("mint");
-            String[] arguments = { valueOf(tokenId), "doc", owner, docId, signers, path, pathHash};
-
+            request.setFcn("divide");
+            String[] arguments = { tokenId, newId };
+            //request.setFcn("createCar");
+            //String[] arguments = { "CAR1", "Chevy", "Volt", "Red", "Nick" };
             request.setArgs(arguments);
             request.setProposalWaitTime(1000);
 
@@ -80,15 +66,12 @@ public class mintDocNFT {
             Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
             for (ProposalResponse res: responses) {
                 ChaincodeResponse.Status status = res.getStatus();
-                String message = res.getMessage();
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"Updated on "+Config.CHAINCODE_1_NAME + ". Status - " + status + " Message -" + message);
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"divided on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return "";
     }
 
     public static void main(String args[]) {

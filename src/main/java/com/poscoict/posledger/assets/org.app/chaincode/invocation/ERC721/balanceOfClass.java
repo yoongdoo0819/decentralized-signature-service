@@ -1,5 +1,6 @@
-package com.poscoict.posledger.assets.org.app.chaincode.invocation;
+package com.poscoict.posledger.assets.org.app.chaincode.invocation.ERC721;
 
+import com.poscoict.posledger.assets.org.app.chaincode.invocation.QueryChaincode;
 import com.poscoict.posledger.assets.org.app.client.CAClient;
 import com.poscoict.posledger.assets.org.app.client.ChannelClient;
 import com.poscoict.posledger.assets.org.app.client.FabricClient;
@@ -14,12 +15,12 @@ import java.util.logging.Logger;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class balanceOf {
+public class balanceOfClass {
 
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
 
-    public static void main(String args[]) {
+    public void balanceOf(String owner) {
         try {
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
@@ -44,27 +45,23 @@ public class balanceOf {
             channel.addOrderer(orderer);
             channel.initialize();
 
-            //Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query a");
-			/*Collection<ProposalResponse>  responsesQuery = channelClient.queryByChainCode("fabcar", "query", new String[]{"a"});
-			for (ProposalResponse pres : responsesQuery) {
-				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-			}*/
-
             Thread.sleep(10000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
 
-            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc3", "balanceOf", new String[]{"sangwon"});
+            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc", "balanceOf", new String[]{owner});
             for (ProposalResponse pres : responses1Query) {
                 String stringResponse = new String(pres.getChaincodeActionResponsePayload());
                 Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-                //String stringResponse = "aa";//new String(pres.getChaincodeActionResponsePayload());
-                //Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
+
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String args[]) {
+
     }
 
 }

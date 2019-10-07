@@ -1,5 +1,6 @@
-package com.poscoict.posledger.assets.org.app.chaincode.invocation;
+package com.poscoict.posledger.assets.org.app.chaincode.invocation.EERC721;
 
+import com.poscoict.posledger.assets.org.app.chaincode.invocation.QueryChaincode;
 import com.poscoict.posledger.assets.org.app.client.CAClient;
 import com.poscoict.posledger.assets.org.app.client.ChannelClient;
 import com.poscoict.posledger.assets.org.app.client.FabricClient;
@@ -8,21 +9,18 @@ import com.poscoict.posledger.assets.org.app.user.UserContext;
 import com.poscoict.posledger.assets.org.app.util.Util;
 import org.hyperledger.fabric.sdk.*;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Servlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+import static java.nio.charset.StandardCharsets.UTF_8;
 
-    }
+public class queryHistoryClass {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
+    private static final String EXPECTED_EVENT_NAME = "event";
+
+    public void queryHistory(String tokenId) {
         try {
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
@@ -47,25 +45,24 @@ public class Servlet extends HttpServlet {
             channel.addOrderer(orderer);
             channel.initialize();
 
-            //Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query a");
-			/*Collection<ProposalResponse>  responsesQuery = channelClient.queryByChainCode("fabcar", "query", new String[]{"a"});
-			for (ProposalResponse pres : responsesQuery) {
-				String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-				Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-			}*/
 
             Thread.sleep(10000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
 
-            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc3", "queryToken", new String[]{"token0"});
+            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc", "queryHistory", new String[]{tokenId});
             for (ProposalResponse pres : responses1Query) {
-                String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-                Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-            }
+                String stringResponse2 = new String(pres.getChaincodeActionResponsePayload());
+                Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse2);
 
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public static void main(String args[]) {
+
+    }
+
 }

@@ -101,7 +101,7 @@
                                 <%=queryDoc%>
                             </td>
                             <td align="right">
-                                <%=token%>&nbsp
+                                <%--<%=token%>&nbsp--%>
                                 <%=sigProcess%>
                             </td>
                         </tr>
@@ -120,24 +120,6 @@
         <!-- /.col-lg-9 -->
     </div>
 </div>
-<%--<%
-    //List<User_Doc> docList = (List<User_Doc>)request.getAttribute("docList");
-    //User_Doc doc;
-
-    String docList[] = (String[])request.getAttribute("docList");
-    String userid = (String)request.getAttribute("userId");
-    String docid[] = new String[docList.length];
-    String queryDoc="";
-    int i=0;
-    for(i=0; i<docid.length; i++) {
-        docid[i] = "File - <a href=/assets/mydoc?userid=" + userid + "&docid=" + docList[i] + ">" + docList[i] + "</a>";
-        queryDoc = "query - <a href=/assets/queryDoc?docid=" + docList[i] + ">" + docList[i] + "</a>";
-        %>
-         <%=docid[i]%><br>
-         <%=queryDoc%><br>
-<%
-    }
-%>--%>
 
 <input type="hidden" name="userid" value="${sessionUser.id}">
 <%--
@@ -148,13 +130,6 @@
 </body>
 <script>
     function checkStatus(tokenId) {
-        //downloadCanvas(this, myCanvas, 'test.png');
-        // var signer = document.getElementById("signer").value;
-        // alert(signer);
-        // canvas = document.getElementById("myCanvas");
-        // var dataURL = canvas.toDataURL("image/png", 1.0);//.replace("image/png", "image/octet-stream");
-        // var implement = document.getElementById("canvasImg");
-        // implement.src = dataURL;
 
         $.ajax({
             type: "POST",

@@ -14,10 +14,7 @@
     <link href="shop-item.css" rel="stylesheet">
 </head>
 <body onload="init()">
-<%--<form method="post" action="/assets/img">
-    <input type="text" id="signer">
-    <input type="submit" value="저장" onclick="store(this)">
-</form>--%>
+
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -70,10 +67,7 @@
 <%--                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">--%>
                 <div class="card-body">
                     <h3 class="card-title">Signature</h3>
-<%--                    <h4>$24.99</h4>--%>
-<%--                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>--%>
-<%--                    <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>--%>
-<%--                    4.0 stars--%>
+
                 </div>
             </div>
 
@@ -82,17 +76,7 @@
                     Store Your Signature
                 </div>
                 <div class="card-body" align="right">
-<%--                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>--%>
-<%--                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>--%>
-<%--                    <hr>--%>
-<%--                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>--%>
-<%--                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>--%>
-<%--                    <hr>--%>
-<%--                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>--%>
-<%--                    <small class="text-muted">Posted by Anonymous on 3/1/17</small>--%>
-<%--                    <hr>--%>
-<%--                    <a href="#" class="btn btn-success">Leave a Review</a>--%>
-                    <%--<img id="canvasImg" alt=""><br>--%>
+
                     <input type="hidden" id="signer" value="${sessionUser.id}">
                     <input type="submit" class="btn btn-success"  value="store" onclick="store(this)">
 
@@ -101,19 +85,7 @@
         </div>
     </div>
 </div>
-<!--<canvas id="myCanvas" style="background-color:aliceblue" width="400" height="300">
-</canvas>-->
-<%--<img id="canvasImg" alt=""><br>
-<input type="hidden" id="signer" value="${sessionUser.id}">
-<input type="submit" class="btn btn-success" value="store" onclick="store(this)">--%>
-<%--<hr>--%>
-<%--<h3>Upload file and add User</h3>--%>
-<%--<form action="/assets/addUser" method="get">--%>
-<%--    <input type="submit" value="upload">--%>
-<%--</form>--%>
-<%--<hr>--%>
-<%--<a href="/assets/mysign?userid=${sessionUser.id}">confirm my sign</a>--%>
-<%--<a href="/assets/mydoclist?userid=${sessionUser.id}">confirm my doc</a>--%>
+
 </body>
 
 <script >
@@ -150,7 +122,7 @@
     }
     function up(e) { drawing = false; }
     function move(e) {
-        if(!drawing) return; // 마우스가 눌러지지 않았으면 리턴
+        if(!drawing) return; // return if mouse is not clicked
         var curX = e.offsetX, curY = e.offsetY;
         draw(curX, curY);
         startX = curX; startY = curY;
@@ -185,34 +157,6 @@
             }
         });
 
-
-        //<a href=dataURL download="test.png">download</a>
-        //window.location.download = 'test.png';
-        // window.location.href = dataURL;
-
-        //link.href = dataURL;
-        //link.download = 'test.png';
-
-        //alert('store');
-
-        /*
-                var saveToFile = function (path) {
-                    //var canvas = document.getElementById('canvas'),
-                    //  data = canvas.toDataURL('image/png'),
-                    localFolder = Windows.Storage.ApplicationData.current.localFolder,
-                        encodeData = dataURL.replace("dataURL:image/png;base64,", ""),
-                        decode = Windows.Security.Cryptography.CryptographicBuffer.decodeFromBase64String(encodeData);
-
-                    // mySample.txt의 이름으로 파일을 생성하고 동일한 이름이 있을 경우, 덮어쓴다.
-                    localFolder.createFileAsync(path, Windows.Storage.CreationCollisionOption.replaceExisting)
-                        .then(function (file) {
-                            // writeTextAsync메소들 통해 파일에 텍스트를 쓴다.
-                            return Windows.Storage.FileIO.writeBufferAsync(file, decode);
-                            alert('success');
-                        });
-                };
-        */
-        //alert('fail');
     }
 </script>
 

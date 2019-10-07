@@ -109,7 +109,6 @@ public class registerUser {
     }
 
     public static void main(String[] args) throws Exception {
-        //registerUser r = new registerUser();
-       // r.registerNewUser("hong");
+
     }
 }
