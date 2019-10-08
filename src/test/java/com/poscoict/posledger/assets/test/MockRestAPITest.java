@@ -1,6 +1,7 @@
 package com.poscoict.posledger.assets.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.poscoict.posledger.assets.controller.MainController;
 import com.poscoict.posledger.assets.model.vo.AccessToken;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,9 +30,13 @@ public class MockRestAPITest {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Autowired
+    MainController mainController;
+
 	@Before
 	public void setUp() {
 		//this.user = User.builder().id("test02").password("1234").build();
+        //mockMvc = mainController.index();
 		logger.info("RestAPITest's setup is done...");
 	}
 	
@@ -79,7 +84,7 @@ public class MockRestAPITest {
 	@Test
 	public void upload() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/assets/upload")
+				.post("/assets/upload").param("userid", "")
 				.accept(MediaType.TEXT_HTML))
 				.andDo(print())
 				.andExpect(status().isOk());
