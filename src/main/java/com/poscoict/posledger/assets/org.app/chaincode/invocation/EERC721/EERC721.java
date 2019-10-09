@@ -9,6 +9,7 @@ import com.poscoict.posledger.assets.org.app.config.Config;
 import com.poscoict.posledger.assets.org.app.user.UserContext;
 import com.poscoict.posledger.assets.org.app.util.Util;
 import org.hyperledger.fabric.sdk.*;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+@Component
 public class EERC721 {
 
 
@@ -51,7 +53,7 @@ public class EERC721 {
             channel.addOrderer(orderer);
             channel.initialize();
 
-            Thread.sleep(10000);
+            Thread.sleep(1000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
 
             Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc", "balanceOf", new String[]{owner, type});
@@ -68,7 +70,9 @@ public class EERC721 {
         return result;
     }
 
-    public void deactivate(String tokenId) {
+    public String deactivate(String tokenId) {
+
+        String result = "";
         try {
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
@@ -112,14 +116,20 @@ public class EERC721 {
             for (ProposalResponse res: responses) {
                 ChaincodeResponse.Status status = res.getStatus();
                 Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"deactivated on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
+
+                result = res.getMessage();
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
     }
 
-    public void divide(String tokenId, String newId) {
+    public String divide(String tokenId, String newId) {
+
+        String result = "";
         try {
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
@@ -164,14 +174,19 @@ public class EERC721 {
             for (ProposalResponse res: responses) {
                 ChaincodeResponse.Status status = res.getStatus();
                 Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"divided on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
+                result = res.getMessage();
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
     }
 
-    public void query(String tokenId) {
+    public String query(String tokenId) {
+
+        String result = "";
         try {
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
@@ -197,7 +212,7 @@ public class EERC721 {
             channel.initialize();
 
 
-            Thread.sleep(10000);
+            Thread.sleep(1000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
 
             Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc", "query", new String[]{tokenId});
@@ -205,14 +220,19 @@ public class EERC721 {
                 String stringResponse2 = new String(pres.getChaincodeActionResponsePayload());
                 Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse2);
 
+                result = pres.getMessage();
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
     }
 
-    public void queryHistory(String tokenId) {
+    public String queryHistory(String tokenId) {
+
+        String result = "";
         try {
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
@@ -238,7 +258,7 @@ public class EERC721 {
             channel.initialize();
 
 
-            Thread.sleep(10000);
+            Thread.sleep(1000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
 
             Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc", "queryHistory", new String[]{tokenId});
@@ -246,11 +266,14 @@ public class EERC721 {
                 String stringResponse2 = new String(pres.getChaincodeActionResponsePayload());
                 Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse2);
 
+                result = pres.getMessage();
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return result;
     }
 
     public static void main(String args[]) {

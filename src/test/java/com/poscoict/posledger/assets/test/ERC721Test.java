@@ -33,7 +33,7 @@ public class ERC721Test {
         registerUser registeruser = new registerUser();
         registeruser.registerNewUser(owner);
 
-        if(erc721.mint("11", "base", owner).equals("Success")) {
+        if(erc721.mint("0", owner).equals("Success")) {
             Thread.sleep(1000);
             logger.info("mint true");
         } else {
@@ -45,7 +45,7 @@ public class ERC721Test {
     @Test
     public void balanceOfTest() throws Exception {
 
-        if(erc721.balanceOf(owner).equals("2")) {
+        if(erc721.balanceOf(owner).equals("1")) {
             Thread.sleep(1000);
             logger.info("balanceOf true");
         } else {
@@ -57,7 +57,7 @@ public class ERC721Test {
     @Test
     public void ownerOfTest() throws Exception {
 
-        if(erc721.ownerOf("1").equals("test1")) {
+        if(erc721.ownerOf("0").equals(owner)) {
             Thread.sleep(1000);
             logger.info("ownerOf true");
         } else {
@@ -69,7 +69,7 @@ public class ERC721Test {
     @Test
     public void approveTest() throws Exception {
 
-        if(erc721.approve("approved", "10").equals("Success")) {
+        if(erc721.approve("approved", "0").equals("Success")) {
             Thread.sleep(1000);
             logger.info("approve true");
         } else {
@@ -81,7 +81,7 @@ public class ERC721Test {
     @Test
     public void getApprovedTest() throws Exception {
 
-        if(erc721.getApproved("10").equals(owner)) {
+        if(erc721.getApproved("0").equals("approved")) {
             Thread.sleep(1000);
             logger.info("getApprove true");
         } else {
@@ -93,7 +93,7 @@ public class ERC721Test {
     @Test
     public void setApprovedForAllTest() throws Exception {
 
-        if(erc721.setApprovedForAll(owner, "operator", "true").equals("Success")) {
+        if(erc721.setApprovedForAll(owner, "operator", "true").equals("operator is added to operator of the token owned by test")) {
             Thread.sleep(1000);
             logger.info("setApprovedForAll true");
         } else {
@@ -105,7 +105,7 @@ public class ERC721Test {
     @Test
     public void isApprovedForAllTest() throws Exception {
 
-        if(erc721.isApprovedForAll(owner, "operator").equals("Success")) {
+        if(erc721.isApprovedForAll(owner, "operator").equals("true")) {
             Thread.sleep(1000);
             logger.info("isApprovedForAll true");
         } else {
@@ -117,12 +117,36 @@ public class ERC721Test {
     @Test
     public void transferFromTest() throws Exception {
 
-        if(erc721.transferToken(owner, "receiver", "10").equals("Success")) {
+        if(erc721.transferToken(owner, "receiver", "0").equals("Success")) {
             Thread.sleep(1000);
             logger.info("transferFrom true");
         } else {
             Thread.sleep(1000);
             logger.info("transferFrom fail");
+        }
+    }
+
+    @Test
+    public void afterThatBalanceOfTest() throws Exception {
+
+        if(erc721.balanceOf(owner).equals("0")) {
+            Thread.sleep(1000);
+            logger.info("balanceOf true");
+        } else {
+            Thread.sleep(1000);
+            logger.info("balanceOf fail");
+        }
+    }
+
+    @Test
+    public void afterThatOwnerOfTest() throws Exception {
+
+        if(erc721.ownerOf("0").equals("receiver")) {
+            Thread.sleep(1000);
+            logger.info("ownerOf true");
+        } else {
+            Thread.sleep(1000);
+            logger.info("ownerOf fail");
         }
     }
 }
