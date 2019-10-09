@@ -25,7 +25,7 @@ public class ERC721 {
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
 
-    public String mint(String tokenId, String type, String owner) {
+    public String mint(String tokenId, String owner) {
 
         String result = "";
         try {
@@ -57,7 +57,7 @@ public class ERC721 {
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
             request.setFcn("mint");
-            String[] arguments = { tokenId, type, owner};
+            String[] arguments = { tokenId, owner};
 
             request.setArgs(arguments);
             request.setProposalWaitTime(1000);
@@ -258,14 +258,15 @@ public class ERC721 {
             channel.addOrderer(orderer);
             channel.initialize();
 
-            Thread.sleep(10000);
+            Thread.sleep(1000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
 
             Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode(Config.CHAINCODE_1_NAME, "getApproved", new String[]{tokenId});
             for (ProposalResponse pres : responses1Query) {
                 String stringResponse = new String(pres.getChaincodeActionResponsePayload());
                 Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
-                result = stringResponse;
+                //result = stringResponse;
+                result = pres.getMessage();
             }
 
 
@@ -305,7 +306,7 @@ public class ERC721 {
             TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
-            request.setFcn("setApprovedForAll");
+            request.setFcn("setApprovalForAll");
             String[] arguments = { caller, operator , approved};
 
             request.setArgs(arguments);
@@ -320,7 +321,7 @@ public class ERC721 {
             Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
             for (ProposalResponse res: responses) {
                 ChaincodeResponse.Status status = res.getStatus();
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"setApprovedForAll on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"setApprovalForAll on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
                 result = res.getMessage();
             }
 

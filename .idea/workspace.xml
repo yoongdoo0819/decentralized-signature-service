@@ -3,23 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/EERC721/balanceOfClass.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/EERC721/deactivateClass.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/EERC721/divideClass.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/EERC721/queryClass.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/EERC721/queryHistoryClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/EERC721/EERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/EERC721/EERC721.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/ERC721/ERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/ERC721/ERC721.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/org1/admin.ser" beforeDir="false" afterPath="$PROJECT_DIR$/users/org1/admin.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet/admin/admin" beforeDir="false" afterPath="$PROJECT_DIR$/wallet/admin/admin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet/admin/admin-priv" beforeDir="false" afterPath="$PROJECT_DIR$/wallet/admin/admin-priv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet/alice/alice" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet/alice/alice-priv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/test/test" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/test/test-priv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/test1/test1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/test1/test1-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet/bob/bob" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet/bob/bob-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet/carol/carol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet/carol/carol-priv" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,8 +46,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Arquillian JUnit Test Class" />
         <option value="Class" />
+        <option value="Arquillian JUnit Test Class" />
       </list>
     </option>
   </component>
@@ -95,7 +90,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.poscoict.posledger.assets.org.app.chaincode.invocation.EERC721" />
       <recent name="com.poscoict.posledger.assets.org.app.chaincode.invocation.ERC721" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
+      <recent name="$PROJECT_DIR$/src/main/webapp" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/js" />
+      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.poscoict.posledger.assets.org.app.chaincode.invocation.EERC721" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -104,16 +110,6 @@
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib" />
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
       <recent name="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.poscoict.posledger.assets.org.app.chaincode.invocation.EERC721" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
-      <recent name="$PROJECT_DIR$/src/main/webapp" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/js" />
-      <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -128,16 +124,67 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.StartAssetsApplication">
-    <configuration name="enroll" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.enroll" />
+  <component name="RunManager" selected="JUnit.EERC721Test.queryHistoryTest">
+    <configuration name="EERC721Test.deactivateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assets" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.org.app.chaincode.invocation.*" />
+          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.EERC721Test" />
+      <option name="METHOD_NAME" value="deactivateTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EERC721Test.divideTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assets" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.EERC721Test" />
+      <option name="METHOD_NAME" value="divideTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EERC721Test.queryHistoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assets" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.EERC721Test" />
+      <option name="METHOD_NAME" value="queryHistoryTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EERC721Test.queryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assets" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.EERC721Test" />
+      <option name="METHOD_NAME" value="queryTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -159,7 +206,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ERC721Test.approveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ERC721Test.afterThatOwnerOfTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assets" />
       <extension name="coverage">
         <pattern>
@@ -169,55 +216,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
       <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.ERC721Test" />
-      <option name="METHOD_NAME" value="approveTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ERC721Test.balanceOfTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.ERC721Test" />
-      <option name="METHOD_NAME" value="balanceOfTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ERC721Test.mintTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.ERC721Test" />
-      <option name="METHOD_NAME" value="mintTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ERC721Test.ownerOfTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.ERC721Test" />
-      <option name="METHOD_NAME" value="ownerOfTest" />
+      <option name="METHOD_NAME" value="afterThatOwnerOfTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -232,11 +231,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.enroll" />
-        <item itemvalue="JUnit.ERC721Test.approveTest" />
-        <item itemvalue="JUnit.ERC721Test.ownerOfTest" />
-        <item itemvalue="JUnit.ERC721Test.balanceOfTest" />
-        <item itemvalue="JUnit.ERC721Test.mintTest" />
+        <item itemvalue="JUnit.EERC721Test.queryHistoryTest" />
+        <item itemvalue="JUnit.EERC721Test.queryTest" />
+        <item itemvalue="JUnit.EERC721Test.deactivateTest" />
+        <item itemvalue="JUnit.EERC721Test.divideTest" />
+        <item itemvalue="JUnit.ERC721Test.afterThatOwnerOfTest" />
       </list>
     </recent_temporary>
   </component>
