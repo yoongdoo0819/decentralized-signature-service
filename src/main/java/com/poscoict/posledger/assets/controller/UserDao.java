@@ -45,6 +45,6 @@ public class UserDao {
 
     public Map<String, Object> getUserByUserId(String userId) {
 
-        return jdbcTemplate.queryForMap("select * from user where id", userId);
+        return jdbcTemplate.queryForMap("select * from user where id = ?", userId);
     }
 }
