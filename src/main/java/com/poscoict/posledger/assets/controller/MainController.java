@@ -908,10 +908,10 @@ public class MainController {
 			 */
 			for(int i=0; i<sigPathList.length; i++) {
 				section[i] = chapter1.addSection(new Paragraph(userId[i]));
-				f = new File("./dSignature-server/src/main/webapp/"+sigPathList[i]);    // absolute path needed
+				f = new File("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+sigPathList[i]);    // absolute path needed
 
 				if(f.isFile()) {
-					Image section1Image = Image.getInstance("./dSignature-server/src/main/webapp/" + sigPathList[i]);   // absolute path needed
+					Image section1Image = Image.getInstance("/home/yoongdoo0819/dSignature-server/src/main/webapp/" + sigPathList[i]);   // absolute path needed
 					section[i].add(section1Image);
 				}
 			}
