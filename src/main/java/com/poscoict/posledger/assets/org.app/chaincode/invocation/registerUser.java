@@ -25,7 +25,7 @@ public class registerUser {
         // Create a CA client for interacting with the CA.
         Properties props = new Properties();
         props.put("pemFile",
-                "/home/yoongdoo0819/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem");
+                "./fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem");
         props.put("allowAllHostNames", "true");
         // if url starts as https.., need to set SSL
         HFCAClient caClient = HFCAClient.createNewInstance("http://localhost:7054", props);
