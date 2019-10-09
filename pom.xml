@@ -66,6 +66,20 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>poscoict-repository</id>
+            <url>http://192.168.193.100:8081/nexus/content/groups/public</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>poscoict-repository-snapshots</id>
+            <url>http://192.168.193.100:8081/nexus/content/repositories/snapshots</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
     </repositories>
 
     <dependencies>

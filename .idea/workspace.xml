@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/EERC721/EERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/EERC721/EERC721.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/ERC721/ERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org.app/chaincode/invocation/ERC721/ERC721.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/org1/admin.ser" beforeDir="false" afterPath="$PROJECT_DIR$/users/org1/admin.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/admin/admin" beforeDir="false" afterPath="$PROJECT_DIR$/wallet/admin/admin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/admin/admin-priv" beforeDir="false" afterPath="$PROJECT_DIR$/wallet/admin/admin-priv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/alice/alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/alice/alice-priv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/bob/bob" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/bob/bob-priv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/carol/carol" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet/carol/carol-priv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
