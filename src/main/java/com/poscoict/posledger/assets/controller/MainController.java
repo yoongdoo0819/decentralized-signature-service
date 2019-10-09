@@ -12,7 +12,6 @@ import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.User_Doc;
 import com.poscoict.posledger.assets.model.User_Sig;
 import com.poscoict.posledger.assets.org.app.chaincode.invocation.*;
-import com.poscoict.posledger.assets.org.app.chaincode.invocation.ERC721.transferFromClass;
 import com.poscoict.posledger.assets.service.RedisService;
 import com.poscoict.posledger.assets.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -165,7 +164,6 @@ public class MainController {
 	@PostMapping("/upload")
 	public RedirectView upload(HttpServletRequest req, MultipartHttpServletRequest mre) throws IllegalStateException, IOException, Exception{
 
-		transferFromClass _transfertoken = new transferFromClass();
 		String userid = req.getParameter("userid");
 		String count = req.getParameter("count");
 		String[] user = null;
