@@ -22,7 +22,7 @@ public class approveClass {
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
 
-    public void approve(String owner, String approved, String tokenId) {
+    public boolean approve(String owner, String approved, String tokenId) {
         try {
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
@@ -68,9 +68,13 @@ public class approveClass {
                 Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"approve on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
             }
 
+
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
+
+        return true;
     }
 
     public static void main(String args[]) {

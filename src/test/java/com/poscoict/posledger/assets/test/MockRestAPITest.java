@@ -71,7 +71,7 @@ public class MockRestAPITest {
 				.andDo(print())
 				.andExpect(status().isOk());
 	}
-
+/*
 	@Test
 	public void index() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
@@ -82,9 +82,27 @@ public class MockRestAPITest {
 	}
 
 	@Test
-	public void upload() throws Exception {
+	public void signUpForm() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.post("/assets/upload").param("userid", "")
+				.get("/assets/signUpForm")
+				.accept(MediaType.TEXT_HTML))
+				.andDo(print())
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	public void signUp() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders
+				.post("/assets/signUp").param("userId", "userPaawd")
+				.accept(MediaType.TEXT_HTML))
+				.andDo(print())
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	public void main() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders
+				.get("/assets/main")
 				.accept(MediaType.TEXT_HTML))
 				.andDo(print())
 				.andExpect(status().isOk());
@@ -93,9 +111,31 @@ public class MockRestAPITest {
 	@Test
 	public void img() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders
-				.get("/assets/img")
+				.get("/assets/img")//, "strImg", "abcd", "df", "qw", "ff")
+				.accept(MediaType.TEXT_HTML))
+				.andDo(print())
+				//.andExpect());
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	public void upload() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders
+				.post("/assets/upload").param("hh", "20")
+				.accept(MediaType.TEXT_HTML))
+				.andDo(print())
+				.andExpect(status().isOk())
+				.andReturn().getResponse().getRedirectedUrl();
+	}
+
+	@Test
+	public void doSign() throws Exception {
+		//MultiValuedMap<String, String> A = new MultiValuedMap();
+
+		mockMvc.perform(MockMvcRequestBuilders
+				.post("/assets/doSign").param("userid", "a")//.params(new MultiValuedMap<"abc", "b">)
 				.accept(MediaType.TEXT_HTML))
 				.andDo(print())
 				.andExpect(status().isOk());
-	}
+	}*/
 }

@@ -198,7 +198,7 @@ public class MainController {
 			log.info("failure");
 
 		String uploadPath = "";
-		String path = "/home/yoongdoo0819/dSignature-server/src/main/webapp/";
+		String path = "./dSignature-server/src/main/webapp/";
 		//String original = mf.getOriginalFilename();
 		String original = "";
 		File convFile = null;
@@ -216,11 +216,11 @@ public class MainController {
 
 			convFile = new File(mf.getOriginalFilename());
 			convFile.createNewFile();
-			FileOutputStream fos = new FileOutputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+convFile);
+			FileOutputStream fos = new FileOutputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+convFile);	// absolute path needed
 			fos.write(mf.getBytes());
 			fos.close();
 
-			is = new FileInputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+convFile);
+			is = new FileInputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+convFile);	// absolute path needed
 			byte[] buffer = new byte[1024];
 			int readBytes = 0;
 
@@ -464,12 +464,12 @@ public class MainController {
 			*/
 
 			// existing pdf
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/test.pdf"));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(/*"./dSignature-server/src/main/webapp/*/"test.pdf"));
 			document.open();
 			PdfContentByte cb = writer.getDirectContent();
 
 			// Load existing PDF
-			PdfReader reader = new PdfReader("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+filenm);
+			PdfReader reader = new PdfReader(/*"./dSignature-server/src/main/webapp/"+*/filenm);
 			for(int i=1; i<=reader.getNumberOfPages(); i++) {
 				PdfImportedPage page = writer.getImportedPage(reader, i);
 
@@ -490,7 +490,7 @@ public class MainController {
 			//Section section = new Section(new Paragraph("signer"));
 
 			Section section1 = chapter1.addSection(new Paragraph("signer"));
-			Image section1Image = Image.getInstance("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+signm);
+			Image section1Image = Image.getInstance(/*"./dSignature-server/src/main/webapp/"+*/signm);
 			section1.add(section1Image);
 
 			document.add(chapter1);
@@ -910,10 +910,10 @@ public class MainController {
 			 */
 			for(int i=0; i<sigPathList.length; i++) {
 				section[i] = chapter1.addSection(new Paragraph(userId[i]));
-				f = new File("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+sigPathList[i]);
+				f = new File("./dSignature-server/src/main/webapp/"+sigPathList[i]);
 
 				if(f.isFile()) {
-					Image section1Image = Image.getInstance("/home/yoongdoo0819/dSignature-server/src/main/webapp/" + sigPathList[i]);
+					Image section1Image = Image.getInstance("./dSignature-server/src/main/webapp/" + sigPathList[i]);
 					section[i].add(section1Image);
 				}
 			}
