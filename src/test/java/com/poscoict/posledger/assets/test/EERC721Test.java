@@ -24,13 +24,9 @@ public class EERC721Test {
 
     private static final Logger logger = LoggerFactory.getLogger(EERC721Test.class);
 
-    String newOwner = "bob";
-    String approved = "carol";
-    String operator = "david";
-
     String owner = "alice";
-    String tokenId = "0";
-    String newTokenId = "1";
+    String tokenId = "1";
+    String newTokenId = "2";
     String type = "doc";
     String hash = "doc";
     String signers = "";
@@ -52,7 +48,7 @@ public class EERC721Test {
     @Test
     public void balanceOfTest() throws Exception {
 
-        if(eerc721.balanceOf(owner, "sig").equals("1")) {
+        if(eerc721.balanceOf(owner, type).equals("1")) {
             Thread.sleep(1000);
             logger.info("balanceOf true");
         } else {
@@ -95,21 +91,16 @@ public class EERC721Test {
     @Test
     public void updateTest() throws Exception {
 
-        String index = "1";
-        String attr = owner;
+        String index = "2";
+        String attr = owner+"SigId";
 
         if(eerc721.update(tokenId, index, attr).equals("SUCCESS")) {
             Thread.sleep(1000);
-            logger.info("deactivate true");
+            logger.info("update true");
         } else {
             Thread.sleep(1000);
-            logger.info("deactivate fail");
+            logger.info("update fail");
         }
-    }
-
-    @Test
-    public void afterUpdateQueryTest() throws Exception {
-        logger.info(eerc721.query(tokenId));
     }
 
     @Test
@@ -122,6 +113,11 @@ public class EERC721Test {
             Thread.sleep(1000);
             logger.info("deactivate fail");
         }
+    }
+
+    @Test
+    public void afterUpdateAndDeactivateQueryTest() throws Exception {
+        logger.info(eerc721.query(tokenId));
     }
 
     @Test

@@ -28,7 +28,7 @@ public class ERC721Test {
     String newOwner = "bob";
     String approved = "carol";
     String operator = "david";
-    String tokenId = "10";
+    String tokenId = "0";
 
     @Test
     public void registerTest() throws Exception {
@@ -42,7 +42,7 @@ public class ERC721Test {
     @Test
     public void mintTest() throws Exception {
 
-        if(erc721.mint(tokenId, owner).equals("Success")) {
+        if(erc721.mint(tokenId, owner).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("mint true");
         } else {
@@ -78,7 +78,7 @@ public class ERC721Test {
     @Test
     public void transferFromTest() throws Exception {
 
-        if(erc721.transferToken(owner, newOwner, tokenId).equals("Success")) {
+        if(erc721.transferToken(owner, newOwner, tokenId).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("transferFrom true");
         } else {
@@ -90,7 +90,7 @@ public class ERC721Test {
     @Test
     public void afterThatBalanceOfTest() throws Exception {
 
-        if(erc721.balanceOf(owner).equals(tokenId)) {
+        if(erc721.balanceOf(owner).equals("0")) {
             Thread.sleep(1000);
             logger.info("balanceOf true");
         } else {
@@ -114,7 +114,7 @@ public class ERC721Test {
     @Test
     public void approveTest() throws Exception {
 
-        if(erc721.approve(approved, tokenId).equals("Success")) {
+        if(erc721.approve(approved, tokenId).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("approve true");
         } else {
@@ -138,7 +138,7 @@ public class ERC721Test {
     @Test
     public void setApprovedForAllTest() throws Exception {
 
-        if(erc721.setApprovedForAll(newOwner, operator, "true").equals("operator is added to operator of the token owned by alice")) {
+        if(erc721.setApprovedForAll(newOwner, operator, "true").equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("setApprovedForAll true");
         } else {
@@ -150,7 +150,7 @@ public class ERC721Test {
     @Test
     public void isApprovedForAllTest() throws Exception {
 
-        if(erc721.isApprovedForAll(owner, "operator").equals("true")) {
+        if(erc721.isApprovedForAll(newOwner, operator).equals("TRUE")) {
             Thread.sleep(1000);
             logger.info("isApprovedForAll true");
         } else {
@@ -158,8 +158,5 @@ public class ERC721Test {
             logger.info("isApprovedForAll fail");
         }
     }
-
-
-
 
 }
