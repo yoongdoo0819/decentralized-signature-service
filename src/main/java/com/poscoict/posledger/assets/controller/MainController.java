@@ -11,7 +11,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.User_Doc;
 import com.poscoict.posledger.assets.model.User_Sig;
-import com.poscoict.posledger.assets.org.app.chaincode.invocation.*;
+import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
 import com.poscoict.posledger.assets.service.RedisService;
 import com.poscoict.posledger.assets.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -80,12 +80,12 @@ public class MainController {
 	@GetMapping("/redis")
 	public String redis(HttpServletRequest req, Model model) {
 
-		registerUser newUser = new registerUser();
+		EnrollmentUser newUser = new EnrollmentUser();
 		try {
 			//User user = new User(req.getParameter("userId"), req.getParameter("userPasswd"));
 			//userDao.insert(user);
 
-			String certificate = newUser.registerNewUser(req.getParameter("userId"));
+			String certificate = newUser.registerUser(req.getParameter("userId"));
 			if(!(redisService.storeUser(req.getParameter("userId"), certificate)))
 				log.info("user register failure");
 
@@ -116,7 +116,7 @@ public class MainController {
 	public String signUp(HttpServletRequest req) {
 		log.info("signUp");
 
-		registerUser newUser = new registerUser();
+		EnrollmentUser newUser = new EnrollmentUser();
 		try {
 
 			// insert user's info into DB
@@ -124,7 +124,7 @@ public class MainController {
 			userDao.insert(user);
 
 			// insert user's cert into Redis
-			String certificate = newUser.registerNewUser(req.getParameter("userId"));
+			String certificate = newUser.registerUser(req.getParameter("userId"));
 			if(!(redisService.storeUser(req.getParameter("userId"), certificate)))
 				log.info("user register failure");
 
@@ -297,8 +297,8 @@ public class MainController {
 		log.info(merkleRoot);
 
 		// mint DocNFT
-		mintDocNFT mintNFT = new mintDocNFT();
-		String result = mintNFT.mint(tokenNum, owner, original, signers, mf.getOriginalFilename(), merkleRoot);
+		//mintDocNFT mintNFT = new mintDocNFT();
+		//String result = mintNFT.mint(tokenNum, owner, original, signers, mf.getOriginalFilename(), merkleRoot);
 
 		return new RedirectView("main"); //null;//"redirect:/main";
 	}
@@ -422,8 +422,8 @@ public class MainController {
 		log.info(merkleRoot);
 
 		// mint SigNFT
-		mintSigNFT mintNFT = new mintSigNFT();
-		mintNFT.mint(tokenNum, owner, sigId, filenm, merkleRoot);
+		//mintSigNFT mintNFT = new mintSigNFT();
+		//mintNFT.mint(tokenNum, owner, sigId, filenm, merkleRoot);
 
 		return new RedirectView("main");
 	}
@@ -522,8 +522,8 @@ public class MainController {
 		Map<String, Object> testMap = sigDao.getSigBySigid(sigId);
 		String sigTokenId = valueOf((int)testMap.get("sigtokenid"));
 
-		updateDocNFT updateNFT = new updateDocNFT();
-		updateNFT.update(tokenId, "2", sigTokenId);
+		//updateDocNFT updateNFT = new updateDocNFT();
+		//updateNFT.update(tokenId, "2", sigTokenId);
 
 		/*
 		 * approve need?
@@ -649,8 +649,8 @@ public class MainController {
 		/*
 		 * get document info from blockchain
 		 */
-		queryNFT querynft = new queryNFT();
-		queryResult = querynft.query(tokenId);
+		//queryNFT querynft = new queryNFT();
+		//queryResult = querynft.query(tokenId);
 
 		if(queryResult != null) {
 			JSONParser jsonParser = new JSONParser();
@@ -696,7 +696,7 @@ public class MainController {
 		String sigStatus[];
 		int sigNum;
 
-		queryNFT querynft = new queryNFT();
+		//queryNFT querynft = new queryNFT();
 
 		List<User_Doc> docList = user_docDao.listForBeanPropertyRowMapper(userId);
 		docId = new String[docList.size()];
@@ -716,7 +716,7 @@ public class MainController {
 			docPath[i] = (String)testMap.get("path");
 			tokenId[i] = valueOf(testMap.get("doctokenid"));
 
-			queryResult = querynft.query(tokenId[i]);
+			//queryResult = querynft.query(tokenId[i]);
 			if(queryResult != null) {
 				JSONParser jsonParser = new JSONParser();
 				JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
@@ -764,8 +764,8 @@ public class MainController {
 		//String tokenIdsArray[];
 		int sigNum;
 
-		queryNFT querynft = new queryNFT();
-		queryResult = querynft.query(tokenId);
+		//queryNFT querynft = new queryNFT();
+		//queryResult = querynft.query(tokenId);
 
 		for(int i=0; i<signersResult.length; i++) {
 			signersResult[i] = "";
@@ -848,8 +848,8 @@ public class MainController {
 		sigPathList = new String[userList.size()];
 		userId = new String[userList.size()];
 
-		queryNFT querynft = new queryNFT();
-		queryResult = querynft.query(tokenId);
+		//queryNFT querynft = new queryNFT();
+		//queryResult = querynft.query(tokenId);
 
 		if(queryResult != null) {
 			JSONParser jsonParser = new JSONParser();

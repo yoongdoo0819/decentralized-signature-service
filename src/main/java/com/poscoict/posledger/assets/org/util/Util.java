@@ -11,10 +11,10 @@
  *  limitations under the License.
  */
 
-package com.poscoict.posledger.assets.org.app.util;
+package com.poscoict.posledger.assets.org.util;
 
-import com.poscoict.posledger.assets.org.app.user.CAEnrollment;
-import com.poscoict.posledger.assets.org.app.user.UserContext;
+import com.poscoict.posledger.assets.org.user.CAEnrollment;
+import com.poscoict.posledger.assets.org.user.UserContext;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 
 import javax.xml.bind.DatatypeConverter;

@@ -1,13 +1,13 @@
-package com.poscoict.posledger.assets.org.app.chaincode.invocation.ERC721;
+package com.poscoict.posledger.assets.org.chaincode.ERC721;
 
-import com.poscoict.posledger.assets.org.app.chaincode.invocation.InvokeChaincode;
-import com.poscoict.posledger.assets.org.app.chaincode.invocation.QueryChaincode;
-import com.poscoict.posledger.assets.org.app.client.CAClient;
-import com.poscoict.posledger.assets.org.app.client.ChannelClient;
-import com.poscoict.posledger.assets.org.app.client.FabricClient;
-import com.poscoict.posledger.assets.org.app.config.Config;
-import com.poscoict.posledger.assets.org.app.user.UserContext;
-import com.poscoict.posledger.assets.org.app.util.Util;
+import com.poscoict.posledger.assets.org.chaincode.InvokeChaincode;
+import com.poscoict.posledger.assets.org.chaincode.QueryChaincode;
+import com.poscoict.posledger.assets.org.client.CAClient;
+import com.poscoict.posledger.assets.org.client.ChannelClient;
+import com.poscoict.posledger.assets.org.client.FabricClient;
+import com.poscoict.posledger.assets.org.config.Config;
+import com.poscoict.posledger.assets.org.user.UserContext;
+import com.poscoict.posledger.assets.org.util.Util;
 import org.hyperledger.fabric.sdk.*;
 import org.springframework.stereotype.Component;
 
@@ -71,7 +71,7 @@ public class ERC721 {
             Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
             for (ProposalResponse res: responses) {
                 ChaincodeResponse.Status status = res.getStatus();
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"mint on "+Config.CHAINCODE_1_NAME + ". Status - " + status);
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO,"mint on "+Config.CHAINCODE_1_NAME + ". Status - " + status + " Message - " + res.getMessage());
                 result = res.getMessage();
                 //result = (String)res.getStatus();
             }
@@ -81,7 +81,6 @@ public class ERC721 {
             result = "Failure";
         }
 
-        Logger.getLogger("**************************************8*" + result);
         return result;
     }
 
@@ -126,7 +125,6 @@ public class ERC721 {
             e.printStackTrace();
         }
 
-        Logger.getLogger(result);
         return result;
     }
 
@@ -263,16 +261,15 @@ public class ERC721 {
 
             Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode(Config.CHAINCODE_1_NAME, "getApproved", new String[]{tokenId});
             for (ProposalResponse pres : responses1Query) {
-                String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-                Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
+                //String stringResponse = new String(pres.getChaincodeActionResponsePayload());
+                Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, pres.getMessage());
                 //result = stringResponse;
                 result = pres.getMessage();
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         Logger.getLogger(result);
         return result;
     }
@@ -364,8 +361,8 @@ public class ERC721 {
 
             Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc", "isApprovedForAll", new String[]{owner, operator});
             for (ProposalResponse pres : responses1Query) {
-                String stringResponse = new String(pres.getChaincodeActionResponsePayload());
-                Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, stringResponse);
+                //String stringResponse = new String(pres.getChaincodeActionResponsePayload());
+                Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, pres.getMessage());
                 result = pres.getMessage();
             }
 

@@ -10,11 +10,11 @@
  *  See the License for the specific language governing permissions and 
  *  limitations under the License.
  */
-package com.poscoict.posledger.assets.org.app.user;
+package com.poscoict.posledger.assets.org.user;
 
-import com.poscoict.posledger.assets.org.app.client.CAClient;
-import com.poscoict.posledger.assets.org.app.config.Config;
-import com.poscoict.posledger.assets.org.app.util.Util;
+import com.poscoict.posledger.assets.org.client.CAClient;
+import com.poscoict.posledger.assets.org.config.Config;
+import com.poscoict.posledger.assets.org.util.Util;
 
 /**
  * 

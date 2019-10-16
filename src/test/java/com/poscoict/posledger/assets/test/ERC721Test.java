@@ -1,7 +1,7 @@
 package com.poscoict.posledger.assets.test;
 
-import com.poscoict.posledger.assets.org.app.chaincode.invocation.ERC721.ERC721;
-import com.poscoict.posledger.assets.org.app.chaincode.invocation.registerUser;
+import com.poscoict.posledger.assets.org.chaincode.ERC721.ERC721;
+import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -24,16 +24,25 @@ public class ERC721Test {
     private ERC721 erc721;
 
     private static final Logger logger = LoggerFactory.getLogger(ERC721Test.class);
-    String owner = "test";
+    String owner = "alice";
+    String newOwner = "bob";
+    String approved = "carol";
+    String operator = "david";
+    String tokenId = "10";
 
+    @Test
+    public void registerTest() throws Exception {
+        EnrollmentUser enrollToCA = new EnrollmentUser();
+
+        enrollToCA.enrollAdmin();
+        enrollToCA.registerUser(owner);
+        enrollToCA.registerUser(newOwner);
+    }
 
     @Test
     public void mintTest() throws Exception {
 
-        registerUser registeruser = new registerUser();
-        registeruser.registerNewUser(owner);
-
-        if(erc721.mint("0", owner).equals("Success")) {
+        if(erc721.mint(tokenId, owner).equals("Success")) {
             Thread.sleep(1000);
             logger.info("mint true");
         } else {
@@ -57,7 +66,43 @@ public class ERC721Test {
     @Test
     public void ownerOfTest() throws Exception {
 
-        if(erc721.ownerOf("0").equals(owner)) {
+        if(erc721.ownerOf(tokenId).equals(owner)) {
+            Thread.sleep(1000);
+            logger.info("ownerOf true");
+        } else {
+            Thread.sleep(1000);
+            logger.info("ownerOf fail");
+        }
+    }
+
+    @Test
+    public void transferFromTest() throws Exception {
+
+        if(erc721.transferToken(owner, newOwner, tokenId).equals("Success")) {
+            Thread.sleep(1000);
+            logger.info("transferFrom true");
+        } else {
+            Thread.sleep(1000);
+            logger.info("transferFrom fail");
+        }
+    }
+
+    @Test
+    public void afterThatBalanceOfTest() throws Exception {
+
+        if(erc721.balanceOf(owner).equals(tokenId)) {
+            Thread.sleep(1000);
+            logger.info("balanceOf true");
+        } else {
+            Thread.sleep(1000);
+            logger.info("balanceOf fail");
+        }
+    }
+
+    @Test
+    public void afterThatOwnerOfTest() throws Exception {
+
+        if(erc721.ownerOf(tokenId).equals(newOwner)) {
             Thread.sleep(1000);
             logger.info("ownerOf true");
         } else {
@@ -69,7 +114,7 @@ public class ERC721Test {
     @Test
     public void approveTest() throws Exception {
 
-        if(erc721.approve("approved", "0").equals("Success")) {
+        if(erc721.approve(approved, tokenId).equals("Success")) {
             Thread.sleep(1000);
             logger.info("approve true");
         } else {
@@ -81,7 +126,7 @@ public class ERC721Test {
     @Test
     public void getApprovedTest() throws Exception {
 
-        if(erc721.getApproved("0").equals("approved")) {
+        if(erc721.getApproved(tokenId).equals(approved)) {
             Thread.sleep(1000);
             logger.info("getApprove true");
         } else {
@@ -93,7 +138,7 @@ public class ERC721Test {
     @Test
     public void setApprovedForAllTest() throws Exception {
 
-        if(erc721.setApprovedForAll(owner, "operator", "true").equals("operator is added to operator of the token owned by test")) {
+        if(erc721.setApprovedForAll(newOwner, operator, "true").equals("operator is added to operator of the token owned by alice")) {
             Thread.sleep(1000);
             logger.info("setApprovedForAll true");
         } else {
@@ -114,39 +159,7 @@ public class ERC721Test {
         }
     }
 
-    @Test
-    public void transferFromTest() throws Exception {
 
-        if(erc721.transferToken(owner, "receiver", "0").equals("Success")) {
-            Thread.sleep(1000);
-            logger.info("transferFrom true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("transferFrom fail");
-        }
-    }
 
-    @Test
-    public void afterThatBalanceOfTest() throws Exception {
 
-        if(erc721.balanceOf(owner).equals("0")) {
-            Thread.sleep(1000);
-            logger.info("balanceOf true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("balanceOf fail");
-        }
-    }
-
-    @Test
-    public void afterThatOwnerOfTest() throws Exception {
-
-        if(erc721.ownerOf("0").equals("receiver")) {
-            Thread.sleep(1000);
-            logger.info("ownerOf true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("ownerOf fail");
-        }
-    }
 }

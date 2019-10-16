@@ -11,7 +11,7 @@
  *  limitations under the License.
  */
 
-package com.poscoict.posledger.assets.org.app.client;
+package com.poscoict.posledger.assets.org.client;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 

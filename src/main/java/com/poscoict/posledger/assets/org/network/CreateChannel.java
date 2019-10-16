@@ -10,7 +10,7 @@
  *  See the License for the specific language governing permissions and 
  *  limitations under the License.
  */
-package com.poscoict.posledger.assets.org.app.network;
+package com.poscoict.posledger.assets.org.network;
 
 import java.io.File;
 import java.util.Collection;
@@ -18,10 +18,10 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.poscoict.posledger.assets.org.app.client.FabricClient;
-import com.poscoict.posledger.assets.org.app.config.Config;
-import com.poscoict.posledger.assets.org.app.user.UserContext;
-import com.poscoict.posledger.assets.org.app.util.Util;
+import com.poscoict.posledger.assets.org.client.FabricClient;
+import com.poscoict.posledger.assets.org.config.Config;
+import com.poscoict.posledger.assets.org.user.UserContext;
+import com.poscoict.posledger.assets.org.util.Util;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.ChannelConfiguration;
 import org.hyperledger.fabric.sdk.Enrollment;

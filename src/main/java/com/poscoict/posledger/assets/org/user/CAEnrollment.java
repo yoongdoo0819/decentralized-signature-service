@@ -11,7 +11,7 @@
  *  limitations under the License.
  */
 
-package com.poscoict.posledger.assets.org.app.user;
+package com.poscoict.posledger.assets.org.user;
 
 import org.hyperledger.fabric.sdk.Enrollment;
 

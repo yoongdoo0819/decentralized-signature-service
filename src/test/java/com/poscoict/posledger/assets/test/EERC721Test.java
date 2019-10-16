@@ -1,6 +1,6 @@
 package com.poscoict.posledger.assets.test;
 
-import com.poscoict.posledger.assets.org.app.chaincode.invocation.EERC721.EERC721;
+import com.poscoict.posledger.assets.org.chaincode.EERC721.EERC721;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -23,13 +23,24 @@ public class EERC721Test {
     private EERC721 eerc721;
 
     private static final Logger logger = LoggerFactory.getLogger(EERC721Test.class);
-    String owner = "test";
 
+    String newOwner = "bob";
+    String approved = "carol";
+    String operator = "david";
+
+    String owner = "alice";
+    String tokenId = "0";
+    String newTokenId = "1";
+    String type = "doc";
+    String hash = "doc";
+    String signers = "";
+    String path = "doc";
+    String pathHash = "doc";
 
     @Test
     public void mintTest() throws Exception {
 
-        if(eerc721.balanceOf("0", owner).equals("Success")) {
+        if(eerc721.mint(tokenId, type, owner, hash, signers, path, pathHash).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("mint true");
         } else {
@@ -41,7 +52,7 @@ public class EERC721Test {
     @Test
     public void balanceOfTest() throws Exception {
 
-        if(eerc721.balanceOf(owner, "base").equals("0")) {
+        if(eerc721.balanceOf(owner, "sig").equals("1")) {
             Thread.sleep(1000);
             logger.info("balanceOf true");
         } else {
@@ -53,7 +64,7 @@ public class EERC721Test {
     @Test
     public void divideTest() throws Exception {
 
-        if(eerc721.divide("0", "1").equals("")) {
+        if(eerc721.divide(tokenId, newTokenId).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("divide true");
         } else {
@@ -63,9 +74,31 @@ public class EERC721Test {
     }
 
     @Test
-    public void deactivateTest() throws Exception {
+    public void queryTest() throws Exception {
+        logger.info(eerc721.query(tokenId));
+    }
 
-        if(eerc721.deactivate("0").equals("")) {
+    @Test
+    public void queryNewTokenTest() throws Exception {
+        logger.info(eerc721.query(newTokenId));
+    }
+
+
+    /*
+        attr      | index
+        ==================
+        hash      | 0
+        signers   | 1
+        sigIds    | 2
+        activated | 3
+    */
+    @Test
+    public void updateTest() throws Exception {
+
+        String index = "1";
+        String attr = owner;
+
+        if(eerc721.update(tokenId, index, attr).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("deactivate true");
         } else {
@@ -75,13 +108,25 @@ public class EERC721Test {
     }
 
     @Test
-    public void queryTest() throws Exception {
-        logger.info(eerc721.query("0"));
+    public void afterUpdateQueryTest() throws Exception {
+        logger.info(eerc721.query(tokenId));
+    }
+
+    @Test
+    public void deactivateTest() throws Exception {
+
+        if(eerc721.deactivate(tokenId).equals("SUCCESS")) {
+            Thread.sleep(1000);
+            logger.info("deactivate true");
+        } else {
+            Thread.sleep(1000);
+            logger.info("deactivate fail");
+        }
     }
 
     @Test
     public void queryHistoryTest() throws Exception {
-        logger.info(eerc721.queryHistory("0"));
+        logger.info(eerc721.queryHistory(tokenId));
     }
 
 }
