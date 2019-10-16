@@ -1,4 +1,4 @@
-package com.poscoict.posledger.assets.org.app.config;
+package com.poscoict.posledger.assets.org.config;
 
 import org.hyperledger.fabric.sdk.TransactionRequest.Type;
 
