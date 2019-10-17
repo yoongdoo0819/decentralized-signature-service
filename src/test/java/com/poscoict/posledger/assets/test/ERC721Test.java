@@ -150,7 +150,7 @@ public class ERC721Test {
     @Test
     public void isApprovedForAllTest() throws Exception {
 
-        if(erc721.isApprovedForAll(newOwner, operator).equals("TRUE")) {
+        if(erc721.isApprovedForAll(owner, operator).equals("TRUE")) {
             Thread.sleep(1000);
             logger.info("isApprovedForAll true");
         } else {
