@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hyperledger_fabric_gateway_java_fabric_gateway_java_1_4_0_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hyperledger_fabric_gateway_java_fabric_gateway_java_1_4_0_SNAPSHOT.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/org1/admin.ser" beforeDir="false" afterPath="$PROJECT_DIR$/users/org1/admin.ser" afterDir="false" />
     </list>
@@ -115,7 +116,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EERC721Test.afterUpdateAndDeactivateQueryTest">
+  <component name="RunManager" selected="JUnit.ERC721Test.isApprovedForAllTest">
     <configuration name="EERC721Test.afterUpdateAndDeactivateQueryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assets" />
       <extension name="coverage">
@@ -127,22 +128,6 @@
       <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
       <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.EERC721Test" />
       <option name="METHOD_NAME" value="afterUpdateAndDeactivateQueryTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EERC721Test.afterUpdateQueryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.EERC721Test" />
-      <option name="METHOD_NAME" value="afterUpdateQueryTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -213,6 +198,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ERC721Test.isApprovedForAllTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assets" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.ERC721Test" />
+      <option name="METHOD_NAME" value="isApprovedForAllTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="StartAssetsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="assets" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.poscoict.posledger.assets.StartAssetsApplication" />
@@ -222,11 +223,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.EERC721Test.afterUpdateAndDeactivateQueryTest" />
-        <item itemvalue="JUnit.EERC721Test.updateTest" />
+        <item itemvalue="JUnit.ERC721Test.isApprovedForAllTest" />
         <item itemvalue="JUnit.EERC721Test.queryHistoryTest" />
+        <item itemvalue="JUnit.EERC721Test.afterUpdateAndDeactivateQueryTest" />
         <item itemvalue="JUnit.EERC721Test.deactivateTest" />
-        <item itemvalue="JUnit.EERC721Test.afterUpdateQueryTest" />
+        <item itemvalue="JUnit.EERC721Test.updateTest" />
       </list>
     </recent_temporary>
   </component>
@@ -283,5 +284,19 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java</url>
+          <line>60</line>
+          <properties class="com.poscoict.posledger.assets.test.EERC721Test" method="divideTest">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

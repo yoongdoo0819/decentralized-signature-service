@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.hyperledger.fabric-gateway-java:fabric-gateway-java:1.4.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-gateway-java/fabric-gateway-java/1.4.0-SNAPSHOT/fabric-gateway-java-1.4.0-SNAPSHOT.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-gateway-java/fabric-gateway-java/1.4.0-SNAPSHOT/fabric-gateway-java-1.4.0-20191002.055106-31.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-gateway-java/fabric-gateway-java/1.4.0-SNAPSHOT/fabric-gateway-java-1.4.0-SNAPSHOT-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-gateway-java/fabric-gateway-java/1.4.0-SNAPSHOT/fabric-gateway-java-1.4.0-20191002.055106-31-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-gateway-java/fabric-gateway-java/1.4.0-SNAPSHOT/fabric-gateway-java-1.4.0-SNAPSHOT-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hyperledger/fabric-gateway-java/fabric-gateway-java/1.4.0-SNAPSHOT/fabric-gateway-java-1.4.0-20191002.055106-31-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
