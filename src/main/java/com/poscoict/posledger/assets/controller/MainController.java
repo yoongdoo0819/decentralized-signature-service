@@ -11,6 +11,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.User_Doc;
 import com.poscoict.posledger.assets.model.User_Sig;
+import com.poscoict.posledger.assets.org.chaincode.ERC721.ERC721;
 import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
 import com.poscoict.posledger.assets.service.RedisService;
 import com.poscoict.posledger.assets.util.DateUtil;
@@ -424,6 +425,9 @@ public class MainController {
 		// mint SigNFT
 		//mintSigNFT mintNFT = new mintSigNFT();
 		//mintNFT.mint(tokenNum, owner, sigId, filenm, merkleRoot);
+
+		ERC721 erc721 = new ERC721();
+		erc721.mint("0", "aa");
 
 		return new RedirectView("main");
 	}
