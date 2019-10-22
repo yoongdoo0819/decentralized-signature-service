@@ -2,6 +2,7 @@ package com.poscoict.posledger.assets.test;
 
 import com.poscoict.posledger.assets.org.chaincode.ERC721.ERC721;
 import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
+import com.poscoict.posledger.assets.service.RedisService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -24,24 +25,32 @@ public class ERC721Test {
     private ERC721 erc721;
 
     private static final Logger logger = LoggerFactory.getLogger(ERC721Test.class);
-    String owner = "alice";
-    String newOwner = "bob";
-    String approved = "carol";
-    String operator = "david";
-    String tokenId = "0";
+    String owner = "aa";
+    String newOwner = "sangwon";
+    String approved = "dongmin";
+    String operator = "woochang";
+    String tokenId = "10";
+
+    @Autowired
+    RedisService redisService;
 
     @Test
     public void registerTest() throws Exception {
         EnrollmentUser enrollToCA = new EnrollmentUser();
 
         enrollToCA.enrollAdmin();
-        enrollToCA.registerUser(owner);
-        enrollToCA.registerUser(newOwner);
+        String certificate = enrollToCA.registerUser(owner);
+        redisService.storeUser(owner, certificate);
+
+        certificate = enrollToCA.registerUser(newOwner);
+        redisService.storeUser(newOwner, certificate);
     }
 
     @Test
     public void mintTest() throws Exception {
 
+        String certificate = redisService.getCertificate(owner);
+        logger.info(certificate + " ^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         if(erc721.mint(tokenId, owner).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("mint true");

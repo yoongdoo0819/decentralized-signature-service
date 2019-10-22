@@ -8,7 +8,9 @@ import com.poscoict.posledger.assets.org.client.FabricClient;
 import com.poscoict.posledger.assets.org.config.Config;
 import com.poscoict.posledger.assets.org.user.UserContext;
 import com.poscoict.posledger.assets.org.util.Util;
+import com.poscoict.posledger.assets.service.RedisService;
 import org.hyperledger.fabric.sdk.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -24,6 +26,9 @@ public class ERC721 {
 
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
+
+    @Autowired
+    RedisService redisService;
 
     public String mint(String tokenId, String owner) {
 
@@ -41,7 +46,20 @@ public class ERC721 {
             caClient.setAdminUserContext(adminUserContext);
             adminUserContext = caClient.enrollAdminUser(Config.ADMIN, Config.ADMIN_PASSWORD);
 
-            FabricClient fabClient = new FabricClient(adminUserContext);
+            //
+            UserContext userContext = new UserContext();
+            String name = owner;
+            userContext.setName(name);
+            userContext.setAffiliation(Config.ORG1);
+            userContext.setMspId(Config.ORG1_MSP);
+
+            RedisService redisService = new RedisService();
+            String certificate = redisService.getCertificate("aa");
+            Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, certificate + " **************************");
+            userContext = caClient.enrollUser(userContext, certificate);
+
+            //userContext.;
+            FabricClient fabClient = new FabricClient(userContext);
 
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
