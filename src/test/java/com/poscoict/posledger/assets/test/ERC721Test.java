@@ -25,11 +25,11 @@ public class ERC721Test {
     private ERC721 erc721;
 
     private static final Logger logger = LoggerFactory.getLogger(ERC721Test.class);
-    String owner = "aa";
-    String newOwner = "sangwon";
-    String approved = "dongmin";
-    String operator = "woochang";
-    String tokenId = "10";
+    String owner = "alice";
+    String newOwner = "bob";
+    String approved = "carol";
+    String operator = "david";
+    String tokenId = "0";
 
     @Autowired
     RedisService redisService;
@@ -49,8 +49,6 @@ public class ERC721Test {
     @Test
     public void mintTest() throws Exception {
 
-        String certificate = redisService.getCertificate(owner);
-        logger.info(certificate + " ^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         if(erc721.mint(tokenId, owner).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("mint true");
@@ -75,7 +73,7 @@ public class ERC721Test {
     @Test
     public void ownerOfTest() throws Exception {
 
-        if(erc721.ownerOf(tokenId).equals(owner)) {
+        if(erc721.ownerOf(tokenId, owner).equals(owner)) {
             Thread.sleep(1000);
             logger.info("ownerOf true");
         } else {
@@ -111,7 +109,7 @@ public class ERC721Test {
     @Test
     public void afterThatOwnerOfTest() throws Exception {
 
-        if(erc721.ownerOf(tokenId).equals(newOwner)) {
+        if(erc721.ownerOf(tokenId, newOwner).equals(newOwner)) {
             Thread.sleep(1000);
             logger.info("ownerOf true");
         } else {
@@ -123,7 +121,7 @@ public class ERC721Test {
     @Test
     public void approveTest() throws Exception {
 
-        if(erc721.approve(approved, tokenId).equals("SUCCESS")) {
+        if(erc721.approve(approved, tokenId, newOwner).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("approve true");
         } else {
@@ -135,7 +133,7 @@ public class ERC721Test {
     @Test
     public void getApprovedTest() throws Exception {
 
-        if(erc721.getApproved(tokenId).equals(approved)) {
+        if(erc721.getApproved(tokenId, newOwner).equals(approved)) {
             Thread.sleep(1000);
             logger.info("getApprove true");
         } else {

@@ -60,7 +60,7 @@ public class EERC721Test {
     @Test
     public void divideTest() throws Exception {
 
-        if(eerc721.divide(tokenId, newTokenId).equals("SUCCESS")) {
+        if(eerc721.divide(tokenId, newTokenId, owner).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("divide true");
         } else {
@@ -71,12 +71,12 @@ public class EERC721Test {
 
     @Test
     public void queryTest() throws Exception {
-        logger.info(eerc721.query(tokenId));
+        logger.info(eerc721.query(tokenId, owner));
     }
 
     @Test
     public void queryNewTokenTest() throws Exception {
-        logger.info(eerc721.query(newTokenId));
+        logger.info(eerc721.query(newTokenId, owner));
     }
 
 
@@ -94,7 +94,7 @@ public class EERC721Test {
         String index = "2";
         String attr = owner+"SigId";
 
-        if(eerc721.update(tokenId, index, attr).equals("SUCCESS")) {
+        if(eerc721.update(tokenId, index, attr, owner).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("update true");
         } else {
@@ -106,7 +106,7 @@ public class EERC721Test {
     @Test
     public void deactivateTest() throws Exception {
 
-        if(eerc721.deactivate(tokenId).equals("SUCCESS")) {
+        if(eerc721.deactivate(tokenId, owner).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("deactivate true");
         } else {
@@ -117,12 +117,12 @@ public class EERC721Test {
 
     @Test
     public void afterUpdateAndDeactivateQueryTest() throws Exception {
-        logger.info(eerc721.query(tokenId));
+        logger.info(eerc721.query(tokenId, owner));
     }
 
     @Test
     public void queryHistoryTest() throws Exception {
-        logger.info(eerc721.queryHistory(tokenId));
+        logger.info(eerc721.queryHistory(tokenId, owner));
     }
 
 }
