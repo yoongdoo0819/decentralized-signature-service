@@ -1,5 +1,7 @@
 package com.poscoict.posledger.assets.test;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poscoict.posledger.assets.org.chaincode.EERC721.EERC721;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +31,7 @@ public class EERC721Test {
     String newTokenId = "2";
     String type = "doc";
     String hash = "doc";
-    String signers = "";
+    String signers = owner;
     String path = "doc";
     String pathHash = "doc";
 
@@ -71,7 +73,69 @@ public class EERC721Test {
 
     @Test
     public void queryTest() throws Exception {
-        logger.info(eerc721.query(tokenId, owner));
+        String queryResult = eerc721.query(tokenId, owner);
+        if(queryResult != null) {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode actualObj = mapper.readTree(queryResult);
+
+            JsonNode queryOwner = actualObj.get("owner");
+            JsonNode queryTokenId = actualObj.get("id");
+            JsonNode queryType = actualObj.get("type");
+
+            JsonNode queryXattr = actualObj.get("xattr");
+            JsonNode actualObj_xattr = mapper.readTree(queryXattr.textValue());
+            JsonNode querySigners = actualObj_xattr.get("signers");
+            JsonNode queryHash = actualObj_xattr.get("hash");
+
+            JsonNode queryUri = actualObj.get("uri");
+            JsonNode actualObj_uri = mapper.readTree(queryUri.textValue());
+            JsonNode queryPath = actualObj_uri.get("path");
+            JsonNode queryPath_hash = actualObj_xattr.get("hash");
+
+            if(queryOwner.textValue().equals(owner)) {
+                logger.info("query owner true");
+            }else {
+                logger.info("query owner fail");
+            }
+
+            if(queryTokenId.textValue().equals(tokenId)) {
+                logger.info("query tokenId true");
+            }else {
+                logger.info("query tokenId fail");
+            }
+
+            if(queryType.textValue().equals(type)) {
+                logger.info("query type true");
+            }else {
+                logger.info("query type fail");
+            }
+
+            if(querySigners.textValue().equals("[\"" + signers + "\"]")) {
+                logger.info("query signers true");
+            }else {
+                logger.info("query signers fail");
+            }
+
+            if(queryHash.textValue().equals(hash)) {
+                logger.info("query hash true");
+            }else {
+                logger.info("query hash fail");
+            }
+
+            if(queryPath.textValue().equals(path)) {
+                logger.info("query path true");
+            }else {
+                logger.info("query path fail");
+            }
+
+            if(queryPath_hash.textValue().equals(pathHash)) {
+                logger.info("query pathHash true");
+            }else {
+                logger.info("query pathHash fail");
+            }
+        } else {
+            logger.info("query fail");
+        }
     }
 
     @Test
@@ -122,7 +186,38 @@ public class EERC721Test {
 
     @Test
     public void queryHistoryTest() throws Exception {
-        logger.info(eerc721.queryHistory(tokenId, owner));
+        String queryResult = eerc721.queryHistory(tokenId, owner);
+        if(queryResult != null) {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode actualObj = mapper.readTree(queryResult);
+//
+            JsonNode owner = actualObj.get("owner");
+//            JsonNode xattr = actualObj.get("xattr");
+//            JsonNode actualObj_xattr = mapper.readTree(xattr.textValue());
+//            JsonNode signers = actualObj_xattr.get("signers");
+//            JsonNode hash = actualObj_xattr.get("hash");
+//            // JsonNode owner = actualObj.get("owner");
+//            // JsonNode owner = actualObj.get("owner");
+//
+            logger.info(owner.textValue());
+            logger.info(actualObj.toString());
+
+            String jsonString = mapper.writeValueAsString(queryResult);
+            String jsonString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(queryResult);
+            logger.info(jsonString2);
+
+            actualObj = mapper.readTree(jsonString2);
+            logger.info(actualObj.toString());
+
+//            Iterator<JsonNode> owner2 = actualObj.iterator();
+//            while(owner2.hasNext()) {
+//                owner2.
+//            }
+
+            //JSONArray a = (JSONArray)new JSONObject(queryResult);
+//            logger.info(signers.textValue());
+//            logger.info(hash.textValue());
+        }
     }
 
 }

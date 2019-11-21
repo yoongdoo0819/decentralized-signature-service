@@ -85,7 +85,7 @@ public class ERC721Test {
     @Test
     public void transferFromTest() throws Exception {
 
-        if(erc721.transferToken(owner, newOwner, tokenId).equals("SUCCESS")) {
+        if(erc721.transferToken(owner, newOwner,tokenId).equals("SUCCESS")) {
             Thread.sleep(1000);
             logger.info("transferFrom true");
         } else {
