@@ -52,7 +52,7 @@ public class ERC721 {
             String name = owner;
             userContext.setName(name);
             userContext.setAffiliation(Config.ORG1);
-            userContext.setMspId(Config.ORG1_MSP);
+            userContext.setMspId("kkkkkkkkkkkkkkkk"/*Config.ORG1_MSP*/);
 
             RedisService redisService = new RedisService();
             String certificate = redisService.getCertificate(owner);
