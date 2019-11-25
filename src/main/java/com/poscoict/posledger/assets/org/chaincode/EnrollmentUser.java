@@ -26,7 +26,7 @@ public class EnrollmentUser {
                 "./fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem"/*"/root/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem"*/);
         props.put("allowAllHostNames", "true");
         // if url starts as https.., need to set SSL
-        HFCAClient caClient = HFCAClient.createNewInstance("http://localhost:7054", props);
+        HFCAClient caClient = HFCAClient.createNewInstance("http://localhost:7054", null/*props*/);
         CryptoSuite cryptoSuite = CryptoSuiteFactory.getDefault().getCryptoSuite();
         caClient.setCryptoSuite(cryptoSuite);
 
@@ -61,10 +61,10 @@ public class EnrollmentUser {
         // Create a CA client for interacting with the CA.
         Properties props = new Properties();
         props.put("pemFile",
-                "./fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem");
+                "./fabric-samples/first-network/crypto-config/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem");
         props.put("allowAllHostNames", "true");
         // if url starts as https.., need to set SSL
-        HFCAClient caClient = HFCAClient.createNewInstance("http://localhost:7054", props);
+        HFCAClient caClient = HFCAClient.createNewInstance("http://localhost:7054", null/*props*/);
         CryptoSuite cryptoSuite = CryptoSuiteFactory.getDefault().getCryptoSuite();
         caClient.setCryptoSuite(cryptoSuite);
 
@@ -125,7 +125,7 @@ public class EnrollmentUser {
 
             @Override
             public String getMspId() {
-                return "Org1MSP";
+                return "hh";
             }
         }
                 ;
@@ -136,7 +136,7 @@ public class EnrollmentUser {
         registrationRequest.setEnrollmentID(this.userID);
         String enrollmentSecret = caClient.register(registrationRequest, admin);
         org.hyperledger.fabric.sdk.Enrollment enrollment = caClient.enroll(this.userID, enrollmentSecret);
-        Identity user = Identity.createIdentity("Org1MSP", enrollment.getCert(), enrollment.getKey());
+        Identity user = Identity.createIdentity("kk", enrollment.getCert(), enrollment.getKey());
         System.out.println("**********************"+enrollment.getCert()+"**************************");
         wallet.put(this.userID,user);
         System.out.println("Successfully enrolled user " + this.userID + " and imported it into the wallet");

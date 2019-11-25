@@ -12,6 +12,7 @@ import com.poscoict.posledger.assets.service.RedisService;
 import org.hyperledger.fabric.sdk.*;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +28,7 @@ public class EERC721 {
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
 
-    public String mint(String tokenId, String type, String owner, String hash, String signers, String path, String pathHash) {
+    public String mint(String tokenId, String type, String owner, String page, String hash, String signers, String path, String pathHash) {
 
         String result = "";
         try {
@@ -71,7 +72,7 @@ public class EERC721 {
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
             request.setFcn("mint");
-            String[] arguments = { tokenId, type, owner, hash, signers, path, pathHash};
+            String[] arguments = { tokenId, type, owner, page, hash, signers, path, pathHash};
 
             request.setArgs(arguments);
             request.setProposalWaitTime(1000);
@@ -224,7 +225,7 @@ public class EERC721 {
         return result;
     }
 
-    public String divide(String tokenId, String newId, String owner) {
+    public String divide(String tokenId, String[] newIds, String[] values, int index,  String owner) {
 
         String result = "";
         try {
@@ -267,7 +268,7 @@ public class EERC721 {
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
             request.setFcn("divide");
-            String[] arguments = { tokenId, newId };
+            String[] arguments = { tokenId,  Arrays.toString(newIds), Arrays.toString(values), Integer.toString(index) };
             //request.setFcn("createCar");
             //String[] arguments = { "CAR1", "Chevy", "Volt", "Red", "Nick" };
             request.setArgs(arguments);
