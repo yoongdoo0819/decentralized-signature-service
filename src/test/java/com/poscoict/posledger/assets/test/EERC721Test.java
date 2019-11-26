@@ -464,7 +464,7 @@ public class EERC721Test {
                     }
 
                     assertThat(querySigners.textValue()).isEqualTo("\"" + signers + "\"");
-                    if(querySigners.textValue().equals("[\"" + signers + "\"]")) {
+                    if(querySigners.textValue().equals("\"" + signers + "\"")) {
                         logger.info("query signers true");
                     }else {
                         logger.info("query signers fail");
