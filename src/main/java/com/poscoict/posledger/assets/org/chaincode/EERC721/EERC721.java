@@ -197,9 +197,11 @@ public class EERC721 {
             TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
+            //request.setFcn("deactivate");
+            //String[] arguments = { tokenId };
+
             request.setFcn("deactivate");
             String[] arguments = { tokenId };
-
             request.setArgs(arguments);
             request.setProposalWaitTime(1000);
 

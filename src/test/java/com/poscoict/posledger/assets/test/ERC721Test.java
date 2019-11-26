@@ -14,6 +14,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Configuration
@@ -49,121 +51,62 @@ public class ERC721Test {
     @Test
     public void mintTest() throws Exception {
 
-        if(erc721.mint(tokenId, owner).equals("SUCCESS")) {
-            Thread.sleep(1000);
-            logger.info("mint true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("mint fail");
-        }
+        String result = erc721.mint(tokenId, owner);
+        assertThat(result).isEqualTo("SUCCESS");
     }
 
     @Test
     public void balanceOfTest() throws Exception {
 
-        if(erc721.balanceOf(owner).equals("1")) {
-            Thread.sleep(1000);
-            logger.info("balanceOf true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("balanceOf fail");
-        }
+        assertThat(erc721.balanceOf(owner)).isEqualTo("1");
     }
 
     @Test
     public void ownerOfTest() throws Exception {
 
-        if(erc721.ownerOf(tokenId, owner).equals(owner)) {
-            Thread.sleep(1000);
-            logger.info("ownerOf true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("ownerOf fail");
-        }
+        assertThat(erc721.ownerOf(tokenId, owner)).isEqualTo(owner);
     }
 
     @Test
     public void transferFromTest() throws Exception {
 
-        if(erc721.transferToken(owner, newOwner,tokenId).equals("SUCCESS")) {
-            Thread.sleep(1000);
-            logger.info("transferFrom true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("transferFrom fail");
-        }
+        assertThat(erc721.transferToken(owner, newOwner,tokenId)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void afterThatBalanceOfTest() throws Exception {
 
-        if(erc721.balanceOf(owner).equals("0")) {
-            Thread.sleep(1000);
-            logger.info("balanceOf true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("balanceOf fail");
-        }
+        assertThat(erc721.balanceOf(owner)).isEqualTo("0");
     }
 
     @Test
     public void afterThatOwnerOfTest() throws Exception {
 
-        if(erc721.ownerOf(tokenId, newOwner).equals(newOwner)) {
-            Thread.sleep(1000);
-            logger.info("ownerOf true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("ownerOf fail");
-        }
+        assertThat(erc721.ownerOf(tokenId, newOwner)).isEqualTo(newOwner);
     }
 
     @Test
     public void approveTest() throws Exception {
 
-        if(erc721.approve(approved, tokenId, newOwner).equals("SUCCESS")) {
-            Thread.sleep(1000);
-            logger.info("approve true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("approve fail");
-        }
+        assertThat(erc721.approve(approved, tokenId, newOwner)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void getApprovedTest() throws Exception {
 
-        if(erc721.getApproved(tokenId, newOwner).equals(approved)) {
-            Thread.sleep(1000);
-            logger.info("getApprove true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("getApprove fail");
-        }
+        assertThat(erc721.getApproved(tokenId, newOwner)).isEqualTo(approved);
     }
 
     @Test
     public void setApprovedForAllTest() throws Exception {
 
-        if(erc721.setApprovedForAll(newOwner, operator, "true").equals("SUCCESS")) {
-            Thread.sleep(1000);
-            logger.info("setApprovedForAll true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("setApprovedForAll fail");
-        }
+        assertThat(erc721.setApprovedForAll(newOwner, operator, "true")).isEqualTo("SUCCESS");
     }
 
     @Test
     public void isApprovedForAllTest() throws Exception {
 
-        if(erc721.isApprovedForAll(newOwner, operator).equals("TRUE")) {
-            Thread.sleep(1000);
-            logger.info("isApprovedForAll true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("isApprovedForAll fail");
-        }
+        assertThat(erc721.isApprovedForAll(newOwner, operator)).isEqualTo("TRUE");
     }
 
 }
