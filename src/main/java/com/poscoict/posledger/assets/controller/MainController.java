@@ -427,7 +427,7 @@ public class MainController {
 		//mintNFT.mint(tokenNum, owner, sigId, filenm, merkleRoot);
 
 		ERC721 erc721 = new ERC721();
-		erc721.mint("0", "aa");
+		erc721.register("0", "aa");
 
 		return new RedirectView("main");
 	}
