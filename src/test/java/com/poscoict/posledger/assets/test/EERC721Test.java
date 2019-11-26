@@ -14,6 +14,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Configuration
@@ -41,37 +43,19 @@ public class EERC721Test {
     @Test
     public void mintTest() throws Exception {
 
-        if(eerc721.mint(tokenId, type, owner, page, hash, signers, path, pathHash).equals("SUCCESS")) {
-            Thread.sleep(1000);
-            logger.info("mint true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("mint fail");
-        }
+        assertThat(eerc721.mint(tokenId, type, owner, page, hash, signers, path, pathHash)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void balanceOfTest() throws Exception {
 
-        if(eerc721.balanceOf(owner, type).equals("1")) {
-            Thread.sleep(1000);
-            logger.info("balanceOf true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("balanceOf fail");
-        }
+        assertThat(eerc721.balanceOf(owner, type)).isEqualTo("1");
     }
 
     @Test
     public void divideTest() throws Exception {
 
-        if(eerc721.divide(tokenId, newTokenIds, values, index, owner).equals("SUCCESS")) {
-            Thread.sleep(1000);
-            logger.info("divide true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("divide fail");
-        }
+        assertThat(eerc721.divide(tokenId, newTokenIds, values, index, owner)).isEqualTo("SUCCESS");
     }
 
     @Test
@@ -97,48 +81,56 @@ public class EERC721Test {
             JsonNode queryPath = actualObj_uri.get("path");
             JsonNode queryPath_hash = actualObj_xattr.get("hash");
 
+            assertThat(queryOwner.textValue()).isEqualTo(owner);
             if(queryOwner.textValue().equals(owner)) {
                 logger.info("query owner true");
             }else {
                 logger.info("query owner fail");
             }
 
+            assertThat(queryTokenId.textValue()).isEqualTo(tokenId);
             if(queryTokenId.textValue().equals(tokenId)) {
                 logger.info("query tokenId true");
             }else {
                 logger.info("query tokenId fail");
             }
 
+            assertThat(queryType.textValue()).isEqualTo(type);
             if(queryType.textValue().equals(type)) {
                 logger.info("query type true");
             }else {
                 logger.info("query type fail");
             }
 
+            assertThat(querySigners.textValue()).isEqualTo("[\"" + signers + "\"]");
             if(querySigners.textValue().equals("[\"" + signers + "\"]")) {
                 logger.info("query signers true");
             }else {
                 logger.info("query signers fail");
             }
 
+            assertThat(queryHash.textValue()).isEqualTo(hash);
             if(queryHash.textValue().equals(hash)) {
                 logger.info("query hash true");
             }else {
                 logger.info("query hash fail");
             }
 
+            assertThat(queryValue.textValue()).isEqualTo(page);
             if(queryValue.textValue().equals(page)) {
                 logger.info("query page true");
             }else {
                 logger.info("query page fail");
             }
 
+            assertThat(queryPath.textValue()).isEqualTo(path);
             if(queryPath.textValue().equals(path)) {
                 logger.info("query path true");
             }else {
                 logger.info("query path fail");
             }
 
+            assertThat(queryPath_hash.textValue()).isEqualTo(pathHash);
             if(queryPath_hash.textValue().equals(pathHash)) {
                 logger.info("query pathHash true");
             }else {
@@ -172,48 +164,56 @@ public class EERC721Test {
             JsonNode queryPath = actualObj_uri.get("path");
             JsonNode queryPath_hash = actualObj_xattr.get("hash");
 
+            assertThat(queryOwner.textValue()).isEqualTo(owner);
             if(queryOwner.textValue().equals(owner)) {
                 logger.info("query owner true");
             }else {
                 logger.info("query owner fail");
             }
 
+            assertThat(queryTokenId.textValue()).isEqualTo(newTokenIds[0]);
             if(queryTokenId.textValue().equals(newTokenIds[0])) {
                 logger.info("query newTokenIds[0] true");
             }else {
                 logger.info("query newTokenIds[0] fail");
             }
 
+            assertThat(queryType.textValue()).isEqualTo(type);
             if(queryType.textValue().equals(type)) {
                 logger.info("query type true");
             }else {
                 logger.info("query type fail");
             }
 
+            assertThat(querySigners.textValue()).isEqualTo("[\"" + signers + "\"]");
             if(querySigners.textValue().equals("[\"" + signers + "\"]")) {
                 logger.info("query signers true");
             }else {
                 logger.info("query signers fail");
             }
 
+            assertThat(queryHash.textValue()).isEqualTo(hash);
             if(queryHash.textValue().equals(hash)) {
                 logger.info("query hash true");
             }else {
                 logger.info("query hash fail");
             }
 
+            assertThat(queryValue.textValue()).isEqualTo(values[0]);
             if(queryValue.textValue().equals(values[0])) {
                 logger.info("query page true");
             }else {
                 logger.info("query page fail");
             }
 
+            assertThat(queryPath.textValue()).isEqualTo(path);
             if(queryPath.textValue().equals(path)) {
                 logger.info("query path true");
             }else {
                 logger.info("query path fail");
             }
 
+            assertThat(queryPath_hash.textValue()).isEqualTo(pathHash);
             if(queryPath_hash.textValue().equals(pathHash)) {
                 logger.info("query pathHash true");
             }else {
@@ -247,48 +247,56 @@ public class EERC721Test {
             JsonNode queryPath = actualObj_uri.get("path");
             JsonNode queryPath_hash = actualObj_xattr.get("hash");
 
+            assertThat(queryOwner.textValue()).isEqualTo(owner);
             if(queryOwner.textValue().equals(owner)) {
                 logger.info("query owner true");
             }else {
                 logger.info("query owner fail");
             }
 
+            assertThat(queryTokenId.textValue()).isEqualTo(newTokenIds[1]);
             if(queryTokenId.textValue().equals(newTokenIds[1])) {
-                logger.info("query newTokenIds[1] true");
+                logger.info("query newTokenIds[0] true");
             }else {
-                logger.info("query newTokenIds[1] fail");
+                logger.info("query newTokenIds[0] fail");
             }
 
+            assertThat(queryType.textValue()).isEqualTo(type);
             if(queryType.textValue().equals(type)) {
                 logger.info("query type true");
             }else {
                 logger.info("query type fail");
             }
 
+            assertThat(querySigners.textValue()).isEqualTo("[\"" + signers + "\"]");
             if(querySigners.textValue().equals("[\"" + signers + "\"]")) {
                 logger.info("query signers true");
             }else {
                 logger.info("query signers fail");
             }
 
+            assertThat(queryHash.textValue()).isEqualTo(hash);
             if(queryHash.textValue().equals(hash)) {
                 logger.info("query hash true");
             }else {
                 logger.info("query hash fail");
             }
 
+            assertThat(queryValue.textValue()).isEqualTo(values[1]);
             if(queryValue.textValue().equals(values[1])) {
                 logger.info("query page true");
             }else {
                 logger.info("query page fail");
             }
 
+            assertThat(queryPath.textValue()).isEqualTo(path);
             if(queryPath.textValue().equals(path)) {
                 logger.info("query path true");
             }else {
                 logger.info("query path fail");
             }
 
+            assertThat(queryPath_hash.textValue()).isEqualTo(pathHash);
             if(queryPath_hash.textValue().equals(pathHash)) {
                 logger.info("query pathHash true");
             }else {
@@ -311,27 +319,15 @@ public class EERC721Test {
     public void updateTest() throws Exception {
 
         String index = "2";
-        String attr = owner+"SigId";
+        String attr = owner+" SigId";
 
-        if(eerc721.update(tokenId, index, attr, owner).equals("SUCCESS")) {
-            Thread.sleep(1000);
-            logger.info("update true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("update fail");
-        }
+        assertThat(eerc721.update(tokenId, index, attr, owner)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void deactivateTest() throws Exception {
 
-        if(eerc721.deactivate(tokenId, owner).equals("SUCCESS")) {
-            Thread.sleep(1000);
-            logger.info("deactivate true");
-        } else {
-            Thread.sleep(1000);
-            logger.info("deactivate fail");
-        }
+        assertThat(eerc721.deactivate(tokenId, owner)).isEqualTo("SUCCESS");
     }
 
     @Test
@@ -357,48 +353,57 @@ public class EERC721Test {
             JsonNode queryPath = actualObj_uri.get("path");
             JsonNode queryPath_hash = actualObj_xattr.get("hash");
 
+            assertThat(queryOwner.textValue()).isEqualTo(owner);
+
             if(queryOwner.textValue().equals(owner)) {
                 logger.info("query owner true");
             }else {
                 logger.info("query owner fail");
             }
 
+            assertThat(queryTokenId.textValue()).isEqualTo(tokenId);
             if(queryTokenId.textValue().equals(tokenId)) {
                 logger.info("query tokenId true");
             }else {
                 logger.info("query tokenId fail");
             }
 
+            assertThat(queryType.textValue()).isEqualTo(type);
             if(queryType.textValue().equals(type)) {
                 logger.info("query type true");
             }else {
                 logger.info("query type fail");
             }
 
+            assertThat(querySigners.textValue()).isEqualTo("[\"" + signers + "\"]");
             if(querySigners.textValue().equals("[\"" + signers + "\"]")) {
                 logger.info("query signers true");
             }else {
                 logger.info("query signers fail");
             }
 
+            assertThat(queryHash.textValue()).isEqualTo(hash);
             if(queryHash.textValue().equals(hash)) {
                 logger.info("query hash true");
             }else {
                 logger.info("query hash fail");
             }
 
+            assertThat(queryValue.textValue()).isEqualTo(page);
             if(queryValue.textValue().equals(page)) {
                 logger.info("query page true");
             }else {
                 logger.info("query page fail");
             }
 
+            assertThat(queryPath.textValue()).isEqualTo(path);
             if(queryPath.textValue().equals(path)) {
                 logger.info("query path true");
             }else {
                 logger.info("query path fail");
             }
 
+            assertThat(queryPath_hash.textValue()).isEqualTo(pathHash);
             if(queryPath_hash.textValue().equals(pathHash)) {
                 logger.info("query pathHash true");
             }else {
@@ -428,7 +433,6 @@ public class EERC721Test {
                     JsonNode queryXattr = actualObj.get("xattr");
                     JsonNode actualObj_xattr = mapper.readTree(queryXattr.textValue());
                     JsonNode querySigners = actualObj_xattr.get("signers");
-                    logger.info("**************************" + querySigners.textValue());
                     JsonNode queryHash = actualObj_xattr.get("hash");
                     JsonNode queryValue = actualObj_xattr.get("pages");
 
@@ -437,48 +441,57 @@ public class EERC721Test {
                     JsonNode queryPath = actualObj_uri.get("path");
                     JsonNode queryPath_hash = actualObj_xattr.get("hash");
 
+                    assertThat(queryOwner.textValue()).isEqualTo(owner);
+
                     if(queryOwner.textValue().equals(owner)) {
                         logger.info("query owner true");
                     }else {
                         logger.info("query owner fail");
                     }
 
+                    assertThat(queryTokenId.textValue()).isEqualTo(tokenId);
                     if(queryTokenId.textValue().equals(tokenId)) {
                         logger.info("query tokenId true");
                     }else {
                         logger.info("query tokenId fail");
                     }
 
+                    assertThat(queryType.textValue()).isEqualTo(type);
                     if(queryType.textValue().equals(type)) {
                         logger.info("query type true");
                     }else {
                         logger.info("query type fail");
                     }
 
-                    if(querySigners.textValue().equals("\"" + signers + "\"")) {
+                    assertThat(querySigners.textValue()).isEqualTo("\"" + signers + "\"");
+                    if(querySigners.textValue().equals("[\"" + signers + "\"]")) {
                         logger.info("query signers true");
                     }else {
                         logger.info("query signers fail");
                     }
 
+                    assertThat(queryHash.textValue()).isEqualTo(hash);
                     if(queryHash.textValue().equals(hash)) {
                         logger.info("query hash true");
                     }else {
                         logger.info("query hash fail");
                     }
 
+                    assertThat(queryValue.textValue()).isEqualTo(page);
                     if(queryValue.textValue().equals(page)) {
                         logger.info("query page true");
                     }else {
                         logger.info("query page fail");
                     }
 
+                    assertThat(queryPath.textValue()).isEqualTo(path);
                     if(queryPath.textValue().equals(path)) {
                         logger.info("query path true");
                     }else {
                         logger.info("query path fail");
                     }
 
+                    assertThat(queryPath_hash.textValue()).isEqualTo(pathHash);
                     if(queryPath_hash.textValue().equals(pathHash)) {
                         logger.info("query pathHash true");
                     }else {
@@ -489,36 +502,6 @@ public class EERC721Test {
                 }
             }
 
-//
-//            ObjectMapper mapper = new ObjectMapper();
-//            JsonNode actualObj = mapper.readTree(queryResult);
-////
-//            JsonNode owner = actualObj.get("owner");
-////            JsonNode xattr = actualObj.get("xattr");
-////            JsonNode actualObj_xattr = mapper.readTree(xattr.textValue());
-////            JsonNode signers = actualObj_xattr.get("signers");
-////            JsonNode hash = actualObj_xattr.get("hash");
-////            // JsonNode owner = actualObj.get("owner");
-////            // JsonNode owner = actualObj.get("owner");
-////
-//            logger.info(owner.textValue());
-//            logger.info(actualObj.toString());
-//
-//            String jsonString = mapper.writeValueAsString(queryResult);
-//            String jsonString2 = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(queryResult);
-//            logger.info(jsonString2);
-//
-//            actualObj = mapper.readTree(jsonString2);
-//            logger.info(actualObj.toString());
-
-//            Iterator<JsonNode> owner2 = actualObj.iterator();
-//            while(owner2.hasNext()) {
-//                owner2.
-//            }
-
-            //JSONArray a = (JSONArray)new JSONObject(queryResult);
-//            logger.info(signers.textValue());
-//            logger.info(hash.textValue());
         }
     }
 
