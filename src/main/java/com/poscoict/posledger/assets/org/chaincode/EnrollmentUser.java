@@ -14,6 +14,8 @@ import java.security.PrivateKey;
 import java.util.Properties;
 import java.util.Set;
 
+import static com.poscoict.posledger.assets.org.config.Config.CA_ORG1_URL;
+
 public class EnrollmentUser {
 
     String userID = null;
@@ -26,7 +28,7 @@ public class EnrollmentUser {
                 "./fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem"/*"/root/fabric-samples/first-network/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem"*/);
         props.put("allowAllHostNames", "true");
         // if url starts as https.., need to set SSL
-        HFCAClient caClient = HFCAClient.createNewInstance("http://localhost:7054", null/*props*/);
+        HFCAClient caClient = HFCAClient.createNewInstance(CA_ORG1_URL, null/*props*/);
         CryptoSuite cryptoSuite = CryptoSuiteFactory.getDefault().getCryptoSuite();
         caClient.setCryptoSuite(cryptoSuite);
 
@@ -64,7 +66,7 @@ public class EnrollmentUser {
                 "./fabric-samples/first-network/crypto-config/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem");
         props.put("allowAllHostNames", "true");
         // if url starts as https.., need to set SSL
-        HFCAClient caClient = HFCAClient.createNewInstance("http://localhost:7054", null/*props*/);
+        HFCAClient caClient = HFCAClient.createNewInstance(CA_ORG1_URL, null/*props*/);
         CryptoSuite cryptoSuite = CryptoSuiteFactory.getDefault().getCryptoSuite();
         caClient.setCryptoSuite(cryptoSuite);
 

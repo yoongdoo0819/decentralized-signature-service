@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+
 @Component
 public class ERC721 {
 
@@ -37,6 +38,7 @@ public class ERC721 {
 
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
+            Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + caUrl);
             CAClient caClient = new CAClient(caUrl, null);
 
             // Enroll Admin to Org1MSP
@@ -52,7 +54,7 @@ public class ERC721 {
             String name = owner;
             userContext.setName(name);
             userContext.setAffiliation(Config.ORG1);
-            userContext.setMspId("kkkkkkkkkkkkkkkk"/*Config.ORG1_MSP*/);
+            userContext.setMspId(Config.ORG1_MSP);
 
             RedisService redisService = new RedisService();
             String certificate = redisService.getCertificate(owner);
@@ -63,7 +65,7 @@ public class ERC721 {
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
             Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
+            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
             channel.addPeer(peer);
             channel.addEventHub(eventHub);
@@ -133,7 +135,7 @@ public class ERC721 {
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
             Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
+            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
             channel.addPeer(peer);
             channel.addEventHub(eventHub);
@@ -189,7 +191,7 @@ public class ERC721 {
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
             Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
+            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
             channel.addPeer(peer);
             channel.addEventHub(eventHub);
@@ -245,7 +247,7 @@ public class ERC721 {
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
             Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
+            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
             channel.addPeer(peer);
             channel.addEventHub(eventHub);
@@ -314,7 +316,7 @@ public class ERC721 {
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
             Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
+            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
             channel.addPeer(peer);
             channel.addEventHub(eventHub);
@@ -370,7 +372,7 @@ public class ERC721 {
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
             Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
+            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
             channel.addPeer(peer);
             channel.addEventHub(eventHub);
@@ -438,7 +440,7 @@ public class ERC721 {
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
             Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
+            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
             channel.addPeer(peer);
             channel.addEventHub(eventHub);
@@ -493,7 +495,7 @@ public class ERC721 {
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
             Channel channel = channelClient.getChannel();
             Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", "grpc://localhost:7053");
+            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
             Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
             channel.addPeer(peer);
             channel.addEventHub(eventHub);
