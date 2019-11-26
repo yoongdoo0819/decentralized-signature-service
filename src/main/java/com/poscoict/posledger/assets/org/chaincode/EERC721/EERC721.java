@@ -28,7 +28,7 @@ public class EERC721 {
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
 
-    public String mint(String tokenId, String type, String owner, String page, String hash, String signers, String path, String pathHash) {
+    public String register(String tokenId, String type, String owner, String page, String hash, String signers, String path, String pathHash) {
 
         String result = "";
         try {

@@ -37,7 +37,7 @@ public class ERC721Test {
     RedisService redisService;
 
     @Test
-    public void registerTest() throws Exception {
+    public void enrollTest() throws Exception {
         EnrollmentUser enrollToCA = new EnrollmentUser();
 
         enrollToCA.enrollAdmin();
@@ -49,9 +49,9 @@ public class ERC721Test {
     }
 
     @Test
-    public void mintTest() throws Exception {
+    public void registerTest() throws Exception {
 
-        String result = erc721.mint(tokenId, owner);
+        String result = erc721.register(tokenId, owner);
         assertThat(result).isEqualTo("SUCCESS");
     }
 
@@ -70,7 +70,7 @@ public class ERC721Test {
     @Test
     public void transferFromTest() throws Exception {
 
-        assertThat(erc721.transferToken(owner, newOwner,tokenId)).isEqualTo("SUCCESS");
+        assertThat(erc721.transfer(owner, newOwner,tokenId)).isEqualTo("SUCCESS");
     }
 
     @Test
@@ -98,9 +98,9 @@ public class ERC721Test {
     }
 
     @Test
-    public void setApprovedForAllTest() throws Exception {
+    public void setApprovalForAllTest() throws Exception {
 
-        assertThat(erc721.setApprovedForAll(newOwner, operator, "true")).isEqualTo("SUCCESS");
+        assertThat(erc721.setApprovalForAll(newOwner, operator, "true")).isEqualTo("SUCCESS");
     }
 
     @Test

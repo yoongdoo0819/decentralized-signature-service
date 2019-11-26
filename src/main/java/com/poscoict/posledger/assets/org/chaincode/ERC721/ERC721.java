@@ -30,7 +30,7 @@ public class ERC721 {
     @Autowired
     RedisService redisService;
 
-    public String mint(String tokenId, String owner) {
+    public String register(String tokenId, String owner) {
 
         String result = "";
         try {
@@ -339,7 +339,7 @@ public class ERC721 {
         return result;
     }
 
-    public String setApprovedForAll(String caller, String operator, String approved) {
+    public String setApprovalForAll(String caller, String operator, String approved) {
         String result = "";
         try {
             Util.cleanUp();
@@ -462,7 +462,7 @@ public class ERC721 {
         return result;
     }
 
-    public String transferToken(String owner, String receiver, String tokenId) {
+    public String transfer(String owner, String receiver, String tokenId) {
         String result = "";
         try {
             Util.cleanUp();

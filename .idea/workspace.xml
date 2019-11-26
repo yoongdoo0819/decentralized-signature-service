@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EERC721/EERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EERC721/EERC721.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/ERC721/ERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/ERC721/ERC721.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/org1/alice.ser" beforeDir="false" afterPath="$PROJECT_DIR$/users/org1/alice.ser" afterDir="false" />
@@ -108,7 +108,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.EERC721Test.queryHistoryTest">
+  <component name="RunManager" selected="JUnit.EERC721Test.deactivateTest">
     <configuration name="EERC721Test.afterUpdateAndDeactivateQueryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assets" />
       <extension name="coverage">
@@ -141,6 +141,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="EERC721Test.mintTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assets" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.EERC721Test" />
+      <option name="METHOD_NAME" value="mintTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="EERC721Test.queryHistoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assets" />
       <extension name="coverage">
@@ -152,22 +168,6 @@
       <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
       <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.EERC721Test" />
       <option name="METHOD_NAME" value="queryHistoryTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EERC721Test.queryNewToken1Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assets" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.EERC721Test" />
-      <option name="METHOD_NAME" value="queryNewToken1Test" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -198,11 +198,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.EERC721Test.deactivateTest" />
+        <item itemvalue="JUnit.EERC721Test.mintTest" />
         <item itemvalue="JUnit.EERC721Test.queryHistoryTest" />
         <item itemvalue="JUnit.EERC721Test.afterUpdateAndDeactivateQueryTest" />
-        <item itemvalue="JUnit.EERC721Test.deactivateTest" />
         <item itemvalue="JUnit.EERC721Test.updateTest" />
-        <item itemvalue="JUnit.EERC721Test.queryNewToken1Test" />
       </list>
     </recent_temporary>
   </component>
@@ -232,7 +232,7 @@
       <workItem from="1569328640365" duration="14885000" />
       <workItem from="1569394371219" duration="48047000" />
       <workItem from="1570525327361" duration="9186000" />
-      <workItem from="1574317879817" duration="30824000" />
+      <workItem from="1574317879817" duration="31713000" />
     </task>
     <servers />
   </component>
