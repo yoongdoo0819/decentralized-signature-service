@@ -2,6 +2,7 @@ package com.poscoict.posledger.assets.test;
 
 import com.poscoict.posledger.assets.org.chaincode.ERC721.ERC721;
 import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
+import com.poscoict.posledger.assets.org.config.Config;
 import com.poscoict.posledger.assets.service.RedisService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +28,8 @@ public class ERC721Test {
     private ERC721 erc721;
 
     private static final Logger logger = LoggerFactory.getLogger(ERC721Test.class);
-    String owner = "alice";
-    String newOwner = "bob";
+    String owner = "aliceaa";
+    String newOwner = "bobaa";
     String approved = "carol";
     String operator = "david";
     String tokenId = "0";
@@ -36,8 +37,25 @@ public class ERC721Test {
     @Autowired
     RedisService redisService;
 
+    final String IP = "141.223.83.39";
+    public ERC721Test() {
+        Config.ORG1_MSP = "Org1MSP";
+        Config.ORG1 = "org1";
+        Config.ADMIN = "admin";
+        Config.ADMIN_PASSWORD = "adminpw";
+        Config.CA_ORG1_URL = "http://" + IP + ":7054";
+        Config.ORDERER_URL = "grpc://" + IP + ":7050";
+        Config.ORDERER_NAME = "orderer.example.com";
+        Config.CHANNEL_NAME = "mychannel";
+        Config.ORG1_PEER_0 = "peer0.org1.example.com";
+        Config.ORG1_PEER_0_URL = "grpc://" + IP + ":7051";
+        Config.EVENT_HUB = "grpc://" + IP + ":7053";
+        Config.CHAINCODE_1_NAME = "mycc";
+    }
+
     @Test
     public void enrollTest() throws Exception {
+
         EnrollmentUser enrollToCA = new EnrollmentUser();
 
         enrollToCA.enrollAdmin();
