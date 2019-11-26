@@ -37,7 +37,7 @@ public class ERC721Test {
     @Autowired
     RedisService redisService;
 
-    final String IP = "141.223.83.39";
+    final String IP = "192.168.41.122";
     public ERC721Test() {
         Config.ORG1_MSP = "Org1MSP";
         Config.ORG1 = "org1";
