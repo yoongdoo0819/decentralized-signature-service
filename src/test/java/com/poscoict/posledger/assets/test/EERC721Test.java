@@ -41,9 +41,9 @@ public class EERC721Test {
     int index = 3;
 
     @Test
-    public void mintTest() throws Exception {
+    public void registerTest() throws Exception {
 
-        assertThat(eerc721.mint(tokenId, type, owner, page, hash, signers, path, pathHash)).isEqualTo("SUCCESS");
+        assertThat(eerc721.register(tokenId, type, owner, page, hash, signers, path, pathHash)).isEqualTo("SUCCESS");
     }
 
     @Test
