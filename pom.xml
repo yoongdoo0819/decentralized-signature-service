@@ -84,6 +84,32 @@
     </repositories>
     -->
 
+    <repositories>
+        <repository>
+            <id>hyperledger-snapshots-repo</id>
+            <url>https://nexus.hyperledger.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>poscoict-repository</id>
+            <url>http://192.168.193.100:8081/nexus/content/groups/public</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>poscoict-repository-snapshots</id>
+            <url>http://192.168.193.100:8081/nexus/content/repositories/snapshots</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+  
     <dependencies>
 
         <!-- spring mvc, rest -->
