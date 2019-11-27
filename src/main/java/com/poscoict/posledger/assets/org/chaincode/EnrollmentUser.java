@@ -1,13 +1,18 @@
 package com.poscoict.posledger.assets.org.chaincode;
 
+import com.poscoict.posledger.assets.org.config.Config;
+import com.poscoict.posledger.assets.org.user.UserContext;
+import com.poscoict.posledger.assets.service.RedisService;
 import org.hyperledger.fabric.gateway.Wallet;
 import org.hyperledger.fabric.gateway.Wallet.Identity;
+import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.User;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.hyperledger.fabric.sdk.security.CryptoSuiteFactory;
 import org.hyperledger.fabric_ca.sdk.EnrollmentRequest;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.nio.file.Paths;
 import java.security.PrivateKey;
@@ -19,6 +24,8 @@ import static com.poscoict.posledger.assets.org.config.Config.CA_ORG1_URL;
 public class EnrollmentUser {
 
     String userID = null;
+    @Autowired
+    RedisService redisService;
 
     public void enrollAdmin() throws Exception {
 
@@ -56,7 +63,7 @@ public class EnrollmentUser {
         System.out.println("Successfully enrolled user \"admin\" and imported it into the wallet");
     }
 
-    public String registerUser(String _userID) throws Exception {
+    public Enrollment registerUser(String _userID) throws Exception {
 
         this.userID = _userID;
 
@@ -143,7 +150,18 @@ public class EnrollmentUser {
         wallet.put(this.userID,user);
         System.out.println("Successfully enrolled user " + this.userID + " and imported it into the wallet");
 
-        return enrollment.getCert();
+        UserContext userContext = new UserContext();
+        String name = this.userID;
+        userContext.setName(name);
+        userContext.setAffiliation(Config.ORG1);
+        userContext.setMspId(Config.ORG1_MSP);
+        userContext.setEnrollment(enrollment);
+
+        System.out.println(enrollment.getCert());
+
+        //Util.writeUserContext(userContext);
+
+        return enrollment;
     }
 
     public static void main(String[] args) throws Exception {

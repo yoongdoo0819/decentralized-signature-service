@@ -16,6 +16,7 @@ import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
 import com.poscoict.posledger.assets.service.RedisService;
 import com.poscoict.posledger.assets.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.hyperledger.fabric.sdk.Enrollment;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -86,7 +87,7 @@ public class MainController {
 			//User user = new User(req.getParameter("userId"), req.getParameter("userPasswd"));
 			//userDao.insert(user);
 
-			String certificate = newUser.registerUser(req.getParameter("userId"));
+			Enrollment certificate = newUser.registerUser(req.getParameter("userId"));
 			if(!(redisService.storeUser(req.getParameter("userId"), certificate)))
 				log.info("user register failure");
 
@@ -125,7 +126,7 @@ public class MainController {
 			userDao.insert(user);
 
 			// insert user's cert into Redis
-			String certificate = newUser.registerUser(req.getParameter("userId"));
+			Enrollment certificate = newUser.registerUser(req.getParameter("userId"));
 			if(!(redisService.storeUser(req.getParameter("userId"), certificate)))
 				log.info("user register failure");
 
