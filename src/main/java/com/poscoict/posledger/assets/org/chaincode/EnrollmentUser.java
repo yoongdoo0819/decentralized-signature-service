@@ -1,7 +1,5 @@
 package com.poscoict.posledger.assets.org.chaincode;
 
-import com.poscoict.posledger.assets.org.config.Config;
-import com.poscoict.posledger.assets.org.user.UserContext;
 import com.poscoict.posledger.assets.service.RedisService;
 import org.hyperledger.fabric.gateway.Wallet;
 import org.hyperledger.fabric.gateway.Wallet.Identity;
@@ -150,16 +148,6 @@ public class EnrollmentUser {
         wallet.put(this.userID,user);
         System.out.println("Successfully enrolled user " + this.userID + " and imported it into the wallet");
 
-        UserContext userContext = new UserContext();
-        String name = this.userID;
-        userContext.setName(name);
-        userContext.setAffiliation(Config.ORG1);
-        userContext.setMspId(Config.ORG1_MSP);
-        userContext.setEnrollment(enrollment);
-
-        System.out.println(enrollment.getCert());
-
-        //Util.writeUserContext(userContext);
 
         return enrollment;
     }
