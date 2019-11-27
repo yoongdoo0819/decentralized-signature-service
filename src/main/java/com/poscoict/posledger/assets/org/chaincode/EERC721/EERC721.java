@@ -2,14 +2,13 @@ package com.poscoict.posledger.assets.org.chaincode.EERC721;
 
 import com.poscoict.posledger.assets.org.chaincode.InvokeChaincode;
 import com.poscoict.posledger.assets.org.chaincode.QueryChaincode;
-import com.poscoict.posledger.assets.org.client.CAClient;
 import com.poscoict.posledger.assets.org.client.ChannelClient;
 import com.poscoict.posledger.assets.org.client.FabricClient;
 import com.poscoict.posledger.assets.org.config.Config;
 import com.poscoict.posledger.assets.org.user.UserContext;
-import com.poscoict.posledger.assets.org.util.Util;
 import com.poscoict.posledger.assets.service.RedisService;
 import org.hyperledger.fabric.sdk.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -25,6 +24,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Component
 public class EERC721 {
 
+    @Autowired
+    RedisService redisService;
 
     private static final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
     private static final String EXPECTED_EVENT_NAME = "event";
@@ -34,9 +35,11 @@ public class EERC721 {
         String result = "";
         try {
 
+            /*
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
             CAClient caClient = new CAClient(caUrl, null);
+
 
             // Enroll Admin to Org1MSP
             UserContext adminUserContext = new UserContext();
@@ -53,10 +56,22 @@ public class EERC721 {
             userContext.setAffiliation(Config.ORG1);
             userContext.setMspId(Config.ORG1_MSP);
 
-            RedisService redisService = new RedisService();
-            String certificate = redisService.getCertificate(owner);
-            userContext = caClient.enrollUser(userContext, certificate);
 
+             */
+            //UserContext userContext = Util.readUserContext(Config.ORG1, owner);
+            //Enrollment certificate = redisService.getCertificate(owner);
+            //Enrollment enrollment = (Enrollment)(Object)certificate;
+
+            UserContext userContext = new UserContext();
+            String name = owner;
+            userContext.setName(name);
+            userContext.setAffiliation(Config.ORG1);
+            userContext.setMspId(Config.ORG1_MSP);
+            //userContext.setEnrollment(certificate);
+
+
+            if(userContext != null)
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
             FabricClient fabClient = new FabricClient(userContext);
 
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
@@ -104,9 +119,11 @@ public class EERC721 {
 
         String result = "";
         try {
+            /*
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
             CAClient caClient = new CAClient(caUrl, null);
+
 
             // Enroll Admin to Org1MSP
             UserContext adminUserContext = new UserContext();
@@ -123,10 +140,22 @@ public class EERC721 {
             userContext.setAffiliation(Config.ORG1);
             userContext.setMspId(Config.ORG1_MSP);
 
-            RedisService redisService = new RedisService();
-            String certificate = redisService.getCertificate(owner);
-            userContext = caClient.enrollUser(userContext, certificate);
 
+             */
+            //UserContext userContext = Util.readUserContext(Config.ORG1, owner);
+            //Enrollment certificate = redisService.getCertificate(owner);
+            //Enrollment enrollment = (Enrollment)(Object)certificate;
+
+            UserContext userContext = new UserContext();
+            String name = owner;
+            userContext.setName(name);
+            userContext.setAffiliation(Config.ORG1);
+            userContext.setMspId(Config.ORG1_MSP);
+            //userContext.setEnrollment(certificate);
+
+
+            if(userContext != null)
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
             FabricClient fabClient = new FabricClient(userContext);
 
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
@@ -160,9 +189,11 @@ public class EERC721 {
 
         String result = "";
         try {
+            /*
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
             CAClient caClient = new CAClient(caUrl, null);
+
 
             // Enroll Admin to Org1MSP
             UserContext adminUserContext = new UserContext();
@@ -179,10 +210,22 @@ public class EERC721 {
             userContext.setAffiliation(Config.ORG1);
             userContext.setMspId(Config.ORG1_MSP);
 
-            RedisService redisService = new RedisService();
-            String certificate = redisService.getCertificate(owner);
-            userContext = caClient.enrollUser(userContext, certificate);
 
+             */
+            //UserContext userContext = Util.readUserContext(Config.ORG1, owner);
+            //Enrollment certificate = redisService.getCertificate(owner);
+            //Enrollment enrollment = (Enrollment)(Object)certificate;
+
+            UserContext userContext = new UserContext();
+            String name = owner;
+            userContext.setName(name);
+            userContext.setAffiliation(Config.ORG1);
+            userContext.setMspId(Config.ORG1_MSP);
+            //userContext.setEnrollment(certificate);
+
+
+            if(userContext != null)
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
             FabricClient fabClient = new FabricClient(userContext);
 
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
@@ -232,9 +275,11 @@ public class EERC721 {
 
         String result = "";
         try {
+            /*
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
             CAClient caClient = new CAClient(caUrl, null);
+
 
             // Enroll Admin to Org1MSP
             UserContext adminUserContext = new UserContext();
@@ -251,10 +296,22 @@ public class EERC721 {
             userContext.setAffiliation(Config.ORG1);
             userContext.setMspId(Config.ORG1_MSP);
 
-            RedisService redisService = new RedisService();
-            String certificate = redisService.getCertificate(owner);
-            userContext = caClient.enrollUser(userContext, certificate);
 
+             */
+            //UserContext userContext = Util.readUserContext(Config.ORG1, owner);
+            //Enrollment certificate = redisService.getCertificate(owner);
+            //Enrollment enrollment = (Enrollment)(Object)certificate;
+
+            UserContext userContext = new UserContext();
+            String name = owner;
+            userContext.setName(name);
+            userContext.setAffiliation(Config.ORG1);
+            userContext.setMspId(Config.ORG1_MSP);
+            //userContext.setEnrollment(certificate);
+
+
+            if(userContext != null)
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
             FabricClient fabClient = new FabricClient(userContext);
 
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
@@ -302,9 +359,11 @@ public class EERC721 {
 
         String result = "";
         try {
+            /*
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
             CAClient caClient = new CAClient(caUrl, null);
+
 
             // Enroll Admin to Org1MSP
             UserContext adminUserContext = new UserContext();
@@ -321,10 +380,22 @@ public class EERC721 {
             userContext.setAffiliation(Config.ORG1);
             userContext.setMspId(Config.ORG1_MSP);
 
-            RedisService redisService = new RedisService();
-            String certificate = redisService.getCertificate(owner);
-            userContext = caClient.enrollUser(userContext, certificate);
 
+             */
+            //UserContext userContext = Util.readUserContext(Config.ORG1, owner);
+            //Enrollment certificate = redisService.getCertificate(owner);
+            //Enrollment enrollment = (Enrollment)(Object)certificate;
+
+            UserContext userContext = new UserContext();
+            String name = owner;
+            userContext.setName(name);
+            userContext.setAffiliation(Config.ORG1);
+            userContext.setMspId(Config.ORG1_MSP);
+            //userContext.setEnrollment(certificate);
+
+
+            if(userContext != null)
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
             FabricClient fabClient = new FabricClient(userContext);
 
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
@@ -372,9 +443,11 @@ public class EERC721 {
 
         String result = "";
         try {
+            /*
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
             CAClient caClient = new CAClient(caUrl, null);
+
 
             // Enroll Admin to Org1MSP
             UserContext adminUserContext = new UserContext();
@@ -391,10 +464,22 @@ public class EERC721 {
             userContext.setAffiliation(Config.ORG1);
             userContext.setMspId(Config.ORG1_MSP);
 
-            RedisService redisService = new RedisService();
-            String certificate = redisService.getCertificate(owner);
-            userContext = caClient.enrollUser(userContext, certificate);
 
+             */
+            //UserContext userContext = Util.readUserContext(Config.ORG1, owner);
+            //Enrollment certificate = redisService.getCertificate(owner);
+            //Enrollment enrollment = (Enrollment)(Object)certificate;
+
+            UserContext userContext = new UserContext();
+            String name = owner;
+            userContext.setName(name);
+            userContext.setAffiliation(Config.ORG1);
+            userContext.setMspId(Config.ORG1_MSP);
+            //userContext.setEnrollment(certificate);
+
+
+            if(userContext != null)
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
             FabricClient fabClient = new FabricClient(userContext);
 
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
@@ -431,9 +516,11 @@ public class EERC721 {
 
         String result = "";
         try {
+            /*
             Util.cleanUp();
             String caUrl = Config.CA_ORG1_URL;
             CAClient caClient = new CAClient(caUrl, null);
+
 
             // Enroll Admin to Org1MSP
             UserContext adminUserContext = new UserContext();
@@ -450,10 +537,22 @@ public class EERC721 {
             userContext.setAffiliation(Config.ORG1);
             userContext.setMspId(Config.ORG1_MSP);
 
-            RedisService redisService = new RedisService();
-            String certificate = redisService.getCertificate(owner);
-            userContext = caClient.enrollUser(userContext, certificate);
 
+             */
+            //UserContext userContext = Util.readUserContext(Config.ORG1, owner);
+            //Enrollment certificate = redisService.getCertificate(owner);
+            //Enrollment enrollment = (Enrollment)(Object)certificate;
+
+            UserContext userContext = new UserContext();
+            String name = owner;
+            userContext.setName(name);
+            userContext.setAffiliation(Config.ORG1);
+            userContext.setMspId(Config.ORG1_MSP);
+            //userContext.setEnrollment(certificate);
+
+
+            if(userContext != null)
+                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
             FabricClient fabClient = new FabricClient(userContext);
 
             ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);

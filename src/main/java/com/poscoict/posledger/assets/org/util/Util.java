@@ -44,6 +44,7 @@ public class Util {
 	 * @throws Exception
 	 */
 	public static void writeUserContext(UserContext userContext) throws Exception {
+		System.out.println("########################################################################################### " + userContext.getName());
 		String directoryPath = "users/" + userContext.getAffiliation();
 		String filePath = directoryPath + "/" + userContext.getName() + ".ser";
 		File directory = new File(directoryPath);
@@ -81,9 +82,12 @@ public class Util {
 
 			in.close();
 			fileStream.close();
+			System.out.println("########################################################################################### return uContext");
+
 			return uContext;
 		}
 
+		System.out.println("########################################################################################### return null");
 		return null;
 	}
 

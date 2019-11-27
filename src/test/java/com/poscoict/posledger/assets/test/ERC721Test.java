@@ -4,6 +4,7 @@ import com.poscoict.posledger.assets.org.chaincode.ERC721.ERC721;
 import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
 import com.poscoict.posledger.assets.org.config.Config;
 import com.poscoict.posledger.assets.service.RedisService;
+import org.hyperledger.fabric.sdk.Enrollment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -14,6 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.Base64;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,8 +33,8 @@ public class ERC721Test {
     private ERC721 erc721;
 
     private static final Logger logger = LoggerFactory.getLogger(ERC721Test.class);
-    String owner = "aliceaa";
-    String newOwner = "bobaa";
+    String owner = "yabcd";
+    String newOwner = "zabcd";
     String approved = "carol";
     String operator = "david";
     String tokenId = "0";
@@ -37,8 +42,8 @@ public class ERC721Test {
     @Autowired
     RedisService redisService;
 
-    final String IP = "192.168.41.122";
-    public ERC721Test() {
+    final String IP = "localhost";
+    public ERC721Test() throws Exception{
         Config.ORG1_MSP = "Org1MSP";
         Config.ORG1 = "org1";
         Config.ADMIN = "admin";
@@ -51,6 +56,50 @@ public class ERC721Test {
         Config.ORG1_PEER_0_URL = "grpc://" + IP + ":7051";
         Config.EVENT_HUB = "grpc://" + IP + ":7053";
         Config.CHAINCODE_1_NAME = "mycc";
+
+
+/*
+        Util.cleanUp();
+        String caUrl = Config.CA_ORG1_URL;
+        java.util.logging.Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + caUrl);
+        CAClient caClient = null;
+        try {
+            caClient = new CAClient(caUrl, null);
+        } catch (MalformedURLException e) {
+
+        }
+        UserContext adminUserContext = new UserContext();
+        adminUserContext.setName(owner);
+        adminUserContext.setAffiliation(Config.ORG1);
+        adminUserContext.setMspId(Config.ORG1_MSP);
+        caClient.setAdminUserContext(adminUserContext);
+        adminUserContext = caClient.enrollAdminUser(Config.ADMIN, Config.ADMIN_PASSWORD);
+
+        UserContext userContext = new UserContext();
+        String name = owner;
+        userContext.setName(name);
+        userContext.setAffiliation(Config.ORG1);
+        userContext.setMspId(Config.ORG1_MSP);
+
+ */
+/*
+        RedisService redisService = new RedisService();
+        String certificate = redisService.getCertificate(owner);
+        userContext = caClient.enrollUser(userContext, certificate);
+
+        FabricClient fabClient = new FabricClient(userContext);
+
+        ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
+        Channel channel = channelClient.getChannel();
+        Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
+        EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
+        Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
+        channel.addPeer(peer);
+        channel.addEventHub(eventHub);
+        channel.addOrderer(orderer);
+        channel.initialize();
+
+ */
     }
 
     @Test
@@ -59,8 +108,20 @@ public class ERC721Test {
         EnrollmentUser enrollToCA = new EnrollmentUser();
 
         enrollToCA.enrollAdmin();
-        String certificate = enrollToCA.registerUser(owner);
-        redisService.storeUser(owner, certificate);
+        Enrollment certificate = enrollToCA.registerUser(owner);
+
+        //redisService.storeUser(owner, certificate);
+        byte[] serializedMember;
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+                oos.writeObject(certificate);
+                // serializedMember -> 직렬화된 member 객체
+                serializedMember = baos.toByteArray();
+            }
+        }
+        redisService.storeUser2(owner, Base64.getEncoder().encodeToString(serializedMember));
+        //redisService.test(owner, certificate);
+        System.out.println("+++++++++++++++++++ " + certificate.getCert());
 
         certificate = enrollToCA.registerUser(newOwner);
         redisService.storeUser(newOwner, certificate);
