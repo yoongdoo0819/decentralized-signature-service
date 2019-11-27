@@ -33,8 +33,8 @@ public class ERC721Test {
     private ERC721 erc721;
 
     private static final Logger logger = LoggerFactory.getLogger(ERC721Test.class);
-    String owner = "yabcd";
-    String newOwner = "zabcd";
+    String owner = "alice";
+    String newOwner = "bob";
     String approved = "carol";
     String operator = "david";
     String tokenId = "0";
@@ -57,49 +57,6 @@ public class ERC721Test {
         Config.EVENT_HUB = "grpc://" + IP + ":7053";
         Config.CHAINCODE_1_NAME = "mycc";
 
-
-/*
-        Util.cleanUp();
-        String caUrl = Config.CA_ORG1_URL;
-        java.util.logging.Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + caUrl);
-        CAClient caClient = null;
-        try {
-            caClient = new CAClient(caUrl, null);
-        } catch (MalformedURLException e) {
-
-        }
-        UserContext adminUserContext = new UserContext();
-        adminUserContext.setName(owner);
-        adminUserContext.setAffiliation(Config.ORG1);
-        adminUserContext.setMspId(Config.ORG1_MSP);
-        caClient.setAdminUserContext(adminUserContext);
-        adminUserContext = caClient.enrollAdminUser(Config.ADMIN, Config.ADMIN_PASSWORD);
-
-        UserContext userContext = new UserContext();
-        String name = owner;
-        userContext.setName(name);
-        userContext.setAffiliation(Config.ORG1);
-        userContext.setMspId(Config.ORG1_MSP);
-
- */
-/*
-        RedisService redisService = new RedisService();
-        String certificate = redisService.getCertificate(owner);
-        userContext = caClient.enrollUser(userContext, certificate);
-
-        FabricClient fabClient = new FabricClient(userContext);
-
-        ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
-        Channel channel = channelClient.getChannel();
-        Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-        EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
-        Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-        channel.addPeer(peer);
-        channel.addEventHub(eventHub);
-        channel.addOrderer(orderer);
-        channel.initialize();
-
- */
     }
 
     @Test
@@ -107,24 +64,31 @@ public class ERC721Test {
 
         EnrollmentUser enrollToCA = new EnrollmentUser();
 
+        //  enroll admin
         enrollToCA.enrollAdmin();
-        Enrollment certificate = enrollToCA.registerUser(owner);
 
-        //redisService.storeUser(owner, certificate);
+        //  enroll owner
+        Enrollment enrollment = enrollToCA.registerUser(owner);
         byte[] serializedMember;
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
-                oos.writeObject(certificate);
-                // serializedMember -> 직렬화된 member 객체
+                oos.writeObject(enrollment);
+                // serialized enrollment
                 serializedMember = baos.toByteArray();
             }
         }
-        redisService.storeUser2(owner, Base64.getEncoder().encodeToString(serializedMember));
-        //redisService.test(owner, certificate);
-        System.out.println("+++++++++++++++++++ " + certificate.getCert());
+        redisService.setUserInfo(owner, Base64.getEncoder().encodeToString(serializedMember));
 
-        certificate = enrollToCA.registerUser(newOwner);
-        redisService.storeUser(newOwner, certificate);
+        //  enroll newOwner
+        enrollment = enrollToCA.registerUser(newOwner);
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+                oos.writeObject(enrollment);
+                // serialized enrollment
+                serializedMember = baos.toByteArray();
+            }
+        }
+        redisService.setUserInfo(newOwner, Base64.getEncoder().encodeToString(serializedMember));
     }
 
     @Test
