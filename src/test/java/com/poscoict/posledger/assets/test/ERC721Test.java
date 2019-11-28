@@ -31,14 +31,14 @@ public class ERC721Test {
     private ERC721 erc721;
 
     private static final Logger logger = LoggerFactory.getLogger(ERC721Test.class);
-    String owner = "yazqqqq";
-    String newOwner = "zaqqqq";
+    String owner = "alice";
+    String newOwner = "bob";
     String approved = "carol";
     String operator = "david";
     String tokenId = "0";
 
     @Autowired
-    RedisEnrollment re;// = new RedisEnrollment();
+    RedisEnrollment re;
 
     @Autowired
     RedisService redisService;
@@ -91,55 +91,63 @@ public class ERC721Test {
     @Test
     public void balanceOfTest() throws Exception {
 
-        setConfig.initUserContext(newOwner);
-        assertThat(erc721.balanceOf(newOwner)).isEqualTo("0");
+        setConfig.initUserContext(owner);
+        assertThat(erc721.balanceOf(owner)).isEqualTo("1");
     }
 
     @Test
     public void ownerOfTest() throws Exception {
 
-        assertThat(erc721.ownerOf(tokenId, owner)).isEqualTo(owner);
+        setConfig.initUserContext(owner);
+        assertThat(erc721.ownerOf(tokenId)).isEqualTo(owner);
     }
 
     @Test
     public void transferFromTest() throws Exception {
 
+        setConfig.initUserContext(owner);
         assertThat(erc721.transfer(owner, newOwner, tokenId)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void afterThatBalanceOfTest() throws Exception {
 
+        setConfig.initUserContext(owner);
         assertThat(erc721.balanceOf(owner)).isEqualTo("0");
     }
 
     @Test
     public void afterThatOwnerOfTest() throws Exception {
 
-        assertThat(erc721.ownerOf(tokenId, newOwner)).isEqualTo(newOwner);
+        setConfig.initUserContext(newOwner);
+        assertThat(erc721.ownerOf(tokenId)).isEqualTo(newOwner);
     }
 
     @Test
     public void approveTest() throws Exception {
 
-        assertThat(erc721.approve(approved, tokenId, newOwner)).isEqualTo("SUCCESS");
+        setConfig.initUserContext(newOwner);
+        assertThat(erc721.approve(approved, tokenId)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void getApprovedTest() throws Exception {
 
-        assertThat(erc721.getApproved(tokenId, newOwner)).isEqualTo(approved);
+        setConfig.initUserContext(newOwner);
+        assertThat(erc721.getApproved(tokenId)).isEqualTo(approved);
     }
 
     @Test
     public void setApprovalForAllTest() throws Exception {
 
+        setConfig.initUserContext(newOwner);
         assertThat(erc721.setApprovalForAll(newOwner, operator, "true")).isEqualTo("SUCCESS");
     }
 
     @Test
     public void isApprovedForAllTest() throws Exception {
 
+        setConfig.initUserContext(newOwner);
         assertThat(erc721.isApprovedForAll(newOwner, operator)).isEqualTo("TRUE");
     }
 
