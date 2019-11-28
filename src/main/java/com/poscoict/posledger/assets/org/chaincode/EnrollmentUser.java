@@ -1,10 +1,14 @@
 package com.poscoict.posledger.assets.org.chaincode;
 
+import com.poscoict.posledger.assets.org.user.UserContext;
 import com.poscoict.posledger.assets.service.RedisService;
+import org.bouncycastle.util.io.pem.PemReader;
 import org.hyperledger.fabric.gateway.Wallet;
 import org.hyperledger.fabric.gateway.Wallet.Identity;
+import org.hyperledger.fabric.protos.msp.Identities;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.User;
+import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.hyperledger.fabric.sdk.security.CryptoSuiteFactory;
 import org.hyperledger.fabric_ca.sdk.EnrollmentRequest;
@@ -12,8 +16,14 @@ import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Paths;
 import java.security.PrivateKey;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.Properties;
 import java.util.Set;
 
@@ -21,6 +31,7 @@ import static com.poscoict.posledger.assets.org.config.Config.CA_ORG1_URL;
 
 public class EnrollmentUser {
 
+    X509Identity a;
     String userID = null;
     @Autowired
     RedisService redisService;
@@ -77,7 +88,7 @@ public class EnrollmentUser {
 
         // Create a wallet for managing identities
         Wallet wallet = Wallet.createFileSystemWallet(Paths.get("wallet"));
-
+/*
         // Check to see if we've already enrolled the user.
         boolean userExists = wallet.exists(this.userID);
         if (userExists) {
@@ -90,7 +101,7 @@ public class EnrollmentUser {
             System.out.println("\"admin\" needs to be enrolled and added to the wallet first");
             return null;
         }
-
+*/
         Identity adminIdentity = wallet.get("admin");
         User admin = new User() {
 
@@ -148,9 +159,41 @@ public class EnrollmentUser {
         wallet.put(this.userID,user);
         System.out.println("Successfully enrolled user " + this.userID + " and imported it into the wallet");
 
+        UserContext userContext = new UserContext();
+        userContext.setName(this.userID);
+        userContext.setAffiliation("org1.department1");
+        userContext.setMspId("hh");
+        userContext.setEnrollment(enrollment);
+        a = new X509Identity(userContext);
 
+        String addr = getMyAddress();
+        System.out.println(addr);
         return enrollment;
     }
+
+    private String getAddressOf(byte[] publicKey) {
+        return AddressUtils.getAddressFor(publicKey);
+    }
+
+    public String getMyAddress() {
+        return AddressUtils.getAddressFor(getMyCertificate());
+    }
+
+    public X509Certificate getMyCertificate() {
+        try {
+            Identities.SerializedIdentity identity = a.createSerializedIdentity();
+            StringReader reader = new StringReader(identity.getIdBytes().toStringUtf8());
+            PemReader pr = new PemReader(reader);
+            byte[] x509Data = pr.readPemObject().getContent();
+            CertificateFactory factory = CertificateFactory.getInstance("X509");
+            return (X509Certificate) factory.generateCertificate(new ByteArrayInputStream(x509Data));
+        } catch (IOException | CertificateException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
     public static void main(String[] args) throws Exception {
 
