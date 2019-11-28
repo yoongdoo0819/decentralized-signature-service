@@ -6,15 +6,14 @@ import com.poscoict.posledger.assets.org.chaincode.SetConfig;
 import com.poscoict.posledger.assets.org.client.ChannelClient;
 import com.poscoict.posledger.assets.org.client.FabricClient;
 import com.poscoict.posledger.assets.org.config.Config;
-import com.poscoict.posledger.assets.org.user.UserContext;
 import com.poscoict.posledger.assets.service.RedisService;
-import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.ChaincodeID;
+import org.hyperledger.fabric.sdk.ChaincodeResponse;
+import org.hyperledger.fabric.sdk.ProposalResponse;
+import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.ByteArrayInputStream;
-import java.io.ObjectInputStream;
-import java.util.Base64;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +32,7 @@ public class ERC721 {
     @Autowired
     RedisService redisService;
 
+    /*
     public Enrollment getEnrollment(String owner) throws Exception {
         String certificate = redisService.getUserInfo(owner);
         Enrollment enrollment;
@@ -53,6 +53,7 @@ public class ERC721 {
 
         return null;
     }
+     */
 
     public String register(String tokenId, String owner) {
 
@@ -120,33 +121,12 @@ public class ERC721 {
         return result;
     }
 
-    public String ownerOf(String tokenId, String owner) {
+    public String ownerOf(String tokenId) {
 
         String result = "";
         try {
-            Enrollment enrollment = getEnrollment(owner);
-
-            UserContext userContext = new UserContext();
-            String name = owner;
-            userContext.setName(name);
-            userContext.setAffiliation(Config.ORG1);
-            userContext.setMspId(Config.ORG1_MSP);
-            userContext.setEnrollment(enrollment);
-
-            if(userContext != null)
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
-
-            FabricClient fabClient = new FabricClient(userContext);
-
-            ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
-            Channel channel = channelClient.getChannel();
-            Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
-            Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-            channel.addPeer(peer);
-            channel.addEventHub(eventHub);
-            channel.addOrderer(orderer);
-            channel.initialize();
+            ChannelClient channelClient = SetConfig.initChannel();
+            FabricClient fabClient = SetConfig.getFabClient();
 
             Thread.sleep(10000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
@@ -166,32 +146,12 @@ public class ERC721 {
         return result;
     }
 
-    public String approve(String approved, String tokenId, String owner) {
+    public String approve(String approved, String tokenId) {
         String result = "";
         try {
-            Enrollment enrollment = getEnrollment(owner);
 
-            UserContext userContext = new UserContext();
-            String name = owner;
-            userContext.setName(name);
-            userContext.setAffiliation(Config.ORG1);
-            userContext.setMspId(Config.ORG1_MSP);
-            userContext.setEnrollment(enrollment);
-
-            if(userContext != null)
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
-
-            FabricClient fabClient = new FabricClient(userContext);
-
-            ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
-            Channel channel = channelClient.getChannel();
-            Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
-            Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-            channel.addPeer(peer);
-            channel.addEventHub(eventHub);
-            channel.addOrderer(orderer);
-            channel.initialize();
+            ChannelClient channelClient = SetConfig.initChannel();
+            FabricClient fabClient = SetConfig.getFabClient();
 
             TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
@@ -223,33 +183,12 @@ public class ERC721 {
         return result;
     }
 
-    public String getApproved(String tokenId, String owner) {
+    public String getApproved(String tokenId) {
 
         String result="";
         try {
-            Enrollment enrollment = getEnrollment(owner);
-
-            UserContext userContext = new UserContext();
-            String name = owner;
-            userContext.setName(name);
-            userContext.setAffiliation(Config.ORG1);
-            userContext.setMspId(Config.ORG1_MSP);
-            userContext.setEnrollment(enrollment);
-
-            if(userContext != null)
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
-
-            FabricClient fabClient = new FabricClient(userContext);
-
-            ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
-            Channel channel = channelClient.getChannel();
-            Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
-            Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-            channel.addPeer(peer);
-            channel.addEventHub(eventHub);
-            channel.addOrderer(orderer);
-            channel.initialize();
+            ChannelClient channelClient = SetConfig.initChannel();
+            FabricClient fabClient = SetConfig.getFabClient();
 
             Thread.sleep(1000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
@@ -272,29 +211,8 @@ public class ERC721 {
     public String setApprovalForAll(String owner, String operator, String approved) {
         String result = "";
         try {
-            Enrollment enrollment = getEnrollment(owner);
-
-            UserContext userContext = new UserContext();
-            String name = owner;
-            userContext.setName(name);
-            userContext.setAffiliation(Config.ORG1);
-            userContext.setMspId(Config.ORG1_MSP);
-            userContext.setEnrollment(enrollment);
-
-            if(userContext != null)
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
-
-            FabricClient fabClient = new FabricClient(userContext);
-
-            ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
-            Channel channel = channelClient.getChannel();
-            Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
-            Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-            channel.addPeer(peer);
-            channel.addEventHub(eventHub);
-            channel.addOrderer(orderer);
-            channel.initialize();
+            ChannelClient channelClient = SetConfig.initChannel();
+            FabricClient fabClient = SetConfig.getFabClient();
 
             TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
@@ -329,29 +247,8 @@ public class ERC721 {
     public String isApprovedForAll(String owner, String operator) {
         String result = "";
         try {
-            Enrollment enrollment = getEnrollment(owner);
-
-            UserContext userContext = new UserContext();
-            String name = owner;
-            userContext.setName(name);
-            userContext.setAffiliation(Config.ORG1);
-            userContext.setMspId(Config.ORG1_MSP);
-            userContext.setEnrollment(enrollment);
-
-            if(userContext != null)
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
-
-            FabricClient fabClient = new FabricClient(userContext);
-
-            ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
-            Channel channel = channelClient.getChannel();
-            Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
-            Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-            channel.addPeer(peer);
-            channel.addEventHub(eventHub);
-            channel.addOrderer(orderer);
-            channel.initialize();
+            ChannelClient channelClient = SetConfig.initChannel();
+            FabricClient fabClient = SetConfig.getFabClient();
 
             Thread.sleep(10000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
@@ -373,29 +270,8 @@ public class ERC721 {
     public String transfer(String owner, String receiver, String tokenId) {
         String result = "";
         try {
-            Enrollment enrollment = getEnrollment(owner);
-
-            UserContext userContext = new UserContext();
-            String name = owner;
-            userContext.setName(name);
-            userContext.setAffiliation(Config.ORG1);
-            userContext.setMspId(Config.ORG1_MSP);
-            userContext.setEnrollment(enrollment);
-
-            if(userContext != null)
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
-
-            FabricClient fabClient = new FabricClient(userContext);
-
-            ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
-            Channel channel = channelClient.getChannel();
-            Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
-            Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-            channel.addPeer(peer);
-            channel.addEventHub(eventHub);
-            channel.addOrderer(orderer);
-            channel.initialize();
+            ChannelClient channelClient = SetConfig.initChannel();
+            FabricClient fabClient = SetConfig.getFabClient();
 
             TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
