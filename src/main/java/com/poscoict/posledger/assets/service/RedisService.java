@@ -1,7 +1,6 @@
 package com.poscoict.posledger.assets.service;
 
 import org.hyperledger.fabric.sdk.Enrollment;
-import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +11,6 @@ public class RedisService {
 
     @Resource(name = "redisTemplate")
     private ValueOperations<String, String> valueOps;
-
-    @Resource(name = "redisTemplate")
-    private SetOperations<String, String> valueOps2;
-
 
     public Long getVisitCount() {
         Long count = 10L;

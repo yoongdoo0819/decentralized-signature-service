@@ -2,6 +2,8 @@ package com.poscoict.posledger.assets.test;
 
 import com.poscoict.posledger.assets.org.chaincode.ERC721.ERC721;
 import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
+import com.poscoict.posledger.assets.org.chaincode.RedisEnrollment;
+import com.poscoict.posledger.assets.org.chaincode.SetConfig;
 import com.poscoict.posledger.assets.org.config.Config;
 import com.poscoict.posledger.assets.service.RedisService;
 import org.hyperledger.fabric.sdk.Enrollment;
@@ -16,10 +18,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
-import java.util.Base64;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -33,14 +31,20 @@ public class ERC721Test {
     private ERC721 erc721;
 
     private static final Logger logger = LoggerFactory.getLogger(ERC721Test.class);
-    String owner = "alice";
-    String newOwner = "bob";
+    String owner = "yazqqqq";
+    String newOwner = "zaqqqq";
     String approved = "carol";
     String operator = "david";
     String tokenId = "0";
 
     @Autowired
+    RedisEnrollment re;// = new RedisEnrollment();
+
+    @Autowired
     RedisService redisService;
+
+    @Autowired
+    SetConfig setConfig;
 
     final String IP = "localhost";
     public ERC721Test() throws Exception{
@@ -69,31 +73,17 @@ public class ERC721Test {
 
         //  enroll owner
         Enrollment enrollment = enrollToCA.registerUser(owner);
-        byte[] serializedMember;
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
-                oos.writeObject(enrollment);
-                // serialized enrollment
-                serializedMember = baos.toByteArray();
-            }
-        }
-        redisService.setUserInfo(owner, Base64.getEncoder().encodeToString(serializedMember));
+        re.setEnrollment(owner, enrollment);
 
         //  enroll newOwner
         enrollment = enrollToCA.registerUser(newOwner);
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
-                oos.writeObject(enrollment);
-                // serialized enrollment
-                serializedMember = baos.toByteArray();
-            }
-        }
-        redisService.setUserInfo(newOwner, Base64.getEncoder().encodeToString(serializedMember));
+        re.setEnrollment(newOwner, enrollment);
     }
 
     @Test
     public void registerTest() throws Exception {
 
+        setConfig.initUserContext(owner);
         String result = erc721.register(tokenId, owner);
         assertThat(result).isEqualTo("SUCCESS");
     }
@@ -101,7 +91,8 @@ public class ERC721Test {
     @Test
     public void balanceOfTest() throws Exception {
 
-        assertThat(erc721.balanceOf(owner)).isEqualTo("1");
+        setConfig.initUserContext(newOwner);
+        assertThat(erc721.balanceOf(newOwner)).isEqualTo("0");
     }
 
     @Test
@@ -113,7 +104,7 @@ public class ERC721Test {
     @Test
     public void transferFromTest() throws Exception {
 
-        assertThat(erc721.transfer(owner, newOwner,tokenId)).isEqualTo("SUCCESS");
+        assertThat(erc721.transfer(owner, newOwner, tokenId)).isEqualTo("SUCCESS");
     }
 
     @Test

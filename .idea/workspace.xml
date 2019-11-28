@@ -3,13 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EERC721/EERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EERC721/EERC721.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/ERC721/ERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/ERC721/ERC721.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EnrollmentUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EnrollmentUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/service/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/service/RedisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/service/SetService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/org1/aliceaa.ser" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -110,7 +106,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ERC721Test.ownerOfTest">
+  <component name="RunManager" selected="JUnit.ERC721Test.balanceOfTest">
     <configuration name="EERC721Test.queryHistoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assets" />
       <extension name="coverage">
@@ -200,10 +196,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ERC721Test.ownerOfTest" />
         <item itemvalue="JUnit.ERC721Test.balanceOfTest" />
         <item itemvalue="JUnit.ERC721Test.registerTest" />
         <item itemvalue="JUnit.ERC721Test.enrollTest" />
+        <item itemvalue="JUnit.ERC721Test.ownerOfTest" />
         <item itemvalue="JUnit.EERC721Test.queryHistoryTest" />
       </list>
     </recent_temporary>
@@ -234,7 +230,7 @@
       <workItem from="1569328640365" duration="14885000" />
       <workItem from="1569394371219" duration="48047000" />
       <workItem from="1570525327361" duration="9186000" />
-      <workItem from="1574317879817" duration="67902000" />
+      <workItem from="1574317879817" duration="78997000" />
     </task>
     <servers />
   </component>
