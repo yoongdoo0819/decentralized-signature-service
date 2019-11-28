@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/assets.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assets.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EERC721/EERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EERC721/EERC721.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/ERC721/ERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/ERC721/ERC721.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EnrollmentUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EnrollmentUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,6 +52,11 @@
     </option>
   </component>
   <component name="ProjectId" id="1Q5gR9ftiuUPOZ8bDyPZRQBXGQE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
@@ -95,19 +99,7 @@
       <recent name="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="JUnit.EERC721Test.queryHistoryTest">
+  <component name="RunManager" selected="JUnit.ERC721Test.registerTest">
     <configuration name="EERC721Test.afterUpdateAndDeactivateQueryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assets" />
       <extension name="coverage">
@@ -156,7 +148,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EERC721Test.queryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ERC721Test.enrollTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assets" />
       <extension name="coverage">
         <pattern>
@@ -165,14 +157,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.EERC721Test" />
-      <option name="METHOD_NAME" value="queryTest" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.ERC721Test" />
+      <option name="METHOD_NAME" value="enrollTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EERC721Test.updateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ERC721Test.registerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assets" />
       <extension name="coverage">
         <pattern>
@@ -181,8 +173,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.poscoict.posledger.assets.test" />
-      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.EERC721Test" />
-      <option name="METHOD_NAME" value="updateTest" />
+      <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.test.ERC721Test" />
+      <option name="METHOD_NAME" value="registerTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -197,13 +189,25 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ERC721Test.registerTest" />
+        <item itemvalue="JUnit.ERC721Test.enrollTest" />
         <item itemvalue="JUnit.EERC721Test.queryHistoryTest" />
         <item itemvalue="JUnit.EERC721Test.afterUpdateAndDeactivateQueryTest" />
         <item itemvalue="JUnit.EERC721Test.deactivateTest" />
-        <item itemvalue="JUnit.EERC721Test.updateTest" />
-        <item itemvalue="JUnit.EERC721Test.queryTest" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -232,6 +236,7 @@
       <workItem from="1569394371219" duration="48047000" />
       <workItem from="1570525327361" duration="9186000" />
       <workItem from="1574317879817" duration="81983000" />
+      <workItem from="1574952278831" duration="3871000" />
     </task>
     <servers />
   </component>
@@ -259,5 +264,27 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1807" height="253" key="GridCell.Tab.0.bottom" timestamp="1574955457392">
+      <screen x="67" y="27" width="1853" height="948" />
+    </state>
+    <state width="1807" height="253" key="GridCell.Tab.0.bottom/67.27.1853.948@67.27.1853.948" timestamp="1574955457392" />
+    <state width="1807" height="253" key="GridCell.Tab.0.center" timestamp="1574955457392">
+      <screen x="67" y="27" width="1853" height="948" />
+    </state>
+    <state width="1807" height="253" key="GridCell.Tab.0.center/67.27.1853.948@67.27.1853.948" timestamp="1574955457392" />
+    <state width="1807" height="253" key="GridCell.Tab.0.left" timestamp="1574955457391">
+      <screen x="67" y="27" width="1853" height="948" />
+    </state>
+    <state width="1807" height="253" key="GridCell.Tab.0.left/67.27.1853.948@67.27.1853.948" timestamp="1574955457391" />
+    <state width="1807" height="253" key="GridCell.Tab.0.right" timestamp="1574955457392">
+      <screen x="67" y="27" width="1853" height="948" />
+    </state>
+    <state width="1807" height="253" key="GridCell.Tab.0.right/67.27.1853.948@67.27.1853.948" timestamp="1574955457392" />
+    <state x="649" y="328" key="com.intellij.ide.util.TipDialog" timestamp="1574952278232">
+      <screen x="67" y="27" width="1853" height="948" />
+    </state>
+    <state x="649" y="328" key="com.intellij.ide.util.TipDialog/67.27.1853.948@67.27.1853.948" timestamp="1574952278232" />
   </component>
 </project>

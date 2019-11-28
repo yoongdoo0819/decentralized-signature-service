@@ -31,8 +31,8 @@ public class ERC721Test {
     private ERC721 erc721;
 
     private static final Logger logger = LoggerFactory.getLogger(ERC721Test.class);
-    String owner = "alice";
-    String newOwner = "bob";
+    String owner = "zeze";
+    String newOwner = "zczc";
     String approved = "carol";
     String operator = "david";
     String tokenId = "0";
@@ -46,7 +46,7 @@ public class ERC721Test {
     @Autowired
     SetConfig setConfig;
 
-    final String IP = "localhost";
+    final String IP = "141.223.83.25";
     public ERC721Test() throws Exception{
         Config.ORG1_MSP = "Org1MSP";
         Config.ORG1 = "org1";
@@ -59,9 +59,11 @@ public class ERC721Test {
         Config.ORG1_PEER_0 = "peer0.org1.example.com";
         Config.ORG1_PEER_0_URL = "grpc://" + IP + ":7051";
         Config.EVENT_HUB = "grpc://" + IP + ":7053";
-        Config.CHAINCODE_1_NAME = "mycc";
+        Config.CHAINCODE_1_NAME = "mycc1";
 
     }
+
+
 
     @Test
     public void enrollTest() throws Exception {
