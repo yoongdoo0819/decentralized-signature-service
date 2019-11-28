@@ -2,6 +2,7 @@ package com.poscoict.posledger.assets.org.chaincode.ERC721;
 
 import com.poscoict.posledger.assets.org.chaincode.InvokeChaincode;
 import com.poscoict.posledger.assets.org.chaincode.QueryChaincode;
+import com.poscoict.posledger.assets.org.chaincode.SetConfig;
 import com.poscoict.posledger.assets.org.client.ChannelClient;
 import com.poscoict.posledger.assets.org.client.FabricClient;
 import com.poscoict.posledger.assets.org.config.Config;
@@ -58,31 +59,8 @@ public class ERC721 {
         String result = "";
         try {
 
-            Enrollment enrollment = getEnrollment(owner);
-            if(enrollment == null)
-                return "FAIL";
-
-            UserContext userContext = new UserContext();
-            String name = owner;
-            userContext.setName(name);
-            userContext.setAffiliation(Config.ORG1);
-            userContext.setMspId(Config.ORG1_MSP);
-            userContext.setEnrollment(enrollment);
-
-            if(userContext != null)
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
-
-            FabricClient fabClient = new FabricClient(userContext);
-
-            ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
-            Channel channel = channelClient.getChannel();
-            Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
-            Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-            channel.addPeer(peer);
-            channel.addEventHub(eventHub);
-            channel.addOrderer(orderer);
-            channel.initialize();
+            ChannelClient channelClient = SetConfig.initChannel();
+            FabricClient fabClient = SetConfig.getFabClient();
 
             TransactionProposalRequest request = fabClient.getInstance().newTransactionProposalRequest();
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
@@ -91,7 +69,8 @@ public class ERC721 {
             String[] arguments = { tokenId, owner};
 
             request.setArgs(arguments);
-            request.setProposalWaitTime(1000);
+            /*request.setProposalWaitTime(1000);
+
 
             Map<String, byte[]> tm2 = new HashMap<>();
             tm2.put("HyperLedgerFabric", "TransactionProposalRequest:JavaSDK".getBytes(UTF_8));
@@ -99,6 +78,8 @@ public class ERC721 {
             tm2.put("result", ":)".getBytes(UTF_8));
             tm2.put(EXPECTED_EVENT_NAME, EXPECTED_EVENT_DATA);
             request.setTransientMap(tm2);
+
+             */
             Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
             for (ProposalResponse res: responses) {
                 ChaincodeResponse.Status status = res.getStatus();
@@ -119,29 +100,8 @@ public class ERC721 {
 
         String result = "";
         try {
-            Enrollment enrollment = getEnrollment(owner);
-
-            UserContext userContext = new UserContext();
-            String name = owner;
-            userContext.setName(name);
-            userContext.setAffiliation(Config.ORG1);
-            userContext.setMspId(Config.ORG1_MSP);
-            userContext.setEnrollment(enrollment);
-
-            if(userContext != null)
-                Logger.getLogger(InvokeChaincode.class.getName()).log(Level.INFO, " ####################################################### " + userContext.getAffiliation());
-
-            FabricClient fabClient = new FabricClient(userContext);
-
-            ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
-            Channel channel = channelClient.getChannel();
-            Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-            EventHub eventHub = fabClient.getInstance().newEventHub("eventhub01", Config.EVENT_HUB);
-            Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-            channel.addPeer(peer);
-            channel.addEventHub(eventHub);
-            channel.addOrderer(orderer);
-            channel.initialize();
+            ChannelClient channelClient = SetConfig.initChannel();
+            FabricClient fabClient = SetConfig.getFabClient();
 
             Thread.sleep(10000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
