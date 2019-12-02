@@ -14,28 +14,94 @@ public class SetConfig {
     @Autowired
     RedisEnrollment re;
 
-    static Enrollment enrollment;
+    static String owner;
+    static String newOwner;
+    static String approved;
+    static String operator;
 
-    static UserContext userContext;
+    static Enrollment enrollment;
+    static Enrollment enrollmentForNewOwner;
+    static Enrollment enrollmentForApproved;
+    static Enrollment enrollmentForOperator;
+
+    static UserContext userContextForOwner;
+    static UserContext userContextForNewOwner;
+    static UserContext userContextForApproved;
+    static UserContext userContextForOperator;
+
     static FabricClient fabClient;// = new FabricClient(userContext);
 
-    public static UserContext initUserContext(String owner) throws Exception {
-
-        //Enrollment enrollment = re.getEnrollment(owner);
-        if(enrollment == null) {
-            System.out.println("No enrollment");
-            return null;
-        }
-
-        userContext = new UserContext();
-        userContext.setName(owner);
-        userContext.setAffiliation(Config.ORG1);
-        userContext.setMspId(Config.ORG1_MSP);
-        userContext.setEnrollment(enrollment);
-
-        return userContext;
+    public static void setEnrollment(String _owner, Enrollment _enrollment) {
+        owner = _owner;
+        enrollment = _enrollment;
     }
 
+    public static void setEnrollmentForNewOwner(String _newOwner, Enrollment _enrollmentForNewOwner) {
+        newOwner = _newOwner;
+        enrollmentForNewOwner = _enrollmentForNewOwner;
+    }
+
+    public static void setEnrollmentForApproved(String _approved, Enrollment _enrollmentForApproved) {
+        approved = _approved;
+        enrollmentForApproved = _enrollmentForApproved;
+    }
+
+    public static void setEnrollmentForOperator(String _oprator, Enrollment _enrollmentForOperator) {
+        operator = _oprator;
+        enrollmentForOperator = _enrollmentForOperator;
+    }
+
+    public static UserContext initUserContextForOwner() throws Exception {
+
+        //Enrollment enrollment = re.getEnrollment(owner);
+
+        userContextForOwner = new UserContext();
+        userContextForOwner.setName(owner);
+        userContextForOwner.setAffiliation(Config.ORG1);
+        userContextForOwner.setMspId(Config.ORG1_MSP);
+        userContextForOwner.setEnrollment(enrollment);
+
+        return userContextForOwner;
+    }
+
+    public static UserContext initUserContextForNewOwner() throws Exception {
+
+        //Enrollment enrollment = re.getEnrollment(owner);
+
+        userContextForNewOwner = new UserContext();
+        userContextForNewOwner.setName(newOwner);
+        userContextForNewOwner.setAffiliation(Config.ORG1);
+        userContextForNewOwner.setMspId(Config.ORG1_MSP);
+        userContextForNewOwner.setEnrollment(enrollmentForNewOwner);
+
+        return userContextForNewOwner;
+    }
+
+    public static UserContext initUserContextForApproved() throws Exception {
+
+        //Enrollment enrollment = re.getEnrollment(owner);
+
+        userContextForApproved = new UserContext();
+        userContextForApproved.setName(approved);
+        userContextForApproved.setAffiliation(Config.ORG1);
+        userContextForApproved.setMspId(Config.ORG1_MSP);
+        userContextForApproved.setEnrollment(enrollmentForApproved);
+
+        return userContextForApproved;
+    }
+
+    public static UserContext initUserContextForOperator() throws Exception {
+
+        //Enrollment enrollment = re.getEnrollment(owner);
+
+        userContextForOperator = new UserContext();
+        userContextForOperator.setName(operator);
+        userContextForOperator.setAffiliation(Config.ORG1);
+        userContextForOperator.setMspId(Config.ORG1_MSP);
+        userContextForOperator.setEnrollment(enrollmentForOperator);
+
+        return userContextForOperator;
+    }
     public static FabricClient getFabClient() {
         return fabClient;
     }
@@ -43,7 +109,7 @@ public class SetConfig {
     public static ChannelClient initChannel() throws Exception {
 
         try {
-            fabClient = new FabricClient(userContext);
+            fabClient = new FabricClient(userContextForOwner);
         } catch (Throwable e) {
             e.printStackTrace();
         }
@@ -61,7 +127,5 @@ public class SetConfig {
         return channelClient;
     }
 
-    public static void setEnrollment(Enrollment _enrollment) {
-        enrollment = _enrollment;
-    }
+
 }

@@ -1,12 +1,15 @@
 package com.poscoict.posledger.assets.test;
 
+import com.poscoict.posledger.assets.org.chaincode.AddressUtils;
 import com.poscoict.posledger.assets.org.chaincode.ERC721.ERC721;
 import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
 import com.poscoict.posledger.assets.org.chaincode.RedisEnrollment;
 import com.poscoict.posledger.assets.org.chaincode.SetConfig;
 import com.poscoict.posledger.assets.org.config.Config;
+import com.poscoict.posledger.assets.org.user.UserContext;
 import com.poscoict.posledger.assets.service.RedisService;
 import org.hyperledger.fabric.sdk.Enrollment;
+import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -80,6 +83,14 @@ public class ERC721Test {
         //  enroll newOwner
         enrollment = enrollToCA.registerUser(newOwner);
         re.setEnrollment(newOwner, enrollment);
+
+        //  enroll approved
+        enrollment = enrollToCA.registerUser(approved);
+        re.setEnrollment(approved, enrollment);
+
+        //  enroll operator
+        enrollment = enrollToCA.registerUser(operator);
+        re.setEnrollment(operator, enrollment);
     }
 
     @Test
@@ -87,7 +98,7 @@ public class ERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         String result = erc721.register(tokenId, owner);
         assertThat(result).isEqualTo("SUCCESS");
@@ -98,7 +109,7 @@ public class ERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         assertThat(erc721.balanceOf(owner)).isEqualTo("1");
     }
@@ -108,9 +119,13 @@ public class ERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
-        assertThat(erc721.ownerOf(tokenId)).isEqualTo(owner);
+        UserContext userContext = SetConfig.initUserContextForOwner();
+        X509Identity identity = new X509Identity(userContext);
+        String addr = AddressUtils.getMyAddress(identity);
+
+        assertThat(erc721.ownerOf(tokenId)).isEqualTo(addr);
     }
 
     @Test
@@ -118,7 +133,10 @@ public class ERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
+
+        Enrollment enrollmentForNewOwner = re.getEnrollment(newOwner);
+        SetConfig.setEnrollmentForNewOwner(newOwner, enrollmentForNewOwner);
 
         assertThat(erc721.transfer(owner, newOwner, tokenId)).isEqualTo("SUCCESS");
     }
@@ -128,7 +146,7 @@ public class ERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         assertThat(erc721.balanceOf(owner)).isEqualTo("0");
     }
@@ -137,18 +155,25 @@ public class ERC721Test {
     public void afterThatOwnerOfTest() throws Exception {
 
         //setConfig.initUserContext(owner);
-        Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        Enrollment enrollment = re.getEnrollment(newOwner);
+        SetConfig.setEnrollment(newOwner, enrollment);
 
-        assertThat(erc721.ownerOf(tokenId)).isEqualTo(newOwner);
+        UserContext userContext = SetConfig.initUserContextForOwner();
+        X509Identity identity = new X509Identity(userContext);
+        String addr = AddressUtils.getMyAddress(identity);
+
+        assertThat(erc721.ownerOf(tokenId)).isEqualTo(addr);
     }
 
     @Test
     public void approveTest() throws Exception {
 
         //setConfig.initUserContext(owner);
-        Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        Enrollment enrollment = re.getEnrollment(newOwner);
+        SetConfig.setEnrollment(newOwner, enrollment);
+
+        Enrollment enrollmentForApproved = re.getEnrollment(approved);
+        SetConfig.setEnrollmentForApproved(approved, enrollmentForApproved);
 
         assertThat(erc721.approve(approved, tokenId)).isEqualTo("SUCCESS");
     }
@@ -158,17 +183,27 @@ public class ERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
-        assertThat(erc721.getApproved(tokenId)).isEqualTo(approved);
+        Enrollment enrollmentForApproved = re.getEnrollment(approved);
+        SetConfig.setEnrollmentForApproved(approved, enrollmentForApproved);
+
+        UserContext userContext = SetConfig.initUserContextForApproved();
+        X509Identity identity = new X509Identity(userContext);
+        String addr = AddressUtils.getMyAddress(identity);
+
+        assertThat(erc721.getApproved(tokenId)).isEqualTo(addr);
     }
 
     @Test
     public void setApprovalForAllTest() throws Exception {
 
         //setConfig.initUserContext(owner);
-        Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        Enrollment enrollment = re.getEnrollment(newOwner);
+        SetConfig.setEnrollment(newOwner, enrollment);
+
+        enrollment = re.getEnrollment(operator);
+        SetConfig.setEnrollmentForOperator(operator, enrollment);
 
         assertThat(erc721.setApprovalForAll(newOwner, operator, "true")).isEqualTo("SUCCESS");
     }
@@ -177,8 +212,11 @@ public class ERC721Test {
     public void isApprovedForAllTest() throws Exception {
 
         //setConfig.initUserContext(owner);
-        Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        Enrollment enrollment = re.getEnrollment(newOwner);
+        SetConfig.setEnrollment(newOwner, enrollment);
+
+        enrollment = re.getEnrollment(operator);
+        SetConfig.setEnrollmentForOperator(operator, enrollment);
 
         assertThat(erc721.isApprovedForAll(newOwner, operator)).isEqualTo("TRUE");
     }

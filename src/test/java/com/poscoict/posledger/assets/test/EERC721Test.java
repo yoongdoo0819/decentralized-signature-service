@@ -1,11 +1,14 @@
 package com.poscoict.posledger.assets.test;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.poscoict.posledger.assets.org.chaincode.AddressUtils;
 import com.poscoict.posledger.assets.org.chaincode.EERC721.EERC721;
 import com.poscoict.posledger.assets.org.chaincode.RedisEnrollment;
 import com.poscoict.posledger.assets.org.chaincode.SetConfig;
+import com.poscoict.posledger.assets.org.user.UserContext;
 import org.hyperledger.fabric.sdk.Enrollment;
+import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -16,6 +19,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,7 +49,7 @@ public class EERC721Test {
     String tokenId = "1";
     String newTokenIds[] = {"2", "3"};
     String type = "doc";
-    String page = "100";
+    int pages = 100;
     String hash = "doc";
     String signers = owner;
     String path = "doc";
@@ -54,9 +62,9 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
-        assertThat(eerc721.register(tokenId, type, owner, page, hash, signers, path, pathHash)).isEqualTo("SUCCESS");
+        assertThat(eerc721.register(tokenId, type, owner, pages, hash, signers, path, pathHash)).isEqualTo("SUCCESS");
     }
 
     @Test
@@ -64,7 +72,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.balanceOf(owner, type)).isEqualTo("1");
     }
@@ -74,7 +82,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.divide(tokenId, newTokenIds, values, index)).isEqualTo("SUCCESS");
     }
@@ -84,80 +92,77 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
+
+        UserContext userContext = SetConfig.initUserContextForOwner();
+        X509Identity identity = new X509Identity(userContext);
+        String addr = AddressUtils.getMyAddress(identity);
 
         String queryResult = eerc721.query(tokenId);
 
         if(queryResult != null) {
             ObjectMapper mapper = new ObjectMapper();
-            JsonNode actualObj = mapper.readTree(queryResult);
+            Map<String, Object> map =
+                    mapper.readValue(queryResult, new TypeReference<HashMap<String, Object>>(){});
 
-            JsonNode queryOwner = actualObj.get("owner");
-            JsonNode queryTokenId = actualObj.get("id");
-            JsonNode queryType = actualObj.get("type");
+            String type = (String) map.get("type");
+            String owner = (String) map.get("owner");
+            String approvee = (String) map.get("approvee");
+            Map<String, Object> xattrMap = (HashMap<String, Object>) map.get("xattr");
 
-            JsonNode queryXattr = actualObj.get("xattr");
-            JsonNode actualObj_xattr = mapper.readTree(queryXattr.textValue());
-            JsonNode querySigners = actualObj_xattr.get("signers");
-            JsonNode queryHash = actualObj_xattr.get("hash");
-            JsonNode queryValue = actualObj_xattr.get("pages");
+            List<String> signers = (ArrayList<String>) xattrMap.get("signers");
+            String hash = (String) xattrMap.get("hash");
+            int pages = (int) xattrMap.get("pages");
 
-            JsonNode queryUri = actualObj.get("uri");
-            JsonNode actualObj_uri = mapper.readTree(queryUri.textValue());
-            JsonNode queryPath = actualObj_uri.get("path");
-            JsonNode queryPath_hash = actualObj_xattr.get("hash");
+            Map<String, String> uriMap = (HashMap<String, String>) map.get("uri");
+            String path = uriMap.get("path");
+            String merkleroot = uriMap.get("hash");
 
-            assertThat(queryOwner.textValue()).isEqualTo(owner);
-            if(queryOwner.textValue().equals(owner)) {
+            assertThat(owner.equals(addr));
+            if(owner.equals(addr)) {
                 logger.info("query owner true");
             }else {
                 logger.info("query owner fail");
             }
 
-            assertThat(queryTokenId.textValue()).isEqualTo(tokenId);
-            if(queryTokenId.textValue().equals(tokenId)) {
-                logger.info("query tokenId true");
-            }else {
-                logger.info("query tokenId fail");
-            }
 
-            assertThat(queryType.textValue()).isEqualTo(type);
-            if(queryType.textValue().equals(type)) {
+            assertThat(type.equals(this.type));
+            if(type.equals(this.type)) {
                 logger.info("query type true");
             }else {
                 logger.info("query type fail");
             }
 
-            assertThat(querySigners.textValue()).isEqualTo("[\"" + signers + "\"]");
-            if(querySigners.textValue().equals("[\"" + signers + "\"]")) {
+            assertThat(signers.get(0).equals(this.signers));
+            if(signers.get(0).equals(this.signers)) {
                 logger.info("query signers true");
             }else {
                 logger.info("query signers fail");
             }
 
-            assertThat(queryHash.textValue()).isEqualTo(hash);
-            if(queryHash.textValue().equals(hash)) {
+            assertThat(hash.equals(this.hash));
+            if(hash.equals(this.hash)) {
                 logger.info("query hash true");
             }else {
                 logger.info("query hash fail");
             }
 
-            assertThat(queryValue.textValue()).isEqualTo(page);
-            if(queryValue.textValue().equals(page)) {
+            assertThat(pages == this.pages);
+            if(pages == this.pages) {
                 logger.info("query page true");
             }else {
                 logger.info("query page fail");
             }
 
-            assertThat(queryPath.textValue()).isEqualTo(path);
-            if(queryPath.textValue().equals(path)) {
+            assertThat(path.equals(this.path));
+            if(path.equals(this.path)) {
                 logger.info("query path true");
             }else {
                 logger.info("query path fail");
             }
 
-            assertThat(queryPath_hash.textValue()).isEqualTo(pathHash);
-            if(queryPath_hash.textValue().equals(pathHash)) {
+            assertThat(merkleroot.equals(this.pathHash));
+            if(merkleroot.equals(this.pathHash)) {
                 logger.info("query pathHash true");
             }else {
                 logger.info("query pathHash fail");
@@ -172,80 +177,77 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
+
+        UserContext userContext = SetConfig.initUserContextForOwner();
+        X509Identity identity = new X509Identity(userContext);
+        String addr = AddressUtils.getMyAddress(identity);
 
         String queryResult = eerc721.query(newTokenIds[0]);
 
         if(queryResult != null) {
             ObjectMapper mapper = new ObjectMapper();
-            JsonNode actualObj = mapper.readTree(queryResult);
+            Map<String, Object> map =
+                    mapper.readValue(queryResult, new TypeReference<HashMap<String, Object>>(){});
 
-            JsonNode queryOwner = actualObj.get("owner");
-            JsonNode queryTokenId = actualObj.get("id");
-            JsonNode queryType = actualObj.get("type");
+            String type = (String) map.get("type");
+            String owner = (String) map.get("owner");
+            String approvee = (String) map.get("approvee");
+            Map<String, Object> xattrMap = (HashMap<String, Object>) map.get("xattr");
 
-            JsonNode queryXattr = actualObj.get("xattr");
-            JsonNode actualObj_xattr = mapper.readTree(queryXattr.textValue());
-            JsonNode querySigners = actualObj_xattr.get("signers");
-            JsonNode queryHash = actualObj_xattr.get("hash");
-            JsonNode queryValue = actualObj_xattr.get("pages");
+            List<String> signers = (ArrayList<String>) xattrMap.get("signers");
+            String hash = (String) xattrMap.get("hash");
+            int pages = (int) xattrMap.get("pages");
 
-            JsonNode queryUri = actualObj.get("uri");
-            JsonNode actualObj_uri = mapper.readTree(queryUri.textValue());
-            JsonNode queryPath = actualObj_uri.get("path");
-            JsonNode queryPath_hash = actualObj_xattr.get("hash");
+            Map<String, String> uriMap = (HashMap<String, String>) map.get("uri");
+            String path = uriMap.get("path");
+            String merkleroot = uriMap.get("hash");
 
-            assertThat(queryOwner.textValue()).isEqualTo(owner);
-            if(queryOwner.textValue().equals(owner)) {
+            assertThat(owner.equals(addr));
+            if(owner.equals(addr)) {
                 logger.info("query owner true");
             }else {
                 logger.info("query owner fail");
             }
 
-            assertThat(queryTokenId.textValue()).isEqualTo(newTokenIds[0]);
-            if(queryTokenId.textValue().equals(newTokenIds[0])) {
-                logger.info("query newTokenIds[0] true");
-            }else {
-                logger.info("query newTokenIds[0] fail");
-            }
 
-            assertThat(queryType.textValue()).isEqualTo(type);
-            if(queryType.textValue().equals(type)) {
+            assertThat(type.equals(this.type));
+            if(type.equals(this.type)) {
                 logger.info("query type true");
             }else {
                 logger.info("query type fail");
             }
 
-            assertThat(querySigners.textValue()).isEqualTo("[\"" + signers + "\"]");
-            if(querySigners.textValue().equals("[\"" + signers + "\"]")) {
+            assertThat(signers.get(0).equals(this.signers));
+            if(signers.get(0).equals(this.signers)) {
                 logger.info("query signers true");
             }else {
                 logger.info("query signers fail");
             }
 
-            assertThat(queryHash.textValue()).isEqualTo(hash);
-            if(queryHash.textValue().equals(hash)) {
+            assertThat(hash.equals(this.hash));
+            if(hash.equals(this.hash)) {
                 logger.info("query hash true");
             }else {
                 logger.info("query hash fail");
             }
 
-            assertThat(queryValue.textValue()).isEqualTo(values[0]);
-            if(queryValue.textValue().equals(values[0])) {
+            assertThat(pages == this.pages);
+            if(pages == this.pages) {
                 logger.info("query page true");
             }else {
                 logger.info("query page fail");
             }
 
-            assertThat(queryPath.textValue()).isEqualTo(path);
-            if(queryPath.textValue().equals(path)) {
+            assertThat(path.equals(this.path));
+            if(path.equals(this.path)) {
                 logger.info("query path true");
             }else {
                 logger.info("query path fail");
             }
 
-            assertThat(queryPath_hash.textValue()).isEqualTo(pathHash);
-            if(queryPath_hash.textValue().equals(pathHash)) {
+            assertThat(merkleroot.equals(this.pathHash));
+            if(merkleroot.equals(this.pathHash)) {
                 logger.info("query pathHash true");
             }else {
                 logger.info("query pathHash fail");
@@ -260,80 +262,77 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
+
+        UserContext userContext = SetConfig.initUserContextForOwner();
+        X509Identity identity = new X509Identity(userContext);
+        String addr = AddressUtils.getMyAddress(identity);
 
         String queryResult = eerc721.query(newTokenIds[1]);
 
         if(queryResult != null) {
             ObjectMapper mapper = new ObjectMapper();
-            JsonNode actualObj = mapper.readTree(queryResult);
+            Map<String, Object> map =
+                    mapper.readValue(queryResult, new TypeReference<HashMap<String, Object>>(){});
 
-            JsonNode queryOwner = actualObj.get("owner");
-            JsonNode queryTokenId = actualObj.get("id");
-            JsonNode queryType = actualObj.get("type");
+            String type = (String) map.get("type");
+            String owner = (String) map.get("owner");
+            String approvee = (String) map.get("approvee");
+            Map<String, Object> xattrMap = (HashMap<String, Object>) map.get("xattr");
 
-            JsonNode queryXattr = actualObj.get("xattr");
-            JsonNode actualObj_xattr = mapper.readTree(queryXattr.textValue());
-            JsonNode querySigners = actualObj_xattr.get("signers");
-            JsonNode queryHash = actualObj_xattr.get("hash");
-            JsonNode queryValue = actualObj_xattr.get("pages");
+            List<String> signers = (ArrayList<String>) xattrMap.get("signers");
+            String hash = (String) xattrMap.get("hash");
+            int pages = (int) xattrMap.get("pages");
 
-            JsonNode queryUri = actualObj.get("uri");
-            JsonNode actualObj_uri = mapper.readTree(queryUri.textValue());
-            JsonNode queryPath = actualObj_uri.get("path");
-            JsonNode queryPath_hash = actualObj_xattr.get("hash");
+            Map<String, String> uriMap = (HashMap<String, String>) map.get("uri");
+            String path = uriMap.get("path");
+            String merkleroot = uriMap.get("hash");
 
-            assertThat(queryOwner.textValue()).isEqualTo(owner);
-            if(queryOwner.textValue().equals(owner)) {
+            assertThat(owner.equals(addr));
+            if(owner.equals(addr)) {
                 logger.info("query owner true");
             }else {
                 logger.info("query owner fail");
             }
 
-            assertThat(queryTokenId.textValue()).isEqualTo(newTokenIds[1]);
-            if(queryTokenId.textValue().equals(newTokenIds[1])) {
-                logger.info("query newTokenIds[0] true");
-            }else {
-                logger.info("query newTokenIds[0] fail");
-            }
 
-            assertThat(queryType.textValue()).isEqualTo(type);
-            if(queryType.textValue().equals(type)) {
+            assertThat(type.equals(this.type));
+            if(type.equals(this.type)) {
                 logger.info("query type true");
             }else {
                 logger.info("query type fail");
             }
 
-            assertThat(querySigners.textValue()).isEqualTo("[\"" + signers + "\"]");
-            if(querySigners.textValue().equals("[\"" + signers + "\"]")) {
+            assertThat(signers.get(0).equals(this.signers));
+            if(signers.get(0).equals(this.signers)) {
                 logger.info("query signers true");
             }else {
                 logger.info("query signers fail");
             }
 
-            assertThat(queryHash.textValue()).isEqualTo(hash);
-            if(queryHash.textValue().equals(hash)) {
+            assertThat(hash.equals(this.hash));
+            if(hash.equals(this.hash)) {
                 logger.info("query hash true");
             }else {
                 logger.info("query hash fail");
             }
 
-            assertThat(queryValue.textValue()).isEqualTo(values[1]);
-            if(queryValue.textValue().equals(values[1])) {
+            assertThat(pages == this.pages);
+            if(pages == this.pages) {
                 logger.info("query page true");
             }else {
                 logger.info("query page fail");
             }
 
-            assertThat(queryPath.textValue()).isEqualTo(path);
-            if(queryPath.textValue().equals(path)) {
+            assertThat(path.equals(this.path));
+            if(path.equals(this.path)) {
                 logger.info("query path true");
             }else {
                 logger.info("query path fail");
             }
 
-            assertThat(queryPath_hash.textValue()).isEqualTo(pathHash);
-            if(queryPath_hash.textValue().equals(pathHash)) {
+            assertThat(merkleroot.equals(this.pathHash));
+            if(merkleroot.equals(this.pathHash)) {
                 logger.info("query pathHash true");
             }else {
                 logger.info("query pathHash fail");
@@ -343,14 +342,6 @@ public class EERC721Test {
         }
     }
 
-    /*
-        attr      | index
-        ==================
-        hash      | 0
-        signers   | 1
-        sigIds    | 2
-        activated | 3
-    */
     @Test
     public void updateTest() throws Exception {
 
@@ -359,9 +350,9 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
-        assertThat(eerc721.update(tokenId, index, attr)).isEqualTo("SUCCESS");
+        assertThat(eerc721.update(tokenId, "sigIds", attr)).isEqualTo("SUCCESS");
     }
 
     @Test
@@ -369,7 +360,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.deactivate(tokenId)).isEqualTo("SUCCESS");
     }
@@ -379,81 +370,77 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
+
+        UserContext userContext = SetConfig.initUserContextForOwner();
+        X509Identity identity = new X509Identity(userContext);
+        String addr = AddressUtils.getMyAddress(identity);
 
         String queryResult = eerc721.query(tokenId);
 
         if(queryResult != null) {
             ObjectMapper mapper = new ObjectMapper();
-            JsonNode actualObj = mapper.readTree(queryResult);
+            Map<String, Object> map =
+                    mapper.readValue(queryResult, new TypeReference<HashMap<String, Object>>(){});
 
-            JsonNode queryOwner = actualObj.get("owner");
-            JsonNode queryTokenId = actualObj.get("id");
-            JsonNode queryType = actualObj.get("type");
+            String type = (String) map.get("type");
+            String owner = (String) map.get("owner");
+            String approvee = (String) map.get("approvee");
+            Map<String, Object> xattrMap = (HashMap<String, Object>) map.get("xattr");
 
-            JsonNode queryXattr = actualObj.get("xattr");
-            JsonNode actualObj_xattr = mapper.readTree(queryXattr.textValue());
-            JsonNode querySigners = actualObj_xattr.get("signers");
-            JsonNode queryHash = actualObj_xattr.get("hash");
-            JsonNode queryValue = actualObj_xattr.get("pages");
+            List<String> signers = (ArrayList<String>) xattrMap.get("signers");
+            String hash = (String) xattrMap.get("hash");
+            int pages = (int) xattrMap.get("pages");
 
-            JsonNode queryUri = actualObj.get("uri");
-            JsonNode actualObj_uri = mapper.readTree(queryUri.textValue());
-            JsonNode queryPath = actualObj_uri.get("path");
-            JsonNode queryPath_hash = actualObj_xattr.get("hash");
+            Map<String, String> uriMap = (HashMap<String, String>) map.get("uri");
+            String path = uriMap.get("path");
+            String merkleroot = uriMap.get("hash");
 
-            assertThat(queryOwner.textValue()).isEqualTo(owner);
-
-            if(queryOwner.textValue().equals(owner)) {
+            assertThat(owner.equals(addr));
+            if(owner.equals(addr)) {
                 logger.info("query owner true");
             }else {
                 logger.info("query owner fail");
             }
 
-            assertThat(queryTokenId.textValue()).isEqualTo(tokenId);
-            if(queryTokenId.textValue().equals(tokenId)) {
-                logger.info("query tokenId true");
-            }else {
-                logger.info("query tokenId fail");
-            }
 
-            assertThat(queryType.textValue()).isEqualTo(type);
-            if(queryType.textValue().equals(type)) {
+            assertThat(type.equals(this.type));
+            if(type.equals(this.type)) {
                 logger.info("query type true");
             }else {
                 logger.info("query type fail");
             }
 
-            assertThat(querySigners.textValue()).isEqualTo("[\"" + signers + "\"]");
-            if(querySigners.textValue().equals("[\"" + signers + "\"]")) {
+            assertThat(signers.get(0).equals(this.signers));
+            if(signers.get(0).equals(this.signers)) {
                 logger.info("query signers true");
             }else {
                 logger.info("query signers fail");
             }
 
-            assertThat(queryHash.textValue()).isEqualTo(hash);
-            if(queryHash.textValue().equals(hash)) {
+            assertThat(hash.equals(this.hash));
+            if(hash.equals(this.hash)) {
                 logger.info("query hash true");
             }else {
                 logger.info("query hash fail");
             }
 
-            assertThat(queryValue.textValue()).isEqualTo(page);
-            if(queryValue.textValue().equals(page)) {
+            assertThat(pages == this.pages);
+            if(pages == this.pages) {
                 logger.info("query page true");
             }else {
                 logger.info("query page fail");
             }
 
-            assertThat(queryPath.textValue()).isEqualTo(path);
-            if(queryPath.textValue().equals(path)) {
+            assertThat(path.equals(this.path));
+            if(path.equals(this.path)) {
                 logger.info("query path true");
             }else {
                 logger.info("query path fail");
             }
 
-            assertThat(queryPath_hash.textValue()).isEqualTo(pathHash);
-            if(queryPath_hash.textValue().equals(pathHash)) {
+            assertThat(merkleroot.equals(this.pathHash));
+            if(merkleroot.equals(this.pathHash)) {
                 logger.info("query pathHash true");
             }else {
                 logger.info("query pathHash fail");
@@ -468,95 +455,96 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
+
+        UserContext userContext = SetConfig.initUserContextForOwner();
+        X509Identity identity = new X509Identity(userContext);
+        String addr = AddressUtils.getMyAddress(identity);
 
         String queryResult = eerc721.queryHistory(tokenId, owner);
-        if(queryResult != null) {
-            String[] queryArray = queryResult.replace("[", "").replace("]", "").split(", ");
+        queryResult = queryResult.substring(1, queryResult.length());
+        queryResult = queryResult.substring(0, queryResult.length() - 1);
 
-            logger.info(queryArray[0]);
-            for(int i=0; i<queryArray.length; i++) {
-                if(queryArray[i] != null) {
+        if (queryResult != null) {
+            String[] queryArray = queryResult.split(", ");
+
+            for (int i = 0; i < queryArray.length; i++) {
+                if (queryArray[i] != null) {
+
                     ObjectMapper mapper = new ObjectMapper();
-                    JsonNode actualObj = mapper.readTree(queryArray[i]);
 
-                    JsonNode queryOwner = actualObj.get("owner");
-                    JsonNode queryTokenId = actualObj.get("id");
-                    JsonNode queryType = actualObj.get("type");
+                    Map<String, Object> map =
+                            mapper.readValue(queryArray[i], new TypeReference<HashMap<String, Object>>() {
+                            });
 
-                    JsonNode queryXattr = actualObj.get("xattr");
-                    JsonNode actualObj_xattr = mapper.readTree(queryXattr.textValue());
-                    JsonNode querySigners = actualObj_xattr.get("signers");
-                    JsonNode queryHash = actualObj_xattr.get("hash");
-                    JsonNode queryValue = actualObj_xattr.get("pages");
+                    String type = (String) map.get("type");
+                    String owner = (String) map.get("owner");
+                    String approvee = (String) map.get("approvee");
+                    Map<String, Object> xattrMap = (HashMap<String, Object>) map.get("xattr");
 
-                    JsonNode queryUri = actualObj.get("uri");
-                    JsonNode actualObj_uri = mapper.readTree(queryUri.textValue());
-                    JsonNode queryPath = actualObj_uri.get("path");
-                    JsonNode queryPath_hash = actualObj_xattr.get("hash");
+                    List<String> signers = (ArrayList<String>) xattrMap.get("signers");
+                    String hash = (String) xattrMap.get("hash");
+                    int pages = (int) xattrMap.get("pages");
 
-                    assertThat(queryOwner.textValue()).isEqualTo(owner);
+                    Map<String, String> uriMap = (HashMap<String, String>) map.get("uri");
+                    String path = uriMap.get("path");
+                    String merkleroot = uriMap.get("hash");
 
-                    if(queryOwner.textValue().equals(owner)) {
+                    assertThat(owner.equals(addr));
+                    if (owner.equals(addr)) {
                         logger.info("query owner true");
-                    }else {
+                    } else {
                         logger.info("query owner fail");
                     }
 
-                    assertThat(queryTokenId.textValue()).isEqualTo(tokenId);
-                    if(queryTokenId.textValue().equals(tokenId)) {
-                        logger.info("query tokenId true");
-                    }else {
-                        logger.info("query tokenId fail");
-                    }
 
-                    assertThat(queryType.textValue()).isEqualTo(type);
-                    if(queryType.textValue().equals(type)) {
+                    assertThat(type.equals(this.type));
+                    if (type.equals(this.type)) {
                         logger.info("query type true");
-                    }else {
+                    } else {
                         logger.info("query type fail");
                     }
 
-                    assertThat(querySigners.textValue()).isEqualTo("\"" + signers + "\"");
-                    if(querySigners.textValue().equals("\"" + signers + "\"")) {
+                    assertThat(signers.get(0).equals(this.signers));
+                    if (signers.get(0).equals(this.signers)) {
                         logger.info("query signers true");
-                    }else {
+                    } else {
                         logger.info("query signers fail");
                     }
 
-                    assertThat(queryHash.textValue()).isEqualTo(hash);
-                    if(queryHash.textValue().equals(hash)) {
+                    assertThat(hash.equals(this.hash));
+                    if (hash.equals(this.hash)) {
                         logger.info("query hash true");
-                    }else {
+                    } else {
                         logger.info("query hash fail");
                     }
 
-                    assertThat(queryValue.textValue()).isEqualTo(page);
-                    if(queryValue.textValue().equals(page)) {
+                    assertThat(pages == this.pages);
+                    if (pages == this.pages) {
                         logger.info("query page true");
-                    }else {
+                    } else {
                         logger.info("query page fail");
                     }
 
-                    assertThat(queryPath.textValue()).isEqualTo(path);
-                    if(queryPath.textValue().equals(path)) {
+                    assertThat(path.equals(this.path));
+                    if (path.equals(this.path)) {
                         logger.info("query path true");
-                    }else {
+                    } else {
                         logger.info("query path fail");
                     }
 
-                    assertThat(queryPath_hash.textValue()).isEqualTo(pathHash);
-                    if(queryPath_hash.textValue().equals(pathHash)) {
+                    assertThat(merkleroot.equals(this.pathHash));
+                    if (merkleroot.equals(this.pathHash)) {
                         logger.info("query pathHash true");
-                    }else {
+                    } else {
                         logger.info("query pathHash fail");
                     }
+
+
                 } else {
                     logger.info("query fail");
                 }
             }
-
         }
     }
-
 }

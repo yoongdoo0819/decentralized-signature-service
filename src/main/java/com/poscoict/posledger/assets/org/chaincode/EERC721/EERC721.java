@@ -1,13 +1,16 @@
 package com.poscoict.posledger.assets.org.chaincode.EERC721;
 
+import com.poscoict.posledger.assets.org.chaincode.AddressUtils;
 import com.poscoict.posledger.assets.org.chaincode.InvokeChaincode;
 import com.poscoict.posledger.assets.org.chaincode.QueryChaincode;
 import com.poscoict.posledger.assets.org.chaincode.SetConfig;
 import com.poscoict.posledger.assets.org.client.ChannelClient;
 import com.poscoict.posledger.assets.org.client.FabricClient;
 import com.poscoict.posledger.assets.org.config.Config;
+import com.poscoict.posledger.assets.org.user.UserContext;
 import com.poscoict.posledger.assets.service.RedisService;
 import org.hyperledger.fabric.sdk.*;
+import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -49,10 +52,14 @@ public class EERC721 {
         return null;
     }
 
-    public String register(String tokenId, String type, String owner, String page, String hash, String signers, String path, String pathHash) {
+    public String register(String tokenId, String type, String owner, int pages, String hash, String signers, String path, String pathHash) {
 
         String result = "";
         try {
+
+            UserContext userContext = SetConfig.initUserContextForOwner();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
 
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
@@ -61,7 +68,7 @@ public class EERC721 {
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
             request.setFcn("mint");
-            String[] arguments = { tokenId, type, owner, page, hash, signers, path, pathHash};
+            String[] arguments = { tokenId, type, addr, Integer.toString(pages), hash, signers, path, pathHash};
 
             request.setArgs(arguments);
             request.setProposalWaitTime(1000);
@@ -92,13 +99,18 @@ public class EERC721 {
 
         String result = "";
         try {
+
+            UserContext userContext = SetConfig.initUserContextForOwner();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
+
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
 
             Thread.sleep(1000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
 
-            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc", "balanceOf", new String[]{owner, type});
+            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc", "balanceOf", new String[]{addr, type});
             for (ProposalResponse pres : responses1Query) {
                 //String stringResponse = new String(pres.getChaincodeActionResponsePayload());
                 Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, pres.getMessage());
@@ -116,6 +128,11 @@ public class EERC721 {
 
         String result = "";
         try {
+
+            UserContext userContext = SetConfig.initUserContextForOwner();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
+
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
 
@@ -156,6 +173,11 @@ public class EERC721 {
 
         String result = "";
         try {
+
+            UserContext userContext = SetConfig.initUserContextForOwner();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
+
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
 
@@ -194,6 +216,11 @@ public class EERC721 {
 
         String result = "";
         try {
+
+            UserContext userContext = SetConfig.initUserContextForOwner();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
+
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
 
@@ -232,6 +259,11 @@ public class EERC721 {
 
         String result = "";
         try {
+
+            UserContext userContext = SetConfig.initUserContextForOwner();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
+
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
 
