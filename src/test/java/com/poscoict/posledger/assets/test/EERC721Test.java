@@ -3,7 +3,9 @@ package com.poscoict.posledger.assets.test;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poscoict.posledger.assets.org.chaincode.EERC721.EERC721;
+import com.poscoict.posledger.assets.org.chaincode.RedisEnrollment;
 import com.poscoict.posledger.assets.org.chaincode.SetConfig;
+import org.hyperledger.fabric.sdk.Enrollment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -28,7 +30,10 @@ public class EERC721Test {
     private EERC721 eerc721;
 
     @Autowired
-    SetConfig setConfig;
+    RedisEnrollment re;
+
+//    @Autowired
+//    SetConfig setConfig;
 
     private static final Logger logger = LoggerFactory.getLogger(EERC721Test.class);
 
@@ -47,28 +52,40 @@ public class EERC721Test {
     @Test
     public void registerTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(eerc721.register(tokenId, type, owner, page, hash, signers, path, pathHash)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void balanceOfTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(eerc721.balanceOf(owner, type)).isEqualTo("1");
     }
 
     @Test
     public void divideTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(eerc721.divide(tokenId, newTokenIds, values, index)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void queryTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         String queryResult = eerc721.query(tokenId);
 
         if(queryResult != null) {
@@ -153,7 +170,10 @@ public class EERC721Test {
     @Test
     public void queryNewToken0Test() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         String queryResult = eerc721.query(newTokenIds[0]);
 
         if(queryResult != null) {
@@ -238,7 +258,10 @@ public class EERC721Test {
     @Test
     public void queryNewToken1Test() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         String queryResult = eerc721.query(newTokenIds[1]);
 
         if(queryResult != null) {
@@ -334,21 +357,30 @@ public class EERC721Test {
         String index = "2";
         String attr = owner+" SigId";
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(eerc721.update(tokenId, index, attr)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void deactivateTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(eerc721.deactivate(tokenId)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void afterUpdateAndDeactivateQueryTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         String queryResult = eerc721.query(tokenId);
 
         if(queryResult != null) {
@@ -434,7 +466,10 @@ public class EERC721Test {
     @Test
     public void queryHistoryTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         String queryResult = eerc721.queryHistory(tokenId, owner);
         if(queryResult != null) {
             String[] queryArray = queryResult.replace("[", "").replace("]", "").split(", ");

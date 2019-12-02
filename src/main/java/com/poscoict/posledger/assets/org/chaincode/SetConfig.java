@@ -14,14 +14,14 @@ public class SetConfig {
     @Autowired
     RedisEnrollment re;
 
-    Enrollment enrollment;
+    static Enrollment enrollment;
 
     static UserContext userContext;
     static FabricClient fabClient;// = new FabricClient(userContext);
 
-    public UserContext initUserContext(String owner) throws Exception {
+    public static UserContext initUserContext(String owner) throws Exception {
 
-        Enrollment enrollment = re.getEnrollment(owner);
+        //Enrollment enrollment = re.getEnrollment(owner);
         if(enrollment == null) {
             System.out.println("No enrollment");
             return null;
@@ -61,4 +61,7 @@ public class SetConfig {
         return channelClient;
     }
 
+    public static void setEnrollment(Enrollment _enrollment) {
+        enrollment = _enrollment;
+    }
 }

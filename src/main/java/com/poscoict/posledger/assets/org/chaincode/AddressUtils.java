@@ -1,10 +1,23 @@
 package com.poscoict.posledger.assets.org.chaincode;
 
 import org.bouncycastle.jcajce.provider.digest.Keccak;
+import org.bouncycastle.util.io.pem.PemReader;
+import org.hyperledger.fabric.protos.msp.Identities;
+import org.hyperledger.fabric.sdk.identity.X509Identity;
+import org.springframework.stereotype.Service;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringReader;
 import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-class AddressUtils {
+@Service
+public class AddressUtils {
 
     static boolean isValidAddress(String address) {
         if (address == null || address.length() != 42) {
@@ -60,5 +73,28 @@ class AddressUtils {
         }
 
         return result.toString();
+    }
+
+    private String getAddressOf(byte[] publicKey) {
+        return AddressUtils.getAddressFor(publicKey);
+    }
+
+    public static String getMyAddress(X509Identity _identity) {
+        return AddressUtils.getAddressFor(getMyCertificate(_identity));
+    }
+
+    public static X509Certificate getMyCertificate(X509Identity _identity) {
+        try {
+            Identities.SerializedIdentity identity = _identity.createSerializedIdentity();
+            StringReader reader = new StringReader(identity.getIdBytes().toStringUtf8());
+            PemReader pr = new PemReader(reader);
+            byte[] x509Data = pr.readPemObject().getContent();
+            CertificateFactory factory = CertificateFactory.getInstance("X509");
+            return (X509Certificate) factory.generateCertificate(new ByteArrayInputStream(x509Data));
+        } catch (IOException | CertificateException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
