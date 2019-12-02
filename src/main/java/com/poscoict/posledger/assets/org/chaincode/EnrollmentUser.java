@@ -2,10 +2,8 @@ package com.poscoict.posledger.assets.org.chaincode;
 
 import com.poscoict.posledger.assets.org.user.UserContext;
 import com.poscoict.posledger.assets.service.RedisService;
-import org.bouncycastle.util.io.pem.PemReader;
 import org.hyperledger.fabric.gateway.Wallet;
 import org.hyperledger.fabric.gateway.Wallet.Identity;
-import org.hyperledger.fabric.protos.msp.Identities;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.User;
 import org.hyperledger.fabric.sdk.identity.X509Identity;
@@ -16,14 +14,8 @@ import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.StringReader;
 import java.nio.file.Paths;
 import java.security.PrivateKey;
-import java.security.cert.CertificateException;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 import java.util.Properties;
 import java.util.Set;
 
@@ -31,8 +23,10 @@ import static com.poscoict.posledger.assets.org.config.Config.CA_ORG1_URL;
 
 public class EnrollmentUser {
 
-    X509Identity a;
+    X509Identity identity;
     String userID = null;
+
+    AddressUtils addressUtils = new AddressUtils();
     @Autowired
     RedisService redisService;
 
@@ -143,7 +137,7 @@ public class EnrollmentUser {
 
             @Override
             public String getMspId() {
-                return "hh";
+                return "Org1MSP";
             }
         }
                 ;
@@ -154,45 +148,24 @@ public class EnrollmentUser {
         registrationRequest.setEnrollmentID(this.userID);
         String enrollmentSecret = caClient.register(registrationRequest, admin);
         org.hyperledger.fabric.sdk.Enrollment enrollment = caClient.enroll(this.userID, enrollmentSecret);
-        Identity user = Identity.createIdentity("kk", enrollment.getCert(), enrollment.getKey());
+        Identity user = Identity.createIdentity("Org1MSP", enrollment.getCert(), enrollment.getKey());
         System.out.println("**********************"+enrollment.getCert()+"**************************");
-        wallet.put(this.userID,user);
+        wallet.put(this.userID, user);
         System.out.println("Successfully enrolled user " + this.userID + " and imported it into the wallet");
 
         UserContext userContext = new UserContext();
         userContext.setName(this.userID);
         userContext.setAffiliation("org1.department1");
-        userContext.setMspId("hh");
+        userContext.setMspId("Org1MSP");
         userContext.setEnrollment(enrollment);
-        a = new X509Identity(userContext);
+        identity = new X509Identity(userContext);
 
-        String addr = getMyAddress();
+        String addr = addressUtils.getMyAddress(identity);
         System.out.println(addr);
         return enrollment;
     }
 
-    private String getAddressOf(byte[] publicKey) {
-        return AddressUtils.getAddressFor(publicKey);
-    }
 
-    public String getMyAddress() {
-        return AddressUtils.getAddressFor(getMyCertificate());
-    }
-
-    public X509Certificate getMyCertificate() {
-        try {
-            Identities.SerializedIdentity identity = a.createSerializedIdentity();
-            StringReader reader = new StringReader(identity.getIdBytes().toStringUtf8());
-            PemReader pr = new PemReader(reader);
-            byte[] x509Data = pr.readPemObject().getContent();
-            CertificateFactory factory = CertificateFactory.getInstance("X509");
-            return (X509Certificate) factory.generateCertificate(new ByteArrayInputStream(x509Data));
-        } catch (IOException | CertificateException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
 
     public static void main(String[] args) throws Exception {

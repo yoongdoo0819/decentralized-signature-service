@@ -31,8 +31,8 @@ public class ERC721Test {
     private ERC721 erc721;
 
     private static final Logger logger = LoggerFactory.getLogger(ERC721Test.class);
-    String owner = "zeze";
-    String newOwner = "zczc";
+    String owner = "alice";
+    String newOwner = "bob";
     String approved = "carol";
     String operator = "david";
     String tokenId = "0";
@@ -43,10 +43,10 @@ public class ERC721Test {
     @Autowired
     RedisService redisService;
 
-    @Autowired
-    SetConfig setConfig;
+    //@Autowired
+    //SetConfig setConfig;
 
-    final String IP = "141.223.83.25";
+    final String IP = "localhost";
     public ERC721Test() throws Exception{
         Config.ORG1_MSP = "Org1MSP";
         Config.ORG1 = "org1";
@@ -59,7 +59,7 @@ public class ERC721Test {
         Config.ORG1_PEER_0 = "peer0.org1.example.com";
         Config.ORG1_PEER_0_URL = "grpc://" + IP + ":7051";
         Config.EVENT_HUB = "grpc://" + IP + ":7053";
-        Config.CHAINCODE_1_NAME = "mycc1";
+        Config.CHAINCODE_1_NAME = "mycc";
 
     }
 
@@ -85,7 +85,10 @@ public class ERC721Test {
     @Test
     public void registerTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         String result = erc721.register(tokenId, owner);
         assertThat(result).isEqualTo("SUCCESS");
     }
@@ -93,63 +96,90 @@ public class ERC721Test {
     @Test
     public void balanceOfTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(erc721.balanceOf(owner)).isEqualTo("1");
     }
 
     @Test
     public void ownerOfTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(erc721.ownerOf(tokenId)).isEqualTo(owner);
     }
 
     @Test
     public void transferFromTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(erc721.transfer(owner, newOwner, tokenId)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void afterThatBalanceOfTest() throws Exception {
 
-        setConfig.initUserContext(owner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(erc721.balanceOf(owner)).isEqualTo("0");
     }
 
     @Test
     public void afterThatOwnerOfTest() throws Exception {
 
-        setConfig.initUserContext(newOwner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(erc721.ownerOf(tokenId)).isEqualTo(newOwner);
     }
 
     @Test
     public void approveTest() throws Exception {
 
-        setConfig.initUserContext(newOwner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(erc721.approve(approved, tokenId)).isEqualTo("SUCCESS");
     }
 
     @Test
     public void getApprovedTest() throws Exception {
 
-        setConfig.initUserContext(newOwner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(erc721.getApproved(tokenId)).isEqualTo(approved);
     }
 
     @Test
     public void setApprovalForAllTest() throws Exception {
 
-        setConfig.initUserContext(newOwner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(erc721.setApprovalForAll(newOwner, operator, "true")).isEqualTo("SUCCESS");
     }
 
     @Test
     public void isApprovedForAllTest() throws Exception {
 
-        setConfig.initUserContext(newOwner);
+        //setConfig.initUserContext(owner);
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.setEnrollment(enrollment);
+
         assertThat(erc721.isApprovedForAll(newOwner, operator)).isEqualTo("TRUE");
     }
 
