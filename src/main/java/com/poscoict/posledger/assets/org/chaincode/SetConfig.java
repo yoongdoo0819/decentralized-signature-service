@@ -14,12 +14,14 @@ public class SetConfig {
     @Autowired
     RedisEnrollment re;
 
+    static String owner;
+    static String receiver;
     static Enrollment enrollment;
 
     static UserContext userContext;
     static FabricClient fabClient;// = new FabricClient(userContext);
 
-    public static UserContext initUserContext(String owner) throws Exception {
+    public static UserContext initUserContext() throws Exception {
 
         //Enrollment enrollment = re.getEnrollment(owner);
         if(enrollment == null) {
@@ -61,7 +63,13 @@ public class SetConfig {
         return channelClient;
     }
 
-    public static void setEnrollment(Enrollment _enrollment) {
+    public static void setEnrollment(String _owner, Enrollment _enrollment) {
+        owner = _owner;
+        enrollment = _enrollment;
+    }
+
+    public static void setEnrollmentForReceiver(String _receiver, Enrollment _enrollment) {
+        receiver = _receiver;
         enrollment = _enrollment;
     }
 }

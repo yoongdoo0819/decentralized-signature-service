@@ -54,7 +54,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.register(tokenId, type, owner, page, hash, signers, path, pathHash)).isEqualTo("SUCCESS");
     }
@@ -64,7 +64,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.balanceOf(owner, type)).isEqualTo("1");
     }
@@ -74,7 +74,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.divide(tokenId, newTokenIds, values, index)).isEqualTo("SUCCESS");
     }
@@ -84,9 +84,9 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
-        String queryResult = eerc721.query(tokenId);
+        String queryResult = eerc721.query("0");
 
         if(queryResult != null) {
             ObjectMapper mapper = new ObjectMapper();
@@ -172,7 +172,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         String queryResult = eerc721.query(newTokenIds[0]);
 
@@ -260,7 +260,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         String queryResult = eerc721.query(newTokenIds[1]);
 
@@ -359,7 +359,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.update(tokenId, index, attr)).isEqualTo("SUCCESS");
     }
@@ -369,7 +369,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.deactivate(tokenId)).isEqualTo("SUCCESS");
     }
@@ -379,7 +379,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         String queryResult = eerc721.query(tokenId);
 
@@ -468,7 +468,7 @@ public class EERC721Test {
 
         //setConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(enrollment);
+        SetConfig.setEnrollment(owner, enrollment);
 
         String queryResult = eerc721.queryHistory(tokenId, owner);
         if(queryResult != null) {

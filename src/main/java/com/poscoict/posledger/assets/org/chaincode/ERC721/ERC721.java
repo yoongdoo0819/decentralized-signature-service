@@ -66,7 +66,7 @@ public class ERC721 {
             //setConfig = new SetConfig();
             //addressUtils = new AddressUtils();
 
-            UserContext userContext = SetConfig.initUserContext(owner);
+            UserContext userContext = SetConfig.initUserContext();
             X509Identity identity = new X509Identity(userContext);
             String addr = AddressUtils.getMyAddress(identity);
 
@@ -77,7 +77,7 @@ public class ERC721 {
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
             request.setFcn("mint");
-            String[] arguments = { tokenId, owner};
+            String[] arguments = { tokenId, addr };
 
             request.setArgs(arguments);
             /*request.setProposalWaitTime(1000);
@@ -112,7 +112,7 @@ public class ERC721 {
         String result = "";
         try {
 
-            UserContext userContext = SetConfig.initUserContext(owner);
+            UserContext userContext = SetConfig.initUserContext();
             X509Identity identity = new X509Identity(userContext);
             String addr = AddressUtils.getMyAddress(identity);
 
@@ -122,7 +122,7 @@ public class ERC721 {
             Thread.sleep(10000);
             Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, "Query token ");
 
-            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc", "balanceOf", new String[]{owner});
+            Collection<ProposalResponse> responses1Query = channelClient.queryByChainCode("mycc", "balanceOf", new String[]{addr});
             for (ProposalResponse pres : responses1Query) {
                 //String stringResponse = new String(pres.getChaincodeActionResponsePayload());
                 Logger.getLogger(QueryChaincode.class.getName()).log(Level.INFO, pres.getMessage());
@@ -140,6 +140,11 @@ public class ERC721 {
 
         String result = "";
         try {
+
+            UserContext userContext = SetConfig.initUserContext();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
+
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
 
@@ -165,6 +170,10 @@ public class ERC721 {
         String result = "";
         try {
 
+            UserContext userContext = SetConfig.initUserContext();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
+
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
 
@@ -172,7 +181,7 @@ public class ERC721 {
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
             request.setFcn("approve");
-            String[] arguments = { approved, tokenId };
+            String[] arguments = { addr, tokenId };
 
             request.setArgs(arguments);
             request.setProposalWaitTime(1000);
@@ -202,6 +211,11 @@ public class ERC721 {
 
         String result="";
         try {
+
+            UserContext userContext = SetConfig.initUserContext();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
+
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
 
@@ -226,6 +240,11 @@ public class ERC721 {
     public String setApprovalForAll(String owner, String operator, String approved) {
         String result = "";
         try {
+
+            UserContext userContext = SetConfig.initUserContext();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
+
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
 
@@ -262,6 +281,11 @@ public class ERC721 {
     public String isApprovedForAll(String owner, String operator) {
         String result = "";
         try {
+
+            UserContext userContext = SetConfig.initUserContext();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
+
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
 
@@ -285,6 +309,11 @@ public class ERC721 {
     public String transfer(String owner, String receiver, String tokenId) {
         String result = "";
         try {
+
+            UserContext userContext = SetConfig.initUserContext();
+            X509Identity identity = new X509Identity(userContext);
+            String addr = AddressUtils.getMyAddress(identity);
+
             ChannelClient channelClient = SetConfig.initChannel();
             FabricClient fabClient = SetConfig.getFabClient();
 
@@ -292,7 +321,7 @@ public class ERC721 {
             ChaincodeID ccid = ChaincodeID.newBuilder().setName(Config.CHAINCODE_1_NAME).build();
             request.setChaincodeID(ccid);
             request.setFcn("transferFrom");
-            String[] arguments = { owner, receiver , tokenId};
+            String[] arguments = { addr, receiver , tokenId};
 
             request.setArgs(arguments);
             request.setProposalWaitTime(1000);
