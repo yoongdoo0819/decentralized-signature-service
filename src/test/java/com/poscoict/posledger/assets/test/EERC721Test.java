@@ -1,12 +1,12 @@
 package com.poscoict.posledger.assets.test;
 
+import assets.chaincode.EERC721.EERC721;
+import assets.config.UserConfig;
+import assets.user.UserContext;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poscoict.posledger.assets.org.chaincode.AddressUtils;
-import com.poscoict.posledger.assets.org.chaincode.EERC721.EERC721;
 import com.poscoict.posledger.assets.org.chaincode.RedisEnrollment;
-import com.poscoict.posledger.assets.org.chaincode.SetConfig;
-import com.poscoict.posledger.assets.org.user.UserContext;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.junit.Test;
@@ -27,6 +27,10 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//import com.poscoict.posledger.assets.org.chaincode.EERC721.EERC721;
+//import com.poscoict.posledger.assets.org.chaincode.UserConfig;
+//import com.poscoict.posledger.assets.org.user.UserContext;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Configuration
@@ -34,14 +38,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ComponentScan
 public class EERC721Test {
 
-    @Autowired
-    private EERC721 eerc721;
+    //@Autowired
+    private EERC721 eerc721 = new EERC721();
 
     @Autowired
     RedisEnrollment re;
 
 //    @Autowired
-//    SetConfig setConfig;
+//    UserConfig UserConfig;
 
     private static final Logger logger = LoggerFactory.getLogger(EERC721Test.class);
 
@@ -60,9 +64,9 @@ public class EERC721Test {
     @Test
     public void registerTest() throws Exception {
 
-        //setConfig.initUserContext(owner);
+        //UserConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(owner, enrollment);
+        UserConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.register(tokenId, type, owner, pages, hash, signers, path, pathHash)).isEqualTo("SUCCESS");
     }
@@ -70,9 +74,9 @@ public class EERC721Test {
     @Test
     public void balanceOfTest() throws Exception {
 
-        //setConfig.initUserContext(owner);
+        //UserConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(owner, enrollment);
+        UserConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.balanceOf(owner, type)).isEqualTo("1");
     }
@@ -80,9 +84,9 @@ public class EERC721Test {
     @Test
     public void divideTest() throws Exception {
 
-        //setConfig.initUserContext(owner);
+        //UserConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(owner, enrollment);
+        UserConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.divide(tokenId, newTokenIds, values, index)).isEqualTo("SUCCESS");
     }
@@ -90,11 +94,11 @@ public class EERC721Test {
     @Test
     public void queryTest() throws Exception {
 
-        //setConfig.initUserContext(owner);
+        //UserConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(owner, enrollment);
+        UserConfig.setEnrollment(owner, enrollment);
 
-        UserContext userContext = SetConfig.initUserContextForOwner();
+        UserContext userContext = UserConfig.initUserContextForOwner();
         X509Identity identity = new X509Identity(userContext);
         String addr = AddressUtils.getMyAddress(identity);
 
@@ -175,11 +179,11 @@ public class EERC721Test {
     @Test
     public void queryNewToken0Test() throws Exception {
 
-        //setConfig.initUserContext(owner);
+        //UserConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(owner, enrollment);
+        UserConfig.setEnrollment(owner, enrollment);
 
-        UserContext userContext = SetConfig.initUserContextForOwner();
+        UserContext userContext = UserConfig.initUserContextForOwner();
         X509Identity identity = new X509Identity(userContext);
         String addr = AddressUtils.getMyAddress(identity);
 
@@ -260,11 +264,11 @@ public class EERC721Test {
     @Test
     public void queryNewToken1Test() throws Exception {
 
-        //setConfig.initUserContext(owner);
+        //UserConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(owner, enrollment);
+        UserConfig.setEnrollment(owner, enrollment);
 
-        UserContext userContext = SetConfig.initUserContextForOwner();
+        UserContext userContext = UserConfig.initUserContextForOwner();
         X509Identity identity = new X509Identity(userContext);
         String addr = AddressUtils.getMyAddress(identity);
 
@@ -348,9 +352,9 @@ public class EERC721Test {
         String index = "2";
         String attr = owner+" SigId";
 
-        //setConfig.initUserContext(owner);
+        //UserConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(owner, enrollment);
+        UserConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.update(tokenId, "sigIds", attr)).isEqualTo("SUCCESS");
     }
@@ -358,9 +362,9 @@ public class EERC721Test {
     @Test
     public void deactivateTest() throws Exception {
 
-        //setConfig.initUserContext(owner);
+        //UserConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(owner, enrollment);
+        UserConfig.setEnrollment(owner, enrollment);
 
         assertThat(eerc721.deactivate(tokenId)).isEqualTo("SUCCESS");
     }
@@ -368,11 +372,11 @@ public class EERC721Test {
     @Test
     public void afterUpdateAndDeactivateQueryTest() throws Exception {
 
-        //setConfig.initUserContext(owner);
+        //UserConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(owner, enrollment);
+        UserConfig.setEnrollment(owner, enrollment);
 
-        UserContext userContext = SetConfig.initUserContextForOwner();
+        UserContext userContext = UserConfig.initUserContextForOwner();
         X509Identity identity = new X509Identity(userContext);
         String addr = AddressUtils.getMyAddress(identity);
 
@@ -453,11 +457,11 @@ public class EERC721Test {
     @Test
     public void queryHistoryTest() throws Exception {
 
-        //setConfig.initUserContext(owner);
+        //UserConfig.initUserContext(owner);
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.setEnrollment(owner, enrollment);
+        UserConfig.setEnrollment(owner, enrollment);
 
-        UserContext userContext = SetConfig.initUserContextForOwner();
+        UserContext userContext = UserConfig.initUserContextForOwner();
         X509Identity identity = new X509Identity(userContext);
         String addr = AddressUtils.getMyAddress(identity);
 

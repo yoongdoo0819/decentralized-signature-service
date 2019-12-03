@@ -299,6 +299,14 @@
         </dependency>
 
         <dependency>
+            <groupId>com.maven.java</groupId>
+            <artifactId>com.maven.java</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/SDK-JAR.jar</systemPath>
+        </dependency>
+
+        <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>

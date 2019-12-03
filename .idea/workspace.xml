@@ -5,11 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/assets.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assets.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/AddressUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/AddressUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EERC721/EERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EERC721/EERC721.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/ERC721/ERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/ERC721/ERC721.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/RedisEnrollment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/RedisEnrollment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/SetConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/SetConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" afterDir="false" />
     </list>
@@ -73,7 +68,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SDK-JAR" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -243,7 +238,7 @@
       <workItem from="1570525327361" duration="9186000" />
       <workItem from="1574317879817" duration="81983000" />
       <workItem from="1574952278831" duration="10137000" />
-      <workItem from="1575287780245" duration="17323000" />
+      <workItem from="1575287780245" duration="20710000" />
     </task>
     <servers />
   </component>
@@ -277,26 +272,26 @@
       <screen x="67" y="27" width="1853" height="948" />
     </state>
     <state x="167" y="125" width="1653" height="750" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/67.27.1853.948@67.27.1853.948" timestamp="1575292316859" />
-    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl" timestamp="1575287721208">
+    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl" timestamp="1575368707488">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.948@67.27.1853.948" timestamp="1575287721208" />
-    <state width="1807" height="253" key="GridCell.Tab.0.bottom" timestamp="1575305129765">
+    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.948@67.27.1853.948" timestamp="1575368707488" />
+    <state width="1807" height="253" key="GridCell.Tab.0.bottom" timestamp="1575375704119">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1807" height="253" key="GridCell.Tab.0.bottom/67.27.1853.948@67.27.1853.948" timestamp="1575305129765" />
-    <state width="1807" height="253" key="GridCell.Tab.0.center" timestamp="1575305129763">
+    <state width="1807" height="253" key="GridCell.Tab.0.bottom/67.27.1853.948@67.27.1853.948" timestamp="1575375704119" />
+    <state width="1807" height="253" key="GridCell.Tab.0.center" timestamp="1575375704119">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1807" height="253" key="GridCell.Tab.0.center/67.27.1853.948@67.27.1853.948" timestamp="1575305129763" />
-    <state width="1807" height="253" key="GridCell.Tab.0.left" timestamp="1575305129762">
+    <state width="1807" height="253" key="GridCell.Tab.0.center/67.27.1853.948@67.27.1853.948" timestamp="1575375704119" />
+    <state width="1807" height="253" key="GridCell.Tab.0.left" timestamp="1575375704118">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1807" height="253" key="GridCell.Tab.0.left/67.27.1853.948@67.27.1853.948" timestamp="1575305129762" />
-    <state width="1807" height="253" key="GridCell.Tab.0.right" timestamp="1575305129764">
+    <state width="1807" height="253" key="GridCell.Tab.0.left/67.27.1853.948@67.27.1853.948" timestamp="1575375704118" />
+    <state width="1807" height="253" key="GridCell.Tab.0.right" timestamp="1575375704119">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1807" height="253" key="GridCell.Tab.0.right/67.27.1853.948@67.27.1853.948" timestamp="1575305129764" />
+    <state width="1807" height="253" key="GridCell.Tab.0.right/67.27.1853.948@67.27.1853.948" timestamp="1575375704119" />
     <state x="649" y="328" key="com.intellij.ide.util.TipDialog" timestamp="1575287782456">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
