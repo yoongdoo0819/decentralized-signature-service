@@ -1,21 +1,13 @@
 package com.poscoict.posledger.assets.model;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -29,6 +21,9 @@ public class User {
     @Column(length=100)
     private String id;
 
+    @Column(nullable = true, length = 200)
+    private String addr;
+
     private Date createDate;
 
     @Column(nullable = true, length = 200)
@@ -37,13 +32,18 @@ public class User {
     @Column(nullable = false, length = 500)
     private String password;
 
-    /*public User() {
+    private String email;
+
+
+/*public User() {
 
     }*/
 
-    public User(String _id, String _passwd) {
-        id = _id;
-        password = _passwd;
+    public User(String id, String addr, String passwd, String email) {
+        this.id = id;
+        this.addr = addr;
+        this.password = passwd;
+        this.email = email;
     }
 
     public String getId() {
@@ -56,6 +56,14 @@ public class User {
 
     public Date getCreateDate() {
         return createDate;
+    }
+
+    public String getAddr() {
+        return addr;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
     }
 
     public void setCreatedate(Date createDate) {
@@ -77,6 +85,10 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="id")

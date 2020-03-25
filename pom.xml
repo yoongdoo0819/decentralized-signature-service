@@ -298,13 +298,13 @@
             <systemPath>${project.basedir}/lib/fabric-gateway-java-1.4.0-SNAPSHOT.jar</systemPath>
         </dependency>
 
-        <dependency>
-            <groupId>com.maven.java</groupId>
-            <artifactId>com.maven.java</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/SDK-JAR.jar</systemPath>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.maven.java</groupId>-->
+<!--            <artifactId>com.maven.java</artifactId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/lib/SDK-JAR.jar</systemPath>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
@@ -315,9 +315,16 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.8</version>
+            <version>2.9.2</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+
 <!--            &lt;!&ndash; add all iText 7 modules &ndash;&gt;-->
 <!--            <dependency>-->
 <!--                <groupId>com.itextpdf</groupId>-->

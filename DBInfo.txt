@@ -1,0 +1,55 @@
+drop table user;
+drop table User_Sig;
+drop table User_Doc;
+drop table Sig;
+drop table Doc;
+drop table User;
+drop table Token;
+
+create table User (
+userid varchar(70),
+addr varchar(70),
+password varchar(30),
+email varchar(30),
+primary key(userid)
+);
+
+create table Sig (
+signum int auto_increment,
+sigid varchar(150),
+path varchar(80),
+sigtokenid int,
+time varchar(40),
+primary key(signum)
+);
+
+create table Doc (
+docnum int auto_increment,
+docid varchar(150),
+path varchar(255),
+doctokenid int,
+signers varchar(100),
+time varchar(40),
+primary key(docnum)
+);
+
+create table User_Sig ( 
+userid varchar(70),
+signum int, 
+primary key(userid, signum),
+foreign key(userid) references User(userid) on update cascade,
+foreign key(signum) references Sig(signum) on update cascade
+);
+
+create table User_Doc ( 
+userid varchar(70),
+docnum int, 
+primary key(userid, docNum),
+foreign key(userid) references User(userid) on update cascade,
+foreign key(docnum) references Doc(docnum) on update cascade
+);
+
+create table Token (
+tokenid int auto_increment,
+primary key(tokenid)
+);

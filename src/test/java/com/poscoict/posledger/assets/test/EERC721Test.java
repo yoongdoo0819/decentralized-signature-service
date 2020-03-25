@@ -1,14 +1,10 @@
 package com.poscoict.posledger.assets.test;
 
-import assets.chaincode.EERC721.EERC721;
-import assets.config.UserConfig;
-import assets.user.UserContext;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.poscoict.posledger.assets.org.chaincode.AddressUtils;
-import com.poscoict.posledger.assets.org.chaincode.RedisEnrollment;
+import com.poscoict.posledger.assets.chaincode.Extension;
+import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
+import com.poscoict.posledger.assets.config.SetConfig;
+import com.poscoict.posledger.assets.util.Manager;
 import org.hyperledger.fabric.sdk.Enrollment;
-import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -20,16 +16,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static java.lang.Boolean.valueOf;
 
 //import com.poscoict.posledger.assets.org.chaincode.EERC721.EERC721;
 //import com.poscoict.posledger.assets.org.chaincode.UserConfig;
-//import com.poscoict.posledger.assets.org.user.UserContext;
+//import com.poscoict.posledger.assets.user.UserContext;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,20 +33,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class EERC721Test {
 
     //@Autowired
-    private EERC721 eerc721 = new EERC721();
+    //private EERC721 eerc721 = new EERC721();
 
     @Autowired
     RedisEnrollment re;
-
+    @Autowired
+    Extension extension;
 //    @Autowired
 //    UserConfig UserConfig;
 
     private static final Logger logger = LoggerFactory.getLogger(EERC721Test.class);
 
     String owner = "alice";
-    String tokenId = "1";
+    String tokenId = "10";
     String newTokenIds[] = {"2", "3"};
-    String type = "doc";
+    String type = "sig";
     int pages = 100;
     String hash = "doc";
     String signers = owner;
@@ -61,6 +56,32 @@ public class EERC721Test {
     String values[] = {"40", "60"};
     int index = 3;
 
+    @Test
+    public void mintTest() throws Exception {
+
+        Map<String, Object> xattr = new HashMap<>();
+
+        String hash = "sigId";
+        String path = "https://www.off-chain-storage.com";
+        String merkleroot = "558ad18828f6da6d471cdb1a3443f039a770e03617f163896980d914d643e4bc";
+
+        xattr.put("hash", hash);
+
+        Map<String, String> uri = new HashMap<>();
+        uri.put("path", path);
+        uri.put("hash", merkleroot);
+
+
+        logger.info(tokenId + " " + owner + " " + hash + " " + path + " " + hash);
+
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.initUserContext(owner, enrollment);
+        Manager.setChaincodeId("mycc");
+        boolean result = extension.mint("500", "sig", xattr, uri);
+        logger.info(">>>>>> " + valueOf(result));
+    }
+
+/*
     @Test
     public void registerTest() throws Exception {
 
@@ -551,4 +572,8 @@ public class EERC721Test {
             }
         }
     }
+
+ */
+
+
 }

@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
+                    <a class="nav-link" href="/assets/main">Home
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -33,10 +33,7 @@
                     <a class="nav-link" href="/assets/index">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="/assets/admin">Token Type Management</a>
                 </li>
             </ul>
         </div>
@@ -48,40 +45,75 @@
     <div class="row">
 
         <div class="col-lg-3">
-            <h1 class="my-4">Signature Service</h1>
+            <h1 class="my-4">Token Type</h1>
             <div class="list-group">
-                <a href="#" class="list-group-item active">Make signature</a>
-                <a href="/assets/mysign?userid=${sessionUser.id}" class="list-group-item">My Signature</a>
-                <a href="/assets/addUser" class="list-group-item"l>Upload File</a>
-                <a href="/assets/mydoclist?userid=${sessionUser.id}" class="list-group-item">My Document</a>
+                <a href="#" class="list-group-item active">토큰 타입 등록</a>
+                <a href="/assets/adminTokenTypesOf" class="list-group-item">전체 토큰 타입 목록 조회</a>
+                <a href="/assets/adminUpdateTokenType" class="list-group-item"l>토큰 타입 수정</a>
+                <a href="/assets/adminRetrieveTokenType" class="list-group-item">토큰 타입 조회</a>
+                <a href="/assets/adminEnrollAttributeOfTokenType" class="list-group-item">토큰 타입 속성 등록</a>
+                <a href="/assets/adminUpdateAttributeOfTokenType" class="list-group-item">토큰 타입 속성 수정</a>
+                <a href="/assets/adminRetrieveAttributeOfTokenType" class="list-group-item"l>토큰 타입 속성 조회</a>
+                <a href="/assets/adminDropAttributeTokenType" class="list-group-item">토큰 타입 속성 삭제</a>
+                <a href="/assets/adminDropTokenType" class="list-group-item">토큰 타입 삭제</a>
             </div>
         </div>
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
-
-            <div class="card mt-4">
-                <canvas id="myCanvas" style="background-color:aliceblue" width="850" height="400">
-                </canvas>
-
-<%--                <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">--%>
-                <div class="card-body">
-                    <h3 class="card-title">Signature</h3>
-
-                </div>
-            </div>
-
             <div class="card card-outline-secondary my-4">
                 <div class="card-header">
-                    Store Your Signature
+                    <h1>${sessionUser}'s Document List</h1>
                 </div>
-                <div class="card-body" align="right">
+                <div class="card-body">
+                    <%
+                        //List<User_Doc> docList = (List<User_Doc>)request.getAttribute("docList");
+                        //User_Doc doc;
 
-                    <input type="hidden" id="signer" value="${sessionUser.id}">
-                    <input type="submit" class="btn btn-success"  value="store" onclick="store(this)">
+                        String docList[] = (String[])request.getAttribute("docIdList");
+                        String docPathList[] = (String[])request.getAttribute("docPathList");
+                        String docNum[] = (String[])request.getAttribute("docNumList");
+                        String tokenId[] = (String[])request.getAttribute("tokenIdList");
+                        String sigStatus[] = (String[])request.getAttribute("sigStatus");
+                        String ownerKey = (String)request.getAttribute("ownerKey");
+                        String token="";
+                        String sigProcess="";
+                        String docid[] = new String[docList.length];
 
+                        String queryDoc="";
+                        int i=0;
+                        for(i=0; i<docid.length; i++) {
+                            docid[i] = "<a href=/mydoc?ownerKey=" + ownerKey + "&docid=" + docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] +">" + docPathList[i] + "</a>";
+                            queryDoc = "<a href=/queryDoc?docid=" + docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] + ">" + "- Final Document " + "</a>";
+                            if(sigStatus[i].equals("true"))
+                                sigProcess= " <button type='button' class='btn btn-success'  style='width: 30pt; height:28pt; float:right;' onclick=checkStatus("+tokenId[i]+")>O</button> ";
+                            else
+                                sigProcess= " <button type='button' class='btn btn-danger'  style='width: 30pt; height:28pt; float:right;' onclick=checkStatus("+tokenId[i]+")>X</button> ";
+                            token = " <input type=submit value='√' class='btn btn-outline-info' style='background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY5Mu3vrHZi-N1ntwu6F0lTYc2IQekwho9WjK1gl5s_BxWwhI); style='width: 2pt; height:20pt; float:right;' onclick=checkStatus("+tokenId[i]+")> ";
+
+                    %>
+                    <table width="750px">
+                        <tr>
+                            <td>
+                                <%=docid[i]%>
+                                <%=queryDoc%>
+                            </td>
+                            <td align="right">
+                                <%--<%=token%>&nbsp--%>
+                                <%=sigProcess%>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr>
+                    <%
+                        }
+                    %>
+                    <hr>
+                    <%--                    <a href="#" class="btn btn-success">Leave a Review</a>--%>
                 </div>
             </div>
+            <!-- /.card -->
+
         </div>
     </div>
 </div>
@@ -89,6 +121,8 @@
 </body>
 
 <script >
+
+
     var canvas, context;
     function goLogin() {
         location.href = "${ctx}/oauth/login";
@@ -132,6 +166,7 @@
     function store(link) {
         //downloadCanvas(this, myCanvas, 'test.png');
         var signer = document.getElementById("signer").value;
+        var owner = document.getElementById("signer").value;
         //alert(signer);
         canvas = document.getElementById("myCanvas");
         var dataURL = canvas.toDataURL("image/png", 1.0);//.replace("image/png", "image/octet-stream");
@@ -141,8 +176,9 @@
 
         $.ajax({
             type: "POST",
-            url: "/assets/createSignatureToken",
+            url: "/img",
             data: {
+                "owner":  owner,
                 "signer": signer,
                 "strImg": dataURL
                 //"test": "test string"

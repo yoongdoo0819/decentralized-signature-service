@@ -88,16 +88,18 @@
                 <div class="card-body" align="right">
 
                     <form action="/assets/doSign" method="post">
-                        <input type="hidden" name="signer" value="${sessionUser.id}">
+                        <input type="hidden" name="signer" id="signer" value="${sessionUser.id}">
                         <input type="hidden" name="docNum" value=${docNum}>
                         <input type="hidden" name="docId" value=${docId}>
-                        <input type="hidden" name="tokenId" value=${tokenId}>
+                        <input type="hidden" name="tokenId" id="tokenId" value=${tokenId}>
                         <input type="hidden" name="docPath" value=${docPath}>
                         <input type="hidden" name="sigId" value=${sigId}>
 
                         <input type="submit" class="btn btn-success" value="sign">
-
                     </form>
+                    <hr>
+                    <input type="text" name="receiverId" id="receiverId">
+                    <button type="button" class="btn btn-success" onclick="transferFrom()">transferFrom</button>
                 </div>
             </div>
         </div>
@@ -119,7 +121,31 @@
             },
             //dataType: "json",
             success: function (data) {
-                swal({title: "Info", text: data, icon: "success", button: "close",});
+                swal({title: "Info", text: data, icon: "success", button: "close"});
+            },
+            error: function (err) {
+                swal("error" + err);
+            }
+        });
+    }
+
+    function transferFrom() {
+
+        userId = document.getElementById("signer").value;
+        tokenId = document.getElementById("tokenId").value;
+        receiver = document.getElementById("receiverId").value;
+
+        $.ajax({
+            type: "POST",
+            url: "/assets/transferFrom",
+            data: {
+                "userId": userId,
+                "tokenId": tokenId,
+                "receiverId": receiver
+            },
+            //dataType: "json",
+            success: function (data) {
+                swal({title: "Info", text: data, icon: "success", button: "close"});
             },
             error: function (err) {
                 swal("error" + err);

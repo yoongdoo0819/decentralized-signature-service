@@ -2,27 +2,33 @@ package com.poscoict.posledger.assets.controller;
 
 //import com.itextpdf.layout.Doc;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.poscoict.posledger.assets.chaincode.AddressUtils;
+import com.poscoict.posledger.assets.chaincode.EnrollmentUser;
+import com.poscoict.posledger.assets.chaincode.Extension;
+import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
+import com.poscoict.posledger.assets.chaincode.standard.Default;
+import com.poscoict.posledger.assets.chaincode.standard.ERC721;
+import com.poscoict.posledger.assets.config.SetConfig;
 import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.User_Doc;
 import com.poscoict.posledger.assets.model.User_Sig;
-import com.poscoict.posledger.assets.org.chaincode.ERC721.ERC721;
-import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
-import com.poscoict.posledger.assets.service.RedisService;
+import com.poscoict.posledger.assets.model.dao.*;
+import com.poscoict.posledger.assets.user.UserContext;
 import com.poscoict.posledger.assets.util.DateUtil;
+import com.poscoict.posledger.assets.util.Manager;
 import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.fabric.sdk.Enrollment;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,9 +51,8 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
@@ -60,10 +65,14 @@ import static java.lang.String.valueOf;
 @EnableAutoConfiguration
 public class MainController {
 
-	public static JdbcTemplate jdbcTemplate;
-
 	@Autowired
-	private TestDao testDao;
+	private ObjectMapper objectMapper;
+	@Autowired
+	private Default de;
+	@Autowired
+	private ERC721 erc721;
+	@Autowired
+	private Extension extention;
 	@Autowired
 	private UserDao userDao;
 	@Autowired
@@ -77,28 +86,9 @@ public class MainController {
 	@Autowired
 	private TokenDao tokenDao;
 	@Autowired
-	private RedisService redisService;
+	private RedisEnrollment re;
 
-	@GetMapping("/redis")
-	public String redis(HttpServletRequest req, Model model) {
-
-		EnrollmentUser newUser = new EnrollmentUser();
-		try {
-			//User user = new User(req.getParameter("userId"), req.getParameter("userPasswd"));
-			//userDao.insert(user);
-
-			Enrollment certificate = newUser.registerUser(req.getParameter("userId"));
-			if(!(redisService.storeUser(req.getParameter("userId"), certificate)))
-				log.info("user register failure");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		//model.addAttribute("count", redisService.getVisitCount());
-
-		return "redis";
-	}
+	private String chaincodeId = "mycc";
 
 	@GetMapping("/index")
 	public String index() {
@@ -117,18 +107,30 @@ public class MainController {
 	@PostMapping("/signUp")
 	public String signUp(HttpServletRequest req) {
 		log.info("signUp");
-
+		String userId = req.getParameter("userId");
 		EnrollmentUser newUser = new EnrollmentUser();
 		try {
 
-			// insert user's info into DB
-			User user = new User(req.getParameter("userId"), req.getParameter("userPasswd"));
-			userDao.insert(user);
+			Enrollment enrollment = newUser.registerUser(userId);
+
+			UserContext userContext = new UserContext();
+			userContext.setName(userId);
+			userContext.setAffiliation("org1.department1");
+			userContext.setMspId("Org1MSP");
+			userContext.setEnrollment(enrollment);
+			X509Identity identity = new X509Identity(userContext);
+
+			AddressUtils addressUtils = new AddressUtils();
+			String addr = addressUtils.getMyAddress(identity);
+			System.out.println(addr);
 
 			// insert user's cert into Redis
-			Enrollment certificate = newUser.registerUser(req.getParameter("userId"));
-			if(!(redisService.storeUser(req.getParameter("userId"), certificate)))
+			if(!(re.setEnrollment(userId, enrollment)))
 				log.info("user register failure");
+
+			// insert user's info into DB
+			User user = new User(userId, addr, req.getParameter("userPasswd"), req.getParameter("userEmail"));
+			userDao.insert(user);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -137,15 +139,55 @@ public class MainController {
 		return "index";
 	}
 
-	@GetMapping("/_login")
-	public String _login() {
-		log.info("login!");
 
-		return "_login";
+
+	/*
+	@GetMapping(value = "/mailSender")
+	public String mailSender(HttpServletRequest request, ModelMap mo) throws AddressException, MessagingException {
+		// 네이버일 경우 smtp.naver.com 을 입력합니다.
+		// Google일 경우 smtp.gmail.com 을 입력합니다.
+		String host = "smtp.gmail.com";
+
+		final String username = "yoongdoo0819"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
+		final String password = ""; //네이버 이메일 비밀번호를 입력해주세요
+		int port=465; //포트번호
+
+		// 메일 내용
+		String recipient = "yoongdoo0819@postech.ac.kr"; //받는 사람의 메일주소를 입력해주세요.
+		String subject = "[decentral signature service]"; //메일 제목 입력해주세요.
+		String body = "Hello, \n\n" + "sangwon" + "'s signature complete"; //메일 내용 입력해주세요.
+
+		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
+
+		// SMTP 서버 정보 설정
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", port);
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.ssl.enable", "true");
+		props.put("mail.smtp.ssl.trust", host);
+
+		//Session 생성
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			String un=username;
+			String pw=password;
+			protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+				return new javax.mail.PasswordAuthentication(un, pw);
+			}
+		});
+		session.setDebug(true); //for debug
+
+		Message mimeMessage = new MimeMessage(session); //MimeMessage 생성
+		mimeMessage.setFrom(new InternetAddress("yoongdoo0819@gmail.com")); //발신자 셋팅 , 보내는 사람의 이메일주소를 한번 더 입력합니다. 이때는 이메일 풀 주소를 다 작성해주세요.
+
+		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
+		mimeMessage.setSubject(subject); //제목셋팅
+		mimeMessage.setText(body); //내용셋팅
+		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
+
+		return "main";
 	}
+	 */
 
-	//@ResponseBody
-	//@RequestMapping("/main")
 	@GetMapping("/main")
 	public String main(HttpServletRequest req, Model model) {
 		log.info("main");
@@ -163,13 +205,14 @@ public class MainController {
 	}
 
 	@ResponseBody
-	@PostMapping("/upload")
+	@PostMapping("/createDigitalContactToken")
 	public RedirectView upload(HttpServletRequest req, MultipartHttpServletRequest mre) throws IllegalStateException, IOException, Exception{
 
 		String userid = req.getParameter("userid");
 		String count = req.getParameter("count");
 		String[] user = null;
 		String signers = "";
+		Date today = new Date();
 
 		// if signers for document are not only one
 		if(!count.equals("")) {
@@ -198,8 +241,7 @@ public class MainController {
 			log.info("failure");
 
 		String uploadPath = "";
-		String path = "./dSignature-server/src/main/webapp/";
-		//String original = mf.getOriginalFilename();
+		String path = "./dSignature-server/workspace/src/main/webapp/";
 		String original = "";
 		File convFile = null;
 		InputStream is = null;
@@ -216,11 +258,11 @@ public class MainController {
 
 			convFile = new File(mf.getOriginalFilename());
 			convFile.createNewFile();
-			FileOutputStream fos = new FileOutputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+convFile);	// absolute path needed
+			FileOutputStream fos = new FileOutputStream("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/"+convFile);	// absolute path needed
 			fos.write(mf.getBytes());
 			fos.close();
 
-			is = new FileInputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+convFile);	// absolute path needed
+			is = new FileInputStream("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/"+convFile);	// absolute path needed
 			byte[] buffer = new byte[1024];
 			int readBytes = 0;
 
@@ -274,7 +316,7 @@ public class MainController {
 		tokenDao.insert(tokenNum);
 
 		// insert document's info into DB
-		docDao.insert(original, mf.getOriginalFilename(), tokenNum, signers);
+		docDao.insert(original, mf.getOriginalFilename(), tokenNum, signers, today.toString());
 
 		// insert key for user and document into DB
 		Map<String, Object> testMap = docDao.getDocNum();
@@ -289,25 +331,53 @@ public class MainController {
 		}
 
 		// create merkleRoot for off-chain data verification
-		String merkleLeaf[] = new String[4];
-		merkleLeaf[0] = original;
-		merkleLeaf[1] = mf.getOriginalFilename();
-		merkleLeaf[2] = valueOf(tokenNum);
-		merkleLeaf[3] = signers;
+		String merkleLeaf[] = new String[2];
+		merkleLeaf[0] = mf.getOriginalFilename();
+		merkleLeaf[1] = today.toString();
 
 		String merkleRoot = MerkleTree.merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
 		log.info(merkleRoot);
 
-		// mint DocNFT
-		//mintDocNFT mintNFT = new mintDocNFT();
-		//String result = mintNFT.mint(tokenNum, owner, original, signers, mf.getOriginalFilename(), merkleRoot);
+		Enrollment enrollment = re.getEnrollment(userid);
+		SetConfig.initUserContext(userid, enrollment);
+		Manager.setChaincodeId(chaincodeId);
 
-		return new RedirectView("main"); //null;//"redirect:/main";
+		UserContext userContext = new UserContext();
+		userContext.setName(userid);
+		userContext.setAffiliation("org1.department1");
+		userContext.setMspId("Org1MSP");
+		userContext.setEnrollment(enrollment);
+		X509Identity identity = new X509Identity(userContext);
+
+		AddressUtils addressUtils = new AddressUtils();
+		String addr = addressUtils.getMyAddress(identity);
+
+		String docType = "digital contract";
+		ArrayList<String> signer = new ArrayList<String>();
+		signer.add(addr);
+		if(user != null) {
+			String signerAddr = "";
+			for (int i = 0; i < user.length; i++) {
+				signerAddr = (String)userDao.getUserByUserId(user[i]).get("addr");
+				signer.add(signerAddr);
+			}
+		}
+
+		Map<String, Object> xattr = new HashMap<>();
+		xattr.put("hash", original);
+		xattr.put("signers", signer);
+
+		Map<String, String> uri = new HashMap<>();
+		uri.put("path", "jdbc:log4jdbc:mysql://localhost:3306/hyperledger");
+		uri.put("hash", merkleRoot);
+
+		extention.mint(valueOf(tokenNum), docType, xattr, uri);
+		return new RedirectView("main");
 	}
 
 	@ResponseBody
-	@RequestMapping("/img")
-	public RedirectView img (/*@RequestBody String test,*/ HttpServletRequest req, String signer, String strImg) throws Exception {
+	@RequestMapping("/createSignatureToken")
+	public RedirectView img (HttpServletRequest req, String signer, String strImg) throws Exception {
 
 		log.info(" > " + signer);
 		log.info(" > " + strImg);
@@ -318,6 +388,8 @@ public class MainController {
 		String rstStrImg = strParts[1];
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_hhmmss");
 		String filenm = sdf.format(new Date()).toString() + "_" + signer;
+
+		Date today = new Date();
 
 		BufferedImage image = null;
 		byte[] byteImg;
@@ -407,7 +479,7 @@ public class MainController {
 		tokenDao.insert(tokenNum);
 
 		// insert sig's info into DB
-		sigDao.insert(sigId, filenm, tokenNum);
+		sigDao.insert(sigId, filenm, tokenNum, today.toString());
 		Map<String, Object> testMap = sigDao.getSigBySigid(sigId);
 		int sigNum = (int)testMap.get("sigNum");
 
@@ -415,21 +487,26 @@ public class MainController {
 		user_sigDao.insert(signer, sigNum);
 
 		// create merkleRoot for off-chain data verification
-		String merkleLeaf[] = new String[3];
-		merkleLeaf[0] = sigId;
+		String merkleLeaf[] = new String[2];
+		merkleLeaf[0] = today.toString();
 		merkleLeaf[1] = filenm;
-		merkleLeaf[2] = valueOf(tokenNum);
 
 		String merkleRoot = MerkleTree.merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
 		log.info(merkleRoot);
 
-		// mint SigNFT
-		//mintSigNFT mintNFT = new mintSigNFT();
-		//mintNFT.mint(tokenNum, owner, sigId, filenm, merkleRoot);
+		String sigType = "sig";
+		Map<String, Object> xattr = new HashMap<>();
+		xattr.put("hash", sigId);
 
-		ERC721 erc721 = new ERC721();
-		erc721.register("0", "aa");
+		Map<String, String> uri = new HashMap<>();
+		uri.put("path", filenm);
+		uri.put("hash", merkleRoot);
 
+		Enrollment enrollment = re.getEnrollment(signer);
+		SetConfig.initUserContext(signer, enrollment);
+		Manager.setChaincodeId(chaincodeId);
+
+		extention.mint(valueOf(tokenNum), sigType, xattr, uri);
 		return new RedirectView("main");
 	}
 
@@ -527,29 +604,24 @@ public class MainController {
 		Map<String, Object> testMap = sigDao.getSigBySigid(sigId);
 		String sigTokenId = valueOf((int)testMap.get("sigtokenid"));
 
-		//updateDocNFT updateNFT = new updateDocNFT();
-		//updateNFT.update(tokenId, "2", sigTokenId);
+		Enrollment enrollment = re.getEnrollment(signer);
+		SetConfig.initUserContext(signer, enrollment);
+		Manager.setChaincodeId(chaincodeId);
 
-		/*
-		 * approve need?
-		 *
-		Map<String, Object> testMap = docDao.getDocByDocNum(docNum);
-		String signersArray = (String)testMap.get("signers");
-		String signers[] = signersArray.split(",");
-		String approved = "";
-		log.info("******************************" + signersArray.split(",")[0]);
+		UserContext userContext = new UserContext();
+		userContext.setName(signer);
+		userContext.setAffiliation("org1.department1");
+		userContext.setMspId("Org1MSP");
+		userContext.setEnrollment(enrollment);
+		X509Identity identity = new X509Identity(userContext);
 
+		AddressUtils addressUtils = new AddressUtils();
+		String addr = addressUtils.getMyAddress(identity);
+		System.out.println(addr);
 
-		for(int i=0; i<signers.length; i++) {
-			log.info("++++++++++++++++++++++"+signers[i]);
-			if(signer.equals(signers[i]) && i+1 < signers.length) {
-				sleep(2000);
-				approved = signers[i + 1];
-				approveDocNFT approveNFT = new approveDocNFT();
-				approveNFT.approve(approved, tokenId);
-			}
-		}
-		*/
+		log.info(tokenId + " , " + "signatures" + " , " +  sigTokenId);
+		boolean result = erc721.sign(tokenId, sigTokenId);
+		log.info(valueOf(result));
 
 		return new RedirectView("main");
 	}
@@ -566,13 +638,7 @@ public class MainController {
 		String userId = req.getParameter("userid");
 		String sigId = "";
 
-		Map<String, Object> testMap;// = (user_sigDao.getUserSig(userId));
-
-		/*
-		sigId = (String)testMap.get("sigid");
-		model.addAttribute("sigId", sigId);
-		*/
-
+		Map<String, Object> testMap;
 
 		/*
 		 * check my signature images
@@ -611,7 +677,7 @@ public class MainController {
 		docPath = (String) docTestMap.get("path");
 		model.addAttribute("docPath", docPath);
 
-		log.info("#######################################" + userId);
+		log.info("####################################### " + userId);
 
 		/*
 		 * get my signature image
@@ -634,47 +700,39 @@ public class MainController {
 
 	@ResponseBody
 	@RequestMapping("/checkInfo")
-	public String checkInfo (/*@RequestBody String test,*/ HttpServletRequest req, String tokenId) throws Exception {
+	public String checkInfo (HttpServletRequest req, String tokenId) throws Exception {
 
 		log.info(" > " + tokenId);
-		//String uploadpath="uploadfile\\";
 
 		String queryResult = null;
 		String result = "";
-		String XAttr;
 		String signers="";
-		String tokenIds;
 		String owner="";
 		String hash="";
-		//String signersArray[];
-		String tokenIdsArray[];
-		int sigNum;
-
 
 		/*
 		 * get document info from blockchain
 		 */
-		//queryNFT querynft = new queryNFT();
-		//queryResult = querynft.query(tokenId);
-
+		queryResult = de.query(tokenId);
 		if(queryResult != null) {
-			JSONParser jsonParser = new JSONParser();
-			JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
 
-			owner = (String)jsonObj.get("owner");
-			XAttr = (String)jsonObj.get("xattr");
-			JSONObject tempObj = (JSONObject) jsonParser.parse(XAttr);
+			Map<String, Object> map =
+					objectMapper.readValue(queryResult, new TypeReference<HashMap<String, Object>>(){});
 
-			//signers = (String) tempObj.get("signers");
-			JSONArray signersArray = (JSONArray) tempObj.get("signers");
-			if(signersArray != null) {
-				for (int i = 0; i < signersArray.size(); i++) {
-					signers += signersArray.get(i);
-					if (i + 1 < signersArray.size())
+			owner = (String)map.get("owner");
+			Map<String, Object> xattr = (HashMap<String, Object>) map.get("xattr");
+
+			List<String> signersList = (ArrayList<String>) xattr.get("signers");
+			List<String> signaturesList = (ArrayList<String>) xattr.get("signatures");
+
+			if(signersList != null) {
+				for (int i = 0; i < signersList.size(); i++) {
+					signers += signersList.get(i);
+					if (i + 1 < signersList.size())
 						signers += ", ";
 				}
 			}
-			hash = (String) tempObj.get("hash");
+			hash = (String) xattr.get("hash");
 
 		}
 
@@ -686,6 +744,22 @@ public class MainController {
 		return result;
 	}
 
+	@ResponseBody
+	@RequestMapping("/transferFrom")
+	public String transferFrom (HttpServletRequest req, String userId, String receiverId, String tokenId) throws Exception {
+
+		log.info("userId > " + userId);
+		log.info("receiverId > " + receiverId);
+		log.info("tokenId > " + tokenId);
+
+		String owner = (String)userDao.getUserByUserId(userId).get("addr");
+		if(erc721.transferFrom(owner, receiverId, tokenId))
+			return "success";
+		else
+			return "failrure";
+
+	}
+
 	@GetMapping("/mydoclist")
 	public String mydoclist(HttpServletRequest req, Model model) throws Exception{
 
@@ -694,14 +768,8 @@ public class MainController {
 		String docPath[];
 		String docNum[];
 		String tokenId[];
-		String sigId = "";
 		String queryResult = null;
-		String signersResult = "";
-		String XAttr;
 		String sigStatus[];
-		int sigNum;
-
-		//queryNFT querynft = new queryNFT();
 
 		List<User_Doc> docList = user_docDao.listForBeanPropertyRowMapper(userId);
 		docId = new String[docList.size()];
@@ -709,6 +777,10 @@ public class MainController {
 		docPath = new String[docList.size()];
 		tokenId = new String[docList.size()];
 		sigStatus = new String[docList.size()];
+
+		Enrollment enrollment = re.getEnrollment(userId);
+		SetConfig.initUserContext(userId, enrollment);
+		Manager.setChaincodeId(chaincodeId);
 
 		/*
 		 * get my all document list
@@ -720,27 +792,25 @@ public class MainController {
 			docNum[i] = valueOf(testMap.get("docnum"));
 			docPath[i] = (String)testMap.get("path");
 			tokenId[i] = valueOf(testMap.get("doctokenid"));
+			log.info("tokenId >> " + tokenId[i]);
 
-			//queryResult = querynft.query(tokenId[i]);
+			queryResult = de.query(tokenId[i]);
+			log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>> " + queryResult);
 			if(queryResult != null) {
-				JSONParser jsonParser = new JSONParser();
-				JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
+				Map<String, Object> map =
+						objectMapper.readValue(queryResult, new TypeReference<HashMap<String, Object>>(){});
 
-				XAttr = (String)jsonObj.get("xattr");
-				JSONObject tempObj = (JSONObject) jsonParser.parse(XAttr);
+				Map<String, Object> xattr = (HashMap<String, Object>) map.get("xattr");
 
-				//signers = (String) tempObj.get("signers");
-				//tokenIds = (String) tempObj.get("sigIds");
-				JSONArray signersArray = (JSONArray) tempObj.get("signers");
-				JSONArray tokenIdsArray = (JSONArray) tempObj.get("sigIds");
+				List<String> signersList = (ArrayList<String>) xattr.get("signers");
+				List<String> signaturesList = (ArrayList<String>) xattr.get("signatures");
 
-				if(signersArray.size() == tokenIdsArray.size())
+				if(signersList.size() == signaturesList.size())
 					sigStatus[i] = "true";
 				else
 					sigStatus[i] = "false";
 			}
 		}
-
 
 		model.addAttribute("docIdList", docId);
 		model.addAttribute("docNumList", docNum);
@@ -754,23 +824,14 @@ public class MainController {
 
 	@ResponseBody
 	@RequestMapping("/checkStatus")
-	public String[] checkStatus (/*@RequestBody String test,*/ HttpServletRequest req, String tokenId) throws Exception {
+	public String[] checkStatus (HttpServletRequest req, String tokenId) throws Exception {
 
 		log.info(" > " + tokenId);
-		//String uploadpath="uploadfile\\";
 
 		int numOfProperty = 3;
 		String queryResult = null;
 		String signersResult[] = new String[numOfProperty];
-		String XAttr;
-		String signers;
-		String tokenIds;
-		//String signersArray[];
-		//String tokenIdsArray[];
 		int sigNum;
-
-		//queryNFT querynft = new queryNFT();
-		//queryResult = querynft.query(tokenId);
 
 		for(int i=0; i<signersResult.length; i++) {
 			signersResult[i] = "";
@@ -781,28 +842,24 @@ public class MainController {
 		/*
 		 * check current signing status for the document
 		 */
+		queryResult = de.query(tokenId);
 		if(queryResult != null) {
-			JSONParser jsonParser = new JSONParser();
-			JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
+			Map<String, Object> map =
+					objectMapper.readValue(queryResult, new TypeReference<HashMap<String, Object>>(){});
 
-			XAttr = (String)jsonObj.get("xattr");
-			JSONObject tempObj = (JSONObject) jsonParser.parse(XAttr);
+			Map<String, Object> xattr = (HashMap<String, Object>) map.get("xattr");
 
+			List<String> signersList = (ArrayList<String>) xattr.get("signers");
+			List<String> signaturesList = (ArrayList<String>) xattr.get("signatures");
 
-			/*
-			 * All participants
-			 */
-			JSONArray signersArray = (JSONArray) tempObj.get("signers");
-			for(int i=0; i<signersArray.size(); i++) {
-				signersResult[0] += signersArray.get(i);
-				if(i+1 < signersArray.size())
-						signersResult[0] += "-";
+			for(int i=0; i<signersList.size(); i++) {
+				signersResult[0] += signersList.get(i);
+				if(i+1 < signersList.size())
+					signersResult[0] += "-";
 			}
 
-			JSONArray tokenIdsArray = (JSONArray) tempObj.get("sigIds");
-
 			// all signers have signed or otherwise
-			if(signersArray.size() == tokenIdsArray.size())
+			if(signersList.size() == signaturesList.size())
 				signersResult[2] = "true";
 			else
 				signersResult[2] = "false";
@@ -812,20 +869,19 @@ public class MainController {
 			 */
 			Map<String, Object> sigTestMap;
 			Map<String, Object> user_sigTestMap;
-			if(tokenIdsArray != null) {
-				for (int i = 0; i < tokenIdsArray.size(); i++) {
-					sigTestMap = sigDao.getSigBySigTokenId(parseInt((String)tokenIdsArray.get(i)));
+			if(signaturesList != null) {
+				for (int i = 0; i < signaturesList.size(); i++) {
+					sigTestMap = sigDao.getSigBySigTokenId(parseInt((String)signaturesList.get(i)));
 					sigNum = (int) sigTestMap.get("signum");
-					log.info("tokenId " + tokenIdsArray.get(i) + " , sigNum " + valueOf(sigNum) );
+					log.info("tokenId " + signaturesList.get(i) + " , sigNum " + valueOf(sigNum) );
 
 					user_sigTestMap = user_sigDao.getUserid(sigNum);
 					signersResult[1] += (String) user_sigTestMap.get("userid");
-					if(i+1 < tokenIdsArray.size()) {
+					if(i+1 < signaturesList.size()) {
 						signersResult[1] += " - ";
 					}
 				}
 			}
-
 		}
 
 		log.info(queryResult);
@@ -835,17 +891,13 @@ public class MainController {
 	@GetMapping("/queryDoc")
 	public String queryDoc(HttpServletRequest req, Model model) throws Exception{
 
-		//String userId = req.getParameter("userid");
 		String docId = req.getParameter("docid");
 		int docNum = parseInt(req.getParameter("docnum"));
 		String docPath = "";
-		int signum;
 		String userId[];
 		String sigPathList[];
 		String queryResult="";
 		String tokenId = req.getParameter("tokenid");
-		String XAttr = "";
-		//model.addAttribute("docList", user_docDao.listForBeanPropertyRowMapper(docId));
 
 		Map<String, Object> docTestMap = docDao.getDocByDocIdAndNum(docId, docNum);
 		List<User_Doc> userList = user_docDao.listForBeanPropertyRowMapperByDocNum((int)docTestMap.get("docnum"));
@@ -853,23 +905,22 @@ public class MainController {
 		sigPathList = new String[userList.size()];
 		userId = new String[userList.size()];
 
-		//queryNFT querynft = new queryNFT();
-		//queryResult = querynft.query(tokenId);
+		queryResult = de.query(tokenId);
 
 		if(queryResult != null) {
-			JSONParser jsonParser = new JSONParser();
-			JSONObject jsonObj = (JSONObject) jsonParser.parse(queryResult);
+			Map<String, Object> map =
+					objectMapper.readValue(queryResult, new TypeReference<HashMap<String, Object>>(){});
 
-			XAttr = (String)jsonObj.get("xattr");
-			JSONObject tempObj = (JSONObject) jsonParser.parse(XAttr);
-			JSONArray tokenIdsArray = (JSONArray) tempObj.get("sigIds");
+			Map<String, Object> xattr = (HashMap<String, Object>) map.get("xattr");
+
+			List<String> signersList = (ArrayList<String>) xattr.get("signers");
+			List<String> signaturesList = (ArrayList<String>) xattr.get("signatures");
 
 			Map<String, Object> sigTestMap;
-
 			// get signature paths for signers
-			if(tokenIdsArray != null) {
-				for (int i = 0; i < tokenIdsArray.size(); i++) {
-					sigTestMap = sigDao.getSigBySigTokenId(parseInt((String)tokenIdsArray.get(i)));
+			if(signaturesList != null) {
+				for (int i = 0; i < signaturesList.size(); i++) {
+					sigTestMap = sigDao.getSigBySigTokenId(parseInt((String)signaturesList.get(i)));
 					sigPathList[i] = (String) sigTestMap.get("path");
 
 					}
@@ -883,12 +934,12 @@ public class MainController {
 		try {
 
 			// existing pdf
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/yoongdoo0819/dSignature-server/src/main/webapp/final.pdf")); // absolute path needed
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/final.pdf")); // absolute path needed
 			document.open();
 			PdfContentByte cb = writer.getDirectContent();
 
 			// Load existing PDF
-			PdfReader reader = new PdfReader("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+docPath);	// absolute path needed
+			PdfReader reader = new PdfReader("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/"+docPath);	// absolute path needed
 			for(int i=1; i<=reader.getNumberOfPages(); i++) {
 				PdfImportedPage page = writer.getImportedPage(reader, i);
 
@@ -913,10 +964,10 @@ public class MainController {
 			 */
 			for(int i=0; i<sigPathList.length; i++) {
 				section[i] = chapter1.addSection(new Paragraph(userId[i]));
-				f = new File("/home/yoongdoo0819/dSignature-server/src/main/webapp/"+sigPathList[i]);    // absolute path needed
+				f = new File("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/"+sigPathList[i]);    // absolute path needed
 
 				if(f.isFile()) {
-					Image section1Image = Image.getInstance("/home/yoongdoo0819/dSignature-server/src/main/webapp/" + sigPathList[i]);   // absolute path needed
+					Image section1Image = Image.getInstance("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/" + sigPathList[i]);   // absolute path needed
 					section[i].add(section1Image);
 				}
 			}
@@ -929,6 +980,7 @@ public class MainController {
 
 		}
 
+		log.info(">>>>>>>>>>>>>>>");
 		model.addAttribute("finalDocPath", "final.pdf");
 		return "finalDoc";
 	}

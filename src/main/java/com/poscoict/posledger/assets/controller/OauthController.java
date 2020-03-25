@@ -1,7 +1,10 @@
 package com.poscoict.posledger.assets.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.poscoict.posledger.assets.TokenIssuer;
+import com.poscoict.posledger.assets.model.dao.UserDao;
+import com.poscoict.posledger.assets.model.User;
+import com.poscoict.posledger.assets.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,16 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.poscoict.posledger.assets.TokenIssuer;
-import com.poscoict.posledger.assets.exception.UserNotFoundException;
-import com.poscoict.posledger.assets.model.User;
-import com.poscoict.posledger.assets.service.UserService;
-
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
-import java.util.Set;
 
 @Slf4j
 @Validated
@@ -34,7 +29,8 @@ public class OauthController {
 	@Autowired
 	private TokenIssuer tokenIssuer;
 
-	@Autowired UserDao userDao;
+	@Autowired
+    UserDao userDao;
 
 	/**
 	 * 로그인 화면 
@@ -64,10 +60,10 @@ public class OauthController {
 		Map<String, Object> testMap = (userDao.getUser(_userId, _userPasswd));
 		User user = new User();
 
-		user.setId((String)testMap.get("id"));
+		user.setId((String)testMap.get("userid"));
 		user.setPassword((String)testMap.get("password"));
-		user.setCreatedate((Date)testMap.get("crate_date"));
-		user.setName((String)testMap.get("name"));
+		//user.setCreatedate((Date)testMap.get("crate_date"));
+		//user.setName((String)testMap.get("name"));
 
 		//User user = (User)(testMap.get(("yoongdoo1")));
 		//User user = userDao.getUser("yoongdoo1");

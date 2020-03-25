@@ -19,50 +19,51 @@
 
 <script type="text/javascript">
 
-var oTbl;
-var count = 0;
-//var ID = 'ID';
-//var PHONE = 'PHONE';
+    var oTbl;
+    var count = 0;
+    //var ID = 'ID';
+    //var PHONE = 'PHONE';
 
-// add Row
-function insRow() {
+    // add Row
+    function insRow() {
 
-    var ID = 'ID'+count;
-    var PHONE = 'PHONE'+count;
-    oTbl = document.getElementById("addTable");
-    var oRow = oTbl.insertRow();
-    oRow.onmouseover=function(){oTbl.clickedRowIndex=this.rowIndex};
-    var oCell = oRow.insertCell();
+        var peerName = 'peerName'+count;
+        var peerURL = 'peerURL'+count;
+        var PHONE = 'PHONE'+count;
+        oTbl = document.getElementById("addTable");
+        var oRow = oTbl.insertRow();
+        oRow.onmouseover=function(){oTbl.clickedRowIndex=this.rowIndex};
+        var oCell = oRow.insertCell();
 
-    var frmTag = "<input type=text name=" + "'" + ID + "'" + "style=width:200px; height:20px; placeholder='ID'>";
-    //frmTag += "PHONE <input type=text name=" + "'" + PHONE + "'" + "style=width:200px; height:20px;>";
-    frmTag += " <button type=button style='width:45pt; height:25pt' class='btn btn-outline-danger' onClick=remove()>삭제</button>"
-    frmTag += "<br><hr>"
-    oCell.innerHTML = frmTag;
-    count++;
+        var frmTag = "<input type=text name=" + "'" + peerName + "'" + "style=width:200px; height:20px; placeholder='peerName'>";
+        frmTag += "<input type=text name=" + "'" + peerURL + "'" + "style=width:200px; height:20px; placeholder='peerURL'>";
+        frmTag += " <button type=button style='width:45pt; height:25pt' class='btn btn-outline-danger' onClick=remove()>삭제</button>"
+        frmTag += "<br><hr>"
+        oCell.innerHTML = frmTag;
+        count++;
 
-    document.getElementById("count").value = String(count);
-}
+        document.getElementById("count").value = String(count);
+    }
 
-//Row 삭제
-function removeRow() {
-    oTbl.deleteRow(oTbl.clickedRowIndex);
-}
+    //Row 삭제
+    function removeRow() {
+        oTbl.deleteRow(oTbl.clickedRowIndex);
+    }
 
-function frmCheck() {
-    var frm = document.form;
+    function frmCheck() {
+        var frm = document.form;
 
-    for( var i = 0; i <= frm.elements.length - 1; i++ ) {
-        if( frm.elements[i].name == "addText"+i ) {
-            if( !frm.elements[i].value ) {
-                alert("write in textbox");
-                frm.elements[i].focus();
-                return;
+        for( var i = 0; i <= frm.elements.length - 1; i++ ) {
+            if( frm.elements[i].name == "addText"+i ) {
+                if( !frm.elements[i].value ) {
+                    alert("write in textbox");
+                    frm.elements[i].focus();
+                    return;
+                }
             }
         }
     }
-}
-//-->
+    //-->
 </script>
 </head>
 <body>
@@ -102,10 +103,10 @@ function frmCheck() {
         <div class="col-lg-3">
             <h1 class="my-4">Signature Service</h1>
             <div class="list-group">
-                <a href="/assets/main" class="list-group-item ">Make signature</a>
-                <a href="/assets/mysign?userid=${sessionUser.id}" class="list-group-item">My Signature</a>
-                <a href="#" class="list-group-item active"l>Upload File</a>
-                <a href="/assets/mydoclist?userid=${sessionUser.id}" class="list-group-item">My Document</a>
+                <a href="/assets/addConfig" class="list-group-item "l>Config</a>
+                <a href="#" class="list-group-item active">Peer</a>
+                <a href="/assets/addOrderer" class="list-group-item">Orderer</a>
+                <a href="/assets/addEventHub" class="list-group-item">EventHub</a>
             </div>
         </div>
         <!-- /.col-lg-3 -->
@@ -116,14 +117,14 @@ function frmCheck() {
 
             <div class="card card-outline-secondary my-4">
                 <div class="card-header">
-                    <h1>Add user and Upload file</h1>
+                    <h1>Set Peer Config</h1>
                     <div align="right">
-                    <input name="addButton" class="btn btn-success" type="button" style="cursor:hand" onClick="insRow()" value="Add User">
-<%--                    <font color="#FF0000">*</font>Add user--%>
+                        <input name="addButton" class="btn btn-success" type="button" style="cursor:hand" onClick="insRow()" value="Add Peer">
+                        <%--                    <font color="#FF0000">*</font>Add user--%>
                     </div>
                 </div>
                 <div class="card-body" algin="right">
-                    <form action="/assets/createDigitalContratToken" method="post" enctype="multipart/form-data">
+                    <form action="/assets/setPeer" method="post" enctype="multipart/form-data">
                         <table width="400" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td colspan="2" align="left" bgcolor="#FFFFFF">
@@ -143,9 +144,7 @@ function frmCheck() {
                         <input type="hidden" id="count" name="count">
                         <table width="780">
                             <tr>
-                                <td>
-                                    <input type="file" name="file" class="btn-outline-info">
-                                </td>
+
                                 <td align="right">
                                     <input type="submit" class="btn btn-success" value="submit">
                                 </td>
@@ -153,7 +152,7 @@ function frmCheck() {
                         </table>
                     </form>
                     <hr>
-<%--                    <a href="#" class="btn btn-success">Leave a Review</a>--%>
+                    <%--                    <a href="#" class="btn btn-success">Leave a Review</a>--%>
                 </div>
             </div>
             <!-- /.card -->

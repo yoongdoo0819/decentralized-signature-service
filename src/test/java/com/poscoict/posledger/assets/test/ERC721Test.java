@@ -1,16 +1,12 @@
 package com.poscoict.posledger.assets.test;
 
-import assets.chaincode.ERC721.ERC721;
-import assets.chaincode.EnrollmentUser;
-import assets.config.Config;
-import assets.config.UserConfig;
-import assets.user.UserContext;
-
-import com.poscoict.posledger.assets.org.chaincode.AddressUtils;
-import com.poscoict.posledger.assets.org.chaincode.RedisEnrollment;
+import com.poscoict.posledger.assets.chaincode.EnrollmentUser;
+import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
+import com.poscoict.posledger.assets.config.SetConfig;
+import com.poscoict.posledger.assets.chaincode.standard.Default;
 import com.poscoict.posledger.assets.service.RedisService;
+import com.poscoict.posledger.assets.util.Manager;
 import org.hyperledger.fabric.sdk.Enrollment;
-import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -29,8 +25,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 //import com.poscoict.posledger.assets.org.chaincode.ERC721.ERC721;
 //import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
 //import com.poscoict.posledger.assets.org.chaincode.UserConfig;
-//import com.poscoict.posledger.assets.org.config.Config;
-//import com.poscoict.posledger.assets.org.user.UserContext;
+//import com.poscoict.posledger.assets.config.Config;
+//import com.poscoict.posledger.assets.user.UserContext;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -40,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ERC721Test {
 
     //@Autowired
-    private ERC721 erc721 = new ERC721();
+    //private ERC721 erc721 = new ERC721();
 
     private static final Logger logger = LoggerFactory.getLogger(ERC721Test.class);
     String owner = "alice";
@@ -60,6 +56,7 @@ public class ERC721Test {
 
     final String IP = "localhost";
     public ERC721Test() throws Exception{
+        /*
         Config.ORG1_MSP = "Org1MSP";
         Config.ORG1 = "org1";
         Config.ADMIN = "admin";
@@ -72,7 +69,9 @@ public class ERC721Test {
         Config.ORG1_PEER_0_URL = "grpc://" + IP + ":7051";
         Config.EVENT_HUB = "grpc://" + IP + ":7053";
         Config.CHAINCODE_1_NAME = "mycc";
+        Manager.setChaincodeId("mycc");
 
+         */
     }
 
 
@@ -83,8 +82,9 @@ public class ERC721Test {
         EnrollmentUser enrollToCA = new EnrollmentUser();
 
         //  enroll admin
-        enrollToCA.enrollAdmin();
+        //enrollToCA.enrollAdmin();
 
+        /*
         //  enroll owner
         Enrollment enrollment = enrollToCA.registerUser(owner);
         re.setEnrollment(owner, enrollment);
@@ -100,8 +100,23 @@ public class ERC721Test {
         //  enroll operator
         enrollment = enrollToCA.registerUser(operator);
         re.setEnrollment(operator, enrollment);
+
+         */
     }
 
+    @Test
+    public void mintTest() throws Exception {
+        Manager.setChaincodeId("mycc");
+        Enrollment enrollment = re.getEnrollment(owner);
+        SetConfig.initUserContext(owner, enrollment);
+        //SetConfig.setEnrollment(owner, enrollment);
+
+
+        Default de = new Default();
+        Boolean result = de.mint("6");
+        assertThat(result).isEqualTo(true);
+    }
+/*
     @Test
     public void registerTest() throws Exception {
 
@@ -230,5 +245,7 @@ public class ERC721Test {
 
         assertThat(erc721.isApprovedForAll(newOwner, operator)).isEqualTo("TRUE");
     }
+
+ */
 
 }
