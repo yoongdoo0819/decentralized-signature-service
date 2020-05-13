@@ -2,49 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/assets.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assets.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB설계.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DBInfo.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/SDK-JAR.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/DocDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/DocDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/OauthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/OauthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/SigDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/SigDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/TestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/TestDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/TokenDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/TokenDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/User_docDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/User_docDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/User_sigDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/User_sigDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/AddressUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EERC721/EERC721.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/ERC721/ERC721.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/EnrollmentUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/InvokeChaincode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/QueryChaincode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/RedisEnrollment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/chaincode/SetConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/client/CAClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/client/CAClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/client/ChannelClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/client/ChannelClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/client/FabricClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/client/FabricClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/config/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/network/CreateChannel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/network/CreateChannel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/network/DeployInstantiateChaincode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/network/DeployInstantiateChaincode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/user/CAEnrollment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/user/CAEnrollment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/user/RegisterEnrollUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/user/RegisterEnrollUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/user/UserContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/user/UserContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/web/WEB-INF/web.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/org/web/index.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/_login.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addUser.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/login.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/main.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mydoc.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mydoc.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/redis.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +64,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/dSignature-server" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -289,7 +247,8 @@
       <workItem from="1581331944713" duration="7726000" />
       <workItem from="1581409221739" duration="422000" />
       <workItem from="1581409709074" duration="19995000" />
-      <workItem from="1584344141157" duration="55069000" />
+      <workItem from="1584344141157" duration="55587000" />
+      <workItem from="1585132858124" duration="614000" />
     </task>
     <servers />
   </component>
@@ -331,10 +290,10 @@
       <screen x="67" y="27" width="1853" height="948" />
     </state>
     <state x="746" y="381" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/67.27.1853.948@67.27.1853.948" timestamp="1581326074270" />
-    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl" timestamp="1583729865539">
+    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl" timestamp="1585131965188">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.948@67.27.1853.948" timestamp="1583729865539" />
+    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.948@67.27.1853.948" timestamp="1585131965188" />
     <state width="1807" height="300" key="GridCell.Tab.0.bottom" timestamp="1584604333584">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
@@ -375,10 +334,10 @@
       <screen x="67" y="27" width="1853" height="948" />
     </state>
     <state x="765" y="280" width="446" height="440" key="chooseDestDirectoryDialog/67.27.1853.948@67.27.1853.948" timestamp="1581331534239" />
-    <state x="649" y="328" key="com.intellij.ide.util.TipDialog" timestamp="1581409710443">
+    <state x="649" y="328" key="com.intellij.ide.util.TipDialog" timestamp="1589357106679">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state x="649" y="328" key="com.intellij.ide.util.TipDialog/67.27.1853.948@67.27.1853.948" timestamp="1581409710443" />
+    <state x="649" y="328" key="com.intellij.ide.util.TipDialog/67.27.1853.948@67.27.1853.948" timestamp="1589357106679" />
     <state x="302" y="102" width="1372" height="796" key="new project wizard" timestamp="1580986272223">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
