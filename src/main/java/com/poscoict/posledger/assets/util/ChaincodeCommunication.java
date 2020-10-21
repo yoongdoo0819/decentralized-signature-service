@@ -34,6 +34,8 @@ public class ChaincodeCommunication {
         Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
         for (ProposalResponse response : responses) {
             result = Boolean.parseBoolean(response.getMessage());
+            System.out.println(" >> " + response.getTransactionID());
+            //result = response.getMessage() + "txId : " + response.getTransactionID();
         }
 
         return result;

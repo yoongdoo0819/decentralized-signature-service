@@ -83,24 +83,33 @@
                         String docid[] = new String[docList.length];
 
                         String queryDoc="";
+                        String finalDoc="";
+
                         int i=0;
                         for(i=0; i<docid.length; i++) {
                             docid[i] = "<a href=/assets/mydoc?userid=" + userid + "&docid=" + docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] +">" + docPathList[i] + "</a>";
                             queryDoc = "<a href=/assets/queryDoc?docid=" + docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] + ">" + "- Final Document " + "</a>";
-                            if(sigStatus[i].equals("true"))
-                                sigProcess= " <button type='button' class='btn btn-success'  style='width: 30pt; height:28pt; float:right;' onclick=checkStatus("+tokenId[i]+")>O</button> ";
-                            else
-                                sigProcess= " <button type='button' class='btn btn-danger'  style='width: 30pt; height:28pt; float:right;' onclick=checkStatus("+tokenId[i]+")>X</button> ";
+                            if(sigStatus[i].equals("true")) {
+                                sigProcess = " <button type='button' class='btn btn-success'  style='width: 30pt; height:28pt; float:right;' onclick=checkStatus(" + tokenId[i] + ")>O</button> ";
+                                finalDoc = " <button type='button' class='btn btn-success'  style='width: 100pt; height:28pt; float:right;' onclick=location.href='/assets/queryDoc?docid="+ docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] + "'>Final Doc</button> ";
+                            }
+                            else {
+                                sigProcess = " <button type='button' class='btn btn-danger'  style='width: 30pt; height:28pt; float:right;' onclick=checkStatus(" + tokenId[i] + ")>X</button> ";
+                                finalDoc = " <button type='button' class='btn btn-danger'  style='width: 100pt; height:28pt; float:right;' onclick=location.href='/assets/queryDoc?docid="+ docList[i] + "&docnum=" + docNum[i] + "&tokenid=" + tokenId[i] + "'>Final Doc</button> ";
+                            }
                             token = " <input type=submit value='√' class='btn btn-outline-info' style='background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY5Mu3vrHZi-N1ntwu6F0lTYc2IQekwho9WjK1gl5s_BxWwhI); style='width: 2pt; height:20pt; float:right;' onclick=checkStatus("+tokenId[i]+")> ";
-
                     %>
-                    <table width="750px">
+                    <table width="750px" >
                         <tr>
                             <td>
                                 <%=docid[i]%>
-                                <%=queryDoc%>
+                                <%--<%=queryDoc%>--%>
                             </td>
-                            <td align="right">
+                            <td width ="500px" align="right">
+                                <%--<%=token%>&nbsp--%>
+                                <%=finalDoc%>
+                            </td>
+                            <td align="left">
                                 <%--<%=token%>&nbsp--%>
                                 <%=sigProcess%>
                             </td>
@@ -138,6 +147,29 @@
                 "tokenId": tokenId
                 //"strImg": dataURL
                 //"test": "test string"
+            },
+            //dataType: "json",
+            success: function (data) {
+                if(data[2] == 'true')
+                    swal({title: data[1], text: data[0], icon: "success", button: "close",});
+                else
+                    swal({title: data[1], text: data[0], icon: "error", button: "close",});
+            },
+            error: function (err) {
+                swal("error" + err);
+            }
+        });
+    }
+
+    function queryDoc(docId, docNum, tokenId) {
+
+        $.ajax({
+            type: "POST",
+            url: "/assets/queryDoc",
+            data: {
+                "docId" : docId,
+                "docNum" : docNum,
+                "tokenId": tokenId
             },
             //dataType: "json",
             success: function (data) {

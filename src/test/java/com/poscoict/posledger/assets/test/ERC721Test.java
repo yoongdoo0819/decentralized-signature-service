@@ -1,9 +1,9 @@
 package com.poscoict.posledger.assets.test;
 
-import com.poscoict.posledger.assets.chaincode.EnrollmentUser;
 import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
-import com.poscoict.posledger.assets.config.SetConfig;
 import com.poscoict.posledger.assets.chaincode.standard.Default;
+import com.poscoict.posledger.assets.config.Config;
+import com.poscoict.posledger.assets.config.SetConfig;
 import com.poscoict.posledger.assets.service.RedisService;
 import com.poscoict.posledger.assets.util.Manager;
 import org.hyperledger.fabric.sdk.Enrollment;
@@ -17,8 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 //import com.poscoict.posledger.assets.org.chaincode.UserConfig;
 
@@ -56,7 +54,7 @@ public class ERC721Test {
 
     final String IP = "localhost";
     public ERC721Test() throws Exception{
-        /*
+
         Config.ORG1_MSP = "Org1MSP";
         Config.ORG1 = "org1";
         Config.ADMIN = "admin";
@@ -71,7 +69,7 @@ public class ERC721Test {
         Config.CHAINCODE_1_NAME = "mycc";
         Manager.setChaincodeId("mycc");
 
-         */
+
     }
 
 
@@ -79,29 +77,28 @@ public class ERC721Test {
     @Test
     public void enrollTest() throws Exception {
 
-        EnrollmentUser enrollToCA = new EnrollmentUser();
+//        EnrollmentUser enrollToCA = new EnrollmentUser();
+//
+//        //  enroll admin
+//        enrollToCA.enrollAdmin("admin", "adminpw");
+//
+//        //  enroll owner
+//        Enrollment enrollment = enrollToCA.registerUser(owner);
+//        re.setEnrollment(owner, enrollment);
+//
+//        //  enroll newOwner
+//        enrollment = enrollToCA.registerUser(newOwner);
+//        re.setEnrollment(newOwner, enrollment);
+//
+//        //  enroll approved
+//        enrollment = enrollToCA.registerUser(approved);
+//        re.setEnrollment(approved, enrollment);
+//
+//        //  enroll operator
+//        enrollment = enrollToCA.registerUser(operator);
+//        re.setEnrollment(operator, enrollment);
 
-        //  enroll admin
-        //enrollToCA.enrollAdmin();
 
-        /*
-        //  enroll owner
-        Enrollment enrollment = enrollToCA.registerUser(owner);
-        re.setEnrollment(owner, enrollment);
-
-        //  enroll newOwner
-        enrollment = enrollToCA.registerUser(newOwner);
-        re.setEnrollment(newOwner, enrollment);
-
-        //  enroll approved
-        enrollment = enrollToCA.registerUser(approved);
-        re.setEnrollment(approved, enrollment);
-
-        //  enroll operator
-        enrollment = enrollToCA.registerUser(operator);
-        re.setEnrollment(operator, enrollment);
-
-         */
     }
 
     @Test
@@ -113,8 +110,10 @@ public class ERC721Test {
 
 
         Default de = new Default();
-        Boolean result = de.mint("6");
-        assertThat(result).isEqualTo(true);
+        Boolean result = de.mint("25");
+        //assertThat(result).isEqualTo(true);
+        System.out.println(result);
+        Thread.sleep(10000);
     }
 /*
     @Test

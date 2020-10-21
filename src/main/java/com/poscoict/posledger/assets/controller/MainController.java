@@ -33,10 +33,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.view.RedirectView;
@@ -105,13 +102,27 @@ public class MainController {
 	}
 
 	@PostMapping("/signUp")
-	public String signUp(HttpServletRequest req) {
+	public String signUp(HttpServletRequest req) throws Exception {
 		log.info("signUp");
 		String userId = req.getParameter("userId");
+
 		EnrollmentUser newUser = new EnrollmentUser();
+		Enrollment enrollment = null;
+
 		try {
 
-			Enrollment enrollment = newUser.registerUser(userId);
+			if(userId.equals("admin")) {
+
+				try {
+					enrollment = newUser.enrollAdmin("admin", "adminpw");
+				} catch (Exception exception) {
+					exception.printStackTrace();
+				}
+			}
+
+			else {
+				enrollment = newUser.registerUser(userId);
+			}
 
 			UserContext userContext = new UserContext();
 			userContext.setName(userId);
@@ -195,6 +206,14 @@ public class MainController {
 		return "main";
 	}
 
+	@PostMapping("/test")
+	public String test(@RequestParam("param") List<Object> param) {
+		log.info("test########################");
+		System.out.println(param);
+
+		return "main";
+	}
+
 	/**
 	 * Welcome 화면 
 	 */
@@ -205,7 +224,7 @@ public class MainController {
 	}
 
 	@ResponseBody
-	@PostMapping("/createDigitalContactToken")
+	@PostMapping("/createDigitalContractToken")
 	public RedirectView upload(HttpServletRequest req, MultipartHttpServletRequest mre) throws IllegalStateException, IOException, Exception{
 
 		String userid = req.getParameter("userid");
@@ -316,7 +335,7 @@ public class MainController {
 		tokenDao.insert(tokenNum);
 
 		// insert document's info into DB
-		docDao.insert(original, mf.getOriginalFilename(), tokenNum, signers, today.toString());
+		docDao.insert(original, mf.getOriginalFilename(), tokenNum, signers);
 
 		// insert key for user and document into DB
 		Map<String, Object> testMap = docDao.getDocNum();
@@ -352,7 +371,7 @@ public class MainController {
 		AddressUtils addressUtils = new AddressUtils();
 		String addr = addressUtils.getMyAddress(identity);
 
-		String docType = "digital contract";
+		String docType = "doc";
 		ArrayList<String> signer = new ArrayList<String>();
 		signer.add(addr);
 		if(user != null) {
@@ -363,9 +382,12 @@ public class MainController {
 			}
 		}
 
+		ArrayList<String> signatures = new ArrayList<String>();
 		Map<String, Object> xattr = new HashMap<>();
 		xattr.put("hash", original);
 		xattr.put("signers", signer);
+		xattr.put("signatures", signatures);
+		xattr.put("finalized", false);
 
 		Map<String, String> uri = new HashMap<>();
 		uri.put("path", "jdbc:log4jdbc:mysql://localhost:3306/hyperledger");
@@ -499,7 +521,7 @@ public class MainController {
 		xattr.put("hash", sigId);
 
 		Map<String, String> uri = new HashMap<>();
-		uri.put("path", filenm);
+		uri.put("path", "jdbc:log4jdbc:mysql://localhost:3306/hyperledger");
 		uri.put("hash", merkleRoot);
 
 		Enrollment enrollment = re.getEnrollment(signer);
@@ -707,8 +729,10 @@ public class MainController {
 		String queryResult = null;
 		String result = "";
 		String signers="";
+		String signatures="";
 		String owner="";
 		String hash="";
+		Boolean finalized = null;
 
 		/*
 		 * get document info from blockchain
@@ -732,13 +756,23 @@ public class MainController {
 						signers += ", ";
 				}
 			}
-			hash = (String) xattr.get("hash");
 
+			if(signaturesList != null) {
+				for (int i = 0; i < signaturesList.size(); i++) {
+					signatures += signaturesList.get(i);
+					if (i + 1 < signaturesList.size())
+						signatures += ", ";
+				}
+			}
+			hash = (String) xattr.get("hash");
+			finalized = (Boolean) xattr.get("finalized");
 		}
 
 		result += "owner : " + owner + "\n";
 		result += "hash : " + hash + "\n";
-		result += "signers : " + signers;
+		result += "signers : " + signers +"\n";
+		result += "signatures : " + signatures + "\n";
+		result += "finalized : " + finalized.toString();
 
 		log.info(queryResult);
 		return result;
@@ -753,10 +787,11 @@ public class MainController {
 		log.info("tokenId > " + tokenId);
 
 		String owner = (String)userDao.getUserByUserId(userId).get("addr");
-		if(erc721.transferFrom(owner, receiverId, tokenId))
-			return "success";
+		String receiver = (String)userDao.getUserByUserId(receiverId).get("addr");
+		if(erc721.transferFrom(owner, receiver, tokenId))
+			return "Success";
 		else
-			return "failrure";
+			return "Failrure";
 
 	}
 
@@ -878,7 +913,7 @@ public class MainController {
 					user_sigTestMap = user_sigDao.getUserid(sigNum);
 					signersResult[1] += (String) user_sigTestMap.get("userid");
 					if(i+1 < signaturesList.size()) {
-						signersResult[1] += " - ";
+						signersResult[1] += " \n ";
 					}
 				}
 			}
@@ -985,4 +1020,45 @@ public class MainController {
 		return "finalDoc";
 	}
 
+	@ResponseBody
+	@RequestMapping("/finalize")
+	public String finalize (HttpServletRequest req, String tokenId) throws Exception {
+
+		log.info("tokenId > " + tokenId);
+
+		if(erc721.finalize(tokenId))
+			return "Success";
+		else
+			return "Failrure";
+
+	}
+
+	@ResponseBody
+	@RequestMapping("/verification")
+	public String verification (HttpServletRequest req, String tokenId, String owner) throws Exception {
+
+		log.info("tokenId > " + tokenId);
+
+		String queryResult = "";
+		String tokenOwner = "";
+
+		String ownerAddr = (String)userDao.getUserByUserId(owner).get("addr");
+
+		queryResult = de.query(tokenId);
+		if(queryResult != null) {
+
+			Map<String, Object> map =
+					objectMapper.readValue(queryResult, new TypeReference<HashMap<String, Object>>() {
+					});
+
+			tokenOwner = (String) map.get("owner");
+		}
+
+
+		if(ownerAddr.equals(tokenOwner))
+			return "true";
+		else
+			return "false";
+
+	}
 }

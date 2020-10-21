@@ -155,5 +155,19 @@ public class ERC721 extends SDK {
         return result;
     }
 
+    public boolean finalize(String tokenId) throws ProposalException, InvalidArgumentException, TransactionException {
+        logger.info("---------------- finalize SDK called ----------------");
+
+        boolean result;
+        try {
+            String[] args = { tokenId };
+            result = ChaincodeCommunication.sendTransaction(FINALIZE_FUNCTION_NAME, args);
+        } catch (ProposalException | IllegalAccessException | InstantiationException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException | CryptoException e) {
+            logger.error(e);
+            throw new ProposalException(e);
+        }
+        return result;
+    }
+
     public static void main(String[] args)  {}
 }

@@ -87,19 +87,40 @@
                 </div>
                 <div class="card-body" align="right">
 
-                    <form action="/assets/doSign" method="post">
-                        <input type="hidden" name="signer" id="signer" value="${sessionUser.id}">
-                        <input type="hidden" name="docNum" value=${docNum}>
-                        <input type="hidden" name="docId" value=${docId}>
-                        <input type="hidden" name="tokenId" id="tokenId" value=${tokenId}>
-                        <input type="hidden" name="docPath" value=${docPath}>
-                        <input type="hidden" name="sigId" value=${sigId}>
+                    <table width="600">
+                        <tr>
 
-                        <input type="submit" class="btn btn-success" value="sign">
-                    </form>
+                            <td>
+                                <input type="text" name="verification" id="verificationId" placeholder="Signature Token Id">
+                                <input type="text" name="verification" id="verificationOwner" placeholder="Signature Token Owner">
+                                <button type="button" class="btn btn-success" onclick="verification()">verification</button>
+                            </td>
+                            <td>
+                                <form action="/assets/doSign" method="post">
+                                    <input type="hidden" name="signer" id="signer" value="${sessionUser.id}">
+                                    <input type="hidden" name="docNum" value=${docNum}>
+                                    <input type="hidden" name="docId" value=${docId}>
+                                    <input type="hidden" name="tokenId" id="tokenId" value=${tokenId}>
+                                    <input type="hidden" name="docPath" value=${docPath}>
+                                    <input type="hidden" name="sigId" value=${sigId}>
+
+                                    <table>
+                                        <tr>
+                                            <td align="right">
+                                                <input type="submit" class="btn btn-success" value="sign">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+
+                            </td>
+                        </tr>
+                    </table>
+
                     <hr>
-                    <input type="text" name="receiverId" id="receiverId">
+                    <input type="text" name="receiverId" id="receiverId" placeholder="ID">
                     <button type="button" class="btn btn-success" onclick="transferFrom()">transferFrom</button>
+                    <button type="button" class="btn btn-success" onclick="finalize()">finalize</button>
                 </div>
             </div>
         </div>
@@ -145,13 +166,59 @@
             },
             //dataType: "json",
             success: function (data) {
-                swal({title: "Info", text: data, icon: "success", button: "close"});
+                swal({title: data, icon: "success", button: "close"});
             },
             error: function (err) {
                 swal("error" + err);
             }
         });
     }
+
+    function finalize() {
+
+        tokenId = document.getElementById("tokenId").value;
+
+        $.ajax({
+            type: "POST",
+            url: "/assets/finalize",
+            data: {
+                "tokenId": tokenId
+            },
+            //dataType: "json",
+            success: function (data) {
+                swal({title: data, icon: "success", button: "close"});
+            },
+            error: function (err) {
+                swal("error" + err);
+            }
+        });
+    }
+
+    function verification() {
+
+        tokenId = document.getElementById("verificationId").value;
+        owner = document.getElementById("verificationOwner").value;
+
+        $.ajax({
+            type: "POST",
+            url: "/assets/verification",
+            data: {
+                "tokenId": tokenId,
+                "owner": owner
+            },
+            //dataType: "json",
+            success: function (data) {
+                if(data == 'true')
+                    swal({title: "Success", text: "Verification Success", icon: "success", button: "close"});
+                else if(data == 'false')
+                    swal({title: "Success", text: "Verification Failure", icon: "error", button: "close"});
+            },
+            error: function (err) {
+                swal("error" + err);
+            }
+        });
+    }
+
 </script>
 
 <script src="${ctx}/js/jquery-min.js"></script>

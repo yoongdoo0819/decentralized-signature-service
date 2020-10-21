@@ -123,7 +123,7 @@ function frmCheck() {
                     </div>
                 </div>
                 <div class="card-body" algin="right">
-                    <form action="/assets/createDigitalContratToken" method="post" enctype="multipart/form-data">
+                    <form action="/assets/createDigitalContractToken" method="post" enctype="multipart/form-data">
                         <table width="400" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td colspan="2" align="left" bgcolor="#FFFFFF">

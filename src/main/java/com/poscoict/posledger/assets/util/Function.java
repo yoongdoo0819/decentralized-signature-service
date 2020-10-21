@@ -30,4 +30,5 @@ public final class Function {
     public static final String QUERY_FUNCTION_NAME = "query";
     public static final String QUERY_HISTORY_FUNCTION_NAME = "queryHistory";
     public static final String SIGN_FUNCTION_NAME = "sign";
+    public static final String FINALIZE_FUNCTION_NAME = "finalize";
 }

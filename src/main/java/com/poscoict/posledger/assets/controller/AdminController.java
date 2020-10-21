@@ -223,7 +223,7 @@ public class AdminController {
             else if (xattrType.equals("Integer"))
                 xattrValue = "0";
             else if (xattrType.equals("Boolean"))
-                xattrValue = "true";
+                xattrValue = "false";
             else
                 return "FAILURE";
 

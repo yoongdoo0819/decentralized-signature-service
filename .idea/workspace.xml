@@ -2,7 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assets.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assets.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/standard/ERC721.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/standard/ERC721.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/config/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/config/SetConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/config/SetConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/DocDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/DocDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/ChaincodeCommunication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/ChaincodeCommunication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200318_092746_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200318_101312_bob" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200319_042947_carol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200319_044530_carol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200319_045504_carol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200319_045605_bob" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200319_045650_alice" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addUser.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mydoc.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mydoc.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/contract.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/final.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,18 +63,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="1Q5gR9ftiuUPOZ8bDyPZRQBXGQE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -64,7 +79,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/dSignature-server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../inter-log" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -193,24 +208,12 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ERC721Test.enrollTest" />
-        <item itemvalue="JUnit.EERC721Test.mintTest" />
         <item itemvalue="JUnit.ERC721Test.mintTest" />
+        <item itemvalue="JUnit.EERC721Test.mintTest" />
         <item itemvalue="JUnit.ERC721Test.registerTest" />
         <item itemvalue="JUnit.EERC721Test.queryHistoryTest" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -248,7 +251,10 @@
       <workItem from="1581409221739" duration="422000" />
       <workItem from="1581409709074" duration="19995000" />
       <workItem from="1584344141157" duration="55587000" />
-      <workItem from="1585132858124" duration="614000" />
+      <workItem from="1585132858124" duration="1505000" />
+      <workItem from="1589452888470" duration="3003000" />
+      <workItem from="1590642176290" duration="12346000" />
+      <workItem from="1591076158468" duration="31207000" />
     </task>
     <servers />
   </component>
@@ -262,20 +268,19 @@
     </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="801" y="187" width="374" height="626" key="#com.intellij.ide.util.MemberChooser" timestamp="1584533461108">
@@ -286,62 +291,50 @@
       <screen x="67" y="27" width="1853" height="948" />
     </state>
     <state x="774" y="427" width="1060" height="145" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/67.27.1853.948@67.27.1853.948" timestamp="1584447899697" />
-    <state x="746" y="381" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1581326074270">
+    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl" timestamp="1591071993754">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state x="746" y="381" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/67.27.1853.948@67.27.1853.948" timestamp="1581326074270" />
-    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl" timestamp="1585131965188">
+    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.948@67.27.1853.948" timestamp="1591071993754" />
+    <state width="1807" height="335" key="GridCell.Tab.0.bottom" timestamp="1593340205787">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.948@67.27.1853.948" timestamp="1585131965188" />
-    <state width="1807" height="300" key="GridCell.Tab.0.bottom" timestamp="1584604333584">
+    <state width="1807" height="335" key="GridCell.Tab.0.bottom/67.27.1853.948@67.27.1853.948" timestamp="1593340205787" />
+    <state width="1807" height="335" key="GridCell.Tab.0.center" timestamp="1593340205787">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1807" height="300" key="GridCell.Tab.0.bottom/67.27.1853.948@67.27.1853.948" timestamp="1584604333584" />
-    <state width="1807" height="300" key="GridCell.Tab.0.center" timestamp="1584604333584">
+    <state width="1807" height="335" key="GridCell.Tab.0.center/67.27.1853.948@67.27.1853.948" timestamp="1593340205787" />
+    <state width="1807" height="335" key="GridCell.Tab.0.left" timestamp="1593340205786">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1807" height="300" key="GridCell.Tab.0.center/67.27.1853.948@67.27.1853.948" timestamp="1584604333584" />
-    <state width="1807" height="300" key="GridCell.Tab.0.left" timestamp="1584604333584">
+    <state width="1807" height="335" key="GridCell.Tab.0.left/67.27.1853.948@67.27.1853.948" timestamp="1593340205786" />
+    <state width="1807" height="335" key="GridCell.Tab.0.right" timestamp="1593340205787">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1807" height="300" key="GridCell.Tab.0.left/67.27.1853.948@67.27.1853.948" timestamp="1584604333584" />
-    <state width="1807" height="300" key="GridCell.Tab.0.right" timestamp="1584604333584">
+    <state width="1807" height="335" key="GridCell.Tab.0.right/67.27.1853.948@67.27.1853.948" timestamp="1593340205787" />
+    <state width="1807" height="335" key="GridCell.Tab.1.bottom" timestamp="1593340129965">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1807" height="300" key="GridCell.Tab.0.right/67.27.1853.948@67.27.1853.948" timestamp="1584604333584" />
-    <state width="1807" height="300" key="GridCell.Tab.1.bottom" timestamp="1584604333594">
+    <state width="1807" height="335" key="GridCell.Tab.1.bottom/67.27.1853.948@67.27.1853.948" timestamp="1593340129965" />
+    <state width="1807" height="335" key="GridCell.Tab.1.center" timestamp="1593340129965">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1807" height="300" key="GridCell.Tab.1.bottom/67.27.1853.948@67.27.1853.948" timestamp="1584604333594" />
-    <state width="1807" height="300" key="GridCell.Tab.1.center" timestamp="1584604333588">
+    <state width="1807" height="335" key="GridCell.Tab.1.center/67.27.1853.948@67.27.1853.948" timestamp="1593340129965" />
+    <state width="1807" height="335" key="GridCell.Tab.1.left" timestamp="1593340129965">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1807" height="300" key="GridCell.Tab.1.center/67.27.1853.948@67.27.1853.948" timestamp="1584604333588" />
-    <state width="1807" height="300" key="GridCell.Tab.1.left" timestamp="1584604333588">
+    <state width="1807" height="335" key="GridCell.Tab.1.left/67.27.1853.948@67.27.1853.948" timestamp="1593340129965" />
+    <state width="1807" height="335" key="GridCell.Tab.1.right" timestamp="1593340129965">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1807" height="300" key="GridCell.Tab.1.left/67.27.1853.948@67.27.1853.948" timestamp="1584604333588" />
-    <state width="1807" height="300" key="GridCell.Tab.1.right" timestamp="1584604333593">
-      <screen x="67" y="27" width="1853" height="948" />
-    </state>
-    <state width="1807" height="300" key="GridCell.Tab.1.right/67.27.1853.948@67.27.1853.948" timestamp="1584604333593" />
-    <state x="476" y="77" width="1024" height="845" key="SettingsEditor" timestamp="1580903584862">
-      <screen x="67" y="27" width="1853" height="948" />
-    </state>
-    <state x="476" y="77" width="1024" height="845" key="SettingsEditor/67.27.1853.948@67.27.1853.948" timestamp="1580903584862" />
-    <state x="765" y="280" width="446" height="440" key="chooseDestDirectoryDialog" timestamp="1581331534239">
-      <screen x="67" y="27" width="1853" height="948" />
-    </state>
-    <state x="765" y="280" width="446" height="440" key="chooseDestDirectoryDialog/67.27.1853.948@67.27.1853.948" timestamp="1581331534239" />
+    <state width="1807" height="335" key="GridCell.Tab.1.right/67.27.1853.948@67.27.1853.948" timestamp="1593340129965" />
     <state x="649" y="328" key="com.intellij.ide.util.TipDialog" timestamp="1589357106679">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
     <state x="649" y="328" key="com.intellij.ide.util.TipDialog/67.27.1853.948@67.27.1853.948" timestamp="1589357106679" />
-    <state x="302" y="102" width="1372" height="796" key="new project wizard" timestamp="1580986272223">
+    <state x="684" y="239" width="618" height="522" key="find.popup" timestamp="1590650634679">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state x="302" y="102" width="1372" height="796" key="new project wizard/67.27.1853.948@67.27.1853.948" timestamp="1580986272223" />
+    <state x="684" y="239" width="618" height="522" key="find.popup/67.27.1853.948@67.27.1853.948" timestamp="1590650634679" />
     <state x="656" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1584535717783">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
