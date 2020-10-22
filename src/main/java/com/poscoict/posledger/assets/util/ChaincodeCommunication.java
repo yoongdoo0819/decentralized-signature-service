@@ -3,7 +3,6 @@ package com.poscoict.posledger.assets.util;
 import com.poscoict.posledger.assets.client.ChannelClient;
 import com.poscoict.posledger.assets.client.FabricClient;
 import com.poscoict.posledger.assets.config.SetConfig;
-import com.poscoict.posledger.assets.config.Config;
 import org.hyperledger.fabric.sdk.ChaincodeID;
 import org.hyperledger.fabric.sdk.ProposalResponse;
 import org.hyperledger.fabric.sdk.TransactionProposalRequest;
@@ -30,7 +29,7 @@ public class ChaincodeCommunication {
         request.setFcn(function);
         request.setArgs(args);
 
-        ChannelClient channelClient = SetConfig.initChannel(Config.peerName, Config.peerURL, Config.ordererName, Config.ordererURL, Config.eventHubName, Config.eventHubURL);
+        ChannelClient channelClient = SetConfig.initChannel();//Config.peerName, Config.peerURL, Config.ordererName, Config.ordererURL, Config.eventHubName, Config.eventHubURL);
         Collection<ProposalResponse> responses = channelClient.sendTransactionProposal(request);
         for (ProposalResponse response : responses) {
             result = Boolean.parseBoolean(response.getMessage());
@@ -44,7 +43,7 @@ public class ChaincodeCommunication {
     public static String queryByChainCode(String function, String[] args) throws InvalidArgumentException, TransactionException, ProposalException {
         String result = null;
 
-        ChannelClient channelClient = SetConfig.initChannel(Config.peerName, Config.peerURL, Config.ordererName, Config.ordererURL, Config.eventHubName, Config.eventHubURL);
+        ChannelClient channelClient = SetConfig.initChannel();//Config.peerName, Config.peerURL, Config.ordererName, Config.ordererURL, Config.eventHubName, Config.eventHubURL);
         Collection<ProposalResponse> responses = channelClient.queryByChainCode(chaincodeId, function, args);
         for (ProposalResponse response : responses) {
             result = response.getMessage();

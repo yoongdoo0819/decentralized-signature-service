@@ -1,18 +1,17 @@
 package com.poscoict.posledger.assets.config;
 
+import com.poscoict.posledger.assets.chaincode.ChaincodeProxy;
+import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
 import com.poscoict.posledger.assets.client.ChannelClient;
 import com.poscoict.posledger.assets.client.FabricClient;
 import com.poscoict.posledger.assets.user.UserContext;
-import org.hyperledger.fabric.protos.common.Common;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.TransactionException;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 public class SetConfig {
     static String owner;
@@ -22,7 +21,8 @@ public class SetConfig {
     static UserContext userContext;
     static FabricClient fabClient;
 
-
+    @Autowired
+    private RedisEnrollment re;
 
     public static UserContext initUserContext(String owner, Enrollment enrollment) {
         if(enrollment == null) {
@@ -69,7 +69,7 @@ public class SetConfig {
      */
 
 
-    public static ChannelClient initChannel(ArrayList<String> peerName, ArrayList<String> peerURL, ArrayList<String> ordererName, ArrayList<String> ordererURL, ArrayList<String> eventHubName, ArrayList<String> eventHubURL) throws InvalidArgumentException, TransactionException, TransactionException {
+    public static ChannelClient initChannel() throws InvalidArgumentException, TransactionException, TransactionException  {//ArrayList<String> peerName, ArrayList<String> peerURL, ArrayList<String> ordererName, ArrayList<String> ordererURL, ArrayList<String> eventHubName, ArrayList<String> eventHubURL) throws InvalidArgumentException, TransactionException, TransactionException {
 
 
         try {
@@ -78,6 +78,7 @@ public class SetConfig {
             e.printStackTrace();
         }
 
+        /*
         ChaincodeEventListener chaincodeEventListener = new ChaincodeEventListener() {
 
             @Async
@@ -105,6 +106,8 @@ public class SetConfig {
             }
         };
 
+         */
+        /*
         BlockListener blockListener = new BlockListener() {
             @Override
             public void received(BlockEvent blockEvent) {
@@ -128,6 +131,8 @@ public class SetConfig {
             }
         };
 
+         */
+
         ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
         Channel channel = channelClient.getChannel();
 
@@ -140,7 +145,7 @@ public class SetConfig {
         channel.addOrderer(orderer);
         channel.initialize();
         //channel.registerBlockListener(blockListener);
-        channel.registerChaincodeEventListener(Pattern.compile(".*"), Pattern.compile(Pattern.quote("Transfer")), chaincodeEventListener);
+        //channel.registerChaincodeEventListener(Pattern.compile(".*"), Pattern.compile(Pattern.quote("Transfer")), chaincodeEventListener);
         return channelClient;
         /*
         ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
@@ -181,5 +186,18 @@ public class SetConfig {
     public static void setEnrollmentForReceiver(String receiver, Enrollment enrollment) {
         SetConfig.receiver = receiver;
         SetConfig.enrollment = enrollment;
+    }
+
+    public static ChaincodeProxy initChaincodeProxy(String userId, Enrollment enrollment) throws IllegalAccessException, InvalidArgumentException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException {
+
+        SetConfig.initUserContext(userId, enrollment);
+        //Manager.setChaincodeId(chaincodeId);
+        //FabricClient fabricClient = getFabClient();
+        ChannelClient channelClient = SetConfig.initChannel();
+        ChaincodeProxy chaincodeProxy = new ChaincodeProxy();
+        chaincodeProxy.setFabricClient(fabClient);
+        chaincodeProxy.setChannelClient(channelClient);
+
+        return chaincodeProxy;
     }
 }

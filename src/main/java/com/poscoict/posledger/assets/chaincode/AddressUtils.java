@@ -1,8 +1,11 @@
 package com.poscoict.posledger.assets.chaincode;
 
+import com.poscoict.posledger.assets.config.SetConfig;
+import com.poscoict.posledger.assets.user.UserContext;
 import org.bouncycastle.jcajce.provider.digest.Keccak;
 import org.bouncycastle.util.io.pem.PemReader;
 import org.hyperledger.fabric.protos.msp.Identities;
+import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +22,9 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Service
 public class AddressUtils {
 
-    static boolean isValidAddress(String address) {
+
+
+    public static boolean isValidAddress(String address) {
         if (address == null || address.length() != 42) {
             return false;
         }
@@ -79,9 +84,25 @@ public class AddressUtils {
         return AddressUtils.getAddressFor(publicKey);
     }
 
-    public static String getMyAddress(X509Identity _identity) {
-        return AddressUtils.getAddressFor(getMyCertificate(_identity));
+    public static String getMyAddress(String userId, Enrollment enrollment) {
+
+        UserContext userContext = SetConfig.initUserContext(userId, enrollment);
+//        UserContext userContext = new UserContext();
+//        userContext.setName(userId);
+//        userContext.setAffiliation("org1.department1");
+//        userContext.setMspId("Org1MSP");
+//        userContext.setEnrollment(enrollment);
+        X509Identity identity = new X509Identity(userContext);
+
+        //AddressUtils addressUtils = new AddressUtils();
+        //String addr = addressUtils.getMyAddress(identity);
+        //System.out.println(addr);
+        return AddressUtils.getAddressFor(getMyCertificate(identity));
     }
+
+//    public static String getMyAddress(X509Identity _identity) {
+//        return AddressUtils.getAddressFor(getMyCertificate(_identity));
+//    }
 
     public static X509Certificate getMyCertificate(X509Identity _identity) {
         try {

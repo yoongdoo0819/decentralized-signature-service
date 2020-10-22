@@ -1,6 +1,6 @@
 package com.poscoict.posledger.assets.test;
 
-import com.poscoict.posledger.assets.chaincode.Extension;
+import com.poscoict.posledger.assets.chaincode.function.Extension;
 import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
 import com.poscoict.posledger.assets.config.SetConfig;
 import com.poscoict.posledger.assets.util.Manager;

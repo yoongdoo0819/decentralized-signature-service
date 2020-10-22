@@ -1,4 +1,4 @@
-package com.poscoict.posledger.assets.controller;
+package com.poscoict.posledger.assets.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

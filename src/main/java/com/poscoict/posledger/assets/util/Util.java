@@ -37,6 +37,13 @@ import java.util.logging.Logger;
 
 public class Util {
 
+	public UserContext getUserContext() {
+
+
+		return null;
+	}
+
+
 	/**
 	 * Serialize user
 	 * 

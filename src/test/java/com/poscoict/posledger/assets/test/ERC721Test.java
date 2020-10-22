@@ -1,7 +1,6 @@
 package com.poscoict.posledger.assets.test;
 
 import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
-import com.poscoict.posledger.assets.chaincode.standard.Default;
 import com.poscoict.posledger.assets.config.Config;
 import com.poscoict.posledger.assets.config.SetConfig;
 import com.poscoict.posledger.assets.service.RedisService;
@@ -109,10 +108,10 @@ public class ERC721Test {
         //SetConfig.setEnrollment(owner, enrollment);
 
 
-        Default de = new Default();
-        Boolean result = de.mint("25");
+        //Default de = new Default(new ChaincodeProxy(), "mycc");
+        //Boolean result = de.mint("25");
         //assertThat(result).isEqualTo(true);
-        System.out.println(result);
+        //System.out.println(result);
         Thread.sleep(10000);
     }
 /*

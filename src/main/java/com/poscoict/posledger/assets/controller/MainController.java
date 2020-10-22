@@ -11,22 +11,21 @@ import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.poscoict.posledger.assets.chaincode.AddressUtils;
+import com.poscoict.posledger.assets.chaincode.ChaincodeProxy;
 import com.poscoict.posledger.assets.chaincode.EnrollmentUser;
-import com.poscoict.posledger.assets.chaincode.Extension;
 import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
-import com.poscoict.posledger.assets.chaincode.standard.Default;
-import com.poscoict.posledger.assets.chaincode.standard.ERC721;
+import com.poscoict.posledger.assets.chaincode.function.Custom;
+import com.poscoict.posledger.assets.chaincode.function.Default;
+import com.poscoict.posledger.assets.chaincode.function.ERC721;
+import com.poscoict.posledger.assets.chaincode.function.Extension;
 import com.poscoict.posledger.assets.config.SetConfig;
 import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.User_Doc;
 import com.poscoict.posledger.assets.model.User_Sig;
 import com.poscoict.posledger.assets.model.dao.*;
-import com.poscoict.posledger.assets.user.UserContext;
 import com.poscoict.posledger.assets.util.DateUtil;
-import com.poscoict.posledger.assets.util.Manager;
 import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.fabric.sdk.Enrollment;
-import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.scheduling.annotation.Async;
@@ -71,6 +70,8 @@ public class MainController {
 	@Autowired
 	private Extension extention;
 	@Autowired
+	private Custom custom;
+	@Autowired
 	private UserDao userDao;
 	@Autowired
 	private SigDao sigDao;
@@ -85,6 +86,7 @@ public class MainController {
 	@Autowired
 	private RedisEnrollment re;
 
+	AddressUtils addressUtils = new AddressUtils();
 	private String chaincodeId = "mycc";
 
 	@GetMapping("/index")
@@ -92,6 +94,42 @@ public class MainController {
 		log.info("index!");
 
 		return "index";
+	}
+
+	public static String createHash(String str) {
+		String hashString = "";
+		try {
+			// MD2, MD4, MD5, SHA-1, SHA-256, SHA-512
+			MessageDigest sh = MessageDigest.getInstance("SHA-512");
+			sh.update(str.getBytes());
+			byte byteData[] = sh.digest();
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < byteData.length; i++) {
+				sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+			}
+			hashString = sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			hashString = null;
+		}
+		return hashString;
+	}
+
+	public static String merkleRoot(String leaf[], int start, int end) {
+
+		if(start >= end) {
+			System.out.println(leaf[start] + " " + createHash(leaf[start]));
+			//return leaf[0];
+			return createHash(leaf[start]);
+		}
+
+		int middle = (start+end)/2;
+		String left = merkleRoot(leaf, start, middle);
+		String right = merkleRoot(leaf, middle+1, end);
+		String result = createHash(left + right);
+
+		System.out.println("left + right : " + result);
+		return result;
 	}
 
 	@GetMapping("/signUpForm")
@@ -124,16 +162,19 @@ public class MainController {
 				enrollment = newUser.registerUser(userId);
 			}
 
-			UserContext userContext = new UserContext();
-			userContext.setName(userId);
-			userContext.setAffiliation("org1.department1");
-			userContext.setMspId("Org1MSP");
-			userContext.setEnrollment(enrollment);
-			X509Identity identity = new X509Identity(userContext);
+			//util.getUserContext(userId, enrollment);
 
-			AddressUtils addressUtils = new AddressUtils();
-			String addr = addressUtils.getMyAddress(identity);
-			System.out.println(addr);
+//			UserContext userContext = new UserContext();
+//			userContext.setName(userId);
+//			userContext.setAffiliation("org1.department1");
+//			userContext.setMspId("Org1MSP");
+//			userContext.setEnrollment(enrollment);
+//			X509Identity identity = new X509Identity(userContext);
+
+			//String addr = addressUtils.getMyAddress(identity);
+			//System.out.println(addr);
+			String addr = addressUtils.getMyAddress(userId, enrollment);
+
 
 			// insert user's cert into Redis
 			if(!(re.setEnrollment(userId, enrollment)))
@@ -354,23 +395,33 @@ public class MainController {
 		merkleLeaf[0] = mf.getOriginalFilename();
 		merkleLeaf[1] = today.toString();
 
-		String merkleRoot = MerkleTree.merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
+		String merkleRoot = merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
 		log.info(merkleRoot);
 
+//		Enrollment enrollment = re.getEnrollment(userid);
+//		SetConfig.initUserContext(userid, enrollment);
+//		Manager.setChaincodeId(chaincodeId);
+//		FabricClient fabricClient = SetConfig.getFabClient();
+//		ChannelClient channelClient = SetConfig.initChannel();
+//		ChaincodeProxy chaincodeProxy = new ChaincodeProxy();
+//		chaincodeProxy.setFabricClient(fabricClient);
+//		chaincodeProxy.setChannelClient(channelClient);
+
+//		UserContext userContext = new UserContext();
+//		userContext.setName(userid);
+//		userContext.setAffiliation("org1.department1");
+//		userContext.setMspId("Org1MSP");
+//		userContext.setEnrollment(enrollment);
+//		X509Identity identity = new X509Identity(userContext);
+
+		//AddressUtils addressUtils = new AddressUtils();
+		//String addr = addressUtils.getMyAddress(identity);
+
 		Enrollment enrollment = re.getEnrollment(userid);
-		SetConfig.initUserContext(userid, enrollment);
-		Manager.setChaincodeId(chaincodeId);
+		ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(userid, enrollment);
+		extention.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
 
-		UserContext userContext = new UserContext();
-		userContext.setName(userid);
-		userContext.setAffiliation("org1.department1");
-		userContext.setMspId("Org1MSP");
-		userContext.setEnrollment(enrollment);
-		X509Identity identity = new X509Identity(userContext);
-
-		AddressUtils addressUtils = new AddressUtils();
-		String addr = addressUtils.getMyAddress(identity);
-
+		String addr = addressUtils.getMyAddress(userid, enrollment);
 		String docType = "doc";
 		ArrayList<String> signer = new ArrayList<String>();
 		signer.add(addr);
@@ -513,7 +564,7 @@ public class MainController {
 		merkleLeaf[0] = today.toString();
 		merkleLeaf[1] = filenm;
 
-		String merkleRoot = MerkleTree.merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
+		String merkleRoot = merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
 		log.info(merkleRoot);
 
 		String sigType = "sig";
@@ -525,8 +576,9 @@ public class MainController {
 		uri.put("hash", merkleRoot);
 
 		Enrollment enrollment = re.getEnrollment(signer);
-		SetConfig.initUserContext(signer, enrollment);
-		Manager.setChaincodeId(chaincodeId);
+		ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(signer, enrollment);
+		extention.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+		//Extension extension2 = new Extension(chaincodeProxy, chaincodeId);
 
 		extention.mint(valueOf(tokenNum), sigType, xattr, uri);
 		return new RedirectView("main");
@@ -626,24 +678,30 @@ public class MainController {
 		Map<String, Object> testMap = sigDao.getSigBySigid(sigId);
 		String sigTokenId = valueOf((int)testMap.get("sigtokenid"));
 
+
+//		Enrollment enrollment = re.getEnrollment(signer);
+//		SetConfig.initUserContext(signer, enrollment);
+//		Manager.setChaincodeId(chaincodeId);
+//
+//		UserContext userContext = new UserContext();
+//		userContext.setName(signer);
+//		userContext.setAffiliation("org1.department1");
+//		userContext.setMspId("Org1MSP");
+//		userContext.setEnrollment(enrollment);
+//		X509Identity identity = new X509Identity(userContext);
+//
+//		AddressUtils addressUtils = new AddressUtils();
+		//String addr = addressUtils.getMyAddress(identity);
+		//System.out.println(addr);
+
 		Enrollment enrollment = re.getEnrollment(signer);
-		SetConfig.initUserContext(signer, enrollment);
-		Manager.setChaincodeId(chaincodeId);
-
-		UserContext userContext = new UserContext();
-		userContext.setName(signer);
-		userContext.setAffiliation("org1.department1");
-		userContext.setMspId("Org1MSP");
-		userContext.setEnrollment(enrollment);
-		X509Identity identity = new X509Identity(userContext);
-
-		AddressUtils addressUtils = new AddressUtils();
-		String addr = addressUtils.getMyAddress(identity);
-		System.out.println(addr);
+		ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(signer, enrollment);
+		custom.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+		boolean result = custom.sign(tokenId, sigTokenId);
 
 		log.info(tokenId + " , " + "signatures" + " , " +  sigTokenId);
-		boolean result = erc721.sign(tokenId, sigTokenId);
-		log.info(valueOf(result));
+		//boolean result = erc721.sign(tokenId, sigTokenId);
+		//log.info(valueOf(result));
 
 		return new RedirectView("main");
 	}
@@ -737,6 +795,8 @@ public class MainController {
 		/*
 		 * get document info from blockchain
 		 */
+
+
 		queryResult = de.query(tokenId);
 		if(queryResult != null) {
 
@@ -788,6 +848,10 @@ public class MainController {
 
 		String owner = (String)userDao.getUserByUserId(userId).get("addr");
 		String receiver = (String)userDao.getUserByUserId(receiverId).get("addr");
+
+		Enrollment enrollment = re.getEnrollment(owner);
+		ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(owner, enrollment);
+		erc721.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
 		if(erc721.transferFrom(owner, receiver, tokenId))
 			return "Success";
 		else
@@ -813,10 +877,13 @@ public class MainController {
 		tokenId = new String[docList.size()];
 		sigStatus = new String[docList.size()];
 
-		Enrollment enrollment = re.getEnrollment(userId);
-		SetConfig.initUserContext(userId, enrollment);
-		Manager.setChaincodeId(chaincodeId);
+//		Enrollment enrollment = re.getEnrollment(userId);
+//		SetConfig.initUserContext(userId, enrollment);
+//		Manager.setChaincodeId(chaincodeId);
 
+		Enrollment enrollment = re.getEnrollment(userId);
+		ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(userId, enrollment);
+		de.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
 		/*
 		 * get my all document list
 		 */
@@ -877,6 +944,11 @@ public class MainController {
 		/*
 		 * check current signing status for the document
 		 */
+
+		//Enrollment enrollment = re.getEnrollment(userId);
+		//ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(userId, enrollment);
+		//de.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+
 		queryResult = de.query(tokenId);
 		if(queryResult != null) {
 			Map<String, Object> map =
@@ -1026,11 +1098,12 @@ public class MainController {
 
 		log.info("tokenId > " + tokenId);
 
-		if(erc721.finalize(tokenId))
-			return "Success";
-		else
-			return "Failrure";
+//		if(erc721.finalize(tokenId))
+//			return "Success";
+//		else
+//			return "Failrure";
 
+		return null;
 	}
 
 	@ResponseBody

@@ -1,9 +1,8 @@
 package com.poscoict.posledger.assets.controller;
 
-import com.poscoict.posledger.assets.chaincode.AddressUtils;
 import com.poscoict.posledger.assets.chaincode.EnrollmentUser;
 import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
-import com.poscoict.posledger.assets.chaincode.TokenTypeManagement;
+import com.poscoict.posledger.assets.chaincode.function.TokenTypeManagement;
 import com.poscoict.posledger.assets.config.Config;
 import com.poscoict.posledger.assets.config.SetConfig;
 import com.poscoict.posledger.assets.model.User;
@@ -67,16 +66,16 @@ public class AdminController {
             userContext.setEnrollment(enrollment);
             X509Identity identity = new X509Identity(userContext);
 
-            AddressUtils addressUtils = new AddressUtils();
-            String addr = addressUtils.getMyAddress(identity);
-            System.out.println(addr);
+//            AddressUtils addressUtils = new AddressUtils();
+//            String addr = addressUtils.getMyAddress(identity);
+            //System.out.println(addr);
 
             // insert user's cert into Redis
             if(!(re.setEnrollment(userId, enrollment)))
                 log.info("user register failure");
 
             // insert user's info into DB
-            User user = new User(userId, addr, passwd, req.getParameter("userEmail"));
+            User user = new User(userId, "addr", passwd, req.getParameter("userEmail"));
             userDao.insert(user);
 
         } catch (Exception e) {
