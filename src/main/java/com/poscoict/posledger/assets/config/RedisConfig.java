@@ -1,4 +1,4 @@
-package com.poscoict.posledger.assets.model;
+package com.poscoict.posledger.assets.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

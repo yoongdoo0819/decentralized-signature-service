@@ -1,5 +1,8 @@
 package com.poscoict.posledger.assets;
 
+import com.poscoict.posledger.assets.model.User;
+import com.poscoict.posledger.assets.service.UserService;
+import com.poscoict.posledger.assets.util.DateUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,10 +16,6 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 import org.springframework.web.client.RestTemplate;
 
-import com.poscoict.posledger.assets.model.User;
-import com.poscoict.posledger.assets.service.UserService;
-import com.poscoict.posledger.assets.util.DateUtil;
-
 @ServletComponentScan
 @SpringBootApplication
 public class StartAssetsApplication extends SpringBootServletInitializer {
@@ -25,7 +24,7 @@ public class StartAssetsApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(StartAssetsApplication.class);
     }
-	
+
 	@Bean
 	public ServletWebServerFactory servletWebServerFactory() {
 		return new TomcatServletWebServerFactory();
@@ -40,15 +39,15 @@ public class StartAssetsApplication extends SpringBootServletInitializer {
 	public TaskScheduler taskScheduler() {
 		return new ConcurrentTaskScheduler();
 	}
-	
+//
 	/*
 	 * 사용자 정보 초기화
 	 */
 	@Bean
 	public CommandLineRunner initUser(UserService userService) {
-		
+
 		return args -> {
-			
+
 			for (int i=1; i<=5; i++) {
 				User user = User.builder().id("test0"+i).name("테스트0"+i).password("test1234").createDate(DateUtil.getDateObject()).build();
 				userService.addUser(user);

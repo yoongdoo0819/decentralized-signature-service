@@ -1,8 +1,9 @@
 package com.poscoict.posledger.assets.chaincode;
 
 import com.poscoict.posledger.assets.client.CAClient;
-import com.poscoict.posledger.assets.config.Config;
+import com.poscoict.posledger.assets.config.NetworkConfig;
 import com.poscoict.posledger.assets.service.RedisService;
+import com.poscoict.posledger.assets.util.AddressUtils;
 import org.hyperledger.fabric.gateway.Wallet;
 import org.hyperledger.fabric.gateway.Wallet.Identity;
 import org.hyperledger.fabric.sdk.Enrollment;
@@ -16,7 +17,7 @@ import java.nio.file.Paths;
 import java.security.PrivateKey;
 import java.util.Set;
 
-public class EnrollmentUser {
+public class EnrollUser {
 
     X509Identity identity;
     String userId = null;
@@ -39,7 +40,7 @@ public class EnrollmentUser {
 //        caClient.setCryptoSuite(cryptoSuite);
 
 
-        CAClient caClient = new CAClient(Config.CA_ORG1_URL, null);
+        CAClient caClient = new CAClient(NetworkConfig.CA_ORG1_URL, null);
         // Create a wallet for managing identities
         Wallet wallet = Wallet.createFileSystemWallet(Paths.get("wallet"));
 
@@ -72,7 +73,7 @@ public class EnrollmentUser {
     public Enrollment registerUser(String userId) throws Exception {
 
         this.userId = userId;
-        CAClient caClient = new CAClient(Config.CA_ORG1_URL, null);
+        CAClient caClient = new CAClient(NetworkConfig.CA_ORG1_URL, null);
 
         // Create a CA client for interacting with the CA.
 //        Properties props = new Properties();
@@ -101,12 +102,12 @@ public class EnrollmentUser {
         }
 */
 
-        Identity adminIdentity = wallet.get(Config.ADMIN);
+        Identity adminIdentity = wallet.get(NetworkConfig.ADMIN);
         User admin = new User() {
 
             @Override
             public String getName() {
-                return Config.ADMIN;
+                return NetworkConfig.ADMIN;
             }
 
             @Override

@@ -32,5 +32,5 @@ public final class Function {
     public static final String SIGN_FUNCTION_NAME = "sign";
     public static final String FINALIZE_FUNCTION_NAME = "finalize";
 
-
+    public static final String CHAINCODE_ID = "mycc";
 }

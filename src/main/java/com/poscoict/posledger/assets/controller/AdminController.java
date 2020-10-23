@@ -1,14 +1,14 @@
 package com.poscoict.posledger.assets.controller;
 
-import com.poscoict.posledger.assets.chaincode.EnrollmentUser;
-import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
+import com.poscoict.posledger.assets.chaincode.ChaincodeProxy;
+import com.poscoict.posledger.assets.chaincode.EnrollUser;
+import com.poscoict.posledger.assets.util.RedisEnrollment;
 import com.poscoict.posledger.assets.chaincode.function.TokenTypeManagement;
-import com.poscoict.posledger.assets.config.Config;
-import com.poscoict.posledger.assets.config.SetConfig;
+import com.poscoict.posledger.assets.config.NetworkConfig;
+import com.poscoict.posledger.assets.config.ExecutionConfig;
 import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.dao.UserDao;
 import com.poscoict.posledger.assets.user.UserContext;
-import com.poscoict.posledger.assets.util.Manager;
 import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
@@ -54,7 +54,7 @@ public class AdminController {
         String userId = req.getParameter("userId");
         String passwd = req.getParameter("userPasswd");
 
-        EnrollmentUser newUser = new EnrollmentUser();
+        EnrollUser newUser = new EnrollUser();
         try {
 
             Enrollment enrollment = newUser.enrollAdmin(userId, passwd);
@@ -102,13 +102,13 @@ public class AdminController {
     @PostMapping("/setConfig")
     public String setConfig(HttpServletRequest req) {
         log.info("setConfig");
-        Config.CA_ORG1_URL = req.getParameter("caURL");
-        Config.CHANNEL_NAME = req.getParameter("channelName");
-        Config.CHAINCODE_1_NAME = req.getParameter("chaincodeName");
+        NetworkConfig.CA_ORG1_URL = req.getParameter("caURL");
+        NetworkConfig.CHANNEL_NAME = req.getParameter("channelName");
+        NetworkConfig.CHAINCODE_1_NAME = req.getParameter("chaincodeName");
 
-        log.info(Config.CA_ORG1_URL);
-        log.info(Config.CHANNEL_NAME);
-        log.info(Config.CHAINCODE_1_NAME);
+        log.info(NetworkConfig.CA_ORG1_URL);
+        log.info(NetworkConfig.CHANNEL_NAME);
+        log.info(NetworkConfig.CHAINCODE_1_NAME);
         return "index";
     }
 
@@ -124,16 +124,16 @@ public class AdminController {
         log.info("setPeer");
         String count = req.getParameter("count");
 
-        if(Config.peerName == null) {
-            Config.peerName = new ArrayList<>();
-            Config.peerURL = new ArrayList<>();
+        if(NetworkConfig.peerName == null) {
+            NetworkConfig.peerName = new ArrayList<>();
+            NetworkConfig.peerURL = new ArrayList<>();
         }
 
         for(int i=0; i<Integer.valueOf(count); i++) {
 
-            Config.peerName.add(req.getParameter("peerName"+i));
-            Config.peerURL.add(req.getParameter("peerURL"+i));
-            log.info(Config.peerName.get(i) + " / " + Config.peerURL.get(i));
+            NetworkConfig.peerName.add(req.getParameter("peerName"+i));
+            NetworkConfig.peerURL.add(req.getParameter("peerURL"+i));
+            log.info(NetworkConfig.peerName.get(i) + " / " + NetworkConfig.peerURL.get(i));
 
         }
 
@@ -152,16 +152,16 @@ public class AdminController {
         log.info("setOrderer");
         String count = req.getParameter("count");
 
-        if(Config.ordererName == null) {
-            Config.ordererName = new ArrayList<>();
-            Config.ordererURL = new ArrayList<>();
+        if(NetworkConfig.ordererName == null) {
+            NetworkConfig.ordererName = new ArrayList<>();
+            NetworkConfig.ordererURL = new ArrayList<>();
         }
 
         for(int i=0; i<Integer.valueOf(count); i++) {
 
-            Config.ordererName.add(req.getParameter("ordererName"+i));
-            Config.ordererURL.add(req.getParameter("ordererURL"+i));
-            log.info(Config.ordererName.get(i) + " / " + Config.ordererURL.get(i));
+            NetworkConfig.ordererName.add(req.getParameter("ordererName"+i));
+            NetworkConfig.ordererURL.add(req.getParameter("ordererURL"+i));
+            log.info(NetworkConfig.ordererName.get(i) + " / " + NetworkConfig.ordererURL.get(i));
         }
 
         return "addOrderer";
@@ -179,16 +179,16 @@ public class AdminController {
         log.info("setEventHub");
         String count = req.getParameter("count");
 
-        if(Config.eventHubName == null) {
-            Config.eventHubName = new ArrayList<>();
-            Config.eventHubURL = new ArrayList<>();
+        if(NetworkConfig.eventHubName == null) {
+            NetworkConfig.eventHubName = new ArrayList<>();
+            NetworkConfig.eventHubURL = new ArrayList<>();
         }
 
         for(int i=0; i<Integer.valueOf(count); i++) {
 
-            Config.eventHubName.add(req.getParameter("eventHubName"+i));
-            Config.eventHubURL.add(req.getParameter("eventHubURL"+i));
-            log.info(Config.eventHubName.get(i) + " / " + Config.eventHubURL.get(i));
+            NetworkConfig.eventHubName.add(req.getParameter("eventHubName"+i));
+            NetworkConfig.eventHubURL.add(req.getParameter("eventHubURL"+i));
+            log.info(NetworkConfig.eventHubName.get(i) + " / " + NetworkConfig.eventHubURL.get(i));
         }
 
         return "addEventHub";
@@ -230,8 +230,8 @@ public class AdminController {
         }
 
         Enrollment enrollment = re.getEnrollment(ownerKey);
-        SetConfig.initUserContext(ownerKey, enrollment);
-        Manager.setChaincodeId(chaincodeId);
+        ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(ownerKey, enrollment);
+        tokenTypeManagement.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
 
         boolean result = tokenTypeManagement.enrollTokenType(tokenType, xattr);
 
@@ -250,7 +250,6 @@ public class AdminController {
 
         String result = "";
 
-        Manager.setChaincodeId(chaincodeId);
         List<String> types = tokenTypeManagement.tokenTypesOf();
 
         for(int i=0; i<types.size(); i++) {
@@ -273,8 +272,6 @@ public class AdminController {
 
         String tokenType = req.getParameter("tokenType");
         String ownerKey = req.getParameter("ownerKey");
-
-        Manager.setChaincodeId(chaincodeId);
 
         Map<String, List<String>> attributes = tokenTypeManagement.retrieveTokenType(tokenType);
 
@@ -309,8 +306,6 @@ public class AdminController {
 
         log.info("retrieveAttributeOfTokenType ####################");
 
-        Manager.setChaincodeId(chaincodeId);
-
         List<String> pair = tokenTypeManagement.retrieveAttributeOfTokenType(tokenType, attribute);
         if(pair != null) {
             result += "xattrType : " + pair.get(0) + "\n";
@@ -336,8 +331,6 @@ public class AdminController {
 
         String tokenType = req.getParameter("tokenType");
         String ownerKey = req.getParameter("ownerKey");
-
-        Manager.setChaincodeId(chaincodeId);
 
         boolean result = tokenTypeManagement.dropTokenType(tokenType);
         if(result == true)

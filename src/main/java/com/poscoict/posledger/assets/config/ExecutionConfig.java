@@ -1,7 +1,7 @@
 package com.poscoict.posledger.assets.config;
 
 import com.poscoict.posledger.assets.chaincode.ChaincodeProxy;
-import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
+import com.poscoict.posledger.assets.util.RedisEnrollment;
 import com.poscoict.posledger.assets.client.ChannelClient;
 import com.poscoict.posledger.assets.client.FabricClient;
 import com.poscoict.posledger.assets.user.UserContext;
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class SetConfig {
+public class ExecutionConfig {
     static String owner;
     static String receiver;
     static Enrollment enrollment;
@@ -32,8 +32,8 @@ public class SetConfig {
 
         userContext = new UserContext();
         userContext.setName(owner);
-        userContext.setAffiliation(Config.ORG1);
-        userContext.setMspId(Config.ORG1_MSP);
+        userContext.setAffiliation(NetworkConfig.ORG1);
+        userContext.setMspId(NetworkConfig.ORG1_MSP);
         userContext.setEnrollment(enrollment);
 
         return userContext;
@@ -133,12 +133,12 @@ public class SetConfig {
 
          */
 
-        ChannelClient channelClient = fabClient.createChannelClient(Config.CHANNEL_NAME);
+        ChannelClient channelClient = fabClient.createChannelClient(NetworkConfig.CHANNEL_NAME);
         Channel channel = channelClient.getChannel();
 
-        Peer peer = fabClient.getInstance().newPeer(Config.ORG1_PEER_0, Config.ORG1_PEER_0_URL);
-        Orderer orderer = fabClient.getInstance().newOrderer(Config.ORDERER_NAME, Config.ORDERER_URL);
-        EventHub eventHub = fabClient.getInstance().newEventHub("Transfer", Config.EVENT_HUB);
+        Peer peer = fabClient.getInstance().newPeer(NetworkConfig.ORG1_PEER_0, NetworkConfig.ORG1_PEER_0_URL);
+        Orderer orderer = fabClient.getInstance().newOrderer(NetworkConfig.ORDERER_NAME, NetworkConfig.ORDERER_URL);
+        EventHub eventHub = fabClient.getInstance().newEventHub("Transfer", NetworkConfig.EVENT_HUB);
 
         channel.addPeer(peer);
         channel.addEventHub(eventHub);
@@ -179,21 +179,21 @@ public class SetConfig {
     }
 
     public static void setEnrollment(String owner, Enrollment enrollment) {
-        SetConfig.owner = owner;
-        SetConfig.enrollment = enrollment;
+        ExecutionConfig.owner = owner;
+        ExecutionConfig.enrollment = enrollment;
     }
 
     public static void setEnrollmentForReceiver(String receiver, Enrollment enrollment) {
-        SetConfig.receiver = receiver;
-        SetConfig.enrollment = enrollment;
+        ExecutionConfig.receiver = receiver;
+        ExecutionConfig.enrollment = enrollment;
     }
 
     public static ChaincodeProxy initChaincodeProxy(String userId, Enrollment enrollment) throws IllegalAccessException, InvalidArgumentException, InstantiationException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, CryptoException, TransactionException {
 
-        SetConfig.initUserContext(userId, enrollment);
+        ExecutionConfig.initUserContext(userId, enrollment);
         //Manager.setChaincodeId(chaincodeId);
         //FabricClient fabricClient = getFabClient();
-        ChannelClient channelClient = SetConfig.initChannel();
+        ChannelClient channelClient = ExecutionConfig.initChannel();
         ChaincodeProxy chaincodeProxy = new ChaincodeProxy();
         chaincodeProxy.setFabricClient(fabClient);
         chaincodeProxy.setChannelClient(channelClient);

@@ -2,7 +2,7 @@ package com.poscoict.posledger.assets.chaincode.function;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.poscoict.posledger.assets.chaincode.AddressUtils;
+import com.poscoict.posledger.assets.util.AddressUtils;
 import com.poscoict.posledger.assets.chaincode.ChaincodeProxy;
 import com.poscoict.posledger.assets.chaincode.InvokeChaincode;
 import org.apache.log4j.LogManager;

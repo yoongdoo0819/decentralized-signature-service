@@ -1,6 +1,6 @@
-package com.poscoict.posledger.assets.chaincode;
+package com.poscoict.posledger.assets.util;
 
-import com.poscoict.posledger.assets.config.SetConfig;
+import com.poscoict.posledger.assets.config.ExecutionConfig;
 import com.poscoict.posledger.assets.user.UserContext;
 import org.bouncycastle.jcajce.provider.digest.Keccak;
 import org.bouncycastle.util.io.pem.PemReader;
@@ -86,7 +86,7 @@ public class AddressUtils {
 
     public static String getMyAddress(String userId, Enrollment enrollment) {
 
-        UserContext userContext = SetConfig.initUserContext(userId, enrollment);
+        UserContext userContext = ExecutionConfig.initUserContext(userId, enrollment);
 //        UserContext userContext = new UserContext();
 //        userContext.setName(userId);
 //        userContext.setAffiliation("org1.department1");

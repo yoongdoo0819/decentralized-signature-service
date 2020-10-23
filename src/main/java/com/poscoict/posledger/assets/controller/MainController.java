@@ -10,20 +10,19 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.poscoict.posledger.assets.chaincode.AddressUtils;
 import com.poscoict.posledger.assets.chaincode.ChaincodeProxy;
-import com.poscoict.posledger.assets.chaincode.EnrollmentUser;
-import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
+import com.poscoict.posledger.assets.chaincode.EnrollUser;
 import com.poscoict.posledger.assets.chaincode.function.Custom;
 import com.poscoict.posledger.assets.chaincode.function.Default;
 import com.poscoict.posledger.assets.chaincode.function.ERC721;
 import com.poscoict.posledger.assets.chaincode.function.Extension;
-import com.poscoict.posledger.assets.config.SetConfig;
+import com.poscoict.posledger.assets.config.ExecutionConfig;
 import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.User_Doc;
 import com.poscoict.posledger.assets.model.User_Sig;
 import com.poscoict.posledger.assets.model.dao.*;
-import com.poscoict.posledger.assets.util.DateUtil;
+import com.poscoict.posledger.assets.util.AddressUtils;
+import com.poscoict.posledger.assets.util.RedisEnrollment;
 import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +49,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
 
+import static com.poscoict.posledger.assets.util.Function.CHAINCODE_ID;
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
@@ -87,7 +87,6 @@ public class MainController {
 	private RedisEnrollment re;
 
 	AddressUtils addressUtils = new AddressUtils();
-	private String chaincodeId = "mycc";
 
 	@GetMapping("/index")
 	public String index() {
@@ -144,7 +143,7 @@ public class MainController {
 		log.info("signUp");
 		String userId = req.getParameter("userId");
 
-		EnrollmentUser newUser = new EnrollmentUser();
+		EnrollUser newUser = new EnrollUser();
 		Enrollment enrollment = null;
 
 		try {
@@ -255,14 +254,6 @@ public class MainController {
 		return "main";
 	}
 
-	/**
-	 * Welcome 화면 
-	 */
-	@GetMapping("/welcome")
-	public String welcome(Model model) {
-		model.addAttribute("now", DateUtil.formatDate(DateUtil.getDateObject(), "yyyy.MM.dd HH:mm:ss"));
-		return "welcome";
-	}
 
 	@ResponseBody
 	@PostMapping("/createDigitalContractToken")
@@ -418,8 +409,8 @@ public class MainController {
 		//String addr = addressUtils.getMyAddress(identity);
 
 		Enrollment enrollment = re.getEnrollment(userid);
-		ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(userid, enrollment);
-		extention.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(userid, enrollment);
+		extention.setChaincodeProxyAndChaincodeName(chaincodeProxy, CHAINCODE_ID);
 
 		String addr = addressUtils.getMyAddress(userid, enrollment);
 		String docType = "doc";
@@ -576,8 +567,8 @@ public class MainController {
 		uri.put("hash", merkleRoot);
 
 		Enrollment enrollment = re.getEnrollment(signer);
-		ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(signer, enrollment);
-		extention.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(signer, enrollment);
+		extention.setChaincodeProxyAndChaincodeName(chaincodeProxy, CHAINCODE_ID);
 		//Extension extension2 = new Extension(chaincodeProxy, chaincodeId);
 
 		extention.mint(valueOf(tokenNum), sigType, xattr, uri);
@@ -678,6 +669,16 @@ public class MainController {
 		Map<String, Object> testMap = sigDao.getSigBySigid(sigId);
 		String sigTokenId = valueOf((int)testMap.get("sigtokenid"));
 
+//
+//		Enrollment enrollment = re.getEnrollment(signer);
+//		SetConfig.initUserContext(signer, enrollment);
+//		Manager.setChaincodeId(chaincodeId);
+//		FabricClient fabricClient = SetConfig.getFabClient();
+//		ChannelClient channelClient = SetConfig.initChannel();
+//		ChaincodeProxy chaincodeProxy = new ChaincodeProxy();
+//		chaincodeProxy.setFabricClient(fabricClient);
+//		chaincodeProxy.setChannelClient(channelClient);
+//		erc721.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
 
 //		Enrollment enrollment = re.getEnrollment(signer);
 //		SetConfig.initUserContext(signer, enrollment);
@@ -691,12 +692,13 @@ public class MainController {
 //		X509Identity identity = new X509Identity(userContext);
 //
 //		AddressUtils addressUtils = new AddressUtils();
-		//String addr = addressUtils.getMyAddress(identity);
-		//System.out.println(addr);
+//		String addr = addressUtils.getMyAddress(identity);
+//		System.out.println(addr);
 
+//		Manager.setChaincodeId(chaincodeId);
 		Enrollment enrollment = re.getEnrollment(signer);
-		ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(signer, enrollment);
-		custom.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(signer, enrollment);
+		custom.setChaincodeProxyAndChaincodeName(chaincodeProxy, CHAINCODE_ID);
 		boolean result = custom.sign(tokenId, sigTokenId);
 
 		log.info(tokenId + " , " + "signatures" + " , " +  sigTokenId);
@@ -850,8 +852,8 @@ public class MainController {
 		String receiver = (String)userDao.getUserByUserId(receiverId).get("addr");
 
 		Enrollment enrollment = re.getEnrollment(owner);
-		ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(owner, enrollment);
-		erc721.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(owner, enrollment);
+		erc721.setChaincodeProxyAndChaincodeName(chaincodeProxy, CHAINCODE_ID);
 		if(erc721.transferFrom(owner, receiver, tokenId))
 			return "Success";
 		else
@@ -882,8 +884,8 @@ public class MainController {
 //		Manager.setChaincodeId(chaincodeId);
 
 		Enrollment enrollment = re.getEnrollment(userId);
-		ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(userId, enrollment);
-		de.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(userId, enrollment);
+		de.setChaincodeProxyAndChaincodeName(chaincodeProxy, CHAINCODE_ID);
 		/*
 		 * get my all document list
 		 */

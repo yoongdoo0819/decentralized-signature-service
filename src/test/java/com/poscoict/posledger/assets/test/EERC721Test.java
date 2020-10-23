@@ -1,9 +1,8 @@
 package com.poscoict.posledger.assets.test;
 
 import com.poscoict.posledger.assets.chaincode.function.Extension;
-import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
-import com.poscoict.posledger.assets.config.SetConfig;
-import com.poscoict.posledger.assets.util.Manager;
+import com.poscoict.posledger.assets.util.RedisEnrollment;
+import com.poscoict.posledger.assets.config.ExecutionConfig;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,8 +74,7 @@ public class EERC721Test {
         logger.info(tokenId + " " + owner + " " + hash + " " + path + " " + hash);
 
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.initUserContext(owner, enrollment);
-        Manager.setChaincodeId("mycc");
+        ExecutionConfig.initUserContext(owner, enrollment);
         boolean result = extension.mint("500", "sig", xattr, uri);
         logger.info(">>>>>> " + valueOf(result));
     }

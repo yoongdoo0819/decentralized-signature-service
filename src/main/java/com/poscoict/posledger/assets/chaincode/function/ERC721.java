@@ -1,8 +1,8 @@
 package com.poscoict.posledger.assets.chaincode.function;
 
-import com.poscoict.posledger.assets.chaincode.AddressUtils;
 import com.poscoict.posledger.assets.chaincode.ChaincodeProxy;
 import com.poscoict.posledger.assets.chaincode.InvokeChaincode;
+import com.poscoict.posledger.assets.util.AddressUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;

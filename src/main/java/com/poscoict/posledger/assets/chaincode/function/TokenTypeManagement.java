@@ -32,6 +32,10 @@ public class TokenTypeManagement {
 
     private String chaincodeName;
 
+    public void setChaincodeProxyAndChaincodeName(ChaincodeProxy chaincodeProxy, String chaincodeName) {
+        this.chaincodeProxy = chaincodeProxy;
+        this.chaincodeName = chaincodeName;
+    }
 
     public List<String> tokenTypesOf() throws ProposalException, InvalidArgumentException {
         logger.info("---------------- tokenTypesOf SDK called ----------------");

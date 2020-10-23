@@ -1,4 +1,4 @@
-package com.poscoict.posledger.assets.chaincode;
+package com.poscoict.posledger.assets.util;
 
 import com.poscoict.posledger.assets.service.RedisService;
 import org.hyperledger.fabric.sdk.Enrollment;

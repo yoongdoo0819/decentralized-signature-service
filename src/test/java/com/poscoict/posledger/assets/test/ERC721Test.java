@@ -1,10 +1,9 @@
 package com.poscoict.posledger.assets.test;
 
-import com.poscoict.posledger.assets.chaincode.RedisEnrollment;
-import com.poscoict.posledger.assets.config.Config;
-import com.poscoict.posledger.assets.config.SetConfig;
+import com.poscoict.posledger.assets.util.RedisEnrollment;
+import com.poscoict.posledger.assets.config.NetworkConfig;
+import com.poscoict.posledger.assets.config.ExecutionConfig;
 import com.poscoict.posledger.assets.service.RedisService;
-import com.poscoict.posledger.assets.util.Manager;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,20 +53,18 @@ public class ERC721Test {
     final String IP = "localhost";
     public ERC721Test() throws Exception{
 
-        Config.ORG1_MSP = "Org1MSP";
-        Config.ORG1 = "org1";
-        Config.ADMIN = "admin";
-        Config.ADMIN_PASSWORD = "adminpw";
-        Config.CA_ORG1_URL = "http://" + IP + ":7054";
-        Config.ORDERER_URL = "grpc://" + IP + ":7050";
-        Config.ORDERER_NAME = "orderer.example.com";
-        Config.CHANNEL_NAME = "mychannel";
-        Config.ORG1_PEER_0 = "peer0.org1.example.com";
-        Config.ORG1_PEER_0_URL = "grpc://" + IP + ":7051";
-        Config.EVENT_HUB = "grpc://" + IP + ":7053";
-        Config.CHAINCODE_1_NAME = "mycc";
-        Manager.setChaincodeId("mycc");
-
+        NetworkConfig.ORG1_MSP = "Org1MSP";
+        NetworkConfig.ORG1 = "org1";
+        NetworkConfig.ADMIN = "admin";
+        NetworkConfig.ADMIN_PASSWORD = "adminpw";
+        NetworkConfig.CA_ORG1_URL = "http://" + IP + ":7054";
+        NetworkConfig.ORDERER_URL = "grpc://" + IP + ":7050";
+        NetworkConfig.ORDERER_NAME = "orderer.example.com";
+        NetworkConfig.CHANNEL_NAME = "mychannel";
+        NetworkConfig.ORG1_PEER_0 = "peer0.org1.example.com";
+        NetworkConfig.ORG1_PEER_0_URL = "grpc://" + IP + ":7051";
+        NetworkConfig.EVENT_HUB = "grpc://" + IP + ":7053";
+        NetworkConfig.CHAINCODE_1_NAME = "mycc";
 
     }
 
@@ -102,9 +99,8 @@ public class ERC721Test {
 
     @Test
     public void mintTest() throws Exception {
-        Manager.setChaincodeId("mycc");
         Enrollment enrollment = re.getEnrollment(owner);
-        SetConfig.initUserContext(owner, enrollment);
+        ExecutionConfig.initUserContext(owner, enrollment);
         //SetConfig.setEnrollment(owner, enrollment);
 
 

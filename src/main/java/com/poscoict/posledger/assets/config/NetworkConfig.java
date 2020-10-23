@@ -3,7 +3,7 @@ package com.poscoict.posledger.assets.config;
 import java.io.File;
 import java.util.ArrayList;
 
-public class Config {
+public class NetworkConfig {
 	
 	public static String ORG1_MSP = "Org1MSP";
 
