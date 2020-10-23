@@ -1,7 +1,5 @@
 package com.poscoict.posledger.assets.controller;
 
-//import com.itextpdf.layout.Doc;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itextpdf.text.Image;
@@ -118,7 +116,6 @@ public class MainController {
 
 		if(start >= end) {
 			System.out.println(leaf[start] + " " + createHash(leaf[start]));
-			//return leaf[0];
 			return createHash(leaf[start]);
 		}
 
@@ -161,19 +158,7 @@ public class MainController {
 				enrollment = newUser.registerUser(userId);
 			}
 
-			//util.getUserContext(userId, enrollment);
-
-//			UserContext userContext = new UserContext();
-//			userContext.setName(userId);
-//			userContext.setAffiliation("org1.department1");
-//			userContext.setMspId("Org1MSP");
-//			userContext.setEnrollment(enrollment);
-//			X509Identity identity = new X509Identity(userContext);
-
-			//String addr = addressUtils.getMyAddress(identity);
-			//System.out.println(addr);
 			String addr = addressUtils.getMyAddress(userId, enrollment);
-
 
 			// insert user's cert into Redis
 			if(!(re.setEnrollment(userId, enrollment)))
@@ -190,70 +175,12 @@ public class MainController {
 		return "index";
 	}
 
-
-
-	/*
-	@GetMapping(value = "/mailSender")
-	public String mailSender(HttpServletRequest request, ModelMap mo) throws AddressException, MessagingException {
-		// 네이버일 경우 smtp.naver.com 을 입력합니다.
-		// Google일 경우 smtp.gmail.com 을 입력합니다.
-		String host = "smtp.gmail.com";
-
-		final String username = "yoongdoo0819"; //네이버 아이디를 입력해주세요. @nave.com은 입력하지 마시구요.
-		final String password = ""; //네이버 이메일 비밀번호를 입력해주세요
-		int port=465; //포트번호
-
-		// 메일 내용
-		String recipient = "yoongdoo0819@postech.ac.kr"; //받는 사람의 메일주소를 입력해주세요.
-		String subject = "[decentral signature service]"; //메일 제목 입력해주세요.
-		String body = "Hello, \n\n" + "sangwon" + "'s signature complete"; //메일 내용 입력해주세요.
-
-		Properties props = System.getProperties(); // 정보를 담기 위한 객체 생성
-
-		// SMTP 서버 정보 설정
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", port);
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.ssl.enable", "true");
-		props.put("mail.smtp.ssl.trust", host);
-
-		//Session 생성
-		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-			String un=username;
-			String pw=password;
-			protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-				return new javax.mail.PasswordAuthentication(un, pw);
-			}
-		});
-		session.setDebug(true); //for debug
-
-		Message mimeMessage = new MimeMessage(session); //MimeMessage 생성
-		mimeMessage.setFrom(new InternetAddress("yoongdoo0819@gmail.com")); //발신자 셋팅 , 보내는 사람의 이메일주소를 한번 더 입력합니다. 이때는 이메일 풀 주소를 다 작성해주세요.
-
-		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
-		mimeMessage.setSubject(subject); //제목셋팅
-		mimeMessage.setText(body); //내용셋팅
-		Transport.send(mimeMessage); //javax.mail.Transport.send() 이용
-
-		return "main";
-	}
-	 */
-
 	@GetMapping("/main")
 	public String main(HttpServletRequest req, Model model) {
 		log.info("main");
 
 		return "main";
 	}
-
-	@PostMapping("/test")
-	public String test(@RequestParam("param") List<Object> param) {
-		log.info("test########################");
-		System.out.println(param);
-
-		return "main";
-	}
-
 
 	@ResponseBody
 	@PostMapping("/createDigitalContractToken")
@@ -304,9 +231,6 @@ public class MainController {
 			 */
 			final MessageDigest md = MessageDigest.getInstance("SHA-512");
 
-		//	RandomAccessFile file = new RandomAccessFile("/home/yoongdoo0819/dSignature-server/"+mf.getOriginalFilename(), "r");
-			log.info(mf.getOriginalFilename());
-
 			convFile = new File(mf.getOriginalFilename());
 			convFile.createNewFile();
 			FileOutputStream fos = new FileOutputStream("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/"+convFile);	// absolute path needed
@@ -330,7 +254,6 @@ public class MainController {
 			// hash of document
 			original = builder.toString();
 
-
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} finally {
@@ -343,11 +266,7 @@ public class MainController {
 			}
 		}
 
-		log.info(original);
-
-		uploadPath = path + mf.getOriginalFilename();//+ original;
-		log.info(uploadPath);
-
+		uploadPath = path + mf.getOriginalFilename();
 
 		// make a one string for 'signers'
 		signers += userid;
@@ -388,25 +307,6 @@ public class MainController {
 
 		String merkleRoot = merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
 		log.info(merkleRoot);
-
-//		Enrollment enrollment = re.getEnrollment(userid);
-//		SetConfig.initUserContext(userid, enrollment);
-//		Manager.setChaincodeId(chaincodeId);
-//		FabricClient fabricClient = SetConfig.getFabClient();
-//		ChannelClient channelClient = SetConfig.initChannel();
-//		ChaincodeProxy chaincodeProxy = new ChaincodeProxy();
-//		chaincodeProxy.setFabricClient(fabricClient);
-//		chaincodeProxy.setChannelClient(channelClient);
-
-//		UserContext userContext = new UserContext();
-//		userContext.setName(userid);
-//		userContext.setAffiliation("org1.department1");
-//		userContext.setMspId("Org1MSP");
-//		userContext.setEnrollment(enrollment);
-//		X509Identity identity = new X509Identity(userContext);
-
-		//AddressUtils addressUtils = new AddressUtils();
-		//String addr = addressUtils.getMyAddress(identity);
 
 		Enrollment enrollment = re.getEnrollment(userid);
 		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(userid, enrollment);
@@ -569,7 +469,6 @@ public class MainController {
 		Enrollment enrollment = re.getEnrollment(signer);
 		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(signer, enrollment);
 		extention.setChaincodeProxyAndChaincodeName(chaincodeProxy, CHAINCODE_ID);
-		//Extension extension2 = new Extension(chaincodeProxy, chaincodeId);
 
 		extention.mint(valueOf(tokenNum), sigType, xattr, uri);
 		return new RedirectView("main");
@@ -578,7 +477,6 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping("/itext")
 	public String itext(/*@RequestBody String test,*/ HttpServletRequest req, HttpServletResponse resp) throws Exception{
-		//Doc document = new Doc(PageSize.A4, 50, 50, 50, 50);
 
 		String signer = req.getParameter("signer");
 		String filenm = req.getParameter("docPath");
@@ -624,15 +522,10 @@ public class MainController {
 
 			}
 
-			// Add your new data / text here
-			// for example...
 			Paragraph title1 = new Paragraph("Signatures");
 
 			Chapter chapter1 = new Chapter(title1, 1);
-			//ChapterAutoNumber chapter = document.getChapter();
 			chapter1.setNumberDepth(0);
-
-			//Section section = new Section(new Paragraph("signer"));
 
 			Section section1 = chapter1.addSection(new Paragraph("signer"));
 			Image section1Image = Image.getInstance(/*"./dSignature-server/src/main/webapp/"+*/signm);
@@ -669,41 +562,10 @@ public class MainController {
 		Map<String, Object> testMap = sigDao.getSigBySigid(sigId);
 		String sigTokenId = valueOf((int)testMap.get("sigtokenid"));
 
-//
-//		Enrollment enrollment = re.getEnrollment(signer);
-//		SetConfig.initUserContext(signer, enrollment);
-//		Manager.setChaincodeId(chaincodeId);
-//		FabricClient fabricClient = SetConfig.getFabClient();
-//		ChannelClient channelClient = SetConfig.initChannel();
-//		ChaincodeProxy chaincodeProxy = new ChaincodeProxy();
-//		chaincodeProxy.setFabricClient(fabricClient);
-//		chaincodeProxy.setChannelClient(channelClient);
-//		erc721.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
-
-//		Enrollment enrollment = re.getEnrollment(signer);
-//		SetConfig.initUserContext(signer, enrollment);
-//		Manager.setChaincodeId(chaincodeId);
-//
-//		UserContext userContext = new UserContext();
-//		userContext.setName(signer);
-//		userContext.setAffiliation("org1.department1");
-//		userContext.setMspId("Org1MSP");
-//		userContext.setEnrollment(enrollment);
-//		X509Identity identity = new X509Identity(userContext);
-//
-//		AddressUtils addressUtils = new AddressUtils();
-//		String addr = addressUtils.getMyAddress(identity);
-//		System.out.println(addr);
-
-//		Manager.setChaincodeId(chaincodeId);
 		Enrollment enrollment = re.getEnrollment(signer);
 		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(signer, enrollment);
 		custom.setChaincodeProxyAndChaincodeName(chaincodeProxy, CHAINCODE_ID);
-		boolean result = custom.sign(tokenId, sigTokenId);
-
-		log.info(tokenId + " , " + "signatures" + " , " +  sigTokenId);
-		//boolean result = erc721.sign(tokenId, sigTokenId);
-		//log.info(valueOf(result));
+		custom.sign(tokenId, sigTokenId);
 
 		return new RedirectView("main");
 	}
@@ -718,7 +580,6 @@ public class MainController {
 	public String mysign(HttpServletRequest req, Model model) throws Exception{
 
 		String userId = req.getParameter("userid");
-		String sigId = "";
 
 		Map<String, Object> testMap;
 
@@ -759,12 +620,10 @@ public class MainController {
 		docPath = (String) docTestMap.get("path");
 		model.addAttribute("docPath", docPath);
 
-		log.info("####################################### " + userId);
-
 		/*
 		 * get my signature image
 		 */
-		Map<String, Object> sigTestMap;// = (user_sigDao.getUserSig(userId));
+		Map<String, Object> sigTestMap;
 		List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(userId);
 
 		for (int i = 0; i < user_sig.size(); i++) {
@@ -797,8 +656,6 @@ public class MainController {
 		/*
 		 * get document info from blockchain
 		 */
-
-
 		queryResult = de.query(tokenId);
 		if(queryResult != null) {
 
@@ -851,7 +708,7 @@ public class MainController {
 		String owner = (String)userDao.getUserByUserId(userId).get("addr");
 		String receiver = (String)userDao.getUserByUserId(receiverId).get("addr");
 
-		Enrollment enrollment = re.getEnrollment(owner);
+		Enrollment enrollment = re.getEnrollment(userId);
 		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(owner, enrollment);
 		erc721.setChaincodeProxyAndChaincodeName(chaincodeProxy, CHAINCODE_ID);
 		if(erc721.transferFrom(owner, receiver, tokenId))
@@ -879,13 +736,10 @@ public class MainController {
 		tokenId = new String[docList.size()];
 		sigStatus = new String[docList.size()];
 
-//		Enrollment enrollment = re.getEnrollment(userId);
-//		SetConfig.initUserContext(userId, enrollment);
-//		Manager.setChaincodeId(chaincodeId);
-
 		Enrollment enrollment = re.getEnrollment(userId);
 		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(userId, enrollment);
 		de.setChaincodeProxyAndChaincodeName(chaincodeProxy, CHAINCODE_ID);
+
 		/*
 		 * get my all document list
 		 */
@@ -946,11 +800,6 @@ public class MainController {
 		/*
 		 * check current signing status for the document
 		 */
-
-		//Enrollment enrollment = re.getEnrollment(userId);
-		//ChaincodeProxy chaincodeProxy = SetConfig.initChaincodeProxy(userId, enrollment);
-		//de.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
-
 		queryResult = de.query(tokenId);
 		if(queryResult != null) {
 			Map<String, Object> map =
@@ -1026,6 +875,7 @@ public class MainController {
 			List<String> signaturesList = (ArrayList<String>) xattr.get("signatures");
 
 			Map<String, Object> sigTestMap;
+
 			// get signature paths for signers
 			if(signaturesList != null) {
 				for (int i = 0; i < signaturesList.size(); i++) {
@@ -1055,7 +905,6 @@ public class MainController {
 			// Copy first page of existing PDF into output PDF
 				document.newPage();
 				cb.addTemplate(page, 0, 0);
-
 			}
 
 			// Add your new data / text here
