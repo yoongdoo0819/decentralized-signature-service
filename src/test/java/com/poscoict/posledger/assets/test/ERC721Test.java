@@ -53,16 +53,16 @@ public class ERC721Test {
     final String IP = "localhost";
     public ERC721Test() throws Exception{
 
-        NetworkConfig.ORG1_MSP = "Org1MSP";
-        NetworkConfig.ORG1 = "org1";
+        NetworkConfig.ORG0_MSP = "Org0MSP";
+        NetworkConfig.ORG0 = "org0";
         NetworkConfig.ADMIN = "admin";
         NetworkConfig.ADMIN_PASSWORD = "adminpw";
         NetworkConfig.CA_ORG1_URL = "http://" + IP + ":7054";
         NetworkConfig.ORDERER_URL = "grpc://" + IP + ":7050";
         NetworkConfig.ORDERER_NAME = "orderer.example.com";
         NetworkConfig.CHANNEL_NAME = "mychannel";
-        NetworkConfig.ORG1_PEER_0 = "peer0.org1.example.com";
-        NetworkConfig.ORG1_PEER_0_URL = "grpc://" + IP + ":7051";
+        NetworkConfig.ORG0_PEER_0 = "peer0.org0.example.com";
+        NetworkConfig.ORG0_PEER_0_URL = "grpc://" + IP + ":7051";
         NetworkConfig.EVENT_HUB = "grpc://" + IP + ":7053";
         NetworkConfig.CHAINCODE_1_NAME = "mycc";
 

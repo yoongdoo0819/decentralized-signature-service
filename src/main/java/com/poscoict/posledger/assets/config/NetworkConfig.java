@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class NetworkConfig {
 	
-	public static String ORG1_MSP = "Org1MSP";
+	public static String ORG0_MSP = "Org0MSP";
 
-	public static String ORG1 = "org1";
+	public static String ORG0 = "org0";
 
 	public static String CA_ORG1_URL = "http://localhost:7054";
 
@@ -50,9 +50,9 @@ public class NetworkConfig {
 	public static String ORDERER_NAME = "orderer.example.com";
 	
 
-	public static String ORG1_PEER_0 = "peer0.org1.example.com";
+	public static String ORG0_PEER_0 = "peer0.org0.example.com";
 	
-	public static String ORG1_PEER_0_URL = "grpc://localhost:7051";
+	public static String ORG0_PEER_0_URL = "grpc://localhost:7051";
 
 	public static String EVENT_HUB = "grpc://localhost:7051";
 
@@ -69,7 +69,6 @@ public class NetworkConfig {
 	public static final String ORG2_PEER_1_URL = "grpc://localhost:8056";
 
 	public static final String CHAINCODE_ROOT_DIR = "chaincode";
-	
 
 	public static final String CHAINCODE_1_PATH = "chaincode";
 	

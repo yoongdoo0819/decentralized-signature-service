@@ -32,8 +32,8 @@ public class ExecutionConfig {
 
         userContext = new UserContext();
         userContext.setName(owner);
-        userContext.setAffiliation(NetworkConfig.ORG1);
-        userContext.setMspId(NetworkConfig.ORG1_MSP);
+        userContext.setAffiliation(NetworkConfig.ORG0);
+        userContext.setMspId(NetworkConfig.ORG0_MSP);
         userContext.setEnrollment(enrollment);
 
         return userContext;
@@ -136,7 +136,7 @@ public class ExecutionConfig {
         ChannelClient channelClient = fabClient.createChannelClient(NetworkConfig.CHANNEL_NAME);
         Channel channel = channelClient.getChannel();
 
-        Peer peer = fabClient.getInstance().newPeer(NetworkConfig.ORG1_PEER_0, NetworkConfig.ORG1_PEER_0_URL);
+        Peer peer = fabClient.getInstance().newPeer(NetworkConfig.ORG0_PEER_0, NetworkConfig.ORG0_PEER_0_URL);
         Orderer orderer = fabClient.getInstance().newOrderer(NetworkConfig.ORDERER_NAME, NetworkConfig.ORDERER_URL);
         EventHub eventHub = fabClient.getInstance().newEventHub("Transfer", NetworkConfig.EVENT_HUB);
 

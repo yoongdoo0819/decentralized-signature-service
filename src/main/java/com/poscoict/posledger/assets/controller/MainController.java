@@ -186,6 +186,7 @@ public class MainController {
 	@PostMapping("/createDigitalContractToken")
 	public RedirectView upload(HttpServletRequest req, MultipartHttpServletRequest mre) throws IllegalStateException, IOException, Exception{
 
+		log.info(req.getSession().getServletContext().getRealPath("/"));
 		String userid = req.getParameter("userid");
 		String count = req.getParameter("count");
 		String[] user = null;
@@ -233,11 +234,11 @@ public class MainController {
 
 			convFile = new File(mf.getOriginalFilename());
 			convFile.createNewFile();
-			FileOutputStream fos = new FileOutputStream("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/"+convFile);	// absolute path needed
+			FileOutputStream fos = new FileOutputStream(req.getSession().getServletContext().getRealPath("/") +convFile);	// absolute path needed
 			fos.write(mf.getBytes());
 			fos.close();
 
-			is = new FileInputStream("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/"+convFile);	// absolute path needed
+			is = new FileInputStream(req.getSession().getServletContext().getRealPath("/")+convFile);	// absolute path needed
 			byte[] buffer = new byte[1024];
 			int readBytes = 0;
 
@@ -893,12 +894,12 @@ public class MainController {
 		try {
 
 			// existing pdf
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/final.pdf")); // absolute path needed
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(req.getSession().getServletContext().getRealPath("/") + "final.pdf")); // absolute path needed
 			document.open();
 			PdfContentByte cb = writer.getDirectContent();
 
 			// Load existing PDF
-			PdfReader reader = new PdfReader("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/"+docPath);	// absolute path needed
+			PdfReader reader = new PdfReader(req.getSession().getServletContext().getRealPath("/") +docPath);	// absolute path needed
 			for(int i=1; i<=reader.getNumberOfPages(); i++) {
 				PdfImportedPage page = writer.getImportedPage(reader, i);
 
@@ -922,10 +923,10 @@ public class MainController {
 			 */
 			for(int i=0; i<sigPathList.length; i++) {
 				section[i] = chapter1.addSection(new Paragraph(userId[i]));
-				f = new File("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/"+sigPathList[i]);    // absolute path needed
+				f = new File(req.getSession().getServletContext().getRealPath("/") +sigPathList[i]);    // absolute path needed
 
 				if(f.isFile()) {
-					Image section1Image = Image.getInstance("/home/yoongdoo0819/workspace/dSignature-server/src/main/webapp/" + sigPathList[i]);   // absolute path needed
+					Image section1Image = Image.getInstance(req.getSession().getServletContext().getRealPath("/") + sigPathList[i]);   // absolute path needed
 					section[i].add(section1Image);
 				}
 			}
