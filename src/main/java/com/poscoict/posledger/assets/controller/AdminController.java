@@ -40,12 +40,22 @@ public class AdminController {
     private RedisEnrollment re;
 
     private String chaincodeId = "mycc";
+    String IP = "localhost";
 
     @GetMapping("/adminSignUpForm")
     public String adminSignUpForm() {
         log.info("adminSignUpForm form");
 
         return "adminSignUpForm";
+    }
+
+    public void setOrg0() {
+        NetworkConfig.ORG0_MSP = "Org0MSP";
+        NetworkConfig.ORG0 = "org0";
+        NetworkConfig.CA_ORG0_URL = "http://" + IP + ":7054";
+        NetworkConfig.ORG0_PEER_0 = "peer0.org0.example.com";
+        NetworkConfig.ORG0_PEER_0_URL = "grpc://" + IP + ":7051";
+        NetworkConfig.ADMIN = "admin";
     }
 
     @PostMapping("/adminSignUp")
@@ -102,11 +112,11 @@ public class AdminController {
     @PostMapping("/setConfig")
     public String setConfig(HttpServletRequest req) {
         log.info("setConfig");
-        NetworkConfig.CA_ORG1_URL = req.getParameter("caURL");
+        NetworkConfig.CA_ORG0_URL = req.getParameter("caURL");
         NetworkConfig.CHANNEL_NAME = req.getParameter("channelName");
         NetworkConfig.CHAINCODE_1_NAME = req.getParameter("chaincodeName");
 
-        log.info(NetworkConfig.CA_ORG1_URL);
+        log.info(NetworkConfig.CA_ORG0_URL);
         log.info(NetworkConfig.CHANNEL_NAME);
         log.info(NetworkConfig.CHAINCODE_1_NAME);
         return "index";
@@ -198,6 +208,7 @@ public class AdminController {
     public String enrollTokenType(HttpServletRequest req) throws Exception {
 
         log.info("enrollTokenType ####################");
+        setOrg0();
 
         String ownerKey = req.getParameter("ownerKey");
         String tokenType = req.getParameter("tokenType");

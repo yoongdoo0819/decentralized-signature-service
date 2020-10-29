@@ -91,11 +91,13 @@
                         <tr>
 
                             <td>
+                                <!--
                                 <input type="text" name="verification" id="verificationId" placeholder="Signature Token Id">
                                 <input type="text" name="verification" id="verificationOwner" placeholder="Signature Token Owner">
                                 <button type="button" class="btn btn-success" onclick="verification()">verification</button>
+                                -->
                             </td>
-                            <td>
+                            <td align="right">
                                 <form action="/assets/doSign" method="post">
                                     <input type="hidden" name="signer" id="signer" value="${sessionUser.id}">
                                     <input type="hidden" name="docNum" value=${docNum}>
@@ -103,7 +105,8 @@
                                     <input type="hidden" name="tokenId" id="tokenId" value=${tokenId}>
                                     <input type="hidden" name="docPath" value=${docPath}>
                                     <input type="hidden" name="sigId" value=${sigId}>
-
+                                    <input type="submit" class="btn btn-success" value="sign">
+                                    <!--
                                     <table>
                                         <tr>
                                             <td align="right">
@@ -111,6 +114,7 @@
                                             </td>
                                         </tr>
                                     </table>
+                                    -->
                                 </form>
 
                             </td>

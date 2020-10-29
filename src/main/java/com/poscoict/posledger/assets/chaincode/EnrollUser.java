@@ -17,6 +17,8 @@ import java.nio.file.Paths;
 import java.security.PrivateKey;
 import java.util.Set;
 
+import static com.poscoict.posledger.assets.config.NetworkConfig.ORG0_MSP;
+
 public class EnrollUser {
 
     X509Identity identity;
@@ -40,7 +42,7 @@ public class EnrollUser {
 //        caClient.setCryptoSuite(cryptoSuite);
 
 
-        CAClient caClient = new CAClient(NetworkConfig.CA_ORG1_URL, null);
+        CAClient caClient = new CAClient(NetworkConfig.CA_ORG0_URL, null);
         // Create a wallet for managing identities
         Wallet wallet = Wallet.createFileSystemWallet(Paths.get("wallet"));
 
@@ -63,7 +65,7 @@ public class EnrollUser {
         enrollmentRequestTLS.addHost("localhost");
         enrollmentRequestTLS.setProfile("tls");
         Enrollment enrollment = caClient.getInstance().enroll(userId, passwd, enrollmentRequestTLS);
-        Identity user = Identity.createIdentity("Org0MSP", enrollment.getCert(), enrollment.getKey());
+        Identity user = Identity.createIdentity(ORG0_MSP, enrollment.getCert(), enrollment.getKey());
         wallet.put(userId, user);
         //System.out.println("Successfully enrolled user \"admin\" and imported it into the wallet");
 
@@ -73,7 +75,7 @@ public class EnrollUser {
     public Enrollment registerUser(String userId) throws Exception {
 
         this.userId = userId;
-        CAClient caClient = new CAClient(NetworkConfig.CA_ORG1_URL, null);
+        CAClient caClient = new CAClient(NetworkConfig.CA_ORG0_URL, null);
 
         // Create a CA client for interacting with the CA.
 //        Properties props = new Properties();
@@ -143,7 +145,7 @@ public class EnrollUser {
 
             @Override
             public String getMspId() {
-                return "Org0MSP";
+                return ORG0_MSP;
             }
         }
                 ;
@@ -157,7 +159,7 @@ public class EnrollUser {
         registrationRequest.setEnrollmentID(this.userId);
         String enrollmentSecret = caClient.getInstance().register(registrationRequest, admin);
         Enrollment enrollment = caClient.getInstance().enroll(this.userId, enrollmentSecret);
-        Identity user = Identity.createIdentity("Org0MSP", enrollment.getCert(), enrollment.getKey());
+        Identity user = Identity.createIdentity(ORG0_MSP, enrollment.getCert(), enrollment.getKey());
         System.out.println("**********************"+enrollment.getCert()+"**************************");
         //wallet.put(this.userID, user);
         //System.out.println("Successfully enrolled user " + this.userID + " and imported it into the wallet");

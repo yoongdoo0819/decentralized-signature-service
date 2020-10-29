@@ -1,9 +1,10 @@
 package com.poscoict.posledger.assets.test;
 
-import com.poscoict.posledger.assets.util.RedisEnrollment;
-import com.poscoict.posledger.assets.config.NetworkConfig;
+import com.poscoict.posledger.assets.chaincode.EnrollUser;
 import com.poscoict.posledger.assets.config.ExecutionConfig;
+import com.poscoict.posledger.assets.config.NetworkConfig;
 import com.poscoict.posledger.assets.service.RedisService;
+import com.poscoict.posledger.assets.util.RedisEnrollment;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,14 +56,14 @@ public class ERC721Test {
 
         NetworkConfig.ORG0_MSP = "Org0MSP";
         NetworkConfig.ORG0 = "org0";
-        NetworkConfig.ADMIN = "admin";
-        NetworkConfig.ADMIN_PASSWORD = "adminpw";
-        NetworkConfig.CA_ORG1_URL = "http://" + IP + ":7054";
+        NetworkConfig.CA_ORG0_URL = "http://" + IP + ":7054";
         NetworkConfig.ORDERER_URL = "grpc://" + IP + ":7050";
-        NetworkConfig.ORDERER_NAME = "orderer.example.com";
-        NetworkConfig.CHANNEL_NAME = "mychannel";
         NetworkConfig.ORG0_PEER_0 = "peer0.org0.example.com";
         NetworkConfig.ORG0_PEER_0_URL = "grpc://" + IP + ":7051";
+        NetworkConfig.ORDERER_NAME = "orderer.example.com";
+        NetworkConfig.CHANNEL_NAME = "mychannel";
+        NetworkConfig.ADMIN = "admin";
+        NetworkConfig.ADMIN_PASSWORD = "adminpw";
         NetworkConfig.EVENT_HUB = "grpc://" + IP + ":7053";
         NetworkConfig.CHAINCODE_1_NAME = "mycc";
 
@@ -73,10 +74,25 @@ public class ERC721Test {
     @Test
     public void enrollTest() throws Exception {
 
-//        EnrollmentUser enrollToCA = new EnrollmentUser();
-//
-//        //  enroll admin
-//        enrollToCA.enrollAdmin("admin", "adminpw");
+        EnrollUser enrollToCA = new EnrollUser();
+
+        //  enroll admin
+        NetworkConfig.ORG0_MSP = "Org1MSP";
+        NetworkConfig.ORG0 = "org1";
+        NetworkConfig.CA_ORG0_URL = "http://" + IP + ":8054";
+        NetworkConfig.ORG0_PEER_0 = "peer1.org1.example.com";
+        NetworkConfig.ORG0_PEER_0_URL = "grpc://" + IP + ":8051";
+        NetworkConfig.ADMIN = "admin1";
+        enrollToCA.enrollAdmin(NetworkConfig.ADMIN, "adminpw");
+
+        NetworkConfig.ORG0_MSP = "Org2MSP";
+        NetworkConfig.ORG0 = "org2";
+        NetworkConfig.CA_ORG0_URL = "http://" + IP + ":9054";
+        NetworkConfig.ORG0_PEER_0 = "peer2.org2.example.com";
+        NetworkConfig.ORG0_PEER_0_URL = "grpc://" + IP + ":9051";
+        NetworkConfig.ADMIN = "admin2";
+        enrollToCA.enrollAdmin(NetworkConfig.ADMIN, "adminpw");
+
 //
 //        //  enroll owner
 //        Enrollment enrollment = enrollToCA.registerUser(owner);

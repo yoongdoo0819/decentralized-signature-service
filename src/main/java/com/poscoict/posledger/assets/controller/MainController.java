@@ -15,6 +15,7 @@ import com.poscoict.posledger.assets.chaincode.function.Default;
 import com.poscoict.posledger.assets.chaincode.function.ERC721;
 import com.poscoict.posledger.assets.chaincode.function.Extension;
 import com.poscoict.posledger.assets.config.ExecutionConfig;
+import com.poscoict.posledger.assets.config.NetworkConfig;
 import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.User_Doc;
 import com.poscoict.posledger.assets.model.User_Sig;
@@ -85,12 +86,40 @@ public class MainController {
 	private RedisEnrollment re;
 
 	AddressUtils addressUtils = new AddressUtils();
+	String IP = "localhost";
 
 	@GetMapping("/index")
 	public String index() {
 		log.info("index!");
 
 		return "index";
+	}
+
+	public void setOrg0() {
+		NetworkConfig.ORG0_MSP = "Org0MSP";
+		NetworkConfig.ORG0 = "org0";
+		NetworkConfig.CA_ORG0_URL = "http://" + IP + ":7054";
+		NetworkConfig.ORG0_PEER_0 = "peer0.org0.example.com";
+		NetworkConfig.ORG0_PEER_0_URL = "grpc://" + IP + ":7051";
+		NetworkConfig.ADMIN = "admin";
+	}
+
+	public void setOrg1() {
+		NetworkConfig.ORG0_MSP = "Org1MSP";
+		NetworkConfig.ORG0 = "org1";
+		NetworkConfig.CA_ORG0_URL = "http://" + IP + ":8054";
+		NetworkConfig.ORG0_PEER_0 = "peer1.org1.example.com";
+		NetworkConfig.ORG0_PEER_0_URL = "grpc://" + IP + ":8051";
+		NetworkConfig.ADMIN = "admin1";
+	}
+
+	public void setOrg2() {
+		NetworkConfig.ORG0_MSP = "Org2MSP";
+		NetworkConfig.ORG0 = "org2";
+		NetworkConfig.CA_ORG0_URL = "http://" + IP + ":9054";
+		NetworkConfig.ORG0_PEER_0 = "peer2.org2.example.com";
+		NetworkConfig.ORG0_PEER_0_URL = "grpc://" + IP + ":9051";
+		NetworkConfig.ADMIN = "admin2";
 	}
 
 	public static String createHash(String str) {
@@ -148,13 +177,30 @@ public class MainController {
 			if(userId.equals("admin")) {
 
 				try {
-					enrollment = newUser.enrollAdmin("admin", "adminpw");
+					setOrg0();
+					enrollment = newUser.enrollAdmin(NetworkConfig.ADMIN, "adminpw");
 				} catch (Exception exception) {
 					exception.printStackTrace();
 				}
 			}
 
+			else if(userId.equals("company0")) {
+				setOrg0();
+				enrollment = newUser.registerUser(userId);
+			}
+
+			else if(userId.equals("company1")) {
+				setOrg1();
+				enrollment = newUser.registerUser(userId);
+			}
+
+			else if(userId.equals("company2")) {
+				setOrg2();
+				enrollment = newUser.registerUser(userId);
+			}
+
 			else {
+				setOrg0();
 				enrollment = newUser.registerUser(userId);
 			}
 
@@ -192,6 +238,13 @@ public class MainController {
 		String[] user = null;
 		String signers = "";
 		Date today = new Date();
+
+		if(userid.equals("company0"))
+			setOrg0();
+		else if (userid.equals("company1"))
+			setOrg1();
+		else if (userid.equals("company2"))
+			setOrg2();
 
 		// if signers for document are not only one
 		if(!count.equals("")) {
@@ -346,6 +399,13 @@ public class MainController {
 
 		log.info(" > " + signer);
 		log.info(" > " + strImg);
+
+		if(signer.equals("company0"))
+			setOrg0();
+		else if (signer.equals("company1"))
+			setOrg1();
+		else if (signer.equals("company2"))
+			setOrg2();
 
 		String folder = req.getServletContext().getRealPath("/");// + uploadpath;
 		String fullpath = "";
@@ -553,6 +613,13 @@ public class MainController {
 		String signer = req.getParameter("signer");
 		String tokenId = req.getParameter("tokenId");
 
+		if(signer.equals("company0"))
+			setOrg0();
+		else if (signer.equals("company1"))
+			setOrg1();
+		else if (signer.equals("company2"))
+			setOrg2();
+
 		List<User_Sig> user_sig = user_sigDao.listForBeanPropertyRowMapper(signer);
 		if(user_sig.size() == 0)
 			return new RedirectView("main");
@@ -706,6 +773,13 @@ public class MainController {
 		log.info("receiverId > " + receiverId);
 		log.info("tokenId > " + tokenId);
 
+		if(userId.equals("company0"))
+			setOrg0();
+		else if (userId.equals("company1"))
+			setOrg1();
+		else if (userId.equals("company2"))
+			setOrg2();
+
 		String owner = (String)userDao.getUserByUserId(userId).get("addr");
 		String receiver = (String)userDao.getUserByUserId(receiverId).get("addr");
 
@@ -795,8 +869,8 @@ public class MainController {
 		for(int i=0; i<signersResult.length; i++) {
 			signersResult[i] = "";
 		}
-		signersResult[0] = "All participants : ";
-		signersResult[1] = "Current signers : ";
+		signersResult[0] = "All participants  ";
+		signersResult[1] = "Current signers:  ";
 
 		/*
 		 * check current signing status for the document
@@ -814,7 +888,7 @@ public class MainController {
 			for(int i=0; i<signersList.size(); i++) {
 				signersResult[0] += signersList.get(i);
 				if(i+1 < signersList.size())
-					signersResult[0] += "-";
+					signersResult[0] += '\n' ;//"-";
 			}
 
 			// all signers have signed or otherwise
