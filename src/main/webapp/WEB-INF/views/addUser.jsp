@@ -36,7 +36,7 @@ function insRow() {
 
     var frmTag = "<input type=text name=" + "'" + ID + "'" + "style=width:200px; height:20px; placeholder='ID'>";
     //frmTag += "PHONE <input type=text name=" + "'" + PHONE + "'" + "style=width:200px; height:20px;>";
-    frmTag += " <button type=button style='width:45pt; height:25pt' class='btn btn-outline-danger' onClick=remove()>삭제</button>"
+    frmTag += " <button type=button style='width:45pt; height:25pt' class='btn btn-outline-danger' onClick=remove()>Delete</button>"
     frmTag += "<br><hr>"
     oCell.innerHTML = frmTag;
     count++;

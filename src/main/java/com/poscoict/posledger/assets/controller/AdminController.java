@@ -2,18 +2,17 @@ package com.poscoict.posledger.assets.controller;
 
 import com.poscoict.posledger.assets.chaincode.ChaincodeProxy;
 import com.poscoict.posledger.assets.chaincode.EnrollUser;
-import com.poscoict.posledger.assets.util.RedisEnrollment;
 import com.poscoict.posledger.assets.chaincode.function.TokenTypeManagement;
-import com.poscoict.posledger.assets.config.NetworkConfig;
 import com.poscoict.posledger.assets.config.ExecutionConfig;
+import com.poscoict.posledger.assets.config.NetworkConfig;
 import com.poscoict.posledger.assets.model.User;
 import com.poscoict.posledger.assets.model.dao.UserDao;
 import com.poscoict.posledger.assets.user.UserContext;
+import com.poscoict.posledger.assets.util.RedisEnrollment;
 import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
-import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.*;
 
 import static java.lang.Integer.parseInt;
@@ -257,9 +255,15 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping("/tokenTypesOf")
-    public String tokenTypesOf(HttpServletRequest req) throws InvalidArgumentException, ProposalException, TransactionException {
+    public String tokenTypesOf(HttpServletRequest req) throws Exception {
 
+        String ownerKey = req.getParameter("ownerKey");
         String result = "";
+        setOrg0();
+
+        Enrollment enrollment = re.getEnrollment(ownerKey);
+        ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(ownerKey, enrollment);
+        tokenTypeManagement.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
 
         List<String> types = tokenTypeManagement.tokenTypesOf();
 
@@ -279,10 +283,17 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping("/retrieveTokenType")
-    public String retrieveTokenType(HttpServletRequest req) throws ProposalException, InvalidArgumentException, IOException, TransactionException {
+    public String retrieveTokenType(HttpServletRequest req) throws Exception {
 
         String tokenType = req.getParameter("tokenType");
         String ownerKey = req.getParameter("ownerKey");
+
+        setOrg0();
+        log.info("###########################" + ownerKey);
+
+        Enrollment enrollment = re.getEnrollment(ownerKey);
+        ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(ownerKey, enrollment);
+        tokenTypeManagement.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
 
         Map<String, List<String>> attributes = tokenTypeManagement.retrieveTokenType(tokenType);
 
@@ -308,19 +319,24 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping("/retrieveAttributeOfTokenType")
-    public String retrieveAttributeOfTokenType(HttpServletRequest req) throws InvalidArgumentException, ProposalException, TransactionException {
+    public String retrieveAttributeOfTokenType(HttpServletRequest req) throws Exception {
 
         String tokenType = req.getParameter("tokenType");
         String ownerKey = req.getParameter("ownerKey");
         String attribute = (req.getParameter("xattrName"));
         String result = "";
 
+        setOrg0();
         log.info("retrieveAttributeOfTokenType ####################");
+
+        Enrollment enrollment = re.getEnrollment(ownerKey);
+        ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(ownerKey, enrollment);
+        tokenTypeManagement.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
 
         List<String> pair = tokenTypeManagement.retrieveAttributeOfTokenType(tokenType, attribute);
         if(pair != null) {
             result += "xattrType : " + pair.get(0) + "\n";
-            result += "value : " + pair.get(1) + "\n";
+            result += "value : " + pair.get(0) + "\n";
 
         }
 
@@ -336,12 +352,17 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping("/dropTokenType")
-    public String dropTokenType(HttpServletRequest req) throws InvalidArgumentException, ProposalException, TransactionException {
+    public String dropTokenType(HttpServletRequest req) throws Exception {
 
         log.info("dropTokenType ####################");
+        setOrg0();
 
         String tokenType = req.getParameter("tokenType");
         String ownerKey = req.getParameter("ownerKey");
+
+        Enrollment enrollment = re.getEnrollment(ownerKey);
+        ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(ownerKey, enrollment);
+        tokenTypeManagement.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
 
         boolean result = tokenTypeManagement.dropTokenType(tokenType);
         if(result == true)

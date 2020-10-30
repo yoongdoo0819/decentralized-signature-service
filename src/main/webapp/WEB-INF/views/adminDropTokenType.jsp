@@ -91,7 +91,7 @@
                     <%--                            </td>--%>
                     <%--                        </tr>--%>
                 </table>
-                <input type="hidden" id="ownerKey" name="ownerKey" value="${sessionUser}">
+                <input type="hidden" id="ownerKey" name="ownerKey" value="${sessionUser.id}">
                 <input type="hidden" id="xattrCount" name="xattrCount">
                 <input type="hidden" id="uriCount" name="uriCount">
                 <table width="780">

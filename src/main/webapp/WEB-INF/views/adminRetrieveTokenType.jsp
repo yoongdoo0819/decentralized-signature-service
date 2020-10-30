@@ -97,7 +97,7 @@
                         <%--                            </td>--%>
                         <%--                        </tr>--%>
                     </table>
-                    <input type="hidden" id="ownerKey" name="ownerKey" value="${sessionUser}">
+                    <input type="hidden" id="ownerKey" name="ownerKey" value="${sessionUser.id}">
                     <input type="hidden" id="xattrCount" name="xattrCount">
                     <input type="hidden" id="uriCount" name="uriCount">
                     <table width="780">
@@ -124,12 +124,14 @@
     function retrieveTokenType() {
 
         tokenType = document.getElementById("tokenType").value;
+        ownerKey = document.getElementById("ownerKey").value;
 
         $.ajax({
             type: "POST",
             url: "/assets/retrieveTokenType",
             data: {
-                "tokenType" : tokenType
+                "tokenType" : tokenType,
+                "ownerKey" : ownerKey
             },
             //dataType: "json",
             success: function(data) {

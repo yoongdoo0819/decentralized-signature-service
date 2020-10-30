@@ -69,6 +69,7 @@
                     <table width="780">
                         <tr>
                             <td align="right">
+                                <input type="hidden" id="ownerKey" name="ownerKey" value="${sessionUser.id}">
                                 <input type="tokenTypesOf" class="btn btn-success" value="submit" onclick="tokenTypesOf()">
                             </td>
                         </tr>
@@ -86,11 +87,14 @@
 
     function tokenTypesOf() {
 
+        ownerKey = document.getElementById("ownerKey").value;
+
         $.ajax({
             type: "POST",
             url: "/assets/tokenTypesOf",
             data: {
-                "data" : "data"
+                "data" : "data",
+                "ownerKey" : ownerKey
             },
             //dataType: "json",
             success: function(data) {
