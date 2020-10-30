@@ -4,7 +4,7 @@
 #spring.mvc.view.suffix=.jsp
 
 welcome:
-   message: Welcome to PosLedger Assets
+   message: Welcome to FabAsset
 
 spring:
    jpa:

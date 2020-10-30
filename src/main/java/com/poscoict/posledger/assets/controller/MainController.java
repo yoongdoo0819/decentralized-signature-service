@@ -52,8 +52,6 @@ import static com.poscoict.posledger.assets.util.Function.CHAINCODE_ID;
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
-
-
 @Slf4j
 @Validated
 @Controller
@@ -230,7 +228,7 @@ public class MainController {
 
 	@ResponseBody
 	@PostMapping("/createDigitalContractToken")
-	public RedirectView upload(HttpServletRequest req, MultipartHttpServletRequest mre) throws IllegalStateException, IOException, Exception{
+	public RedirectView upload(HttpServletRequest req, MultipartHttpServletRequest mre) throws  Exception{
 
 		log.info(req.getSession().getServletContext().getRealPath("/"));
 		String userid = req.getParameter("userid");
@@ -407,7 +405,7 @@ public class MainController {
 		else if (signer.equals("company2"))
 			setOrg2();
 
-		String folder = req.getServletContext().getRealPath("/");// + uploadpath;
+		String folder = req.getServletContext().getRealPath("/"); // uploadpath;
 		String fullpath = "";
 		String[] strParts = strImg.split(",");
 		String rstStrImg = strParts[1];
@@ -481,7 +479,7 @@ public class MainController {
 			}
 
 			file.close();
-			partialHash = new byte[hashSum.getDigestLength()];
+			//partialHash = new byte[hashSum.getDigestLength()];
 			partialHash = hashSum.digest();
 
 			StringBuffer sb = new StringBuffer();
@@ -496,7 +494,7 @@ public class MainController {
 
 		log.info(sigId);
 
-		String owner = signer;
+		//String owner = signer;
 
 		// insert tokenId into DB
 		Map<String, Object> testMapForToken = tokenDao.getTokenNum();
@@ -607,8 +605,8 @@ public class MainController {
 	@RequestMapping("/doSign")
 	public RedirectView doSign(HttpServletRequest req, Model model) throws Exception{
 
-		int docNum = parseInt(String.valueOf(req.getParameter("docNum")));
-		String docId = req.getParameter("docId");
+//		int docNum = parseInt(String.valueOf(req.getParameter("docNum")));
+//		String docId = req.getParameter("docId");
 		String sigId = req.getParameter("sigId");
 		String signer = req.getParameter("signer");
 		String tokenId = req.getParameter("tokenId");
@@ -803,6 +801,13 @@ public class MainController {
 		String tokenId[];
 		String queryResult = null;
 		String sigStatus[];
+
+		if(userId.equals("company0"))
+			setOrg0();
+		else if (userId.equals("company1"))
+			setOrg1();
+		else if (userId.equals("company2"))
+			setOrg2();
 
 		List<User_Doc> docList = user_docDao.listForBeanPropertyRowMapper(userId);
 		docId = new String[docList.size()];

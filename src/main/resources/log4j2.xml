@@ -17,10 +17,10 @@
 	</Appenders>
 
 	<Loggers>
-		<Logger name="com.poscoict" level="info" additivity="false">
-			<appender-ref ref="fileAppender" />
-			<appender-ref ref="consoleAppender" />
-		</Logger>
+<!--		<Logger name="com.poscoict" level="info" additivity="false">-->
+<!--			<appender-ref ref="fileAppender" />-->
+<!--			<appender-ref ref="consoleAppender" />-->
+<!--		</Logger>-->
 
 		<Logger name="org.apache" level="info" additivity="false">
 			<appender-ref ref="fileAppender" />

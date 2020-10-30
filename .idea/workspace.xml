@@ -6,43 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contract.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/EnrollUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/EnrollUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/config/NetworkConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/config/NetworkConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200622_085121_company_2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200622_085359_company_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200622_085536_company_0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200622_093931_company_2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200622_094206_company_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200622_094338_company_0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200628_030316_alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200628_030441_bob" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200628_033006_carol" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200628_033151_david" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200628_035115_alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200628_035508_bob" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200628_052846_alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200628_073720_company2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200628_074843_company1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20200628_075151_company0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201021_110158_alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201021_110430_alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201022_075726_alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201022_085022_alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201022_090436_Bob" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201023_033848_alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201023_035945_alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201023_044341_alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201023_052830_dave" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201028_095435_alice" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201029_104909_bob" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mydoc.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/mydoc.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/contract.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/final.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/sample_contract.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/MerkleTree.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/poscoict.tld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/banner.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/banner.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/-home-yoongdoo0819-assets-src-main-.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201030_125001_company2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201030_125453_company2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201030_125652_company1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/20201030_125816_company0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common/taglibs.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common/taglibs.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/final.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/final.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,7 +265,7 @@
       <workItem from="1590642176290" duration="12346000" />
       <workItem from="1591076158468" duration="31207000" />
       <workItem from="1603288049075" duration="2008000" />
-      <workItem from="1603290660990" duration="57531000" />
+      <workItem from="1603290660990" duration="61728000" />
     </task>
     <servers />
   </component>
@@ -318,46 +294,46 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="688" y="302" width="600" height="396" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603983245778">
+    <state x="688" y="302" width="600" height="396" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604046775651">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state x="688" y="302" width="600" height="396" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.948@67.27.1853.948" timestamp="1603983245778" />
+    <state x="688" y="302" width="600" height="396" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.948@67.27.1853.948" timestamp="1604046775651" />
     <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl" timestamp="1603289928749">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
     <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.948@67.27.1853.948" timestamp="1603289928749" />
-    <state width="1853" height="244" key="GridCell.Tab.0.bottom" timestamp="1603986823316">
+    <state width="1853" height="331" key="GridCell.Tab.0.bottom" timestamp="1604049301302">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="244" key="GridCell.Tab.0.bottom/67.27.1853.948@67.27.1853.948" timestamp="1603986823316" />
-    <state width="1853" height="244" key="GridCell.Tab.0.center" timestamp="1603986823316">
+    <state width="1853" height="331" key="GridCell.Tab.0.bottom/67.27.1853.948@67.27.1853.948" timestamp="1604049301302" />
+    <state width="1853" height="331" key="GridCell.Tab.0.center" timestamp="1604049301299">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="244" key="GridCell.Tab.0.center/67.27.1853.948@67.27.1853.948" timestamp="1603986823316" />
-    <state width="1853" height="244" key="GridCell.Tab.0.left" timestamp="1603986823315">
+    <state width="1853" height="331" key="GridCell.Tab.0.center/67.27.1853.948@67.27.1853.948" timestamp="1604049301299" />
+    <state width="1853" height="331" key="GridCell.Tab.0.left" timestamp="1604049301298">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="244" key="GridCell.Tab.0.left/67.27.1853.948@67.27.1853.948" timestamp="1603986823315" />
-    <state width="1853" height="244" key="GridCell.Tab.0.right" timestamp="1603986823316">
+    <state width="1853" height="331" key="GridCell.Tab.0.left/67.27.1853.948@67.27.1853.948" timestamp="1604049301298" />
+    <state width="1853" height="331" key="GridCell.Tab.0.right" timestamp="1604049301302">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="244" key="GridCell.Tab.0.right/67.27.1853.948@67.27.1853.948" timestamp="1603986823316" />
-    <state width="1853" height="244" key="GridCell.Tab.1.bottom" timestamp="1603986823318">
+    <state width="1853" height="331" key="GridCell.Tab.0.right/67.27.1853.948@67.27.1853.948" timestamp="1604049301302" />
+    <state width="1853" height="331" key="GridCell.Tab.1.bottom" timestamp="1604049301303">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="244" key="GridCell.Tab.1.bottom/67.27.1853.948@67.27.1853.948" timestamp="1603986823318" />
-    <state width="1853" height="244" key="GridCell.Tab.1.center" timestamp="1603986823316">
+    <state width="1853" height="331" key="GridCell.Tab.1.bottom/67.27.1853.948@67.27.1853.948" timestamp="1604049301303" />
+    <state width="1853" height="331" key="GridCell.Tab.1.center" timestamp="1604049301302">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="244" key="GridCell.Tab.1.center/67.27.1853.948@67.27.1853.948" timestamp="1603986823316" />
-    <state width="1853" height="244" key="GridCell.Tab.1.left" timestamp="1603986823316">
+    <state width="1853" height="331" key="GridCell.Tab.1.center/67.27.1853.948@67.27.1853.948" timestamp="1604049301302" />
+    <state width="1853" height="331" key="GridCell.Tab.1.left" timestamp="1604049301302">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="244" key="GridCell.Tab.1.left/67.27.1853.948@67.27.1853.948" timestamp="1603986823316" />
-    <state width="1853" height="244" key="GridCell.Tab.1.right" timestamp="1603986823317">
+    <state width="1853" height="331" key="GridCell.Tab.1.left/67.27.1853.948@67.27.1853.948" timestamp="1604049301302" />
+    <state width="1853" height="331" key="GridCell.Tab.1.right" timestamp="1604049301302">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="244" key="GridCell.Tab.1.right/67.27.1853.948@67.27.1853.948" timestamp="1603986823317" />
+    <state width="1853" height="331" key="GridCell.Tab.1.right/67.27.1853.948@67.27.1853.948" timestamp="1604049301302" />
     <state x="476" y="77" width="1024" height="845" key="SettingsEditor" timestamp="1603290057999">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
