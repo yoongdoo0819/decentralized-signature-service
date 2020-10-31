@@ -1,5 +1,5 @@
 <%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
-<%@ page import="com.github.fabasset.model.User_Doc" %>
+<%@ page import="com.github.fabasset.example.model.User_Doc" %>
 <%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%-- <%@ include file="common/taglibs.jsp" %> --%>

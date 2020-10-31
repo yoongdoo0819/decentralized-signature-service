@@ -5,13 +5,67 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/assets.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assets.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/assets_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/assets_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assets.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/config/ExecutionConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/config/ExecutionConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/config/NetworkConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/config/NetworkConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/fabasset/test/EnrollTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/fabasset/test/EnrollTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/StartAssetsApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/TokenIssuer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/WebMvcConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/advice/ApiError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/advice/ExceptionHandleAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/chaincode/ChaincodeProxy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/chaincode/ChaincodeRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/chaincode/EnrollUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/chaincode/InvokeChaincode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/chaincode/function/Custom.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/chaincode/function/Default.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/chaincode/function/ERC721.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/chaincode/function/Extension.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/chaincode/function/TokenTypeManagement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/client/CAClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/client/ChannelClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/client/FabricClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/config/ExecutionConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/config/NetworkConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/config/RedisConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/AdminController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/MainController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/OauthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/exception/AccessTokenEmptyException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/exception/AccessTokenInvalidException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/exception/UserNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/exception/UserPasswordWrongException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/filter/HttpFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/interceptor/AccessTokenInterceptor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/UserConnectLog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/User_Doc.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/User_Sig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/dao/DocDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/dao/SigDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/dao/TokenDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/dao/UserDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/dao/User_docDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/dao/User_sigDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/vo/AccessToken.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/service/RedisService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/user/UserContext.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/util/AddressUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/util/DateUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/util/Function.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/util/RedisEnrollment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/util/Util.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/util/tags/DateExpTag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/util/tags/StringCutterTag.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/fabasset/test/EnrollTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/fabasset/test/MockRestAPITest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/fabasset/test/TokenIssuerTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,22 +111,26 @@
     </option>
   </component>
   <component name="ProjectId" id="1Q5gR9ftiuUPOZ8bDyPZRQBXGQE" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../_dSignature-server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -81,7 +139,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.16395497" />
     <property name="project.structure.side.proportion" value="0.39096045" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -113,7 +171,7 @@
   <component name="RunManager" selected="Spring Boot.StartAssetsApplication">
     <configuration name="EnrollUser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.poscoict.posledger.assets.chaincode.EnrollUser" />
-      <module name="assets" />
+      <module name="dSignature-server" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.poscoict.posledger.assets.chaincode.function.*" />
@@ -136,7 +194,7 @@
       </method>
     </configuration>
     <configuration name="EERC721Test.mintTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assets" />
+      <module name="dSignature-server" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
@@ -152,7 +210,7 @@
       </method>
     </configuration>
     <configuration name="ERC721Test.enrollTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assets" />
+      <module name="dSignature-server" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
@@ -168,7 +226,7 @@
       </method>
     </configuration>
     <configuration name="ERC721Test.mintTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assets" />
+      <module name="dSignature-server" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.poscoict.posledger.assets.test.*" />
@@ -184,7 +242,7 @@
       </method>
     </configuration>
     <configuration name="EnrollTest.enrollTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assets" />
+      <module name="dSignature-server" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.github.fabasset.test.*" />
@@ -199,8 +257,55 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="dSignature-server" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="dSignature-server" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="StartAssetsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="assets" />
+      <module name="dSignature-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.github.fabasset.StartAssetsApplication" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
@@ -269,6 +374,7 @@
       <workItem from="1603288049075" duration="2008000" />
       <workItem from="1603290660990" duration="72008000" />
       <workItem from="1604122855822" duration="11621000" />
+      <workItem from="1604140468071" duration="2068000" />
     </task>
     <servers />
   </component>
@@ -296,6 +402,9 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="476" y="77" width="1024" height="845" key="#Project_Structure" timestamp="1604123800467">
       <screen x="67" y="27" width="1853" height="948" />
@@ -309,49 +418,57 @@
       <screen x="67" y="27" width="1853" height="948" />
     </state>
     <state x="688" y="302" width="600" height="396" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.948@67.27.1853.948" timestamp="1604046775651" />
+    <state x="594" y="169" width="788" height="661" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1604142154465">
+      <screen x="67" y="27" width="1853" height="948" />
+    </state>
+    <state x="594" y="169" width="788" height="661" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/67.27.1853.948@67.27.1853.948" timestamp="1604142154465" />
     <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl" timestamp="1604134220173">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
     <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.948@67.27.1853.948" timestamp="1604134220173" />
-    <state width="1853" height="186" key="GridCell.Tab.0.bottom" timestamp="1604140436879">
+    <state width="1853" height="353" key="GridCell.Tab.0.bottom" timestamp="1604141408820">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="186" key="GridCell.Tab.0.bottom/67.27.1853.948@67.27.1853.948" timestamp="1604140436879" />
-    <state width="1853" height="186" key="GridCell.Tab.0.center" timestamp="1604140436878">
+    <state width="1853" height="353" key="GridCell.Tab.0.bottom/67.27.1853.948@67.27.1853.948" timestamp="1604141408820" />
+    <state width="1853" height="353" key="GridCell.Tab.0.center" timestamp="1604141408819">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="186" key="GridCell.Tab.0.center/67.27.1853.948@67.27.1853.948" timestamp="1604140436878" />
-    <state width="1853" height="186" key="GridCell.Tab.0.left" timestamp="1604140436878">
+    <state width="1853" height="353" key="GridCell.Tab.0.center/67.27.1853.948@67.27.1853.948" timestamp="1604141408819" />
+    <state width="1853" height="353" key="GridCell.Tab.0.left" timestamp="1604141408819">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="186" key="GridCell.Tab.0.left/67.27.1853.948@67.27.1853.948" timestamp="1604140436878" />
-    <state width="1853" height="186" key="GridCell.Tab.0.right" timestamp="1604140436879">
+    <state width="1853" height="353" key="GridCell.Tab.0.left/67.27.1853.948@67.27.1853.948" timestamp="1604141408819" />
+    <state width="1853" height="353" key="GridCell.Tab.0.right" timestamp="1604141408820">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="186" key="GridCell.Tab.0.right/67.27.1853.948@67.27.1853.948" timestamp="1604140436879" />
-    <state width="1853" height="357" key="GridCell.Tab.1.bottom" timestamp="1604140436731">
+    <state width="1853" height="353" key="GridCell.Tab.0.right/67.27.1853.948@67.27.1853.948" timestamp="1604141408819" />
+    <state width="1853" height="353" key="GridCell.Tab.1.bottom" timestamp="1604141408821">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="357" key="GridCell.Tab.1.bottom/67.27.1853.948@67.27.1853.948" timestamp="1604140436731" />
-    <state width="1853" height="357" key="GridCell.Tab.1.center" timestamp="1604140436731">
+    <state width="1853" height="353" key="GridCell.Tab.1.bottom/67.27.1853.948@67.27.1853.948" timestamp="1604141408821" />
+    <state width="1853" height="353" key="GridCell.Tab.1.center" timestamp="1604141408820">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="357" key="GridCell.Tab.1.center/67.27.1853.948@67.27.1853.948" timestamp="1604140436731" />
-    <state width="1853" height="357" key="GridCell.Tab.1.left" timestamp="1604140436731">
+    <state width="1853" height="353" key="GridCell.Tab.1.center/67.27.1853.948@67.27.1853.948" timestamp="1604141408820" />
+    <state width="1853" height="353" key="GridCell.Tab.1.left" timestamp="1604141408820">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="357" key="GridCell.Tab.1.left/67.27.1853.948@67.27.1853.948" timestamp="1604140436731" />
-    <state width="1853" height="357" key="GridCell.Tab.1.right" timestamp="1604140436731">
+    <state width="1853" height="353" key="GridCell.Tab.1.left/67.27.1853.948@67.27.1853.948" timestamp="1604141408820" />
+    <state width="1853" height="353" key="GridCell.Tab.1.right" timestamp="1604141408821">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="357" key="GridCell.Tab.1.right/67.27.1853.948@67.27.1853.948" timestamp="1604140436731" />
-    <state x="476" y="77" width="1024" height="845" key="SettingsEditor" timestamp="1603290057999">
+    <state width="1853" height="353" key="GridCell.Tab.1.right/67.27.1853.948@67.27.1853.948" timestamp="1604141408821" />
+    <state x="476" y="77" width="1399" height="845" key="SettingsEditor" timestamp="1604142203882">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state x="476" y="77" width="1024" height="845" key="SettingsEditor/67.27.1853.948@67.27.1853.948" timestamp="1603290057999" />
-    <state x="656" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1603354647291">
+    <state x="476" y="77" width="1399" height="845" key="SettingsEditor/67.27.1853.948@67.27.1853.948" timestamp="1604142203882" />
+    <state x="774" y="415" width="428" height="170" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604141428320">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state x="656" y="231" width="672" height="678" key="search.everywhere.popup/67.27.1853.948@67.27.1853.948" timestamp="1603354647291" />
+    <state x="774" y="415" width="428" height="170" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/67.27.1853.948@67.27.1853.948" timestamp="1604141428320" />
+    <state x="656" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1604141601675">
+      <screen x="67" y="27" width="1853" height="948" />
+    </state>
+    <state x="656" y="231" width="672" height="678" key="search.everywhere.popup/67.27.1853.948@67.27.1853.948" timestamp="1604141601675" />
   </component>
 </project>

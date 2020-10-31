@@ -7,16 +7,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="assets" />
+        <module name="dSignature-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="assets" target="1.8" />
+      <module name="dSignature-server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="assets" options="-parameters" />
+      <module name="dSignature-server" options="-parameters" />
     </option>
   </component>
 </project>

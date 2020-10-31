@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/assets.iml" filepath="$PROJECT_DIR$/.idea/assets.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/dSignature-server.iml" filepath="$PROJECT_DIR$/.idea/dSignature-server.iml" />
     </modules>
   </component>
 </project>

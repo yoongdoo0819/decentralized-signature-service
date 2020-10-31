@@ -2,7 +2,7 @@
   <artifact type="jar" name="assets:jar">
     <output-path>$PROJECT_DIR$/classes/artifacts/assets_jar</output-path>
     <root id="archive" name="assets.jar">
-      <element id="module-output" name="assets" />
+      <element id="module-output" name="dSignature-server" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-jul/2.11.2/log4j-jul-2.11.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/io/opencensus/opencensus-api/0.12.3/opencensus-api-0.12.3.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/tomcat/tomcat-jdbc/9.0.16/tomcat-jdbc-9.0.16.jar" path-in-jar="/" />
@@ -237,7 +237,7 @@
       <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.1.5.RELEASE" />
       <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.23" />
       <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
-      <element id="javaee-facet-resources" facet="assets/web/Web" />
+      <element id="javaee-facet-resources" facet="dSignature-server/web/Web" />
     </root>
   </artifact>
 </component>
