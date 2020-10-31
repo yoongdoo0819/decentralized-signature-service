@@ -34,7 +34,7 @@ maven clean spring-boot:run
 ## 5. 단위 테스트 실행
 로그인 화면 테스트
 ```bash
-mvn test -Dtest=com.poscoict.posledger.assets.test.MockRestAPITest#loginTest
+mvn test -Dtest=MockRestAPITest#loginTest
 ```
 
 ## 6. 브라우저 접속 주소

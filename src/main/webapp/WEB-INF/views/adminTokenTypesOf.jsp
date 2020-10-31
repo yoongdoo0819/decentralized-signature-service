@@ -47,15 +47,11 @@
         <div class="col-lg-3">
             <h1 class="my-4">Token Type</h1>
             <div class="list-group">
-                <a href="/assets/admin" class="list-group-item ">토큰 타입 등록</a>
-                <a href="#" class="list-group-item active">전체 토큰 타입 목록 조회</a>
-                <a href="/assets/adminUpdateTokenType" class="list-group-item"l>토큰 타입 수정</a>
-                <a href="/assets/adminRetrieveTokenType" class="list-group-item">토큰 타입 조회</a>
-                <a href="/assets/adminEnrollAttributeOfTokenType" class="list-group-item">토큰 타입 속성 등록</a>
-                <a href="/assets/adminUpdateAttributeOfTokenType" class="list-group-item">토큰 타입 속성 수정</a>
-                <a href="/assets/adminRetrieveAttributeOfTokenType" class="list-group-item"l>토큰 타입 속성 조회</a>
-                <a href="/assets/adminDropAttributeTokenType" class="list-group-item">토큰 타입 속성 삭제</a>
-                <a href="/assets/adminDropTokenType" class="list-group-item">토큰 타입 삭제</a>
+                <a href="/assets/admin" class="list-group-item">Enroll Token Type</a>
+                <a href="#" class="list-group-item active">Token Types Of</a>
+                <a href="/assets/adminRetrieveTokenType" class="list-group-item">Retrieve Token Type</a>
+                <a href="/assets/adminRetrieveAttributeOfTokenType" class="list-group-item">RetrieveAttributeOfTokenType</a>
+                <a href="/assets/adminDropTokenType" class="list-group-item ">Drop Token Type</a>
             </div>
         </div>
         <!-- /.col-lg-3 -->

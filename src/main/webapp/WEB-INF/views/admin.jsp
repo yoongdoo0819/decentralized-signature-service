@@ -48,14 +48,10 @@
             <h1 class="my-4">Token Type</h1>
             <div class="list-group">
                 <a href="#" class="list-group-item active">Enroll Token Type</a>
-                <a href="/assets/adminTokenTypesOf" class="list-group-item">Query All Token Type List</a>
-                <a href="/assets/adminUpdateTokenType" class="list-group-item"l>토큰 타입 수정</a>
-                <a href="/assets/adminRetrieveTokenType" class="list-group-item">Query Token Type</a>
-                <a href="/assets/adminEnrollAttributeOfTokenType" class="list-group-item">토큰 타입 속성 등록</a>
-                <a href="/assets/adminUpdateAttributeOfTokenType" class="list-group-item">토큰 타입 속성 수정</a>
-                <a href="/assets/adminRetrieveAttributeOfTokenType" class="list-group-item"l>토큰 타입 속성 조회</a>
-                <a href="/assets/adminDropAttributeTokenType" class="list-group-item">토큰 타입 속성 삭제</a>
-                <a href="/assets/adminDropTokenType" class="list-group-item">토큰 타입 삭제</a>
+                <a href="/assets/adminTokenTypesOf" class="list-group-item">Token Types Of</a>
+                <a href="/assets/adminRetrieveTokenType" class="list-group-item">Retrieve Token Type</a>
+                <a href="/assets/adminRetrieveAttributeOfTokenType" class="list-group-item"l>RetrieveAttributeOfTokenType</a>
+                <a href="/assets/adminDropTokenType" class="list-group-item">Drop Token Type</a>
             </div>
         </div>
         <!-- /.col-lg-3 -->
@@ -105,7 +101,7 @@
                     <table width="780">
                         <tr>
                             <td>
-                                token Type <input type="text" name="tokenType" id="tokenType" class="btn-outline-info">
+                                Token Type <input type="text" name="tokenType" id="tokenType" class="btn-outline-info">
                             </td>
                             <td align="right">
                                 <input type="submit" class="btn btn-success" value="submit">
@@ -147,7 +143,7 @@
             "                    <option value= " + "'Boolean'" + ">Boolean</option>\n" +
             "                    <option value= " + "'Integer'" + ">Integer</option>\n" +
             "                </select>"
-        frmTag += " <button type=button style='width:45pt; height:25pt' class='btn btn-outline-danger' onClick=removeRowForXAttr()>삭제</button>"
+        frmTag += " <button type=button style='width:45pt; height:25pt' class='btn btn-outline-danger' onClick=removeRowForXAttr()>Del</button>"
         frmTag += "<br><hr>"
         oCell.innerHTML = frmTag;
         xattrCount++;
