@@ -45,10 +45,10 @@ public class OauthController {
 		user.setPassword((String)testMap.get("password"));
 
 		log.info("login user : " + user.getId());
-		
+
 		request.getSession().setAttribute("sessionUser", user);
 		request.getSession().setAttribute("accessToken", tokenIssuer.generateAuthenticateToken(user));
-		
+
 		if(user.getId().equals("admin0"))
 			return "redirect:/admin";
 		else

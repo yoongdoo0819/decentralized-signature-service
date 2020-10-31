@@ -43,8 +43,6 @@ public class ExecutionConfig {
         return new FabricClient(userContext);
     }
 
-
-
     public static ChannelClient initChannel() throws InvalidArgumentException, TransactionException, TransactionException  {//ArrayList<String> peerName, ArrayList<String> peerURL, ArrayList<String> ordererName, ArrayList<String> ordererURL, ArrayList<String> eventHubName, ArrayList<String> eventHubURL) throws InvalidArgumentException, TransactionException, TransactionException {
 
 

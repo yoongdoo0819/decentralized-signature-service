@@ -752,8 +752,8 @@ public class MainController {
 
 		Enrollment enrollment = re.getEnrollment(userId);
 		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(owner, enrollment);
-		extention.setChaincodeProxy(chaincodeProxy);
-		extention.setChaincodeName(CHAINCODE_NAME);
+		erc721.setChaincodeProxy(chaincodeProxy);
+		erc721.setChaincodeName(CHAINCODE_NAME);
 
 		if(erc721.transferFrom(owner, receiver, tokenId))
 			return "Success";
