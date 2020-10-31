@@ -181,41 +181,18 @@
     function finalize() {
 
         tokenId = document.getElementById("tokenId").value;
+        userId = document.getElementById("signer").value;
 
         $.ajax({
             type: "POST",
             url: "/assets/finalize",
             data: {
-                "tokenId": tokenId
+                "tokenId": tokenId,
+                "userId": userId
             },
             //dataType: "json",
             success: function (data) {
                 swal({title: data, icon: "success", button: "close"});
-            },
-            error: function (err) {
-                swal("error" + err);
-            }
-        });
-    }
-
-    function verification() {
-
-        tokenId = document.getElementById("verificationId").value;
-        owner = document.getElementById("verificationOwner").value;
-
-        $.ajax({
-            type: "POST",
-            url: "/assets/verification",
-            data: {
-                "tokenId": tokenId,
-                "owner": owner
-            },
-            //dataType: "json",
-            success: function (data) {
-                if(data == 'true')
-                    swal({title: "Success", text: "Verification Success", icon: "success", button: "close"});
-                else if(data == 'false')
-                    swal({title: "Success", text: "Verification Failure", icon: "error", button: "close"});
             },
             error: function (err) {
                 swal("error" + err);

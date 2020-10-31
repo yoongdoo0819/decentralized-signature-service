@@ -997,27 +997,25 @@ public class MainController {
 
 	@ResponseBody
 	@RequestMapping("/finalize")
-	public RedirectView finalize (HttpServletRequest req, String tokenId) throws Exception {
+	public String finalize (HttpServletRequest req, String tokenId, String userId) throws Exception {
 
 		log.info("tokenId > " + tokenId);
 
-		String signer = req.getParameter("signer");
-
-		if (signer.equals("company0"))
+		if (userId.equals("company0"))
 			setOrg0();
-		else if (signer.equals("company1"))
+		else if (userId.equals("company1"))
 			setOrg1();
-		else if (signer.equals("company2"))
+		else if (userId.equals("company2"))
 			setOrg2();
 
-		Enrollment enrollment = re.getEnrollment(signer);
-		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(signer, enrollment);
+		Enrollment enrollment = re.getEnrollment(userId);
+		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(userId, enrollment);
 		custom.setChaincodeProxy(chaincodeProxy);
 		custom.setChaincodeName(CHAINCODE_NAME);
 
 		if (custom.finalize(tokenId))
-			return new RedirectView("main");
+			return "Success";
 		else
-			return new RedirectView("main");
+			return "Failure";
 	}
 }
