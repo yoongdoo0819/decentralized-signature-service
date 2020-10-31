@@ -1,10 +1,10 @@
 package com.github.fabasset.config;
 
+import com.github.fabasset.chaincode.ChaincodeProxy;
 import com.github.fabasset.client.ChannelClient;
 import com.github.fabasset.client.FabricClient;
 import com.github.fabasset.user.UserContext;
 import com.github.fabasset.util.RedisEnrollment;
-import com.github.fabasset.chaincode.ChaincodeProxy;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
@@ -60,6 +60,17 @@ public class ExecutionConfig {
         Peer peer = fabClient.getInstance().newPeer(NetworkConfig.ORG_PEER, NetworkConfig.ORG_PEER_URL);
         Orderer orderer = fabClient.getInstance().newOrderer(NetworkConfig.ORDERER_NAME, NetworkConfig.ORDERER_URL);
         EventHub eventHub = fabClient.getInstance().newEventHub("Transfer", NetworkConfig.EVENT_HUB);
+
+        System.out.println(NetworkConfig.ORG_MSP);
+        System.out.println(NetworkConfig.ORG);
+        System.out.println(NetworkConfig.ORG_PEER);
+        System.out.println(NetworkConfig.ORG_PEER_URL);
+        System.out.println(NetworkConfig.CA_ORG_URL);
+        System.out.println(NetworkConfig.ORDERER_NAME);
+        System.out.println(NetworkConfig.ORDERER_URL);
+        System.out.println(NetworkConfig.ADMIN);
+        System.out.println(NetworkConfig.CHANNEL_NAME);
+        System.out.println(NetworkConfig.CHAINCODE_1_NAME);
 
         channel.addPeer(peer);
         channel.addEventHub(eventHub);

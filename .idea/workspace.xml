@@ -5,87 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b345b6fc-9927-49a2-86aa-443136ff1b00" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/assets.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assets.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/StartAssetsApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/TokenIssuer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/WebMvcConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/advice/ApiError.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/advice/ExceptionHandleAdvice.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/ChaincodeProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/chaincode/ChaincodeProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/ChaincodeRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/EnrollUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/chaincode/EnrollUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/InvokeChaincode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/function/Custom.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/function/Default.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/function/ERC721.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/function/Extension.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/chaincode/function/TokenTypeManagement.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/client/CAClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/client/ChannelClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/client/FabricClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/config/ExecutionConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/config/NetworkConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/config/RedisConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/AdminController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/controller/OauthController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/exception/AccessTokenEmptyException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/exception/AccessTokenInvalidException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/exception/UserNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/exception/UserPasswordWrongException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/filter/HttpFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/interceptor/AccessTokenInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/interceptor/AccessTokenInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/Sig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/UserConnectLog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/User_Doc.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/User_Sig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/DocDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/SigDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/TestDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/TokenDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/UserDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/User_docDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/dao/User_sigDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/model/vo/AccessToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/model/vo/AccessToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/service/RedisService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/user/UserContext.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/AddressUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/DateUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/Function.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/RedisEnrollment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/Util.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/tags/DateExpTag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/poscoict/posledger/assets/util/tags/StringCutterTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/util/tags/StringCutterTag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/taglibs-standard-impl-1.2.5.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addConfig.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addEventHub.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addOrderer.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addPeer.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addUser.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addUser.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminDropAttributeTokenType.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminDropTokenType.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminDropTokenType.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminEnrollAttributeOfTokenType.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminRetrieveAttributeOfTokenType.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminRetrieveAttributeOfTokenType.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminRetrieveTokenType.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminRetrieveTokenType.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminTokenTypesOf.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminTokenTypesOf.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminUpdateAttributeOfTokenType.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/adminUpdateTokenType.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common/taglibs.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/myDocList.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/yoongdoo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/final.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/final.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/EERC721Test.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/ERC721Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/fabasset/test/ERC721Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/MockRestAPITest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/poscoict/posledger/assets/test/TokenIssuerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/fabasset/test/TokenIssuerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/config/ExecutionConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/config/ExecutionConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/config/NetworkConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/config/NetworkConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/fabasset/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/fabasset/test/EnrollTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/fabasset/test/EnrollTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +72,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../_dSignature-server" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -198,15 +124,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -288,8 +212,8 @@
       <item itemvalue="JUnit.EERC721Test.mintTest" />
       <item itemvalue="JUnit.ERC721Test.enrollTest" />
       <item itemvalue="JUnit.ERC721Test.mintTest" />
-      <item itemvalue="Spring Boot.StartAssetsApplication" />
       <item itemvalue="JUnit.EnrollTest.enrollTest" />
+      <item itemvalue="Spring Boot.StartAssetsApplication" />
     </list>
     <recent_temporary>
       <list>
@@ -344,7 +268,7 @@
       <workItem from="1591076158468" duration="31207000" />
       <workItem from="1603288049075" duration="2008000" />
       <workItem from="1603290660990" duration="72008000" />
-      <workItem from="1604122855822" duration="6506000" />
+      <workItem from="1604122855822" duration="11621000" />
     </task>
     <servers />
   </component>
@@ -385,42 +309,42 @@
       <screen x="67" y="27" width="1853" height="948" />
     </state>
     <state x="688" y="302" width="600" height="396" key="#com.intellij.fileTypes.FileTypeChooser/67.27.1853.948@67.27.1853.948" timestamp="1604046775651" />
-    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl" timestamp="1603289928749">
+    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl" timestamp="1604134220173">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.948@67.27.1853.948" timestamp="1603289928749" />
-    <state width="1853" height="380" key="GridCell.Tab.0.bottom" timestamp="1604129336250">
+    <state x="776" y="258" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.948@67.27.1853.948" timestamp="1604134220173" />
+    <state width="1853" height="186" key="GridCell.Tab.0.bottom" timestamp="1604140436879">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="380" key="GridCell.Tab.0.bottom/67.27.1853.948@67.27.1853.948" timestamp="1604129336250" />
-    <state width="1853" height="380" key="GridCell.Tab.0.center" timestamp="1604129336249">
+    <state width="1853" height="186" key="GridCell.Tab.0.bottom/67.27.1853.948@67.27.1853.948" timestamp="1604140436879" />
+    <state width="1853" height="186" key="GridCell.Tab.0.center" timestamp="1604140436878">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="380" key="GridCell.Tab.0.center/67.27.1853.948@67.27.1853.948" timestamp="1604129336249" />
-    <state width="1853" height="380" key="GridCell.Tab.0.left" timestamp="1604129336249">
+    <state width="1853" height="186" key="GridCell.Tab.0.center/67.27.1853.948@67.27.1853.948" timestamp="1604140436878" />
+    <state width="1853" height="186" key="GridCell.Tab.0.left" timestamp="1604140436878">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="380" key="GridCell.Tab.0.left/67.27.1853.948@67.27.1853.948" timestamp="1604129336249" />
-    <state width="1853" height="380" key="GridCell.Tab.0.right" timestamp="1604129336250">
+    <state width="1853" height="186" key="GridCell.Tab.0.left/67.27.1853.948@67.27.1853.948" timestamp="1604140436878" />
+    <state width="1853" height="186" key="GridCell.Tab.0.right" timestamp="1604140436879">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="380" key="GridCell.Tab.0.right/67.27.1853.948@67.27.1853.948" timestamp="1604129336250" />
-    <state width="1853" height="380" key="GridCell.Tab.1.bottom" timestamp="1604129336251">
+    <state width="1853" height="186" key="GridCell.Tab.0.right/67.27.1853.948@67.27.1853.948" timestamp="1604140436879" />
+    <state width="1853" height="357" key="GridCell.Tab.1.bottom" timestamp="1604140436731">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="380" key="GridCell.Tab.1.bottom/67.27.1853.948@67.27.1853.948" timestamp="1604129336251" />
-    <state width="1853" height="380" key="GridCell.Tab.1.center" timestamp="1604129336251">
+    <state width="1853" height="357" key="GridCell.Tab.1.bottom/67.27.1853.948@67.27.1853.948" timestamp="1604140436731" />
+    <state width="1853" height="357" key="GridCell.Tab.1.center" timestamp="1604140436731">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="380" key="GridCell.Tab.1.center/67.27.1853.948@67.27.1853.948" timestamp="1604129336251" />
-    <state width="1853" height="380" key="GridCell.Tab.1.left" timestamp="1604129336250">
+    <state width="1853" height="357" key="GridCell.Tab.1.center/67.27.1853.948@67.27.1853.948" timestamp="1604140436731" />
+    <state width="1853" height="357" key="GridCell.Tab.1.left" timestamp="1604140436731">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="380" key="GridCell.Tab.1.left/67.27.1853.948@67.27.1853.948" timestamp="1604129336250" />
-    <state width="1853" height="380" key="GridCell.Tab.1.right" timestamp="1604129336251">
+    <state width="1853" height="357" key="GridCell.Tab.1.left/67.27.1853.948@67.27.1853.948" timestamp="1604140436731" />
+    <state width="1853" height="357" key="GridCell.Tab.1.right" timestamp="1604140436731">
       <screen x="67" y="27" width="1853" height="948" />
     </state>
-    <state width="1853" height="380" key="GridCell.Tab.1.right/67.27.1853.948@67.27.1853.948" timestamp="1604129336251" />
+    <state width="1853" height="357" key="GridCell.Tab.1.right/67.27.1853.948@67.27.1853.948" timestamp="1604140436731" />
     <state x="476" y="77" width="1024" height="845" key="SettingsEditor" timestamp="1603290057999">
       <screen x="67" y="27" width="1853" height="948" />
     </state>

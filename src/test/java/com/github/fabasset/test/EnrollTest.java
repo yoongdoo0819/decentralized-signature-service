@@ -15,14 +15,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-//import com.poscoict.posledger.assets.org.chaincode.UserConfig;
-
-//import com.poscoict.posledger.assets.org.chaincode.ERC721.ERC721;
-//import com.poscoict.posledger.assets.org.chaincode.EnrollmentUser;
-//import com.poscoict.posledger.assets.org.chaincode.UserConfig;
-//import com.poscoict.posledger.assets.config.Config;
-//import com.poscoict.posledger.assets.user.UserContext;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Configuration
@@ -44,6 +36,8 @@ public class EnrollTest {
         NetworkConfig.CHANNEL_NAME = "mychannel";
         NetworkConfig.EVENT_HUB = "grpc://" + IP + ":7053";
         NetworkConfig.CHAINCODE_1_NAME = "mycc";
+        NetworkConfig.ORDERER_URL = "grpc://localhost:7050";
+        NetworkConfig.ORDERER_NAME = "orderer.example.com";
     }
 
     @Test

@@ -184,6 +184,26 @@ public class MainController {
 				}
 			}
 
+			else if(userId.equals("admin1")) {
+
+				try {
+					setOrg1();
+					enrollment = newUser.enrollAdmin(NetworkConfig.ADMIN, "adminpw");
+				} catch (Exception exception) {
+					exception.printStackTrace();
+				}
+			}
+
+			else if(userId.equals("admin2")) {
+
+				try {
+					setOrg2();
+					enrollment = newUser.enrollAdmin(NetworkConfig.ADMIN, "adminpw");
+				} catch (Exception exception) {
+					exception.printStackTrace();
+				}
+			}
+
 			else if(userId.equals("company0")) {
 				setOrg0();
 				enrollment = newUser.registerUser(userId);

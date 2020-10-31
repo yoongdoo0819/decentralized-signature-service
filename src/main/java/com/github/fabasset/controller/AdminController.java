@@ -42,7 +42,13 @@ public class AdminController {
         NetworkConfig.CA_ORG_URL = "http://" + IP + ":7054";
         NetworkConfig.ORG_PEER = "peer0.org0.example.com";
         NetworkConfig.ORG_PEER_URL = "grpc://" + IP + ":7051";
-        NetworkConfig.ADMIN = "admin";
+        NetworkConfig.ADMIN = "admin0";
+        NetworkConfig.ADMIN_PASSWORD = "adminpw";
+        NetworkConfig.ORDERER_URL = "grpc://localhost:7050";
+        NetworkConfig.ORDERER_NAME = "orderer.example.com";
+        NetworkConfig.CHANNEL_NAME = "mychannel";
+        NetworkConfig.CHAINCODE_1_NAME = "mycc";
+
     }
 
     @GetMapping("/admin")
@@ -88,6 +94,7 @@ public class AdminController {
             xattr.put(xattrName, new ArrayList<>(Arrays.asList(xattrType, xattrValue)));
         }
 
+        log.info(ownerKey);
         Enrollment enrollment = re.getEnrollment(ownerKey);
         ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(ownerKey, enrollment);
         tokenTypeManagement.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);

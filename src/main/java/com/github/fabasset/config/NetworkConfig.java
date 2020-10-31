@@ -18,7 +18,7 @@ public class NetworkConfig {
 
 	public static String CHAINCODE_1_NAME = "mycc";
 
-	public static String ADMIN = "admin";
+	public static String ADMIN = "admin0";
 
 	public static String ADMIN_PASSWORD = "adminpw";
 

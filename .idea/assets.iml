@@ -25,6 +25,7 @@
         <datasource-mapping>
           <factory-entry name="Entities" />
           <factory-entry name="assets" />
+          <factory-entry name="entityManagerFactory" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
