@@ -44,4 +44,18 @@ public class Custom {
 
         return Boolean.parseBoolean(result);
     }
+
+    public boolean finalize(String tokenId) throws ProposalException, InvalidArgumentException, TransactionException {
+        logger.info("---------------- finalize SDK called ----------------");
+
+        String result;
+
+        String[] args = { tokenId };
+        result = invokeChaincode.submitTransaction(chaincodeProxy, chaincodeName, FINALIZE_FUNCTION_NAME, args);
+
+        if(result == null)
+            throw new NullPointerException("Invalid result");
+
+        return Boolean.parseBoolean(result);
+    }
 }

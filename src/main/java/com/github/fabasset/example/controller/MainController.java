@@ -401,7 +401,7 @@ public class MainController {
 		X509Identity identity = new X509Identity(userContext);
 		String addr = addressUtils.getMyAddress(identity);
 
-		String docType = "doc";
+		String docType = "digital contract";
 		ArrayList<String> signer = new ArrayList<String>();
 		signer.add(addr);
 		if(user != null) {
@@ -553,7 +553,7 @@ public class MainController {
 		String merkleRoot = merkleRoot(merkleLeaf, 0, merkleLeaf.length-1);
 		log.info(merkleRoot);
 
-		String sigType = "sig";
+		String sigType = "signature";
 		Map<String, Object> xattr = new HashMap<>();
 		xattr.put("hash", sigId);
 
@@ -997,15 +997,27 @@ public class MainController {
 
 	@ResponseBody
 	@RequestMapping("/finalize")
-	public String finalize (HttpServletRequest req, String tokenId) throws Exception {
+	public RedirectView finalize (HttpServletRequest req, String tokenId) throws Exception {
 
 		log.info("tokenId > " + tokenId);
 
-//		if(erc721.finalize(tokenId))
-//			return "Success";
-//		else
-//			return "Failrure";
+		String signer = req.getParameter("signer");
 
-		return null;
+		if (signer.equals("company0"))
+			setOrg0();
+		else if (signer.equals("company1"))
+			setOrg1();
+		else if (signer.equals("company2"))
+			setOrg2();
+
+		Enrollment enrollment = re.getEnrollment(signer);
+		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(signer, enrollment);
+		custom.setChaincodeProxy(chaincodeProxy);
+		custom.setChaincodeName(CHAINCODE_NAME);
+
+		if (custom.finalize(tokenId))
+			return new RedirectView("main");
+		else
+			return new RedirectView("main");
 	}
 }
