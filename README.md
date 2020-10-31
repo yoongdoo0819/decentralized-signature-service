@@ -1,48 +1,45 @@
-# PosLedger Assets
+# Decentralized Signature Service
 
-## 1. 선행 조건
-- JDK : SUN JAVA 1.8 or Open JDK 1.8
-- Build Tool : Maven 3.x
-- IDE : Eclipse or IntelliJ
-- IDE 플러그인 : lombok 1.18.6 - https://medium.com/@dongchimi/%EC%9D%B4%ED%81%B4%EB%A6%BD%EC%8A%A4%EC%97%90-lombok-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-b3489875780b
-- Docker 18.x
-- MariaDB 10.x
-- MariaDB Client for Window : HeidiSQL - https://www.heidisql.com/download.php
+This repository is a client application for the FabAsset usage. For more information, read **FabAsset: Unique Digital Asset Management System for Hyperledger Fabric**, which is presented in BlockApp 2020 co-located with ICDCS 2020. To develop this project, we referred to [blockchain-application-using-fabric-java-sdk](https://github.com/IBM/blockchain-application-using-fabric-java-sdk).
 
-## 2. MariaDB 실행
-Maria DB 도커 컨테이너 생성 및 시작
+## Prerequisites
+- Environment: 4.15.0-122-generic (Linux Kernel), Ubuntu 18.04.3 LTS
+- JDK: JDK 1.8
+- Build Tool: Maven 3.6.0
+- Docker 19.03.1
+
+## MariaDB
+
+MariaDB maintains metadata of the application 
+
+### 1. Run Maria DB Docker Container 
+
 ```bash
 docker run --name devmariadb -p 3306:3306 -v /data/mysql:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=test1234 -e MYSQL_DATABASE=hyperledger -e MYSQL_USER=test02 -e MYSQL_PASSWORD=test1234 -d mariadb:10.4.5 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --innodb_large_prefix=ON
 ```
 
-Maria DB Client 실행, 비밀번호 test1234 입력
+### 2. Execute Maria DB Client with password 'test1234' 
 ```bash
 docker exec -it devmariadb mysql -uroot -p
 ```
 
-## 3. Spring Boot Application 데이터소스 변경
-```
-192.168.193.237 를 MariaDB 실행 IP 로 변경
-```
+## Redis
 
-## 4. 실행 방법
-메이븐 플러그인 
+Redis maintains users' enrollment
+
+### 1. Install Redis Tools in Ubuntu 18.04
+
 ```bash
-maven clean spring-boot:run
+sudo apt-get install redis-tools
 ```
 
-## 5. 단위 테스트 실행
-로그인 화면 테스트
+### 2. Run Redis Client with password 'test1234'
+
 ```bash
-mvn test -Dtest=MockRestAPITest#loginTest
+redis-cli
 ```
 
-## 6. 브라우저 접속 주소
+## Enter Spring Application 
 ```bash
 http://localhost:8080/assets
-```
-
-## 7. 프로그램 실행 흐름
-```bash
-Browser Request -> HttpFilter.java -> Interceptor.java -> Controller.java -> Service.java -> Repository.java -> JSP
 ```
