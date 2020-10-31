@@ -1,9 +1,11 @@
 package com.github.fabasset.example.chaincode;
 
-import com.github.fabasset.example.client.CAClient;
+import com.github.fabasset.example.config.ExecutionConfig;
 import com.github.fabasset.example.config.NetworkConfig;
 import com.github.fabasset.example.service.RedisService;
-import com.github.fabasset.example.util.AddressUtils;
+import com.github.fabasset.sdk.client.CAClient;
+import com.github.fabasset.sdk.user.AddressUtils;
+import com.github.fabasset.sdk.user.UserContext;
 import org.hyperledger.fabric.gateway.Wallet;
 import org.hyperledger.fabric.gateway.Wallet.Identity;
 import org.hyperledger.fabric.sdk.Enrollment;
@@ -162,15 +164,10 @@ public class EnrollUser {
         //wallet.put(this.userID, user);
         //System.out.println("Successfully enrolled user " + this.userID + " and imported it into the wallet");
 
-//        UserContext userContext = new UserContext();
-//        userContext.setName(this.userID);
-//        userContext.setAffiliation("org1.department1");
-//        userContext.setMspId("Org1MSP");
-//        userContext.setEnrollment(enrollment);
-//        identity = new X509Identity(userContext);
+        UserContext userContext = ExecutionConfig.initUserContext(this.userId, enrollment);
+        identity = new X509Identity(userContext);
+        String addr = addressUtils.getMyAddress(identity);
 
-        String addr = addressUtils.getMyAddress(this.userId, enrollment);
-        System.out.println(addr);
         return enrollment;
     }
 

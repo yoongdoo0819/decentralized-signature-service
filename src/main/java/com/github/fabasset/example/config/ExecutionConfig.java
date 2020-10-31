@@ -1,10 +1,10 @@
 package com.github.fabasset.example.config;
 
-import com.github.fabasset.example.chaincode.ChaincodeProxy;
-import com.github.fabasset.example.client.ChannelClient;
-import com.github.fabasset.example.client.FabricClient;
-import com.github.fabasset.example.user.UserContext;
 import com.github.fabasset.example.util.RedisEnrollment;
+import com.github.fabasset.sdk.user.UserContext;
+import com.github.fabasset.sdk.client.FabricClient;
+import com.github.fabasset.sdk.chaincode.ChaincodeProxy;
+import com.github.fabasset.sdk.client.ChannelClient;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
@@ -70,7 +70,7 @@ public class ExecutionConfig {
         System.out.println(NetworkConfig.ORDERER_URL);
         System.out.println(NetworkConfig.ADMIN);
         System.out.println(NetworkConfig.CHANNEL_NAME);
-        System.out.println(NetworkConfig.CHAINCODE_1_NAME);
+        System.out.println(NetworkConfig.CHAINCODE_NAME);
 
         channel.addPeer(peer);
         channel.addEventHub(eventHub);

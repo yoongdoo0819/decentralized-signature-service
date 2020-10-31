@@ -16,7 +16,7 @@ public class NetworkConfig {
 	//
 	public static String CHANNEL_NAME = "mychannel";
 
-	public static String CHAINCODE_1_NAME = "mycc";
+	public static String CHAINCODE_NAME = "mycc";
 
 	public static String ADMIN = "admin0";
 

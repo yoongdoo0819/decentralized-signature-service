@@ -2,21 +2,22 @@ package com.github.fabasset.example.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.fabasset.example.chaincode.ChaincodeProxy;
 import com.github.fabasset.example.chaincode.EnrollUser;
 import com.github.fabasset.example.chaincode.function.Custom;
-import com.github.fabasset.example.chaincode.function.Default;
-import com.github.fabasset.example.chaincode.function.ERC721;
-import com.github.fabasset.example.chaincode.function.Extension;
 import com.github.fabasset.example.config.ExecutionConfig;
 import com.github.fabasset.example.config.NetworkConfig;
 import com.github.fabasset.example.model.User;
 import com.github.fabasset.example.model.User_Doc;
 import com.github.fabasset.example.model.User_Sig;
 import com.github.fabasset.example.model.dao.*;
-import com.github.fabasset.example.util.AddressUtils;
-import com.github.fabasset.example.util.Function;
 import com.github.fabasset.example.util.RedisEnrollment;
+import com.github.fabasset.sdk.chaincode.ChaincodeProxy;
+import com.github.fabasset.sdk.chaincode.function.Default;
+import com.github.fabasset.sdk.chaincode.function.ERC721;
+import com.github.fabasset.sdk.chaincode.function.Extension;
+import com.github.fabasset.sdk.chaincode.function.TokenTypeManagement;
+import com.github.fabasset.sdk.user.AddressUtils;
+import com.github.fabasset.sdk.user.UserContext;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -25,6 +26,7 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.fabric.sdk.Enrollment;
+import org.hyperledger.fabric.sdk.identity.X509Identity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.scheduling.annotation.Async;
@@ -51,6 +53,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
 
+import static com.github.fabasset.example.config.NetworkConfig.CHAINCODE_NAME;
 import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
@@ -62,12 +65,15 @@ public class MainController {
 
 	@Autowired
 	private ObjectMapper objectMapper;
+
 	@Autowired
 	private Default de;
 	@Autowired
 	private ERC721 erc721;
 	@Autowired
 	private Extension extention;
+	@Autowired
+	private TokenTypeManagement tokenTypeManagement;
 	@Autowired
 	private Custom custom;
 	@Autowired
@@ -84,6 +90,8 @@ public class MainController {
 	private TokenDao tokenDao;
 	@Autowired
 	private RedisEnrollment re;
+
+
 
 	AddressUtils addressUtils = new AddressUtils();
 	String IP = "localhost";
@@ -224,7 +232,9 @@ public class MainController {
 				enrollment = newUser.registerUser(userId);
 			}
 
-			String addr = addressUtils.getMyAddress(userId, enrollment);
+			UserContext userContext = ExecutionConfig.initUserContext(userId, enrollment);
+			X509Identity identity = new X509Identity(userContext);
+			String addr = addressUtils.getMyAddress(identity);
 
 			// insert user's cert into Redis
 			if(!(re.setEnrollment(userId, enrollment)))
@@ -384,9 +394,13 @@ public class MainController {
 
 		Enrollment enrollment = re.getEnrollment(userid);
 		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(userid, enrollment);
-		extention.setChaincodeProxyAndChaincodeName(chaincodeProxy, Function.CHAINCODE_ID);
+		extention.setChaincodeProxy(chaincodeProxy);
+		extention.setChaincodeName(CHAINCODE_NAME);
 
-		String addr = addressUtils.getMyAddress(userid, enrollment);
+		UserContext userContext = ExecutionConfig.initUserContext(userid, enrollment);
+		X509Identity identity = new X509Identity(userContext);
+		String addr = addressUtils.getMyAddress(identity);
+
 		String docType = "doc";
 		ArrayList<String> signer = new ArrayList<String>();
 		signer.add(addr);
@@ -549,7 +563,8 @@ public class MainController {
 
 		Enrollment enrollment = re.getEnrollment(signer);
 		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(signer, enrollment);
-		extention.setChaincodeProxyAndChaincodeName(chaincodeProxy, Function.CHAINCODE_ID);
+		extention.setChaincodeProxy(chaincodeProxy);
+		extention.setChaincodeName(CHAINCODE_NAME);
 
 		extention.mint(valueOf(tokenNum), sigType, xattr, uri);
 		return new RedirectView("main");
@@ -583,7 +598,8 @@ public class MainController {
 
 		Enrollment enrollment = re.getEnrollment(signer);
 		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(signer, enrollment);
-		custom.setChaincodeProxyAndChaincodeName(chaincodeProxy, Function.CHAINCODE_ID);
+		custom.setChaincodeProxy(chaincodeProxy);
+		custom.setChaincodeName(CHAINCODE_NAME);
 		custom.sign(tokenId, sigTokenId);
 
 		return new RedirectView("main");
@@ -736,7 +752,9 @@ public class MainController {
 
 		Enrollment enrollment = re.getEnrollment(userId);
 		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(owner, enrollment);
-		erc721.setChaincodeProxyAndChaincodeName(chaincodeProxy, Function.CHAINCODE_ID);
+		extention.setChaincodeProxy(chaincodeProxy);
+		extention.setChaincodeName(CHAINCODE_NAME);
+
 		if(erc721.transferFrom(owner, receiver, tokenId))
 			return "Success";
 		else
@@ -771,7 +789,8 @@ public class MainController {
 
 		Enrollment enrollment = re.getEnrollment(userId);
 		ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(userId, enrollment);
-		de.setChaincodeProxyAndChaincodeName(chaincodeProxy, Function.CHAINCODE_ID);
+		de.setChaincodeProxy(chaincodeProxy);
+		de.setChaincodeName(CHAINCODE_NAME);
 
 		/*
 		 * get my all document list

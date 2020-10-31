@@ -1,11 +1,11 @@
 package com.github.fabasset.example.controller;
 
-import com.github.fabasset.example.chaincode.ChaincodeProxy;
-import com.github.fabasset.example.chaincode.function.TokenTypeManagement;
+import com.github.fabasset.sdk.chaincode.function.TokenTypeManagement;
 import com.github.fabasset.example.config.ExecutionConfig;
 import com.github.fabasset.example.config.NetworkConfig;
 import com.github.fabasset.example.model.dao.UserDao;
 import com.github.fabasset.example.util.RedisEnrollment;
+import com.github.fabasset.sdk.chaincode.ChaincodeProxy;
 import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+import static com.github.fabasset.example.config.NetworkConfig.CHAINCODE_NAME;
 import static java.lang.Integer.parseInt;
 
 @Slf4j
@@ -44,11 +45,6 @@ public class AdminController {
         NetworkConfig.ORG_PEER_URL = "grpc://" + IP + ":7051";
         NetworkConfig.ADMIN = "admin0";
         NetworkConfig.ADMIN_PASSWORD = "adminpw";
-        NetworkConfig.ORDERER_URL = "grpc://localhost:7050";
-        NetworkConfig.ORDERER_NAME = "orderer.example.com";
-        NetworkConfig.CHANNEL_NAME = "mychannel";
-        NetworkConfig.CHAINCODE_1_NAME = "mycc";
-
     }
 
     @GetMapping("/admin")
@@ -97,7 +93,8 @@ public class AdminController {
         log.info(ownerKey);
         Enrollment enrollment = re.getEnrollment(ownerKey);
         ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(ownerKey, enrollment);
-        tokenTypeManagement.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+        tokenTypeManagement.setChaincodeProxy(chaincodeProxy);
+        tokenTypeManagement.setChaincodeName(CHAINCODE_NAME);
 
         boolean result = tokenTypeManagement.enrollTokenType(tokenType, xattr);
 
@@ -120,7 +117,8 @@ public class AdminController {
 
         Enrollment enrollment = re.getEnrollment(ownerKey);
         ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(ownerKey, enrollment);
-        tokenTypeManagement.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+        tokenTypeManagement.setChaincodeProxy(chaincodeProxy);
+        tokenTypeManagement.setChaincodeName(CHAINCODE_NAME);
 
         List<String> types = tokenTypeManagement.tokenTypesOf();
 
@@ -150,7 +148,8 @@ public class AdminController {
 
         Enrollment enrollment = re.getEnrollment(ownerKey);
         ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(ownerKey, enrollment);
-        tokenTypeManagement.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+        tokenTypeManagement.setChaincodeProxy(chaincodeProxy);
+        tokenTypeManagement.setChaincodeName(CHAINCODE_NAME);
 
         Map<String, List<String>> attributes = tokenTypeManagement.retrieveTokenType(tokenType);
 
@@ -188,7 +187,8 @@ public class AdminController {
 
         Enrollment enrollment = re.getEnrollment(ownerKey);
         ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(ownerKey, enrollment);
-        tokenTypeManagement.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+        tokenTypeManagement.setChaincodeProxy(chaincodeProxy);
+        tokenTypeManagement.setChaincodeName(CHAINCODE_NAME);
 
         List<String> pair = tokenTypeManagement.retrieveAttributeOfTokenType(tokenType, attribute);
         if(pair != null) {
@@ -219,7 +219,8 @@ public class AdminController {
 
         Enrollment enrollment = re.getEnrollment(ownerKey);
         ChaincodeProxy chaincodeProxy = ExecutionConfig.initChaincodeProxy(ownerKey, enrollment);
-        tokenTypeManagement.setChaincodeProxyAndChaincodeName(chaincodeProxy, chaincodeId);
+        tokenTypeManagement.setChaincodeProxy(chaincodeProxy);
+        tokenTypeManagement.setChaincodeName(CHAINCODE_NAME);
 
         boolean result = tokenTypeManagement.dropTokenType(tokenType);
         if(result == true)
